@@ -105,20 +105,37 @@
   - ch04/exercise-find-commands
   - ch04/lab
   challenges: []
-- id: ch05.operations
+- id: ch05.redirect
   chapter: ch05
   lessons:
-  - ch05/editing-files
-  - ch05/text-pipelines
+  - ch05/redirection-and-pipes
   labs:
+  - ch05/exercise-redirection
   - ch05/lab
   challenges: []
-- id: ch05.verification
+- id: ch05.grep
   chapter: ch05
   lessons:
-  - ch05/editing-files
-  - ch05/text-pipelines
+  - ch05/grep
   labs:
+  - ch05/exercise-grep
+  - ch05/lab
+  challenges: []
+- id: ch05.vim
+  chapter: ch05
+  lessons:
+  - ch05/vim
+  labs:
+  - ch05/exercise-vim
+  - ch05/exercise-environment
+  - ch05/lab
+  challenges: []
+- id: ch05.environment
+  chapter: ch05
+  lessons:
+  - ch05/shell-environment
+  labs:
+  - ch05/exercise-environment
   - ch05/lab
   challenges: []
 - id: ch06.operations

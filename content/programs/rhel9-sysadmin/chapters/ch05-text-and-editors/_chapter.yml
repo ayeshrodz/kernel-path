@@ -1,8 +1,12 @@
-title: Working with text
-goal: View, edit and reshape text files from the command line.
+title: Text, editors and the shell environment
+goal: Send command output where you want it, search text with grep, edit files with vim, and set up your shell with variables, aliases and startup files.
 objectives:
-- Edit and compare text without accidentally changing unrelated lines.
-- Extract reliable reports using fields, sorting and regular expressions.
+  - Redirect standard output and standard error to files, discard them, and connect commands with pipes and tee.
+  - Search files and command output with grep and regular expressions.
+  - Create and edit text files with vim.
+  - Use shell and environment variables, PATH and aliases, and make them permanent in Bash's startup files.
 objectiveIds:
-- ch05.operations
-- ch05.verification
+  - ch05.redirect
+  - ch05.grep
+  - ch05.vim
+  - ch05.environment

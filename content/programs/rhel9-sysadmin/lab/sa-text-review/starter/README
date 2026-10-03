@@ -1,0 +1,23 @@
+Exercise: sa-text-review (chapter 5 lab)
+
+Work on servera, as student. Create /home/student/reports first.
+
+Reports (in ~/reports):
+ 1. bash-users.txt    every line of /etc/passwd for an account whose login
+                      shell is /bin/bash, and no other line
+ 2. repos.txt         the .repo files under /etc, found with find, without
+                      any error messages in the file
+ 3. find-errors.txt   the error messages from that same find command
+ 4. chrony-active.txt the lines of /etc/chrony.conf that are neither
+                      comments nor empty
+
+A notice (~/notice.txt), written with vim, with exactly these two lines:
+    Welcome to servera.lab.example.com.
+    Contact: oncall@lab.example.com
+
+Your shell (make these permanent for new logins):
+ 5. an alias called now that runs:  date +%T          (in ~/.bashrc)
+ 6. HISTTIMEFORMAT exported as "%F %T "              (in ~/.bashrc)
+ 7. EDITOR exported as vim                           (in ~/.bash_profile)
+
+Then, on workstation:  lab grade sa-text-review

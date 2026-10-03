@@ -1,0 +1,30 @@
+flashcards:
+  cards:
+    - front: The three standard streams and their numbers?
+      back: stdin **0**, stdout **1**, stderr **2**.
+    - front: Append output to a file instead of replacing it?
+      back: "`>>`"
+    - front: Hide a command's error messages?
+      back: "`cmd 2> /dev/null`"
+    - front: Save a pipeline's data to a file and keep it flowing?
+      back: "`… | tee file | …`"
+    - front: Show lines that do not match a pattern?
+      back: "`grep -v PATTERN`"
+    - front: What do ^ and $ mean in a regular expression?
+      back: The start and the end of the line.
+    - front: What does .* match?
+      back: Any characters, any number of times, including none.
+    - front: "Which grep option makes +, ?, | and ( ) work without backslashes?"
+      back: "`-E` (extended regular expressions)"
+    - front: vim is doing odd things when you type. First move?
+      back: "Press **Esc** to get back to normal mode."
+    - front: Quit vim and discard your changes?
+      back: "`:q!`"
+    - front: Copy a line and paste it below in vim?
+      back: "`yy` then `p`"
+    - front: Make a variable visible to programs you start?
+      back: "`export NAME`"
+    - front: Where do personal aliases go?
+      back: "`~/.bashrc`"
+    - front: Apply an edited ~/.bashrc to the current shell?
+      back: "`source ~/.bashrc`"

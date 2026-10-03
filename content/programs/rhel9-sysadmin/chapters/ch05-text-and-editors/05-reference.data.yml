@@ -1,9 +1,0 @@
-recall:
-  cards:
-  - front: uniq misses equal lines separated by other values. What change fixes the report?
-    back: Sort equivalent values together before uniq. uniq compares adjacent records.
-  - front: Why does grep ready include a not-ready field?
-    back: It matches a substring rather than comparing the complete field. Use a parsed exact field comparison
-      or an appropriately anchored expression.
-  - front: diff returns 1 after an intentional edit. What does that mean?
-    back: The files differ. Diff uses 1 for differences and a higher status for errors.

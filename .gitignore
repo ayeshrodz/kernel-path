@@ -33,3 +33,4 @@ docs/*.pdf
 __pycache__/
 *.pyc
 !content/programs/*/lab/**/starter/*.log
+!packages/engine/test/fixtures/*.log

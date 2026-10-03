@@ -1,0 +1,100 @@
+name: sa-text-review
+title: Text, editors and the shell environment
+page: ch05/lab
+transport: ssh
+version: 1
+starter:
+- README
+checkpoints:
+  final:
+    files:
+    - README
+    checks:
+    - id: bash-users
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: reports/bash-users.txt lists the accounts that log in with /bin/bash
+      paths:
+      - /home/student/reports/bash-users.txt
+      lines:
+      - root:x:0:0:root:/root:/bin/bash
+      - student:x:1000:1000:Student User:/home/student:/bin/bash
+      lacks:
+      - nologin
+      owner: student
+    - id: repos
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: reports/repos.txt lists the .repo files and no errors
+      paths:
+      - /home/student/reports/repos.txt
+      line: /etc/yum.repos.d/rocky.repo
+      lacks:
+      - Permission denied
+    - id: find-errors
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: reports/find-errors.txt holds find's error messages
+      paths:
+      - /home/student/reports/find-errors.txt
+      contains:
+      - Permission denied
+      lacks:
+      - .repo
+    - id: chrony
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: reports/chrony-active.txt holds only chrony's active settings
+      paths:
+      - /home/student/reports/chrony-active.txt
+      line: pool 2.rocky.pool.ntp.org iburst
+      lacks:
+      - '#'
+    - id: notice
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: notice.txt has the two required lines
+      paths:
+      - /home/student/notice.txt
+      lines:
+      - Welcome to servera.lab.example.com.
+      - 'Contact: oncall@lab.example.com'
+      lacks:
+      - admin@
+    - id: alias
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: ~/.bashrc defines the alias now
+      paths:
+      - /home/student/.bashrc
+      matches: ^alias now=['\"]date \+%T['\"]
+    - id: histtime
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: ~/.bashrc exports HISTTIMEFORMAT
+      paths:
+      - /home/student/.bashrc
+      matches: ^export HISTTIMEFORMAT=['\"]%F %T ['\"]
+    - id: editor
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: ~/.bash_profile exports EDITOR=vim
+      paths:
+      - /home/student/.bash_profile
+      matches: ^export EDITOR=vim

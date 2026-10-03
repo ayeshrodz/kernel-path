@@ -1,0 +1,355 @@
+streams:
+  title: Where the three streams go
+  caption: Select an operator to see where stdin, stdout and stderr are connected.
+  height: 306
+  mode: select
+  initial: none
+  info:
+    none:
+      tone: blue
+      title: (no redirection)
+      text: By default, stdin is the keyboard and both stdout and stderr go to the terminal, which is why they look alike.
+    out:
+      tone: blue
+      title: '> file'
+      text: stdout goes to the file, which is emptied first. Errors still appear on the screen.
+    append:
+      tone: blue
+      title: '>> file'
+      text: stdout is appended to the file, keeping what was already there. Errors still appear on the screen.
+    err:
+      tone: blue
+      title: 2> file
+      text: Only stderr goes to the file. Normal output still appears on the screen.
+    both:
+      tone: blue
+      title: '&> file'
+      text: Both streams go into one file. The older spelling is > file 2>&1.
+    'null':
+      tone: blue
+      title: 2> /dev/null
+      text: stderr is thrown away. Use it for errors you expect and understand.
+    pipe:
+      tone: blue
+      title: '| wc -l'
+      text: stdout feeds the next command's stdin. stderr does not travel through the pipe.
+    in:
+      tone: blue
+      title: < file
+      text: stdin comes from the file instead of the keyboard.
+  elements:
+  - kind: node
+    x: 10
+    y: 70
+    w: 150
+    h: 50
+    tone: gray
+    title: keyboard
+    sub: 0  stdin
+    overrides:
+      title:
+        none: keyboard
+        out: keyboard
+        append: keyboard
+        err: keyboard
+        both: keyboard
+        'null': keyboard
+        pipe: keyboard
+        in: file
+  - kind: arrow
+    points:
+    - - 160
+      - 95
+    - - 238
+      - 95
+  - kind: node
+    x: 240
+    y: 60
+    w: 170
+    h: 70
+    tone: purple
+    title: command
+    mono: true
+  - kind: arrow
+    points:
+    - - 410
+      - 80
+    - - 470
+      - 40
+    label: 1 stdout
+    labelDy: -8
+  - kind: node
+    x: 472
+    y: 16
+    w: 200
+    h: 50
+    tone: teal
+    title: terminal
+    overrides:
+      title:
+        none: terminal
+        out: file  (replaced)
+        append: file  (added to the end)
+        err: terminal
+        both: file
+        'null': terminal
+        pipe: stdin of wc -l
+        in: terminal
+  - kind: arrow
+    points:
+    - - 410
+      - 110
+    - - 470
+      - 150
+    label: 2 stderr
+    labelDy: 14
+  - kind: node
+    x: 472
+    y: 126
+    w: 200
+    h: 50
+    tone: red
+    title: terminal
+    overrides:
+      title:
+        none: terminal
+        out: terminal
+        append: terminal
+        err: file
+        both: the same file
+        'null': /dev/null  (discarded)
+        pipe: terminal
+        in: terminal
+      dashed:
+        'null': true
+  - kind: node
+    x: 6
+    y: 206
+    w: 160
+    h: 40
+    tone: blue
+    title: (no redirection)
+    mono: true
+    titleSize: 12.5
+    select: none
+    active:
+    - none
+  - kind: node
+    x: 174
+    y: 206
+    w: 160
+    h: 40
+    tone: blue
+    title: '> file'
+    mono: true
+    titleSize: 12.5
+    select: out
+    active:
+    - out
+  - kind: node
+    x: 342
+    y: 206
+    w: 160
+    h: 40
+    tone: blue
+    title: '>> file'
+    mono: true
+    titleSize: 12.5
+    select: append
+    active:
+    - append
+  - kind: node
+    x: 510
+    y: 206
+    w: 160
+    h: 40
+    tone: blue
+    title: 2> file
+    mono: true
+    titleSize: 12.5
+    select: err
+    active:
+    - err
+  - kind: node
+    x: 6
+    y: 254
+    w: 160
+    h: 40
+    tone: blue
+    title: '&> file'
+    mono: true
+    titleSize: 12.5
+    select: both
+    active:
+    - both
+  - kind: node
+    x: 174
+    y: 254
+    w: 160
+    h: 40
+    tone: blue
+    title: 2> /dev/null
+    mono: true
+    titleSize: 12.5
+    select: 'null'
+    active:
+    - 'null'
+  - kind: node
+    x: 342
+    y: 254
+    w: 160
+    h: 40
+    tone: blue
+    title: '| wc -l'
+    mono: true
+    titleSize: 12.5
+    select: pipe
+    active:
+    - pipe
+  - kind: node
+    x: 510
+    y: 254
+    w: 160
+    h: 40
+    tone: blue
+    title: < file
+    mono: true
+    titleSize: 12.5
+    select: in
+    active:
+    - in
+practice:
+  text:
+    hint: Click here and try the redirections. Watch which lines still reach the screen.
+    inputLabel: Command to run in the practice terminal
+    eventNotFound: 'bash: {value0}: event not found'
+    notHere: This practice terminal only knows the examples in this lesson. Try anything else on servera.
+    notFound: 'bash: {value0}: command not found'
+    searchPrompt: '(reverse-i-search)`{value0}'':'
+    noMatch: no match yet
+    tasksTitle: Your tasks
+    allDone: All done. You can now route any command's output.
+    doneLabel: done
+    reset: Start again
+  data: {}
+  props:
+    title: 'Practice terminal: redirection and pipes'
+    prompt: '[student@servera ~]$'
+    commands:
+    - cmd: ls /etc/hostname /etc/nothere
+      out: 'ls: cannot access ''/etc/nothere'': No such file or directory
+
+        /etc/hostname'
+    - cmd: ls /etc/hostname /etc/nothere > out.txt
+      out: 'ls: cannot access ''/etc/nothere'': No such file or directory'
+    - cmd: ls /etc/hostname /etc/nothere 2> err.txt
+      out: /etc/hostname
+    - cmd: ls /etc/hostname /etc/nothere 2> /dev/null
+      out: /etc/hostname
+    - cmd: ls /etc/hostname /etc/nothere &> both.txt
+      out: ''
+    - cmd: cat out.txt
+      out: /etc/hostname
+    - cmd: cat err.txt
+      out: 'ls: cannot access ''/etc/nothere'': No such file or directory'
+    - cmd: cat both.txt
+      out: 'ls: cannot access ''/etc/nothere'': No such file or directory
+
+        /etc/hostname'
+    - cmd: ls /etc | wc -l
+      out: '172'
+    - cmd: ls -t /var/log | head -3
+      out: 'messages
+
+        secure
+
+        lastlog'
+    - cmd: find /etc -name "*.repo" 2> /dev/null
+      out: '/etc/yum.repos.d/rocky-devel.repo
+
+        /etc/yum.repos.d/rocky.repo
+
+        /etc/yum.repos.d/rocky-addons.repo
+
+        /etc/yum.repos.d/rocky-extras.repo
+
+        /etc/yum.repos.d/rocky-security.repo'
+    - cmd: wc -l < /etc/passwd
+      out: '20'
+    - cmd: cat < /etc/hostname
+      out: servera.lab.example.com
+    - cmd: ls /etc | tee etc-list.txt | wc -l
+      out: '172'
+    - cmd: head -n 2 etc-list.txt
+      out: 'adjtime
+
+        aliases'
+    tasks:
+    - text: Run ls /etc/hostname /etc/nothere and save only the normal output in out.txt.
+      commands:
+      - ls /etc/hostname /etc/nothere > out.txt
+    - text: Run it again, saving only the error message in err.txt.
+      commands:
+      - ls /etc/hostname /etc/nothere 2> err.txt
+    - text: Run it again with the error thrown away.
+      commands:
+      - ls /etc/hostname /etc/nothere 2> /dev/null
+    - text: Count the entries in /etc with a pipe.
+      commands:
+      - ls /etc | wc -l
+    - text: Find the .repo files under /etc without the permission errors.
+      commands:
+      - find /etc -name "*.repo" 2> /dev/null
+    - text: Count /etc entries while saving the list to etc-list.txt.
+      commands:
+      - ls /etc | tee etc-list.txt | wc -l
+quick:
+  questions:
+  - id: q-982e190ea189
+    q: Which stream number is standard error?
+    options:
+    - '0'
+    - '1'
+    - '2'
+    answer: 2
+    explain: 0 is stdin, 1 stdout and 2 stderr. That is why 2> redirects errors.
+  - id: q-d21b1bdebb57
+    q: You want to add today's date to the end of history.log without losing what is there. Which do you use?
+    options:
+    - date > history.log
+    - date >> history.log
+    - date | history.log
+    answer: 1
+    explain: '>> appends. > would empty the file first, and | needs a command, not a file, on its right.'
+  - id: q-1e479540f492
+    q: Which command hides error messages but still shows normal output?
+    options:
+    - cmd > /dev/null
+    - cmd 2> /dev/null
+    - cmd &> /dev/null
+    answer: 1
+    explain: 2> redirects only stderr. > /dev/null would hide the output, and &> both.
+  - id: q-d6322cb320de
+    q: What does ls /etc | wc -l count?
+    options:
+    - The lines of ls's output, one per entry in /etc
+    - The files in your home directory
+    - The words in /etc
+    answer: 0
+    explain: The pipe feeds ls's output to wc, which counts its lines.
+  - id: q-3acecd98a3a7
+    q: You run sort names.txt > names.txt. What happens?
+    options:
+    - names.txt is sorted in place.
+    - names.txt ends up empty.
+    - sort refuses to run.
+    answer: 1
+    explain: The shell empties the file before sort starts, so sort reads nothing. Write to another file instead.
+  - id: q-d0645ad29af5
+    q: Why use tee in ls /etc | tee list.txt | wc -l?
+    options:
+    - To save the list to a file while it continues down the pipe
+    - To make wc faster
+    - To show errors
+    answer: 0
+    explain: tee writes its input to a file and also passes it on, like a T-junction.

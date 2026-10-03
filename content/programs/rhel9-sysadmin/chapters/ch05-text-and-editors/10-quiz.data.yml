@@ -1,0 +1,98 @@
+chapter:
+  questions:
+    - id: q-8235f3bfa891
+      q: Which sends both output and errors of a command into one file, all.log?
+      options:
+        - "`cmd > all.log`"
+        - "`cmd &> all.log`"
+        - "`cmd 2> all.log`"
+      answer: 1
+      explain: "&> redirects stdout and stderr together. > is only stdout, 2> only stderr."
+    - id: q-ea1039cc86a0
+      q: What does cmd 2> /dev/null | wc -l count?
+      options:
+        - The error messages
+        - The lines of normal output; the errors are discarded
+        - Both
+      answer: 1
+      explain: stderr goes to /dev/null, and only stdout travels through the pipe to wc.
+    - id: q-9e88d4380e29
+      q: Why is cmd 2>&1 > file different from cmd > file 2>&1?
+      options:
+        - It isn't; both send everything to the file.
+        - Redirections apply left to right, so in the first, stderr is pointed at the terminal before stdout moves to the file.
+        - The first form is invalid.
+      answer: 1
+      explain: 2>&1 copies wherever stdout points at that moment. Order matters; &> file avoids the question.
+    - id: q-90d162f7a387
+      q: Which grep pattern matches lines that start with a digit?
+      options:
+        - "`'[0-9]$'`"
+        - "`'^[0-9]'`"
+        - "`'[^0-9]'`"
+      answer: 1
+      explain: ^ outside brackets anchors to the start of the line. Inside brackets, [^0-9] means "not a digit".
+    - id: q-5cafb016e9c2
+      q: Which command shows lines of app.conf that are neither comments nor empty?
+      options:
+        - "`grep -v '#' app.conf`"
+        - "`grep -Ev '^(#|$)' app.conf`"
+        - "`grep '^$' app.conf`"
+      answer: 1
+      explain: The extended expression matches lines that start with # or are empty, and -v prints the rest. A plain -v '#' would also drop lines with a # later on.
+    - id: q-c69ad3b4312c
+      q: In basic grep syntax, how do you match one or more digits?
+      options:
+        - "`[0-9]+`"
+        - "`[0-9]\\+`"
+        - "`[0-9]*`"
+      answer: 1
+      explain: In basic syntax + is literal; \+ is the operator. With grep -E, [0-9]+ works. [0-9]* also matches zero digits.
+    - id: q-eb80a3578c0b
+      q: You are in vim and typed text in the wrong place. Which keys undo it?
+      options:
+        - Esc, then u
+        - Ctrl+Z
+        - ":undo!"
+      answer: 0
+      explain: Leave insert mode with Esc, then u undoes the last change. Ctrl+Z would suspend vim and drop you back in the shell.
+    - id: q-dc6a84ab6c48
+      q: Which vim command saves and quits?
+      options:
+        - ":q!"
+        - ":wq"
+        - ":w!q"
+      answer: 1
+      explain: ":wq (or :x, or ZZ) writes and quits. :q! quits without saving."
+    - id: q-0d3fe2ddc2df
+      q: Which vim keys delete three lines?
+      options:
+        - "`ddd`"
+        - "`3dd`"
+        - "`d3`"
+      answer: 1
+      explain: A count in front repeats the command. 3dd cuts three lines starting at the cursor.
+    - id: q-498510efa365
+      q: Why does a command you put in ~/bin run without typing its full path?
+      options:
+        - ~/bin is listed in the PATH variable, which the shell searches for commands.
+        - Bash searches every directory in your home.
+        - Files in ~/bin are aliases.
+      answer: 0
+      explain: RHEL's default ~/.bashrc puts ~/.local/bin and ~/bin at the front of PATH.
+    - id: q-c2c4f1e1d035
+      q: Where would you set an environment variable for every user on the system?
+      options:
+        - "`~/.bashrc`"
+        - "A file in `/etc/profile.d/` ending in `.sh`"
+        - "`/etc/passwd`"
+      answer: 1
+      explain: Every user's login shell runs /etc/profile, which runs the .sh files in /etc/profile.d.
+    - id: q-542ea926a3b2
+      q: What does LANG=C ls run?
+      options:
+        - ls with the C locale, for that one command
+        - ls, and changes LANG for the rest of the session
+        - A program called LANG=C
+      answer: 0
+      explain: An assignment in front of a command sets the variable only in that command's environment.

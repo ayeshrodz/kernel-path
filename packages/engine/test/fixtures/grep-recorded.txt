@@ -1,0 +1,92 @@
+=== |ERROR
+2026-10-03 08:15:09 ERROR web02 Database connection lost
+2026-10-03 08:45:52 ERROR db01 Replication lag 120s
+=== -i|error
+2026-10-03 08:15:09 ERROR web02 Database connection lost
+2026-10-03 08:15:14 error web02 retrying in 5s
+2026-10-03 08:45:52 ERROR db01 Replication lag 120s
+=== |^#
+# maintenance window 22:00-23:00
+=== -v|^#
+2026-10-03 08:00:05 INFO  web01 Started inventory-api version 2.4.1
+2026-10-03 08:00:06 INFO  web01 Listening on port 8080
+2026-10-03 08:14:22 WARN  web02 Slow response: GET /items took 1450 ms
+2026-10-03 08:15:01 INFO  web01 GET /items 200
+2026-10-03 08:15:09 ERROR web02 Database connection lost
+2026-10-03 08:15:14 error web02 retrying in 5s
+2026-10-03 08:16:40 INFO  db01 Backup finished: 2048 MB
+2026-10-03 08:20:33 WARN  web01 Disk /var at 91%
+2026-10-03 08:31:07 INFO  web03 GET /health 200
+2026-10-03 08:45:52 ERROR db01 Replication lag 120s
+2026-10-03 09:02:10 INFO  web02 Database connection restored
+=== |web0[13]
+2026-10-03 08:00:05 INFO  web01 Started inventory-api version 2.4.1
+2026-10-03 08:00:06 INFO  web01 Listening on port 8080
+2026-10-03 08:15:01 INFO  web01 GET /items 200
+2026-10-03 08:20:33 WARN  web01 Disk /var at 91%
+2026-10-03 08:31:07 INFO  web03 GET /health 200
+=== |[0-9]\{4\} MB
+2026-10-03 08:16:40 INFO  db01 Backup finished: 2048 MB
+=== -E|[0-9]{4} MB
+2026-10-03 08:16:40 INFO  db01 Backup finished: 2048 MB
+=== -E|ERROR|WARN
+2026-10-03 08:14:22 WARN  web02 Slow response: GET /items took 1450 ms
+2026-10-03 08:15:09 ERROR web02 Database connection lost
+2026-10-03 08:20:33 WARN  web01 Disk /var at 91%
+2026-10-03 08:45:52 ERROR db01 Replication lag 120s
+=== |ERROR\|WARN
+2026-10-03 08:14:22 WARN  web02 Slow response: GET /items took 1450 ms
+2026-10-03 08:15:09 ERROR web02 Database connection lost
+2026-10-03 08:20:33 WARN  web01 Disk /var at 91%
+2026-10-03 08:45:52 ERROR db01 Replication lag 120s
+=== |200$
+2026-10-03 08:15:01 INFO  web01 GET /items 200
+2026-10-03 08:31:07 INFO  web03 GET /health 200
+=== |\<web
+2026-10-03 08:00:05 INFO  web01 Started inventory-api version 2.4.1
+2026-10-03 08:00:06 INFO  web01 Listening on port 8080
+2026-10-03 08:14:22 WARN  web02 Slow response: GET /items took 1450 ms
+2026-10-03 08:15:01 INFO  web01 GET /items 200
+2026-10-03 08:15:09 ERROR web02 Database connection lost
+2026-10-03 08:15:14 error web02 retrying in 5s
+2026-10-03 08:20:33 WARN  web01 Disk /var at 91%
+2026-10-03 08:31:07 INFO  web03 GET /health 200
+2026-10-03 09:02:10 INFO  web02 Database connection restored
+=== -n|Database
+5:2026-10-03 08:15:09 ERROR web02 Database connection lost
+12:2026-10-03 09:02:10 INFO  web02 Database connection restored
+=== |retry.*5s
+2026-10-03 08:15:14 error web02 retrying in 5s
+=== -E|(INFO|WARN) +web01
+2026-10-03 08:00:05 INFO  web01 Started inventory-api version 2.4.1
+2026-10-03 08:00:06 INFO  web01 Listening on port 8080
+2026-10-03 08:15:01 INFO  web01 GET /items 200
+2026-10-03 08:20:33 WARN  web01 Disk /var at 91%
+=== |[[:digit:]]%
+2026-10-03 08:20:33 WARN  web01 Disk /var at 91%
+=== -iv|info
+2026-10-03 08:14:22 WARN  web02 Slow response: GET /items took 1450 ms
+2026-10-03 08:15:09 ERROR web02 Database connection lost
+2026-10-03 08:15:14 error web02 retrying in 5s
+2026-10-03 08:20:33 WARN  web01 Disk /var at 91%
+# maintenance window 22:00-23:00
+2026-10-03 08:45:52 ERROR db01 Replication lag 120s
+=== |8080
+2026-10-03 08:00:06 INFO  web01 Listening on port 8080
+=== -E|^[^#]
+2026-10-03 08:00:05 INFO  web01 Started inventory-api version 2.4.1
+2026-10-03 08:00:06 INFO  web01 Listening on port 8080
+2026-10-03 08:14:22 WARN  web02 Slow response: GET /items took 1450 ms
+2026-10-03 08:15:01 INFO  web01 GET /items 200
+2026-10-03 08:15:09 ERROR web02 Database connection lost
+2026-10-03 08:15:14 error web02 retrying in 5s
+2026-10-03 08:16:40 INFO  db01 Backup finished: 2048 MB
+2026-10-03 08:20:33 WARN  web01 Disk /var at 91%
+2026-10-03 08:31:07 INFO  web03 GET /health 200
+2026-10-03 08:45:52 ERROR db01 Replication lag 120s
+2026-10-03 09:02:10 INFO  web02 Database connection restored
+=== |lo
+2026-10-03 08:14:22 WARN  web02 Slow response: GET /items took 1450 ms
+2026-10-03 08:15:09 ERROR web02 Database connection lost
+=== |\<lo
+2026-10-03 08:15:09 ERROR web02 Database connection lost

@@ -1,0 +1,361 @@
+export:
+  title: Which variables a program inherits
+  caption: 'Select a view: the child program starts with copies of the exported variables only.'
+  height: 210
+  mode: select
+  initial: plain
+  info:
+    plain:
+      tone: gray
+      title: MSG=hello
+      text: A plain assignment creates a shell variable. The shell can use it, but programs it starts never see it.
+    export:
+      tone: green
+      title: export MSG
+      text: Exporting marks the variable for the environment. Every program started afterwards gets its own copy. Changing the copy in the child never changes the parent.
+  elements:
+  - kind: group
+    x: 10
+    y: 10
+    w: 300
+    h: 150
+    tone: purple
+    label: your shell
+  - kind: node
+    x: 30
+    y: 46
+    w: 260
+    h: 40
+    tone: gray
+    title: MSG=hello
+    mono: true
+    overrides:
+      sub:
+        plain: shell variable
+        export: exported
+    sub: shell variable
+  - kind: node
+    x: 30
+    y: 100
+    w: 260
+    h: 40
+    tone: green
+    title: PATH, HOME, LANG …
+    mono: true
+    sub: exported
+  - kind: arrow
+    points:
+    - - 310
+      - 85
+    - - 370
+      - 85
+    label: starts
+    labelDy: -8
+  - kind: group
+    x: 372
+    y: 10
+    w: 300
+    h: 150
+    tone: teal
+    label: bash -c   (a child program)
+  - kind: node
+    x: 392
+    y: 46
+    w: 260
+    h: 40
+    tone: gray
+    title: 'MSG: not set'
+    mono: true
+    overrides:
+      title:
+        plain: 'MSG: not set'
+        export: MSG=hello  (a copy)
+    active:
+    - export
+  - kind: node
+    x: 392
+    y: 100
+    w: 260
+    h: 40
+    tone: green
+    title: PATH, HOME, LANG …
+    mono: true
+    sub: copies
+  - kind: node
+    x: 150
+    y: 172
+    w: 170
+    h: 34
+    tone: gray
+    title: MSG=hello
+    mono: true
+    titleSize: 12.5
+    select: plain
+    active:
+    - plain
+  - kind: node
+    x: 360
+    y: 172
+    w: 170
+    h: 34
+    tone: green
+    title: export MSG
+    mono: true
+    titleSize: 12.5
+    select: export
+    active:
+    - export
+startup:
+  title: Which startup files Bash reads
+  caption: Select how the shell started. SSH logins and console logins are login shells; a shell started inside another is not.
+  height: 240
+  mode: select
+  initial: login
+  info:
+    login:
+      tone: purple
+      title: A login shell
+      text: SSH, the console and su - start login shells. Bash reads /etc/profile (which runs /etc/profile.d/*.sh), then ~/.bash_profile, which on RHEL runs ~/.bashrc, which runs /etc/bashrc.
+    nonlogin:
+      tone: teal
+      title: A non-login interactive shell
+      text: Typing bash, or opening a new terminal tab in a desktop, starts a shell that skips the profile files and reads only ~/.bashrc, which runs /etc/bashrc.
+  elements:
+  - kind: node
+    x: 6
+    y: 40
+    w: 124
+    h: 54
+    tone: purple
+    title: /etc/profile
+    sub: all users
+    mono: true
+    titleSize: 11.5
+    active: &id001
+    - login
+    visible: *id001
+  - kind: arrow
+    points:
+    - - 130
+      - 67
+    - - 142
+      - 67
+    visible:
+    - login
+  - kind: node
+    x: 142
+    y: 40
+    w: 124
+    h: 54
+    tone: purple
+    title: /etc/profile.d/
+    sub: '*.sh · all users'
+    mono: true
+    titleSize: 11.5
+    active: &id002
+    - login
+    visible: *id002
+  - kind: arrow
+    points:
+    - - 266
+      - 67
+    - - 278
+      - 67
+    visible:
+    - login
+  - kind: node
+    x: 278
+    y: 40
+    w: 124
+    h: 54
+    tone: green
+    title: ~/.bash_profile
+    sub: you
+    mono: true
+    titleSize: 11.5
+    active: &id003
+    - login
+    visible: *id003
+  - kind: arrow
+    points:
+    - - 402
+      - 67
+    - - 414
+      - 67
+    visible: &id004
+    - login
+    - nonlogin
+  - kind: node
+    x: 414
+    y: 40
+    w: 124
+    h: 54
+    tone: green
+    title: ~/.bashrc
+    sub: you
+    mono: true
+    titleSize: 11.5
+    active: *id004
+    visible: *id004
+  - kind: arrow
+    points:
+    - - 538
+      - 67
+    - - 550
+      - 67
+    visible: &id005
+    - login
+    - nonlogin
+  - kind: node
+    x: 550
+    y: 40
+    w: 124
+    h: 54
+    tone: purple
+    title: /etc/bashrc
+    sub: all users
+    mono: true
+    titleSize: 11.5
+    active: *id005
+    visible: *id005
+  - kind: node
+    x: 150
+    y: 160
+    w: 180
+    h: 40
+    tone: purple
+    title: login shell
+    sub: ssh, console, su -
+    select: login
+    active:
+    - login
+  - kind: node
+    x: 350
+    y: 160
+    w: 180
+    h: 40
+    tone: teal
+    title: non-login shell
+    sub: bash, a new tab
+    select: nonlogin
+    active:
+    - nonlogin
+practice:
+  text:
+    hint: Click here and set a few variables. This terminal remembers nothing between commands, so it shows each command's result as it was on servera.
+    inputLabel: Command to run in the practice terminal
+    eventNotFound: 'bash: {value0}: event not found'
+    notHere: This practice terminal only knows the examples in this lesson. Try anything else on servera.
+    notFound: 'bash: {value0}: command not found'
+    searchPrompt: '(reverse-i-search)`{value0}'':'
+    noMatch: no match yet
+    tasksTitle: Your tasks
+    allDone: All done. Now make one of these permanent in ~/.bashrc on servera.
+    doneLabel: done
+    reset: Start again
+  data: {}
+  props:
+    title: 'Practice terminal: variables and aliases'
+    prompt: '[student@servera ~]$'
+    commands:
+    - cmd: COUNT=40
+      out: ''
+    - cmd: echo $COUNT
+      out: '40'
+    - cmd: echo COUNT
+      out: COUNT
+    - cmd: echo Repeat $COUNTx
+      out: Repeat
+    - cmd: echo Repeat ${COUNT}x
+      out: Repeat 40x
+    - cmd: echo $PATH
+      out: /home/student/.local/bin:/home/student/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+    - cmd: echo $HOME $USER $SHELL $LANG
+      out: /home/student student /bin/bash en_US.utf8
+    - cmd: MSG=hello
+      out: ''
+    - cmd: 'bash -c ''echo child sees: $MSG'''
+      out: 'child sees:'
+    - cmd: export MSG
+      out: ''
+    - cmd: alias lsl='ls -l --human-readable'
+      out: ''
+    - cmd: type lsl
+      out: lsl is aliased to `ls -l --human-readable'
+    - cmd: type ll
+      out: ll is aliased to `ls -l'
+    - cmd: LANG=C date
+      out: Sat Oct  3 10:21:06 UTC 2026
+    - cmd: date
+      out: Sat Oct  3 10:21:06 AM UTC 2026
+    - cmd: LC_TIME=en_GB.UTF-8 date
+      out: Sat  3 Oct 10:21:06 UTC 2026
+    tasks:
+    - text: Set COUNT to 40 and print it.
+      commands:
+      - echo $COUNT
+    - text: Print "Repeat 40x", with the x right after the value.
+      commands:
+      - echo Repeat ${COUNT}x
+    - text: Show where the shell looks for commands.
+      commands:
+      - echo $PATH
+    - text: Prove that a child shell can't see an unexported MSG.
+      commands:
+      - 'bash -c ''echo child sees: $MSG'''
+    - text: Create the alias lsl for ls -l --human-readable and check it with type.
+      commands:
+      - type lsl
+    - text: Run date once with the C locale, without changing your shell.
+      commands:
+      - LANG=C date
+quick:
+  questions:
+  - id: q-2fb8309e497e
+    q: Which line sets a variable correctly?
+    options:
+    - DIR = /srv/data
+    - DIR=/srv/data
+    - $DIR=/srv/data
+    answer: 1
+    explain: No spaces around =, and no $ when assigning. $ is only for reading the value.
+  - id: q-ca31c9c68b55
+    q: You set REPORT=weekly. Which prints weekly.txt?
+    options:
+    - echo $REPORT.txt
+    - echo ${REPORT}.txt
+    - Both
+    answer: 2
+    explain: A dot cannot be part of a variable name, so $REPORT.txt works too. Braces are needed when letters, digits or underscores follow, as in ${REPORT}_2026.
+  - id: q-93a1773cd0dc
+    q: A script you start can't see a variable you set in your shell. What is missing?
+    options:
+    - export
+    - source
+    - unset
+    answer: 0
+    explain: Programs inherit only exported (environment) variables.
+  - id: q-934ff36d1533
+    q: What happens if you run PATH=/opt/tools/bin?
+    options:
+    - /opt/tools/bin is added to the search path.
+    - Only /opt/tools/bin is searched, so most commands stop being found.
+    - Nothing until you log out.
+    answer: 1
+    explain: 'That replaces PATH. To add a directory, include the old value: PATH=$PATH:/opt/tools/bin.'
+  - id: q-51aea1eaeb29
+    q: Where do you put an alias so it exists in every new shell you open?
+    options:
+    - ~/.bashrc
+    - /etc/hosts
+    - ~/.ssh/config
+    answer: 0
+    explain: ~/.bashrc runs for every interactive shell, and RHEL's ~/.bash_profile runs it for login shells too.
+  - id: q-dee4d92b7de4
+    q: You edited ~/.bashrc. How do you apply it to the shell you are using now?
+    options:
+    - Run bash ~/.bashrc
+    - Run source ~/.bashrc
+    - Nothing; it applies immediately
+    answer: 1
+    explain: source runs the file in the current shell. bash ~/.bashrc would run it in a child shell that exits straight away.

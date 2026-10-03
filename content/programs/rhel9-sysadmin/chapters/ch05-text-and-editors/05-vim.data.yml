@@ -1,0 +1,187 @@
+modes:
+  title: vim's modes
+  caption: Select a mode to see what keys do there and how to get in and out.
+  height: 300
+  mode: select
+  initial: normal
+  info:
+    normal:
+      tone: purple
+      title: Normal mode
+      text: 'Where vim starts. Every key is a command: move, delete, copy, paste, undo. Press Esc from any other mode to come back here.'
+    insert:
+      tone: green
+      title: Insert mode
+      text: Keys type text into the file. Enter with i, a or o; leave with Esc. vim shows -- INSERT -- at the bottom.
+    visual:
+      tone: amber
+      title: Visual mode
+      text: 'Select text to act on: v for characters, V for whole lines, Ctrl+V for a column block. Then y copies, d cuts. Esc cancels.'
+    command:
+      tone: blue
+      title: Command-line mode
+      text: 'Type : for a command at the bottom of the screen: :w saves, :q quits, :wq does both, :q! quits without saving, :%s/a/b/g replaces. Enter runs it; Esc cancels.'
+  elements:
+  - kind: node
+    x: 250
+    y: 100
+    w: 180
+    h: 64
+    tone: purple
+    title: Normal
+    sub: keys are commands
+    select: normal
+    active:
+    - normal
+  - kind: node
+    x: 20
+    y: 20
+    w: 170
+    h: 60
+    tone: green
+    title: Insert
+    sub: keys type text
+    select: insert
+    active:
+    - insert
+  - kind: node
+    x: 490
+    y: 20
+    w: 170
+    h: 60
+    tone: amber
+    title: Visual
+    sub: select text
+    select: visual
+    active:
+    - visual
+  - kind: node
+    x: 250
+    y: 226
+    w: 180
+    h: 60
+    tone: blue
+    title: Command line
+    sub: :w  :q  :wq  :q!
+    select: command
+    active:
+    - command
+  - kind: arrow
+    points:
+    - - 250
+      - 118
+    - - 190
+      - 66
+    label: i  a  o
+    labelDy: 16
+    active:
+    - insert
+    - normal
+    labelDx: -30
+  - kind: arrow
+    points:
+    - - 190
+      - 40
+    - - 262
+      - 100
+    label: Esc
+    labelDx: 14
+    active:
+    - insert
+    - normal
+  - kind: arrow
+    points:
+    - - 430
+      - 118
+    - - 490
+      - 66
+    label: v  V  Ctrl+V
+    labelDy: 16
+    active:
+    - visual
+    - normal
+    labelDx: 36
+  - kind: arrow
+    points:
+    - - 490
+      - 40
+    - - 418
+      - 100
+    label: Esc
+    labelDx: -14
+    active:
+    - visual
+    - normal
+  - kind: arrow
+    points:
+    - - 320
+      - 164
+    - - 320
+      - 226
+    label: ':'
+    labelDx: -12
+    active:
+    - command
+    - normal
+  - kind: arrow
+    points:
+    - - 360
+      - 226
+    - - 360
+      - 164
+    label: Enter / Esc
+    labelDx: 12
+    labelAnchor: start
+    active:
+    - command
+    - normal
+quick:
+  questions:
+  - id: q-75319bd1499e
+    q: You opened a file in vim and typed some letters, but they did odd things instead of appearing. Why?
+    options:
+    - vim is in normal mode, where keys are commands; press i first.
+    - The file is read-only.
+    - vim needs a mouse to type.
+    answer: 0
+    explain: vim starts in normal mode. i switches to insert mode, where keys type text.
+  - id: q-1e86292e8fb8
+    q: You made a mess of a configuration file in vim and want to leave without saving anything. What do you type?
+    options:
+    - :wq
+    - :q!
+    - :w!
+    answer: 1
+    explain: :q! quits and throws away every change since the last save. :q alone refuses while there are unsaved changes.
+  - id: q-406a8b9de974
+    q: In normal mode, what does dd do?
+    options:
+    - Deletes (cuts) the current line
+    - Duplicates the line
+    - Deletes the whole file
+    answer: 0
+    explain: dd cuts the line, and p can put it back elsewhere. 3dd cuts three lines.
+  - id: q-35b6a24bde65
+    q: Which keys copy the current line and paste it below?
+    options:
+    - cc then v
+    - yy then p
+    - dd then u
+    answer: 1
+    explain: yy yanks (copies) the line and p puts it below the cursor.
+  - id: q-db27b0ec0303
+    q: Where do your personal vim settings go?
+    options:
+    - /etc/vimrc
+    - ~/.vimrc
+    - ~/.vim.conf
+    answer: 1
+    explain: ~/.vimrc is per user and overrides the system-wide /etc/vimrc.
+  - id: q-9cdb741350ee
+    q: How do you replace every occurrence of 8080 with 8443 in the file?
+    options:
+    - /8080/8443
+    - :%s/8080/8443/g
+    - :r 8080 8443
+    answer: 1
+    explain: '% means every line, s substitutes, and g means every match on each line, not just the first.'

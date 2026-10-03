@@ -677,6 +677,25 @@
         "term"
       ]
     },
+    "grep-tester": {
+      "summary": "Try grep patterns and options against a file: matching lines and matched text are highlighted, and the output shows exactly what grep prints.",
+      "status": "stable",
+      "since": 1,
+      "kit": true,
+      "placement": "block",
+      "children": "none",
+      "attributes": {
+        "ref": {
+          "type": "string",
+          "description": "Key of its words and data in the page data.",
+          "format": "dataRef"
+        }
+      },
+      "required": [
+        "ref"
+      ],
+      "data": "data/kits/grep-tester.schema.json"
+    },
     "group-vars-resolver": {
       "summary": "Resolves a host's variables from group and host variable files.",
       "status": "stable",

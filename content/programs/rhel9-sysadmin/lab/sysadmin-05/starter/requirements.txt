@@ -1,4 +1,0 @@
-Edit a small service configuration, then build an exact report of ready hosts. Preserve the original and show a reviewable diff.
-
-Edit and compare text without accidentally changing unrelated lines.
-Extract reliable reports using fields, sorting and regular expressions.

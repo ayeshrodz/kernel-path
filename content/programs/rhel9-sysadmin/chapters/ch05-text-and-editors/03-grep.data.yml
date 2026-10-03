@@ -1,0 +1,123 @@
+tester:
+  text:
+    inputLabel: Regular expression
+    flagsLabel: Options
+    flagIgnoreCase: ignore case
+    flagInvert: invert
+    flagExtended: extended
+    flagNumbers: line numbers
+    fileLabel: '{value0}'
+    outputLabel: What grep prints
+    noOutput: '(no output: no line matched)'
+    badPattern: 'grep: the expression is not valid'
+    countTemplate: 'Lines printed: {value0}'
+  data: {}
+  props:
+    title: grep tester
+    file: app.log
+    lines:
+    - 2026-10-03 08:00:05 INFO  web01 Started inventory-api version 2.4.1
+    - 2026-10-03 08:00:06 INFO  web01 Listening on port 8080
+    - '2026-10-03 08:14:22 WARN  web02 Slow response: GET /items took 1450 ms'
+    - 2026-10-03 08:15:01 INFO  web01 GET /items 200
+    - 2026-10-03 08:15:09 ERROR web02 Database connection lost
+    - 2026-10-03 08:15:14 error web02 retrying in 5s
+    - '2026-10-03 08:16:40 INFO  db01 Backup finished: 2048 MB'
+    - 2026-10-03 08:20:33 WARN  web01 Disk /var at 91%
+    - '# maintenance window 22:00-23:00'
+    - 2026-10-03 08:31:07 INFO  web03 GET /health 200
+    - 2026-10-03 08:45:52 ERROR db01 Replication lag 120s
+    - 2026-10-03 09:02:10 INFO  web02 Database connection restored
+    presets:
+    - flags: ''
+      pattern: ERROR
+      note: A plain word matches wherever it appears. grep is case-sensitive, so "error" in line 6 is not selected.
+    - flags: i
+      pattern: error
+      note: -i ignores case, so ERROR and error both match.
+    - flags: ''
+      pattern: ^#
+      note: '^ anchors the pattern to the start of the line: only the comment line.'
+    - flags: v
+      pattern: ^#
+      note: '-v inverts the selection: every line except the comment.'
+    - flags: ''
+      pattern: web0[13]
+      note: 'A bracket expression matches one character from the set: web01 or web03, not web02.'
+    - flags: ''
+      pattern: 200$
+      note: '$ anchors to the end of the line: lines that end in 200.'
+    - flags: ''
+      pattern: retry.*5s
+      note: .* means "any characters, any number of times" between retry and 5s.
+    - flags: ''
+      pattern: '[0-9]\{4\} MB'
+      note: 'Basic syntax: the interval needs backslashes. Exactly four digits, then a space and MB.'
+    - flags: E
+      pattern: '[0-9]{4} MB'
+      note: 'The same with -E: no backslashes needed.'
+    - flags: E
+      pattern: ERROR|WARN
+      note: With -E, | means "or". In basic syntax you would write ERROR\|WARN.
+    - flags: E
+      pattern: (INFO|WARN) +web01
+      note: A group, an alternation, and + for "one or more spaces".
+    - flags: ''
+      pattern: '[[:digit:]]%'
+      note: 'A POSIX class: one digit, then a percent sign.'
+    - flags: ''
+      pattern: \<lo
+      note: '\< matches the start of a word: lost matches, but the lo inside Slow does not. Compare with the plain pattern lo.'
+    - flags: n
+      pattern: Database
+      note: -n prints each line's number, which helps you open the file at that line.
+quick:
+  questions:
+  - id: q-3bbbb1b9c165
+    q: Which command shows the lines of /etc/ssh/ssh_config that are not comments?
+    options:
+    - grep '#' /etc/ssh/ssh_config
+    - grep -v '^#' /etc/ssh/ssh_config
+    - grep -c '^#' /etc/ssh/ssh_config
+    answer: 1
+    explain: '^# matches lines starting with #, and -v prints the lines that do not match.'
+  - id: q-3437559c89d3
+    q: What does the regular expression ^$ match?
+    options:
+    - A line containing a dollar sign
+    - An empty line
+    - Every line
+    answer: 1
+    explain: ^ is the start and $ the end of the line, with nothing in between.
+  - id: q-60bd36e4f974
+    q: In a regular expression, what does .* match?
+    options:
+    - A literal dot and asterisk
+    - Any sequence of characters, including none
+    - Only the end of the line
+    answer: 1
+    explain: . is any character and * repeats it zero or more times.
+  - id: q-24bb65f182ab
+    q: Which finds lines containing either fail or error, ignoring case?
+    options:
+    - grep -i 'fail|error' log
+    - grep -iE 'fail|error' log
+    - grep -E 'fail&error' log
+    answer: 1
+    explain: Alternation with a bare | needs -E (or \| in basic syntax), and -i ignores case.
+  - id: q-dabeddf37e19
+    q: grep -w root /etc/group would not match which of these lines?
+    options:
+    - 'root:x:0:'
+    - wheel:x:10:root
+    - 'rootless:x:900:'
+    answer: 2
+    explain: -w matches whole words only, so root inside rootless does not count.
+  - id: q-6b7909e50225
+    q: Which lists only the names of files under /etc that contain the word nameserver?
+    options:
+    - grep -r nameserver /etc
+    - grep -rl nameserver /etc
+    - grep -c nameserver /etc
+    answer: 1
+    explain: -r searches recursively and -l prints just the file names.

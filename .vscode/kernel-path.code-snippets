@@ -214,6 +214,13 @@
       "{% /glossary %}"
     ]
   },
+  "kp-grep-tester": {
+    "prefix": "kp-grep-tester",
+    "description": "Try grep patterns and options against a file: matching lines and matched text are highlighted, and the output shows exactly what grep prints.",
+    "body": [
+      "{% grep-tester ref=\"${1}\" /%}"
+    ]
+  },
   "kp-group-vars-resolver": {
     "prefix": "kp-group-vars-resolver",
     "description": "Resolves a host's variables from group and host variable files.",

@@ -225,3 +225,66 @@
   overflow: hidden;
   clip-path: inset(50%);
 }
+
+/* ---------- Linux kits: grep tester ---------- */
+
+.grept-flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+.grept-flags .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  cursor: pointer;
+}
+.grept-flags input {
+  margin: 0;
+  accent-color: var(--teal-400);
+}
+.grept-flag-name {
+  color: var(--text-3);
+  font-family: var(--font-sans);
+  font-size: 12px;
+}
+.grept-file {
+  margin: 0;
+  padding: 6px 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-sunken);
+  font-family: var(--font-mono);
+  font-size: var(--code-size-sm);
+  line-height: 1.6;
+  list-style: none;
+  overflow-x: auto;
+}
+.grept-file li {
+  display: flex;
+  gap: 10px;
+  padding: 0 10px;
+  color: var(--text-3);
+  white-space: pre;
+}
+.grept-file li.is-on {
+  background: color-mix(in srgb, var(--teal-200) 22%, transparent);
+  color: var(--text);
+}
+.grept-n {
+  flex: none;
+  width: 2ch;
+  color: var(--text-3);
+  text-align: right;
+}
+.grept-file mark {
+  border-radius: 3px;
+  background: var(--amber-100);
+  color: var(--amber-900);
+}
+:root[data-theme='dark'] .grept-file mark {
+  background: color-mix(in srgb, var(--amber-200) 45%, transparent);
+  color: var(--amber-50);
+}
