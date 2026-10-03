@@ -1,0 +1,317 @@
+hierarchy:
+  title: The main directories under /
+  caption: Select a directory to read what it holds.
+  height: 318
+  mode: select
+  initial: etc
+  info:
+    boot:
+      tone: amber
+      title: '/boot: starting the system'
+      text: The kernel (vmlinuz-…), the initial RAM disk it loads first, and the boot loader configuration. You rarely change anything here by hand.
+    dev:
+      tone: gray
+      title: '/dev: devices as files'
+      text: 'Each disk, partition and terminal appears as a special file: /dev/sda is the first disk, /dev/sdb your lab servers'' spare disk. The system builds this directory at every boot.'
+    etc:
+      tone: purple
+      title: '/etc: configuration'
+      text: 'System-wide settings, almost all as plain text: users in /etc/passwd, the host name in /etc/hostname, the SSH server''s settings in /etc/ssh/sshd_config. This is where an administrator edits
+        most often.'
+    home:
+      tone: green
+      title: '/home: users'' home directories'
+      text: Each ordinary user has a directory here, such as /home/student, for their files and personal settings. The shell starts there when they log in.
+    student:
+      tone: green
+      title: '/home/student: your home'
+      text: Your own files and hidden settings files such as .bashrc. The ~ in the prompt is shorthand for it.
+    root:
+      tone: coral
+      title: '/root: the superuser''s home'
+      text: root's home directory is kept outside /home, so it is still available if /home is on a separate disk that fails to mount.
+    run:
+      tone: blue
+      title: '/run: runtime data'
+      text: Process ID files, sockets and locks for programs running now. It lives in memory and is empty again after every reboot.
+    tmp:
+      tone: gray
+      title: '/tmp: temporary files'
+      text: Anyone can create files here. Files untouched for 10 days are deleted automatically (30 days in /var/tmp), so never keep anything important in it.
+    usr:
+      tone: teal
+      title: '/usr: installed software'
+      text: 'Programs, libraries and documentation installed from packages. Static content: it changes when you install or update software, not while the system runs.'
+    bin:
+      tone: teal
+      title: '/usr/bin: commands for everyone'
+      text: ls, cat, ssh, tar and most other commands. /bin is a link to it.
+    sbin:
+      tone: teal
+      title: '/usr/sbin: administration commands'
+      text: Commands mainly for root, such as useradd, fdisk and sshd. /sbin is a link to it.
+    local:
+      tone: teal
+      title: '/usr/local: locally built software'
+      text: Software you build or install yourself, outside the package manager, so updates never overwrite it.
+    var:
+      tone: amber
+      title: '/var: variable data'
+      text: 'Data that grows and changes while the system runs and must survive a reboot: logs, databases, caches, mail queues, web content.'
+    log:
+      tone: amber
+      title: '/var/log: logs'
+      text: Log files such as /var/log/messages and /var/log/secure. Chapter 11 is about reading them.
+    lib:
+      tone: amber
+      title: '/var/lib: program state'
+      text: 'Where services keep their data: databases, package manager records, container images.'
+  elements:
+  - kind: node
+    x: 270
+    y: 6
+    w: 140
+    h: 32
+    tone: gray
+    title: /
+    mono: true
+    titleSize: 16
+  - kind: node
+    x: 30
+    y: 56
+    w: 290
+    h: 26
+    tone: amber
+    title: /boot
+    mono: true
+    titleSize: 13
+    align: start
+    select: boot
+    active:
+    - boot
+  - kind: node
+    x: 30
+    y: 88
+    w: 290
+    h: 26
+    tone: gray
+    title: /dev
+    mono: true
+    titleSize: 13
+    align: start
+    select: dev
+    active:
+    - dev
+  - kind: node
+    x: 30
+    y: 120
+    w: 290
+    h: 26
+    tone: purple
+    title: /etc
+    mono: true
+    titleSize: 13
+    align: start
+    select: etc
+    active:
+    - etc
+  - kind: node
+    x: 30
+    y: 152
+    w: 290
+    h: 26
+    tone: green
+    title: /home
+    mono: true
+    titleSize: 13
+    align: start
+    select: home
+    active:
+    - home
+  - kind: node
+    x: 64
+    y: 184
+    w: 256
+    h: 26
+    tone: green
+    title: student
+    mono: true
+    titleSize: 13
+    align: start
+    select: student
+    active:
+    - student
+  - kind: node
+    x: 30
+    y: 216
+    w: 290
+    h: 26
+    tone: coral
+    title: /root
+    mono: true
+    titleSize: 13
+    align: start
+    select: root
+    active:
+    - root
+  - kind: node
+    x: 30
+    y: 248
+    w: 290
+    h: 26
+    tone: blue
+    title: /run
+    mono: true
+    titleSize: 13
+    align: start
+    select: run
+    active:
+    - run
+  - kind: node
+    x: 360
+    y: 56
+    w: 290
+    h: 26
+    tone: gray
+    title: /tmp
+    mono: true
+    titleSize: 13
+    align: start
+    select: tmp
+    active:
+    - tmp
+  - kind: node
+    x: 360
+    y: 88
+    w: 290
+    h: 26
+    tone: teal
+    title: /usr
+    mono: true
+    titleSize: 13
+    align: start
+    select: usr
+    active:
+    - usr
+  - kind: node
+    x: 394
+    y: 120
+    w: 256
+    h: 26
+    tone: teal
+    title: bin
+    mono: true
+    titleSize: 13
+    align: start
+    select: bin
+    active:
+    - bin
+  - kind: node
+    x: 394
+    y: 152
+    w: 256
+    h: 26
+    tone: teal
+    title: sbin
+    mono: true
+    titleSize: 13
+    align: start
+    select: sbin
+    active:
+    - sbin
+  - kind: node
+    x: 394
+    y: 184
+    w: 256
+    h: 26
+    tone: teal
+    title: local
+    mono: true
+    titleSize: 13
+    align: start
+    select: local
+    active:
+    - local
+  - kind: node
+    x: 360
+    y: 216
+    w: 290
+    h: 26
+    tone: amber
+    title: /var
+    mono: true
+    titleSize: 13
+    align: start
+    select: var
+    active:
+    - var
+  - kind: node
+    x: 394
+    y: 248
+    w: 256
+    h: 26
+    tone: amber
+    title: log
+    mono: true
+    titleSize: 13
+    align: start
+    select: log
+    active:
+    - log
+  - kind: node
+    x: 394
+    y: 280
+    w: 256
+    h: 26
+    tone: amber
+    title: lib
+    mono: true
+    titleSize: 13
+    align: start
+    select: lib
+    active:
+    - lib
+quick:
+  questions:
+  - id: q-2ce12a64c32b
+    q: Where would you look for the settings of the SSH server?
+    options:
+    - /usr/bin
+    - /etc
+    - /var
+    - /run
+    answer: 1
+    explain: System-wide configuration lives in /etc; the SSH server reads /etc/ssh/sshd_config.
+  - id: q-48470a50eb98
+    q: A service writes its log while it runs, and the log must survive a reboot. Where does it belong?
+    options:
+    - /run
+    - /tmp
+    - /var/log
+    - /usr
+    answer: 2
+    explain: Variable, persistent data goes under /var. /run is emptied at boot, /tmp is cleaned automatically, and /usr is for installed software.
+  - id: q-cf12a22677da
+    q: What is the home directory of the root user?
+    options:
+    - /home/root
+    - /
+    - /root
+    - /etc/root
+    answer: 2
+    explain: root's home is /root, outside /home, so the administrator can still work if /home is unavailable.
+  - id: q-b4cb9ad60bee
+    q: Why do /bin/ls and /usr/bin/ls show the same file on RHEL 9?
+    options:
+    - The package was installed twice.
+    - /bin is a symbolic link to usr/bin.
+    - The shell searches both directories.
+    answer: 1
+    explain: ls -l / shows bin -> usr/bin. /sbin, /lib and /lib64 are links into /usr in the same way.
+  - id: q-30316e9bddcd
+    q: How many files are notes.txt, Notes.txt and NOTES.txt in one directory?
+    options:
+    - One
+    - Three
+    answer: 1
+    explain: Linux file names are case-sensitive, so these are three different files.

@@ -1,4 +1,0 @@
-Create a small service handover tree, preserve a copy, and demonstrate which link survives a rename. All changes stay inside the project directory.
-
-Navigate and manipulate files without confusing names with contents.
-Diagnose links, timestamps and file searches.

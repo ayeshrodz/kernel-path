@@ -1,8 +1,14 @@
 title: Files and directories
-goal: Find your way around the file system and manage files with confidence.
+goal: Find your way around the Linux directory tree, and create, copy, move, link and remove files from the shell, using patterns to work on many files at once.
 objectives:
-- Navigate and manipulate files without confusing names with contents.
-- Diagnose links, timestamps and file searches.
+  - Describe how Linux organises files in one directory tree, and what the main directories hold.
+  - Name files with absolute and relative paths, move around with cd, and list directories with ls.
+  - Create, copy, move, rename and remove files and directories.
+  - Give a file more than one name with hard links and symbolic links, and explain how they differ.
+  - Use shell expansions (patterns, braces, the tilde, variables and command substitution) and quoting to work on many files at once.
 objectiveIds:
-- ch03.operations
-- ch03.verification
+  - ch03.hierarchy
+  - ch03.paths
+  - ch03.manage
+  - ch03.links
+  - ch03.expansion

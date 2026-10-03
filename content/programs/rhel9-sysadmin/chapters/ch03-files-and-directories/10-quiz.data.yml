@@ -1,0 +1,100 @@
+chapter:
+  questions:
+    - id: q-86a0283079b2
+      q: Which directory holds data that grows while the system runs and must survive a reboot, such as logs and databases?
+      options:
+        - "`/usr`"
+        - "`/run`"
+        - "`/var`"
+        - "`/etc`"
+      answer: 2
+      explain: /var is for variable, persistent data. /run is variable but emptied at boot, /usr holds installed software and /etc configuration.
+    - id: q-06e43035050e
+      q: Which of these is an absolute path?
+      options:
+        - "`log/messages`"
+        - "`./log/messages`"
+        - "`~/notes.txt`"
+        - "`/var/log/messages`"
+      answer: 3
+      explain: An absolute path begins with /. A path starting with ~ also expands to an absolute path, but only because the shell rewrites it first.
+    - id: q-3df5429bd68e
+      q: You are in /etc/ssh. Where does cd ../../var take you?
+      options:
+        - "`/etc/var`"
+        - "`/var`"
+        - "`/etc/ssh/var`"
+      answer: 1
+      explain: Two .. steps go from /etc/ssh to /, then var leads to /var.
+    - id: q-235d0e8e40f4
+      q: Which command lists the hidden files in your home directory as well as the others?
+      options:
+        - "`ls -h ~`"
+        - "`ls -a ~`"
+        - "`ls -R ~`"
+      answer: 1
+      explain: -a shows names starting with a dot. -h makes sizes human-readable and -R lists subdirectories too.
+    - id: q-2b7aaaf0cc7c
+      q: backup is an existing directory. What does mv config.yml backup do?
+      options:
+        - Renames config.yml to backup.
+        - Moves config.yml into backup/, keeping its name.
+        - Fails because backup exists.
+      answer: 1
+      explain: An existing directory as the destination means "put it inside". Otherwise the destination would be a new name.
+    - id: q-5c0e5f8a7239
+      q: Which command copies the directory site, with everything in it, to site-old?
+      options:
+        - "`cp site site-old`"
+        - "`cp -r site site-old`"
+        - "`mv -r site site-old`"
+      answer: 1
+      explain: cp needs -r for directories. mv would move rather than copy, and has no -r option.
+    - id: q-52a827cea6e7
+      q: You run rmdir build and get "Directory not empty". What does that tell you?
+      options:
+        - rmdir is broken.
+        - rmdir only removes empty directories; use rm -r if you really want everything in it gone.
+        - You need to be root.
+      answer: 1
+      explain: rmdir's refusal is a safety feature. Check what is inside before reaching for rm -r.
+    - id: q-ec7abcff4c28
+      q: How many hard links does a file have if ls -l shows a link count of 1?
+      options:
+        - None besides its own name; it has exactly one name.
+        - One extra name besides the original.
+        - It is a symbolic link.
+      answer: 0
+      explain: The link count is the number of names. Every file starts with one.
+    - id: q-c0729e1c500c
+      q: Which can a symbolic link do that a hard link cannot?
+      options:
+        - Keep the data alive after the original name is removed
+        - Point to a directory, or to a file on another file system
+        - Share the same inode number as its target
+      answer: 1
+      explain: Hard links share the target's inode, so they can't cross file systems or point to directories. Keeping data alive is what hard links do.
+    - id: q-db9955a45fe3
+      q: current is a symbolic link to the directory release/v1. Which command repoints it to release/v2?
+      options:
+        - "`ln -s release/v2 current`"
+        - "`ln -sfn release/v2 current`"
+        - "`mv release/v2 current`"
+      answer: 1
+      explain: Without -n, ln treats current as the directory it leads to and creates a new link inside it. -f replaces the existing link.
+    - id: q-da6fd13b0dab
+      q: What does touch log-{mon,tue,wed}.txt create?
+      options:
+        - One file named log-{mon,tue,wed}.txt
+        - log-mon.txt, log-tue.txt and log-wed.txt
+        - Only the files that already exist
+      answer: 1
+      explain: Brace expansion generates the three names before touch runs, whether or not they exist.
+    - id: q-39c37a0502a4
+      q: 'Which line prints "Cost: $5 per user" exactly?'
+      options:
+        - 'echo "Cost: $5 per user"'
+        - "echo 'Cost: $5 per user'"
+        - "echo Cost: $5 per user"
+      answer: 1
+      explain: Inside double quotes, and without quotes, $5 is expanded as a (normally empty) variable. Single quotes keep the text exactly.

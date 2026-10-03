@@ -1,0 +1,201 @@
+links-model:
+  title: Names, inodes and data
+  caption: Select a view to compare the two kinds of link.
+  height: 226
+  mode: select
+  initial: hard
+  info:
+    hard:
+      tone: blue
+      title: Two hard links
+      text: checklist.txt and /tmp/checklist-copy.txt are two names for inode 261894, so the link count is 2. Neither is the original.
+    soft:
+      tone: purple
+      title: A symbolic link
+      text: latest.txt is a separate small file that holds a path. Opening it follows that path to the name, then to the inode.
+    delete:
+      tone: red
+      title: Remove one name
+      text: rm checklist.txt removes one name and lowers the link count to 1. The data stays, reachable through /tmp/checklist-copy.txt. Remove that name too and latest.txt would dangle.
+  elements:
+  - kind: group
+    x: 6
+    y: 6
+    w: 230
+    h: 206
+    tone: gray
+    label: names (directory entries)
+  - kind: node
+    x: 22
+    y: 40
+    w: 198
+    h: 40
+    tone: blue
+    title: checklist.txt
+    mono: true
+    active:
+    - hard
+    - delete
+    overrides:
+      title:
+        delete: checklist.txt  (removed)
+      dashed:
+        delete: true
+  - kind: node
+    x: 22
+    y: 96
+    w: 198
+    h: 40
+    tone: blue
+    title: /tmp/checklist-copy.txt
+    mono: true
+    titleSize: 11.5
+    active:
+    - hard
+    - soft
+    - delete
+  - kind: node
+    x: 22
+    y: 152
+    w: 198
+    h: 44
+    tone: purple
+    title: latest.txt
+    sub: -> /tmp/checklist-copy.txt
+    mono: true
+    active:
+    - soft
+  - kind: arrow
+    points:
+    - - 220
+      - 60
+    - - 300
+      - 96
+    active:
+    - hard
+    overrides:
+      dashed:
+        delete: true
+  - kind: arrow
+    points:
+    - - 220
+      - 116
+    - - 300
+      - 116
+    active:
+    - hard
+    - delete
+  - kind: arrow
+    points:
+    - - 120
+      - 152
+    - - 120
+      - 138
+    active:
+    - soft
+    label: points to the name
+    labelAnchor: start
+    labelDx: 6
+    labelDy: 0
+  - kind: node
+    x: 302
+    y: 86
+    w: 170
+    h: 60
+    tone: amber
+    title: inode 261894
+    sub: 'owner, mode, times, links: 2'
+    mono: true
+    titleSize: 12.5
+    active:
+    - hard
+    - delete
+    overrides:
+      sub:
+        delete: 'owner, mode, times, links: 1'
+  - kind: arrow
+    points:
+    - - 472
+      - 116
+    - - 530
+      - 116
+  - kind: node
+    x: 532
+    y: 86
+    w: 140
+    h: 60
+    tone: green
+    title: data on disk
+    sub: Release checklist …
+  - kind: node
+    x: 302
+    y: 170
+    w: 120
+    h: 36
+    tone: blue
+    title: hard links
+    select: hard
+    active:
+    - hard
+  - kind: node
+    x: 428
+    y: 170
+    w: 120
+    h: 36
+    tone: purple
+    title: symbolic link
+    select: soft
+    active:
+    - soft
+  - kind: node
+    x: 554
+    y: 170
+    w: 118
+    h: 36
+    tone: red
+    title: remove a name
+    select: delete
+    active:
+    - delete
+quick:
+  questions:
+  - id: q-65005f90bc7a
+    q: ls -l shows a link count of 3 for a regular file. What does that mean?
+    options:
+    - It has been opened three times.
+    - It has three names (hard links) pointing to the same data.
+    - Three symbolic links point to it.
+    answer: 1
+    explain: 'The link count counts hard links: directory entries for the same inode. Symbolic links are not counted.'
+  - id: q-36f70502a7ad
+    q: You remove the original name of a file that also has a hard link. What happens to the data?
+    options:
+    - It is deleted.
+    - It stays, reachable through the other name.
+    - It moves to /tmp.
+    answer: 1
+    explain: Data is freed only when the last hard link is removed. The other name is just as real as the first.
+  - id: q-441bef771340
+    q: Which needs a symbolic link rather than a hard link?
+    options:
+    - A second name for a file in the same directory
+    - A short name for the directory /var/log
+    - A second name for a file on the same file system
+    answer: 1
+    explain: Hard links cannot point to directories or cross file systems. Symbolic links can do both.
+  - id: q-7ea7a5619b18
+    q: What does ls -l show for a symbolic link?
+    options:
+    - A leading l, and -> followed by its target
+    - A link count of 2
+    - The same inode number as its target
+    answer: 0
+    explain: The type character is l and the listing ends with -> target. A symbolic link has its own inode.
+  - id: q-c610e1eec207
+    q: A symbolic link points to a file that has been deleted. What is the link called, and what does cat print?
+    options:
+    - Orphaned; the old content
+    - Dangling; No such file or directory
+    - Hidden; nothing
+    answer: 1
+    explain: The link still exists but leads nowhere, so opening it fails. Recreate the target name and it works again.

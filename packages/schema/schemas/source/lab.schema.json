@@ -779,6 +779,42 @@
           "items": {
             "$ref": "#/$defs/literal"
           }
+        },
+        "fileType": {
+          "description": "What the path must be: a regular file, a directory (not a link to one) or a symbolic link.",
+          "enum": [
+            "regular",
+            "directory",
+            "symlink"
+          ]
+        },
+        "hardLinks": {
+          "description": "The number of names (hard links) the file must have.",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "sameFileAs": {
+          "description": "Another path that must be the same file (a hard link to it, or the same name).",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/absolutePath"
+            },
+            {
+              "$ref": "#/$defs/relativePath"
+            }
+          ]
+        },
+        "resolvesTo": {
+          "description": "Where the path must lead once every symbolic link is followed, so relative and absolute links both pass.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/absolutePath"
+            },
+            {
+              "$ref": "#/$defs/relativePath"
+            }
+          ]
         }
       },
       "type": "object"

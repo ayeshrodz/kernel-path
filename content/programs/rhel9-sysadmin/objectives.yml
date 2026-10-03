@@ -50,19 +50,42 @@
   - ch02/exercise-shortcuts
   - ch02/lab
   challenges: []
-- id: ch03.operations
+- id: ch03.hierarchy
   chapter: ch03
   lessons:
-  - ch03/paths-and-files
-  - ch03/links-and-searches
+  - ch03/file-system-hierarchy
   labs:
+  - ch03/exercise-navigate
+  challenges: []
+- id: ch03.paths
+  chapter: ch03
+  lessons:
+  - ch03/paths-and-navigation
+  labs:
+  - ch03/exercise-navigate
+  - ch03/exercise-manage-files
   - ch03/lab
   challenges: []
-- id: ch03.verification
+- id: ch03.manage
   chapter: ch03
   lessons:
-  - ch03/paths-and-files
-  - ch03/links-and-searches
+  - ch03/manage-files
+  labs:
+  - ch03/exercise-manage-files
+  - ch03/lab
+  challenges: []
+- id: ch03.links
+  chapter: ch03
+  lessons:
+  - ch03/links
+  labs:
+  - ch03/exercise-links
+  - ch03/lab
+  challenges: []
+- id: ch03.expansion
+  chapter: ch03
+  lessons:
+  - ch03/expansions
   labs:
   - ch03/lab
   challenges: []

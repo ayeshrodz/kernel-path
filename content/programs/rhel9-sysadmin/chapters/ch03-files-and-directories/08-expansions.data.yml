@@ -1,0 +1,173 @@
+patterns:
+  text:
+    inputLabel: Pattern to try
+    directoryLabel: Files in the directory
+    matchedLabel: ' (matches)'
+    runsLabel: The command Bash runs
+    matchedTemplate: '{value0} file names matched.'
+    plainTemplate: '{value0} words were passed on as they are.'
+    noMatchTemplate: 'No match for {value0}: passed on unchanged.'
+  data: {}
+  props:
+    title: Pattern tester
+    command: ls
+    files:
+    - index.html
+    - about.html
+    - style.css
+    - app.js
+    - logo.png
+    - photo1.jpg
+    - photo2.jpg
+    - photo10.jpg
+    - notes.txt
+    - Notes.md
+    - report-2025.pdf
+    - report-2026.pdf
+    - .htaccess
+    presets:
+    - pattern: '*'
+      note: Every name, except the hidden .htaccess.
+    - pattern: '*.html'
+      note: Names ending in .html.
+    - pattern: photo?.jpg
+      note: '? is exactly one character, so photo10.jpg is left out.'
+    - pattern: photo*.jpg
+      note: '* is any number of characters. Notice the order: Bash sorts photo10 before photo1 here, because the locale ignores the dot when sorting.'
+    - pattern: '[a-m]*'
+      note: Names starting with a lowercase letter from a to m. Notes.md starts with an uppercase N.
+    - pattern: '*[0-9]*'
+      note: Names with a digit anywhere.
+    - pattern: report-202[56].pdf
+      note: One character from the set 5 or 6.
+    - pattern: '[[:upper:]]*'
+      note: Names starting with an uppercase letter. Linux names are case-sensitive.
+    - pattern: .*
+      note: A pattern starting with a dot finds hidden names, including the directory's own . and .. entries.
+    - pattern: '*.{html,css}'
+      note: Braces expand first, into *.html and *.css, then each pattern matches.
+    - pattern: photo{1..3}.jpg
+      note: 'Braces don''t check files: photo3.jpg is generated even though it doesn''t exist.'
+    - pattern: '*.zip'
+      note: Nothing matches, so Bash passes *.zip on unchanged, and ls would report that no such file exists.
+practice:
+  text:
+    hint: Click here and run the examples. Predict each result before you press Enter.
+    inputLabel: Command to run in the practice terminal
+    eventNotFound: 'bash: {value0}: event not found'
+    notHere: This practice terminal only knows the examples in this lesson. Try anything else on servera.
+    notFound: 'bash: {value0}: command not found'
+    searchPrompt: '(reverse-i-search)`{value0}'':'
+    noMatch: no match yet
+    tasksTitle: Your tasks
+    allDone: All done. echo is the safe way to preview any expansion.
+    doneLabel: done
+    reset: Start again
+  data: {}
+  props:
+    title: 'Practice terminal: expansions'
+    prompt: '[student@servera ~]$'
+    commands:
+    - cmd: echo ~
+      out: /home/student
+    - cmd: echo ~root
+      out: /root
+    - cmd: echo ~nouser
+      out: ~nouser
+    - cmd: echo $HOME
+      out: /home/student
+    - cmd: echo file{1..3}.txt
+      out: file1.txt file2.txt file3.txt
+    - cmd: echo file{a..c}.txt
+      out: filea.txt fileb.txt filec.txt
+    - cmd: echo file{a,b}{1,2}.txt
+      out: filea1.txt filea2.txt fileb1.txt fileb2.txt
+    - cmd: echo {Sunday,Monday,Tuesday,Wednesday}.log
+      out: Sunday.log Monday.log Tuesday.log Wednesday.log
+    - cmd: echo ep{01..03}
+      out: ep01 ep02 ep03
+    - cmd: echo "Today is $(date +%A)."
+      out: Today is Saturday.
+    - cmd: echo 'Today is $(date +%A).'
+      out: Today is $(date +%A).
+    - cmd: echo "Will variable $HOME expand?"
+      out: Will variable /home/student expand?
+    - cmd: echo 'Will variable $HOME expand?'
+      out: Will variable $HOME expand?
+    - cmd: echo Will variable \$HOME expand?
+      out: Will variable $HOME expand?
+    - cmd: date +%A
+      out: Saturday
+    - cmd: hostname
+      out: servera.lab.example.com
+    - cmd: whoami
+      out: student
+    tasks:
+    - text: Print your home directory, then root's, with the tilde.
+      commands:
+      - echo ~root
+    - text: Generate file1.txt to file3.txt with a brace range.
+      commands:
+      - echo file{1..3}.txt
+    - text: Generate every combination of a, b and 1, 2 with two brace lists.
+      commands:
+      - echo file{a,b}{1,2}.txt
+    - text: Print today's weekday inside a sentence with command substitution.
+      commands:
+      - echo "Today is $(date +%A)."
+    - text: Print the same sentence with the $(…) left unexpanded, using quotes.
+      commands:
+      - echo 'Today is $(date +%A).'
+    - text: Stop $HOME expanding without quotes.
+      commands:
+      - echo Will variable \$HOME expand?
+quick:
+  questions:
+  - id: q-c6e95af4e1aa
+    q: Which pattern matches report1.txt and reportA.txt but not report10.txt?
+    options:
+    - report*.txt
+    - report?.txt
+    - report[0-9].txt
+    answer: 1
+    explain: '? matches exactly one character. * would also match report10.txt, and [0-9] would leave out reportA.txt.'
+  - id: q-fcbd9fd8c052
+    q: A directory holds only a.txt and b.txt. What does ls *.log run?
+    options:
+    - ls with no arguments
+    - ls *.log, so ls reports that no such file exists
+    - Nothing; Bash prints an error itself
+    answer: 1
+    explain: When a pattern matches nothing, Bash passes it on unchanged, and ls looks for a file literally named *.log.
+  - id: q-d7e08e82e0e2
+    q: What does mkdir -p app/{logs,cache,config} create?
+    options:
+    - A directory named {logs,cache,config} inside app
+    - app, and inside it logs, cache and config
+    - Nothing, unless those directories already exist
+    answer: 1
+    explain: Brace expansion generates app/logs app/cache app/config before mkdir runs, without checking any files.
+  - id: q-e4648f8d9147
+    q: Which prints $HOME literally, without expanding it?
+    options:
+    - echo "$HOME"
+    - echo '$HOME'
+    - echo $(HOME)
+    answer: 1
+    explain: Single quotes stop every expansion. Double quotes still expand $ and $(…).
+  - id: q-2aef842348de
+    q: Why does ls * not list .bashrc?
+    options:
+    - ls never shows configuration files.
+    - A pattern does not match a leading dot unless the pattern itself starts with a dot.
+    - .bashrc is protected.
+    answer: 1
+    explain: Hidden names need a pattern that starts with a dot, such as .*, or ls -a.
+  - id: q-d26f6909d47c
+    q: What is the safe way to check which files rm *.tmp would remove?
+    options:
+    - Run it with -f
+    - Run echo rm *.tmp first
+    - There is no way to check
+    answer: 1
+    explain: echo shows the command line after expansion, without running anything.

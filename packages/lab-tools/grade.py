@@ -99,6 +99,15 @@ def file_conditions(c, path):
         out.append('ls -Zd -- %s | grep -q %s' % (p, shlex.quote(':%s:' % c['selinuxType'])))
     if 'symlinkTo' in c:
         out.append('[ "$(readlink %s)" = %s ]' % (p, word(c['symlinkTo'])))
+    if 'fileType' in c:
+        out.append({'regular': 'test -f %s && test ! -L %s', 'directory': 'test -d %s && test ! -L %s',
+                    'symlink': 'test -L %s && test -L %s'}[c['fileType']] % (p, p))
+    if 'hardLinks' in c:
+        out.append(stat_is(p, '%h', str(c['hardLinks'])))
+    if 'sameFileAs' in c:
+        out.append('test %s -ef %s' % (p, word(c['sameFileAs'])))
+    if 'resolvesTo' in c:
+        out.append('[ "$(readlink -f %s)" = %s ]' % (p, word(c['resolvesTo'])))
     return out
 
 
@@ -317,6 +326,17 @@ def control_file(c, project):
             good = good and (target.stat().st_mode & 0o777) == int(c['mode'], 8)
         if 'symlinkTo' in c:
             good = good and target.is_symlink() and os.readlink(target) == c['symlinkTo']
+        if 'fileType' in c:
+            good = good and {'regular': target.is_file() and not target.is_symlink(),
+                             'directory': target.is_dir() and not target.is_symlink(),
+                             'symlink': target.is_symlink()}[c['fileType']]
+        if 'hardLinks' in c:
+            good = good and target.stat().st_nlink == c['hardLinks']
+        if 'sameFileAs' in c:
+            other = project / c['sameFileAs']
+            good = good and other.exists() and os.path.samefile(target, other)
+        if 'resolvesTo' in c:
+            good = good and str(target.resolve()) == str((project / c['resolvesTo']).resolve())
         if good:
             return True
     return False

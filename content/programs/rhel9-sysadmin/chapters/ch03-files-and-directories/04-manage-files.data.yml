@@ -1,0 +1,189 @@
+destination-rule:
+  title: Where does the file end up?
+  caption: Select a command. The result depends only on whether the destination is an existing directory.
+  height: 278
+  mode: select
+  initial: cp-name
+  info:
+    cp-name:
+      tone: teal
+      title: cp plan.txt plan-v1.txt
+      text: 'A new name: a second, independent copy appears beside the original.'
+    cp-dir:
+      tone: teal
+      title: cp plan.txt reports/
+      text: reports is an existing directory, so the copy goes inside it with the same name.
+    mv-name:
+      tone: purple
+      title: mv plan.txt plan-final.txt
+      text: 'A new name in the same place: the file is renamed. Only one file exists afterwards.'
+    mv-dir:
+      tone: purple
+      title: mv plan.txt reports/
+      text: reports is an existing directory, so the file moves inside it. Nothing is left behind.
+  elements:
+  - kind: group
+    x: 6
+    y: 6
+    w: 250
+    h: 150
+    tone: gray
+    label: before
+  - kind: node
+    x: 26
+    y: 40
+    w: 210
+    h: 40
+    tone: blue
+    title: plan.txt
+    mono: true
+  - kind: node
+    x: 26
+    y: 96
+    w: 210
+    h: 40
+    tone: amber
+    title: reports/
+    mono: true
+    sub: an existing directory
+  - kind: arrow
+    points:
+    - - 262
+      - 82
+    - - 302
+      - 82
+  - kind: group
+    x: 308
+    y: 6
+    w: 366
+    h: 150
+    tone: gray
+    label: after
+  - kind: node
+    x: 328
+    y: 40
+    w: 326
+    h: 40
+    tone: blue
+    title: plan.txt  and  plan-v1.txt
+    mono: true
+    overrides:
+      title:
+        cp-name: plan.txt  and  plan-v1.txt
+        cp-dir: plan.txt  (still here)
+        mv-name: plan-final.txt  (renamed)
+        mv-dir: plan.txt  is gone from here
+      dashed:
+        mv-dir: true
+  - kind: node
+    x: 328
+    y: 96
+    w: 326
+    h: 40
+    tone: amber
+    title: reports/
+    mono: true
+    overrides:
+      title:
+        cp-name: reports/  (unchanged)
+        cp-dir: reports/  now holds plan.txt
+        mv-name: reports/  (unchanged)
+        mv-dir: reports/  now holds plan.txt
+  - kind: node
+    x: 6
+    y: 172
+    w: 330
+    h: 44
+    tone: teal
+    title: cp plan.txt plan-v1.txt
+    mono: true
+    titleSize: 13
+    select: cp-name
+    active:
+    - cp-name
+  - kind: node
+    x: 344
+    y: 172
+    w: 330
+    h: 44
+    tone: teal
+    title: cp plan.txt reports/
+    mono: true
+    titleSize: 13
+    select: cp-dir
+    active:
+    - cp-dir
+  - kind: node
+    x: 6
+    y: 222
+    w: 330
+    h: 44
+    tone: purple
+    title: mv plan.txt plan-final.txt
+    mono: true
+    titleSize: 13
+    select: mv-name
+    active:
+    - mv-name
+  - kind: node
+    x: 344
+    y: 222
+    w: 330
+    h: 44
+    tone: purple
+    title: mv plan.txt reports/
+    mono: true
+    titleSize: 13
+    select: mv-dir
+    active:
+    - mv-dir
+quick:
+  questions:
+  - id: q-0f24d3551e61
+    q: reports is an existing directory. What does cp plan.txt reports do?
+    options:
+    - Renames plan.txt to reports.
+    - Copies plan.txt into reports/, keeping its name.
+    - Fails, because reports already exists.
+    answer: 1
+    explain: When the destination is an existing directory, the file goes inside it. Only when it is not a directory is the destination a new name.
+  - id: q-38a1bc6f4f60
+    q: How do you rename notes.txt to minutes.txt?
+    options:
+    - rename notes.txt minutes.txt
+    - cp notes.txt minutes.txt
+    - mv notes.txt minutes.txt
+    answer: 2
+    explain: Renaming is moving to a new name. cp would leave the original as well.
+  - id: q-3230ec13e4d4
+    q: cp prints "-r not specified; omitting directory". What happened?
+    options:
+    - Nothing was copied at all.
+    - The directory was skipped; any files in the same command were copied.
+    - The directory was copied without its contents.
+    answer: 1
+    explain: cp copies directories only with -r. Files listed in the same command are still copied.
+  - id: q-8e14c373ed92
+    q: Which command creates /srv/web/site/assets when none of those directories exist?
+    options:
+    - mkdir /srv/web/site/assets
+    - mkdir -p /srv/web/site/assets
+    - mkdir -r /srv/web/site/assets
+    answer: 1
+    explain: -p creates every missing directory along the path. Without it, mkdir fails because the parent is missing.
+  - id: q-91e50ce41ed2
+    q: Which removes the directory old only if it is empty?
+    options:
+    - rm old
+    - rm -r old
+    - rmdir old
+    answer: 2
+    explain: rmdir refuses non-empty directories, which makes it safe. rm -r removes everything inside, and plain rm refuses directories.
+  - id: q-7581c1772ee5
+    q: You deleted the wrong file with rm. Where can you get it back from?
+    options:
+    - The wastebasket in your home directory
+    - 'Nowhere on the system: only from a backup'
+    - rm --undo
+    answer: 1
+    explain: Command-line rm does not use a wastebasket. That is why you check with pwd and ls first, and why backups matter.

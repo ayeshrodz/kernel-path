@@ -1,0 +1,133 @@
+name: sa-files-review
+title: Files and directories
+page: ch03/lab
+transport: ssh
+version: 1
+starter:
+- README
+checkpoints:
+  final:
+    files:
+    - README
+    checks:
+    - id: season1
+      kind: file
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: Season 1 episodes are in ~/Podcasts/season1
+      paths:
+      - /home/student/Podcasts/season1/podcast_s1_e1.mp3
+      fileType: regular
+      owner: student
+    - id: season1-last
+      kind: file
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: Season 1 has all six episodes
+      paths:
+      - /home/student/Podcasts/season1/podcast_s1_e6.mp3
+      fileType: regular
+    - id: season2
+      kind: file
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: Season 2 episodes are in ~/Podcasts/season2
+      paths:
+      - /home/student/Podcasts/season2/podcast_s2_e1.mp3
+      fileType: regular
+    - id: season2-last
+      kind: file
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: Season 2 has all six episodes
+      paths:
+      - /home/student/Podcasts/season2/podcast_s2_e6.mp3
+      fileType: regular
+    - id: home-tidy
+      kind: file
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: No episode files are left in the home directory
+      paths:
+      - /home/student/podcast_s1_e1.mp3
+      exists: false
+    - id: home-tidy-2
+      kind: file
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: No season 2 episode files are left in the home directory
+      paths:
+      - /home/student/podcast_s2_e6.mp3
+      exists: false
+    - id: drafts
+      kind: file
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: Transcripts 3 to 7 are in drafts
+      paths:
+      - /home/student/Documents/transcripts/drafts/transcript_e3.txt
+      fileType: regular
+    - id: drafts-last
+      kind: file
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: Transcript 7 is in drafts
+      paths:
+      - /home/student/Documents/transcripts/drafts/transcript_e7.txt
+      fileType: regular
+    - id: review
+      kind: file
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: Transcripts 1 and 2 are in review
+      paths:
+      - /home/student/Documents/transcripts/review/transcript_e2.txt
+      fileType: regular
+    - id: review-moved
+      kind: file
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: Transcript 1 moved out of drafts
+      paths:
+      - /home/student/Documents/transcripts/drafts/transcript_e1.txt
+      exists: false
+    - id: cancelled
+      kind: file
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: The transcript for the cancelled episode 8 is gone
+      paths:
+      - /home/student/Documents/transcripts/drafts/transcript_e8.txt
+      exists: false
+    - id: published
+      kind: file
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: published/transcript_e1.txt is a hard link to review/transcript_e1.txt
+      paths:
+      - /home/student/Documents/transcripts/published/transcript_e1.txt
+      fileType: regular
+      hardLinks: 2
+      sameFileAs: /home/student/Documents/transcripts/review/transcript_e1.txt
+    - id: latest
+      kind: file
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: ~/latest is a symbolic link that leads to ~/Podcasts/season2
+      paths:
+      - /home/student/latest
+      fileType: symlink
+      resolvesTo: /home/student/Podcasts/season2

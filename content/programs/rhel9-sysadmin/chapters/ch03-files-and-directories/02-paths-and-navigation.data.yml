@@ -1,0 +1,326 @@
+navigation:
+  title: A walk around servera with cd
+  caption: Step through the commands. The highlighted directory is where the shell is after each one.
+  height: 260
+  mode: steps
+  steps:
+  - title: pwd
+    text: You start in your home directory, /home/student. pwd prints it.
+  - title: cd /var/log
+    text: 'An absolute path: the shell starts at / and goes down through var to log, wherever you were.'
+  - title: cd ..
+    text: .. is the parent directory. From /var/log, that is /var.
+  - title: cd log
+    text: 'A relative path: log is looked up inside the current directory, /var.'
+  - title: cd
+    text: cd on its own goes home, from anywhere.
+  - title: cd -
+    text: Back to the previous directory, /var/log. cd prints where it went.
+  elements:
+  - kind: node
+    x: 290
+    y: 10
+    w: 100
+    h: 38
+    tone: gray
+    title: /
+    mono: true
+    titleSize: 16
+  - kind: arrow
+    points:
+    - - 300
+      - 48
+    - - 175
+      - 88
+    hot: []
+  - kind: arrow
+    points:
+    - - 380
+      - 48
+    - - 505
+      - 88
+    hot:
+    - 1
+  - kind: node
+    x: 110
+    y: 88
+    w: 130
+    h: 38
+    tone: green
+    title: home
+    mono: true
+  - kind: arrow
+    points:
+    - - 175
+      - 126
+    - - 175
+      - 164
+  - kind: node
+    x: 110
+    y: 164
+    w: 130
+    h: 38
+    tone: green
+    title: student
+    mono: true
+    active:
+    - 0
+    - 4
+  - kind: node
+    x: 440
+    y: 88
+    w: 130
+    h: 38
+    tone: amber
+    title: var
+    mono: true
+    active:
+    - 2
+  - kind: arrow
+    points:
+    - - 505
+      - 126
+    - - 505
+      - 164
+    hot:
+    - 1
+    - 3
+  - kind: node
+    x: 440
+    y: 164
+    w: 130
+    h: 38
+    tone: amber
+    title: log
+    mono: true
+    active:
+    - 1
+    - 3
+    - 5
+  - kind: label
+    x: 340
+    y: 238
+    text: '[student@servera ~]$'
+    mono: true
+    size: 15
+    overrides:
+      text:
+        '0': '[student@servera ~]$ pwd'
+        '1': '[student@servera log]$'
+        '2': '[student@servera var]$'
+        '3': '[student@servera log]$'
+        '4': '[student@servera ~]$'
+        '5': '[student@servera log]$'
+long-listing:
+  title: One line of ls -l
+  caption: Select each field to see what it tells you.
+  height: 140
+  mode: select
+  initial: type
+  info:
+    type:
+      tone: blue
+      title: File type
+      text: '- is a regular file, d a directory, l a symbolic link. Others you will meet: c and b for devices in /dev.'
+    perms:
+      tone: purple
+      title: Permissions
+      text: 'Who may read (r), write (w) and execute (x) it: three letters for the owner, three for the group, three for everyone else. Chapter 7 explains them.'
+    dot:
+      tone: gray
+      title: SELinux label
+      text: The dot says the file also has an SELinux security label. Chapter 16 shows how to read it with ls -Z.
+    links:
+      tone: teal
+      title: Link count
+      text: How many names (hard links) the file has. For a directory, it also counts its subdirectories' .. entries.
+    owner:
+      tone: coral
+      title: Owner
+      text: The user who owns the file.
+    group:
+      tone: coral
+      title: Group
+      text: The group that owns the file.
+    size:
+      tone: amber
+      title: Size
+      text: The size in bytes. Add -h to see sizes such as 4.0K or 12M.
+    date:
+      tone: gray
+      title: Last modified
+      text: When the content last changed. Older files show the year instead of the time.
+    name:
+      tone: green
+      title: Name
+      text: The file's name, as you gave it to ls. A symbolic link adds -> and its target.
+  elements:
+  - kind: node
+    x: 6
+    y: 34
+    w: 26
+    h: 46
+    tone: blue
+    title: '-'
+    mono: true
+    titleSize: 13
+    select: type
+    active:
+    - type
+  - kind: node
+    x: 37
+    y: 34
+    w: 104
+    h: 46
+    tone: purple
+    title: rw-r--r--
+    mono: true
+    titleSize: 13
+    select: perms
+    active:
+    - perms
+  - kind: node
+    x: 146
+    y: 34
+    w: 18
+    h: 46
+    tone: gray
+    title: .
+    mono: true
+    titleSize: 13
+    select: dot
+    active:
+    - dot
+  - kind: node
+    x: 169
+    y: 34
+    w: 26
+    h: 46
+    tone: teal
+    title: '1'
+    mono: true
+    titleSize: 13
+    select: links
+    active:
+    - links
+  - kind: node
+    x: 200
+    y: 34
+    w: 56
+    h: 46
+    tone: coral
+    title: root
+    mono: true
+    titleSize: 13
+    select: owner
+    active:
+    - owner
+  - kind: node
+    x: 261
+    y: 34
+    w: 56
+    h: 46
+    tone: coral
+    title: root
+    mono: true
+    titleSize: 13
+    select: group
+    active:
+    - group
+  - kind: node
+    x: 322
+    y: 34
+    w: 40
+    h: 46
+    tone: amber
+    title: '24'
+    mono: true
+    titleSize: 13
+    select: size
+    active:
+    - size
+  - kind: node
+    x: 367
+    y: 34
+    w: 128
+    h: 46
+    tone: gray
+    title: Oct  3 09:28
+    mono: true
+    titleSize: 13
+    select: date
+    active:
+    - date
+  - kind: node
+    x: 500
+    y: 34
+    w: 150
+    h: 46
+    tone: green
+    title: /etc/hostname
+    mono: true
+    titleSize: 13
+    select: name
+    active:
+    - name
+  - kind: label
+    x: 340
+    y: 118
+    text: ls -l /etc/hostname
+    mono: true
+    size: 14
+    muted: true
+quick:
+  questions:
+  - id: q-3cce541093dd
+    q: You are in /var. Which path names /var/log/messages relatively?
+    options:
+    - /log/messages
+    - log/messages
+    - ../log/messages
+    - ~/log/messages
+    answer: 1
+    explain: A relative path starts from the current directory and does not begin with /. log/messages inside /var is /var/log/messages.
+  - id: q-faf4747c0382
+    q: You are in /home/student/projects/web. Where does cd ../.. take you?
+    options:
+    - /home
+    - /home/student
+    - /
+    - /home/student/projects
+    answer: 1
+    explain: 'Each .. goes up one level: web → projects → student.'
+  - id: q-b5d9573b8001
+    q: Which command takes you back to the directory you were in before the last cd?
+    options:
+    - cd ..
+    - cd ~
+    - cd -
+    - cd .
+    answer: 2
+    explain: cd - returns to the previous directory and prints it. cd .. goes to the parent, cd ~ goes home and cd . stays put.
+  - id: q-7232397d007c
+    q: ls -l shows a line that starts with d. What is it?
+    options:
+    - A deleted file
+    - A directory
+    - A device
+    - A symbolic link
+    answer: 1
+    explain: 'The first character is the file type: - regular file, d directory, l symbolic link.'
+  - id: q-728cf454b8c2
+    q: Why does ls not show .bashrc in your home directory?
+    options:
+    - It is protected by permissions.
+    - Names starting with a dot are hidden; ls -a shows them.
+    - Only root can see it.
+    answer: 1
+    explain: Hidden files are a convention to reduce clutter, not a security feature. ls -a lists them.
+  - id: q-f400d565b650
+    q: You run rm my report.txt to delete a file named "my report.txt". What happens?
+    options:
+    - The file is deleted.
+    - rm tries to delete two files, my and report.txt.
+    - rm asks which file you meant.
+    answer: 1
+    explain: The shell splits arguments at spaces. Quote the name, "my report.txt", or let Tab completion escape it.

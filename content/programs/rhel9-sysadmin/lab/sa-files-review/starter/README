@@ -1,0 +1,21 @@
+Exercise: sa-files-review (chapter 3 lab)
+
+Work on serverb, as student, in your home directory (/home/student).
+
+A podcast team is moving its files to serverb. Set them up like this:
+
+ 1. Twelve empty episode files, podcast_s1_e1.mp3 to podcast_s2_e6.mp3
+    (seasons 1 and 2, episodes 1 to 6), created with one command.
+ 2. ~/Podcasts/season1 and ~/Podcasts/season2, created with one command,
+    with each season's episodes moved into its directory. No episode files
+    left in your home directory.
+ 3. Eight empty transcripts, transcript_e1.txt to transcript_e8.txt.
+ 4. ~/Documents/transcripts/drafts, review and published, created with one
+    command. All transcripts go into drafts, then episodes 1 and 2 move on
+    to review.
+ 5. Episode 8 was cancelled: remove its transcript.
+ 6. published/transcript_e1.txt must be the same file as
+    review/transcript_e1.txt (a hard link, not a copy).
+ 7. ~/latest is a symbolic link that leads to ~/Podcasts/season2.
+
+Then, on workstation:  lab grade sa-files-review

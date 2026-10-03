@@ -198,6 +198,13 @@
       "{% fqcn-explorer ref=\"${1}\" /%}"
     ]
   },
+  "kp-glob-tester": {
+    "prefix": "kp-glob-tester",
+    "description": "Try a file name pattern (globs and braces) against a directory and see exactly which names Bash passes to the command.",
+    "body": [
+      "{% glob-tester ref=\"${1}\" /%}"
+    ]
+  },
   "kp-glossary": {
     "prefix": "kp-glossary",
     "description": "A list of terms and definitions.",

@@ -130,3 +130,98 @@
   clip-path: inset(50%);
   white-space: nowrap;
 }
+
+/* ---------- Linux kits: pattern tester ---------- */
+
+.glob-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--bg-sunken);
+  font-family: var(--font-mono);
+}
+.glob-field:focus-within {
+  border-color: var(--teal-400);
+}
+.glob-cmd {
+  color: var(--text-3);
+}
+.glob-field input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+}
+.glob-presets {
+  margin-top: 10px;
+}
+.glob-presets .chip {
+  font-family: var(--font-mono);
+}
+.glob-label {
+  margin: 14px 0 6px;
+  color: var(--text-3);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.glob-files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.glob-files li {
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: var(--code-size-sm);
+  transition:
+    background var(--dur),
+    color var(--dur),
+    border-color var(--dur);
+}
+.glob-files li.is-on {
+  border-color: var(--teal-200);
+  background: var(--teal-50);
+  color: var(--teal-800);
+}
+:root[data-theme='dark'] .glob-files li.is-on {
+  background: color-mix(in srgb, var(--teal-400) 22%, transparent);
+  color: var(--teal-100);
+}
+.glob-line {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.glob-summary,
+.glob-note {
+  margin: 10px 0 0;
+  color: var(--text-2);
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+.glob-note {
+  padding-left: 10px;
+  border-left: 3px solid var(--teal-200);
+}
+.glob-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}

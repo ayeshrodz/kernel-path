@@ -78,6 +78,33 @@ class ScriptTests(unittest.TestCase):
             link.symlink_to('/etc/issue')
             self.assertEqual(self.run_script({'kind': 'file', 'paths': [str(link)], 'symlinkTo': '/etc/issue'}), 0)
 
+    def test_link_and_type_conditions_on_hosts_and_the_control_node(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / 'dir').mkdir()
+            original = root / 'dir' / 'original.txt'
+            original.write_text('data\n')
+            hard = root / 'hard.txt'
+            os.link(original, hard)
+            (root / 'relative').symlink_to('dir')
+            (root / 'other.txt').write_text('data\n')
+            cases = [
+                ({'paths': ['hard.txt'], 'fileType': 'regular', 'hardLinks': 2, 'sameFileAs': 'dir/original.txt'}, True),
+                ({'paths': ['other.txt'], 'sameFileAs': 'dir/original.txt'}, False),
+                ({'paths': ['other.txt'], 'hardLinks': 2}, False),
+                ({'paths': ['relative'], 'fileType': 'symlink', 'resolvesTo': 'dir'}, True),
+                ({'paths': ['relative'], 'fileType': 'directory'}, False),
+                ({'paths': ['dir'], 'fileType': 'directory'}, True),
+                ({'paths': ['dir'], 'resolvesTo': 'other.txt'}, False),
+            ]
+            for check, expected in cases:
+                self.assertEqual(grade.control_file({'kind': 'file', **check}, root), expected, check)
+                host = {**check, 'paths': [str(root / check['paths'][0])]}
+                for key in ('sameFileAs', 'resolvesTo'):
+                    if key in host:
+                        host[key] = str(root / host[key])
+                self.assertEqual(self.run_script({'kind': 'file', **host}) == 0, expected, host)
+
     def test_host_facts_checks_against_this_machine(self):
         """Kinds that only read system facts agree with what this machine reports."""
         import getpass, socket

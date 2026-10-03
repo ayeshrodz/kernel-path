@@ -1,0 +1,30 @@
+flashcards:
+  cards:
+    - front: Where does system-wide configuration live?
+      back: "`/etc`, almost all as text files."
+    - front: Which directory is emptied at every boot?
+      back: "`/run`, which holds runtime data for running programs."
+    - front: What makes a path absolute?
+      back: It starts with `/`. Anything else is relative to the current directory.
+    - front: What do `.`, `..` and `~` mean in a path?
+      back: This directory, its parent, and your home directory.
+    - front: Go back to the previous directory?
+      back: "`cd -`"
+    - front: Create a/b/c when none of them exist?
+      back: "`mkdir -p a/b/c`"
+    - front: Copy a directory and everything in it?
+      back: "`cp -r SRC DST`"
+    - front: Rename report.txt to final.txt?
+      back: "`mv report.txt final.txt`"
+    - front: What does a link count of 2 mean?
+      back: The file has **two names** (hard links) for the same inode.
+    - front: Two things a symbolic link can do that a hard link cannot?
+      back: Point to a **directory**, and point **across file systems**.
+    - front: What happens to a symbolic link when its target is deleted?
+      back: "It **dangles**: it still exists, but opening it fails."
+    - front: Why doesn't `*` match `.bashrc`?
+      back: Patterns don't match a leading dot unless they start with one, such as `.*`.
+    - front: What does Bash do with a pattern that matches nothing?
+      back: Passes it on **unchanged** to the command.
+    - front: Double quotes or single quotes to keep `$HOME` literal?
+      back: "**Single** quotes. Double quotes still expand `$`."
