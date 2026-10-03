@@ -1,0 +1,214 @@
+octal:
+  title: Octal modes
+  caption: Select a digit to see how it is built.
+  height: 190
+  mode: select
+  initial: o1
+  info:
+    o1:
+      tone: purple
+      title: 'Owner digit: 6'
+      text: Read (4) + write (2) = 6, so rw-. Add execute (1) and it would be 7.
+    o2:
+      tone: teal
+      title: 'Group digit: 4'
+      text: Read (4) only = 4, so r--.
+    o3:
+      tone: amber
+      title: 'Other digit: 0'
+      text: No permissions at all = 0, so ---.
+    rwx:
+      tone: gray
+      title: The three values
+      text: 'r = 4, w = 2, x = 1. Add the ones you want: 7 = rwx, 6 = rw-, 5 = r-x, 4 = r--, 0 = ---.'
+  elements:
+  - kind: node
+    x: 60
+    y: 20
+    w: 120
+    h: 60
+    tone: purple
+    title: '6'
+    sub: owner  rw-
+    mono: true
+    titleSize: 26
+    select: o1
+    active:
+    - o1
+  - kind: node
+    x: 200
+    y: 20
+    w: 120
+    h: 60
+    tone: teal
+    title: '4'
+    sub: group  r--
+    mono: true
+    titleSize: 26
+    select: o2
+    active:
+    - o2
+  - kind: node
+    x: 340
+    y: 20
+    w: 120
+    h: 60
+    tone: amber
+    title: '0'
+    sub: other  ---
+    mono: true
+    titleSize: 26
+    select: o3
+    active:
+    - o3
+  - kind: node
+    x: 500
+    y: 20
+    w: 150
+    h: 60
+    tone: gray
+    title: r=4  w=2  x=1
+    mono: true
+    titleSize: 13
+    select: rwx
+    active:
+    - rwx
+  - kind: label
+    x: 330
+    y: 112
+    text: chmod 640 report.txt   =   chmod u=rw,g=r,o= report.txt
+    mono: true
+    size: 12.5
+    muted: true
+practice:
+  text:
+    hint: Click here and type the commands. This terminal remembers nothing between commands, so it shows each command's result as it was on servera.
+    inputLabel: Command to run in the practice terminal
+    eventNotFound: 'bash: {value0}: event not found'
+    notHere: This practice terminal only knows the examples in this lesson. Try anything else on servera.
+    notFound: 'bash: {value0}: command not found'
+    searchPrompt: '(reverse-i-search)`{value0}'':'
+    noMatch: no match yet
+    tasksTitle: Your tasks
+    allDone: All done. Now try the same on servera.
+    doneLabel: done
+    reset: Start again
+  data: {}
+  props:
+    title: 'Practice terminal: chmod and chown'
+    prompt: '[root@servera tmp]#'
+    commands:
+    - cmd: ls -l f.txt
+      out: -rw-r--r--. 1 root root 3 Oct  3 16:08 f.txt
+    - cmd: chmod 640 f.txt
+      out: ''
+    - cmd: chmod u+x,g-r,o+w f.txt
+      out: ''
+    - cmd: chmod u=rw,g=r,o= f.txt
+      out: ''
+    - cmd: chown maria:project f.txt
+      out: ''
+    - cmd: chgrp project f.txt
+      out: ''
+    - cmd: ls -l f.txt
+      out: -rw-r-----. 1 maria project 3 Oct  3 16:08 f.txt
+    - cmd: chmod -R 600 tree
+      out: ''
+    - cmd: ls -lR tree
+      out: 'tree:
+
+        total 4
+
+        -rw-------. 1 root root    0 Oct  3 16:08 a
+
+        drw-------. 2 root root 4096 Oct  3 16:08 sub
+
+
+        tree/sub:
+
+        total 0
+
+        -rw-------. 1 root root 0 Oct  3 16:08 b'
+    - cmd: chmod -R u=rwX,g=rX,o= tree
+      out: ''
+    - cmd: ls -lR tree
+      out: 'tree:
+
+        total 4
+
+        -rw-r-----. 1 root root    0 Oct  3 16:08 a
+
+        drwxr-x---. 2 root root 4096 Oct  3 16:08 sub
+
+
+        tree/sub:
+
+        total 0
+
+        -rw-r-----. 1 root root 0 Oct  3 16:08 b'
+    tasks:
+    - text: Give f.txt the mode 640 (rw-r-----).
+      commands:
+      - chmod 640 f.txt
+    - text: Add execute for the owner, remove read from the group, add write for others.
+      commands:
+      - chmod u+x,g-r,o+w f.txt
+    - text: Set the permissions exactly to rw-r----- again, using symbols.
+      commands:
+      - chmod u=rw,g=r,o= f.txt
+    - text: Give f.txt to maria and the group project in one command.
+      commands:
+      - chown maria:project f.txt
+    - text: Make tree owner-and-group readable, with directories traversable, in one recursive command.
+      commands:
+      - chmod -R u=rwX,g=rX,o= tree
+quick:
+  questions:
+  - id: q-851469da666a
+    q: What is chmod 750 file in symbols?
+    options:
+    - rwxr-x---
+    - rwxr-xr-x
+    - rw-r-x---
+    answer: 0
+    explain: 7 = rwx, 5 = r-x, 0 = ---.
+  - id: q-12186b536a0d
+    q: Which command removes write permission from the group and leaves everything else alone?
+    options:
+    - chmod g-w file
+    - chmod g=w file
+    - chmod 640 file
+    answer: 0
+    explain: g-w removes just that bit. g=w would set the group to exactly write-only, and 640 changes all three classes.
+  - id: q-3418da1cfe26
+    q: Why is chmod -R 644 on a tree of directories a mistake?
+    options:
+    - Directories lose x, so nobody can enter them
+    - It changes only files
+    - It needs root
+    answer: 0
+    explain: Directories need x to be entered. Use capital X (u=rwX) to give x to directories only, or find with -type.
+  - id: q-8ba2e9f3c12c
+    q: Who may change the owner of a file?
+    options:
+    - The owner
+    - Only root
+    - Anyone in the file's group
+    answer: 1
+    explain: Only root can give a file away. The owner may change the group to one they belong to (chgrp, chown :group).
+  - id: q-46b6bbb3a21e
+    q: 'chown -R maria: /srv/data does what?'
+    options:
+    - Sets owner maria and maria's login group on everything under /srv/data
+    - Only changes the directory
+    - Removes the group
+    answer: 0
+    explain: A trailing colon with no group name means "the user's login group", and -R applies to the whole tree.
+  - id: q-951bfbb7c365
+    q: Your script has mode 644 and fails with "Permission denied" when run as ./run.sh. What is missing?
+    options:
+    - 'Execute permission: chmod u+x run.sh'
+    - Read permission
+    - Group ownership
+    answer: 0
+    explain: Running a file needs x. Read permission is enough to read the text, but not to execute it directly.

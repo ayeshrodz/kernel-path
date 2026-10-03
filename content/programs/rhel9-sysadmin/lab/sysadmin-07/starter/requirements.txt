@@ -1,4 +1,0 @@
-Build /srv/team on clean servera. Team members can collaborate; auditor can traverse the directory and read a report but cannot alter it. New team entries inherit the team group.
-
-Apply modes, ownership and special directory permissions.
-Explain effective ACL access and test it as the intended user.

@@ -105,6 +105,23 @@ class ScriptTests(unittest.TestCase):
                         host[key] = str(root / host[key])
                 self.assertEqual(self.run_script({'kind': 'file', **host}) == 0, expected, host)
 
+    def test_acl_entries_are_matched_exactly_ignoring_effective_comments(self):
+        with tempfile.TemporaryDirectory() as temp:
+            bin_dir = Path(temp) / 'bin'
+            bin_dir.mkdir()
+            fake = bin_dir / 'getfacl'
+            fake.write_text('#!/bin/sh\nprintf "user::rw-\\nuser:auditor:rw-\\t\\t#effective:r--\\ngroup::rwx\\nmask::r--\\ndefault:group::rwx\\n"\n')
+            fake.chmod(0o755)
+            old = os.environ['PATH']
+            os.environ['PATH'] = '%s:%s' % (bin_dir, old)
+            try:
+                for entries, expected in ((['user:auditor:rw-', 'mask::r--'], True), (['default:group::rwx'], True),
+                                          (['user:auditor:r--'], False), (['user:audit:rw-'], False)):
+                    check = {'kind': 'file', 'paths': ['/tmp'], 'acl': entries}
+                    self.assertEqual(self.run_script(check) == 0, expected, entries)
+            finally:
+                os.environ['PATH'] = old
+
     def test_account_details_are_read_from_the_account_databases(self):
         """uid, groups, shell, home and password ageing come from getent and id; fake them for a test user."""
         with tempfile.TemporaryDirectory() as temp:

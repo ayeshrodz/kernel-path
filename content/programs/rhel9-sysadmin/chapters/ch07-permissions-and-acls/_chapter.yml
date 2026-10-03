@@ -1,8 +1,12 @@
 title: Permissions and ACLs
-goal: Control who can read, write and run what, including shared directories.
+goal: Read and change file permissions and ownership, build shared team directories with setgid and sticky bits, and grant exceptions with access control lists.
 objectives:
-- Apply modes, ownership and special directory permissions.
-- Explain effective ACL access and test it as the intended user.
+  - Read the permission string of ls -l and predict which user class applies and what it allows on files and directories.
+  - Change modes with chmod in symbols and octal, change owner and group, and apply changes safely to a tree.
+  - Explain the umask and the setuid, setgid and sticky bits, and build shared and drop-box directories.
+  - Read getfacl, grant and remove ACL entries with setfacl, and set default ACLs for new files.
 objectiveIds:
-- ch07.operations
-- ch07.verification
+  - ch07.reading
+  - ch07.changing
+  - ch07.defaults
+  - ch07.acls

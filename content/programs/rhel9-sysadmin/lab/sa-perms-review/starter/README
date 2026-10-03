@@ -1,0 +1,28 @@
+Exercise: sa-perms-review (chapter 7 lab)
+
+Work on servera, with sudo or as root.
+
+People
+ 1. The group analysts, with GID 36000.
+ 2. dana and evan, both members of analysts (supplementary group).
+ 3. visitor, who is not in analysts.
+
+Team directory
+ 4. /srv/analysis, owned by root, group analysts, mode 2770 (so new files
+    inherit the group).
+ 5. /srv/analysis/summary.txt, created by dana, containing the line
+    "Quarterly summary". It belongs to dana and group analysts and has
+    mode 660.
+ 6. /srv/analysis/bin/report.sh, owned by dana, group analysts, mode 750.
+    Any short script will do.
+
+Drop box
+ 7. /srv/dropbox, a directory every user can write to, where users can
+    delete only their own files (mode 1777).
+
+Exceptions for visitor (use ACLs, not group membership)
+ 8. visitor may read summary.txt, and nothing more.
+ 9. visitor may pass through /srv/analysis (execute only). New files created
+    in /srv/analysis must grant visitor read access by default.
+
+Then, on workstation:  lab grade sa-perms-review

@@ -108,6 +108,8 @@ def file_conditions(c, path):
         out.append('test %s -ef %s' % (p, word(c['sameFileAs'])))
     if 'resolvesTo' in c:
         out.append('[ "$(readlink -f %s)" = %s ]' % (p, word(c['resolvesTo'])))
+    for entry in c.get('acl', []):
+        out.append("getfacl -cp -- %s 2>/dev/null | sed 's/[[:space:]]*#.*//' | grep -qxF -- %s" % (p, shlex.quote(entry)))
     return out
 
 

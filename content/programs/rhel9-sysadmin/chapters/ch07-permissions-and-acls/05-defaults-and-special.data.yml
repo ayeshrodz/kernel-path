@@ -1,0 +1,247 @@
+umask:
+  title: How umask shapes new files
+  caption: Step through creating a file and a directory with umask 027.
+  height: 230
+  mode: steps
+  steps:
+  - title: Programs ask for a maximum
+    text: 'A program creating a file asks for 666 (rw-rw-rw-): files never start with execute. A directory starts at 777.'
+  - title: The umask removes bits
+    text: 'umask 027 means: remove nothing from the owner, write from the group (2), everything from others (7).'
+  - title: 'The result: files'
+    text: 666 with 027 removed leaves 640 (rw-r-----). The group keeps read; others get nothing.
+  - title: 'The result: directories'
+    text: 777 with 027 removed leaves 750 (rwxr-x---). Directories keep x so the group can enter them.
+  - title: Only for new things
+    text: Changing the umask does nothing to files that exist. Use chmod for those. The usual RHEL default for users is 022; root gets 022 too.
+  elements:
+  - kind: node
+    x: 10
+    y: 20
+    w: 150
+    h: 50
+    tone: gray
+    title: requested
+    sub: file 666 · dir 777
+    mono: true
+    titleSize: 12.5
+    active:
+    - 0
+    visible:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+  - kind: node
+    x: 255
+    y: 20
+    w: 170
+    h: 50
+    tone: amber
+    title: umask 027
+    sub: 'remove: ---  -w-  rwx'
+    mono: true
+    titleSize: 12.5
+    active:
+    - 1
+    visible:
+    - 1
+    - 2
+    - 3
+    - 4
+  - kind: node
+    x: 520
+    y: 20
+    w: 150
+    h: 50
+    tone: green
+    title: created
+    sub: ''
+    mono: true
+    titleSize: 12.5
+    active:
+    - 2
+    - 3
+    visible:
+    - 2
+    - 3
+    - 4
+  - kind: arrow
+    points:
+    - - 160
+      - 45
+    - - 255
+      - 45
+    visible:
+    - 1
+    - 2
+    - 3
+    - 4
+  - kind: arrow
+    points:
+    - - 425
+      - 45
+    - - 520
+      - 45
+    visible:
+    - 2
+    - 3
+    - 4
+  - kind: node
+    x: 50
+    y: 110
+    w: 250
+    h: 44
+    tone: teal
+    title: 'file:  666 → 640  rw-r-----'
+    mono: true
+    titleSize: 12.5
+    active:
+    - 2
+    visible:
+    - 2
+    - 3
+    - 4
+  - kind: node
+    x: 330
+    y: 110
+    w: 300
+    h: 44
+    tone: blue
+    title: 'directory:  777 → 750  rwxr-x---'
+    mono: true
+    titleSize: 12.5
+    active:
+    - 3
+    visible:
+    - 3
+    - 4
+  - kind: node
+    x: 180
+    y: 170
+    w: 320
+    h: 40
+    tone: gray
+    title: existing files are not touched
+    titleSize: 12.5
+    active:
+    - 4
+    visible:
+    - 4
+special:
+  title: The three special permissions
+  caption: Select one to see what it does and where it is used.
+  height: 230
+  mode: select
+  initial: setgid
+  info:
+    setuid:
+      tone: coral
+      title: setuid (4)
+      text: 'On an executable: it runs with the owner''s identity, not the caller''s. /usr/bin/passwd is owned by root and setuid, so ordinary users can change their password. Shown as s in the owner x position.'
+    setgid:
+      tone: teal
+      title: setgid (2)
+      text: 'On a directory: new files and directories get the directory''s group instead of the creator''s primary group. The key to shared project directories. Shown as s in the group x position.'
+    sticky:
+      tone: amber
+      title: sticky bit (1)
+      text: 'On a directory: users may delete or rename only their own entries, even if they can write to the directory. /tmp uses it. Shown as t in the other x position.'
+  elements:
+  - kind: node
+    x: 20
+    y: 20
+    w: 200
+    h: 70
+    tone: coral
+    title: setuid  4000
+    sub: chmod u+s  ·  -rwsr-xr-x
+    mono: true
+    titleSize: 12.5
+    select: setuid
+    active:
+    - setuid
+  - kind: node
+    x: 240
+    y: 20
+    w: 200
+    h: 70
+    tone: teal
+    title: setgid  2000
+    sub: chmod g+s  ·  drwxrws---
+    mono: true
+    titleSize: 12.5
+    select: setgid
+    active:
+    - setgid
+  - kind: node
+    x: 460
+    y: 20
+    w: 200
+    h: 70
+    tone: amber
+    title: sticky  1000
+    sub: chmod +t  ·  drwxrwxrwt
+    mono: true
+    titleSize: 12.5
+    select: sticky
+    active:
+    - sticky
+  - kind: label
+    x: 340
+    y: 118
+    text: chmod 2770 /srv/project      ← the leading digit holds the special bits
+    mono: true
+    size: 12.5
+    muted: true
+quick:
+  questions:
+  - id: q-538e2592d6a3
+    q: With umask 022, what mode does a new text file get?
+    options:
+    - '644'
+    - '755'
+    - '666'
+    answer: 0
+    explain: 666 minus 022 leaves 644 (rw-r--r--). Files do not get execute bits from the umask.
+  - id: q-c778b54d88dd
+    q: Which umask gives new files 600 and new directories 700?
+    options:
+    - '077'
+    - '027'
+    - '007'
+    answer: 0
+    explain: 077 removes everything from group and others.
+  - id: q-7e071c4518cc
+    q: A directory is mode 2770 owned by root:project. maria (primary group maria, also in project) creates a file in it. Which group owns the file?
+    options:
+    - project
+    - maria
+    - root
+    answer: 0
+    explain: The setgid bit makes new entries inherit the directory's group.
+  - id: q-9a12a73a1cd2
+    q: Why can you not delete another user's file in /tmp, even though /tmp is writable by everyone?
+    options:
+    - The sticky bit
+    - The setuid bit
+    - SELinux only
+    answer: 0
+    explain: With the sticky bit, only the file's owner, the directory's owner or root may remove or rename an entry.
+  - id: q-eec853e41ede
+    q: In ls -l, the permission string drwxrws--- shows which special bit?
+    options:
+    - setgid
+    - sticky
+    - setuid
+    answer: 0
+    explain: An s in the group x position is setgid; it is lower case because group x is also set.
+  - id: q-68f9772a675d
+    q: Members of project can read each other's new files in a setgid directory, but not write them. Which is the most likely cause?
+    options:
+    - The users' umask removes group write
+    - setgid is missing
+    - The sticky bit is set
+    answer: 0
+    explain: setgid fixes the group, not the bits. A umask of 022 gives 644; use 002 (or 007) for collaboration, or a default ACL.

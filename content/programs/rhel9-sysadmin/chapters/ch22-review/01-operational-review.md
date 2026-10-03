@@ -15,7 +15,7 @@ minutes: 10
 
 A small internal status service needs a host, an approved software source, a managed account, a readable document root, a running and enabled service, network access limited to intended callers, enforcing SELinux, persistent logs, time context, and a recoverable copy of its data. Write each condition before beginning work.
 
-Use the earlier chapters as references: [identity](#/ch06/accounts-and-groups), [permissions](#/ch07/modes-and-ownership), [service state](#/ch09/service-state), [time and logs](#/ch11/journals-and-logs), [packages](#/ch13/dnf-and-rpm), [restore testing](#/ch14/archives-and-checksums), [SELinux](#/ch16/selinux-model), and [firewall](#/ch20/firewalld-model). If a step is unclear, return to its model rather than copying an unexplained command.
+Use the earlier chapters as references: [identity](#/ch06/accounts-and-groups), [permissions](#/ch07/changing-permissions), [service state](#/ch09/service-state), [time and logs](#/ch11/journals-and-logs), [packages](#/ch13/dnf-and-rpm), [restore testing](#/ch14/archives-and-checksums), [SELinux](#/ch16/selinux-model), and [firewall](#/ch20/firewalld-model). If a step is unclear, return to its model rather than copying an unexplained command.
 
 ## Four kinds of proof
 

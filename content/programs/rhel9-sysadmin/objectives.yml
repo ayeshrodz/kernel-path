@@ -169,20 +169,36 @@
   - ch06/exercise-passwords
   - ch06/lab
   challenges: []
-- id: ch07.operations
+- id: ch07.reading
   chapter: ch07
   lessons:
-  - ch07/modes-and-ownership
-  - ch07/access-control-lists
+  - ch07/reading-permissions
   labs:
+  - ch07/exercise-reading
   - ch07/lab
   challenges: []
-- id: ch07.verification
+- id: ch07.changing
   chapter: ch07
   lessons:
-  - ch07/modes-and-ownership
-  - ch07/access-control-lists
+  - ch07/changing-permissions
   labs:
+  - ch07/exercise-changing
+  - ch07/lab
+  challenges: []
+- id: ch07.defaults
+  chapter: ch07
+  lessons:
+  - ch07/defaults-and-special
+  labs:
+  - ch07/exercise-shared
+  - ch07/lab
+  challenges: []
+- id: ch07.acls
+  chapter: ch07
+  lessons:
+  - ch07/acls
+  labs:
+  - ch07/exercise-acls
   - ch07/lab
   challenges: []
 - id: ch08.operations

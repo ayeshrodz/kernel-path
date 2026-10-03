@@ -1,0 +1,376 @@
+perm-line:
+  title: One line of ls -l
+  caption: Select a part of the listing to see what it means.
+  height: 170
+  mode: select
+  initial: user
+  info:
+    type:
+      tone: gray
+      title: File type
+      text: 'The first character: - is a regular file, d a directory, l a symbolic link.'
+    user:
+      tone: purple
+      title: Owner permissions
+      text: 'Three characters for the user who owns the file: r read, w write, x execute, or - for not allowed.'
+    group:
+      tone: teal
+      title: Group permissions
+      text: The same three for members of the group that owns the file (not counting the owner).
+    other:
+      tone: amber
+      title: Other permissions
+      text: The same three for everybody else on the system.
+    dot:
+      tone: gray
+      title: SELinux marker
+      text: A dot means the file has an SELinux label (chapter 16). A + here would mean it also has an ACL (this chapter).
+    links:
+      tone: blue
+      title: Link count
+      text: How many names the file has. For a directory it counts the entries that point at it.
+    owner:
+      tone: purple
+      title: Owner
+      text: The user who owns the file. Usually the person who created it.
+    grp:
+      tone: teal
+      title: Group owner
+      text: The one group the file belongs to. Usually the creator's primary group, unless the directory says otherwise.
+  elements:
+  - kind: node
+    x: 6
+    y: 30
+    w: 34
+    h: 46
+    tone: gray
+    title: '-'
+    mono: true
+    titleSize: 13
+    select: type
+    active:
+    - type
+  - kind: node
+    x: 44
+    y: 30
+    w: 62
+    h: 46
+    tone: purple
+    title: rw-
+    mono: true
+    titleSize: 13
+    select: user
+    active:
+    - user
+  - kind: node
+    x: 110
+    y: 30
+    w: 62
+    h: 46
+    tone: teal
+    title: r--
+    mono: true
+    titleSize: 13
+    select: group
+    active:
+    - group
+  - kind: node
+    x: 176
+    y: 30
+    w: 62
+    h: 46
+    tone: amber
+    title: '---'
+    mono: true
+    titleSize: 13
+    select: other
+    active:
+    - other
+  - kind: node
+    x: 242
+    y: 30
+    w: 28
+    h: 46
+    tone: gray
+    title: .
+    mono: true
+    titleSize: 13
+    select: dot
+    active:
+    - dot
+  - kind: node
+    x: 280
+    y: 30
+    w: 28
+    h: 46
+    tone: blue
+    title: '1'
+    mono: true
+    titleSize: 13
+    select: links
+    active:
+    - links
+  - kind: node
+    x: 318
+    y: 30
+    w: 72
+    h: 46
+    tone: purple
+    title: maria
+    mono: true
+    titleSize: 13
+    select: owner
+    active:
+    - owner
+  - kind: node
+    x: 394
+    y: 30
+    w: 86
+    h: 46
+    tone: teal
+    title: project
+    mono: true
+    titleSize: 13
+    select: grp
+    active:
+    - grp
+  - kind: label
+    x: 340
+    y: 118
+    text: -rw-r-----. 1 maria project 1024 Oct  3 10:15 report.txt
+    mono: true
+    size: 12.5
+    muted: true
+order:
+  title: Which permissions apply?
+  caption: Step through john reading a file owned by maria:project, mode 640.
+  height: 230
+  mode: steps
+  steps:
+  - title: The file
+    text: report.txt is owned by user maria and group project, with mode rw-r-----. john is a member of project.
+  - title: Is john the owner?
+    text: No, maria is. The owner bits (rw-) are skipped. If john were the owner they would be used, even if the group bits allowed more.
+  - title: Is john in the group?
+    text: Yes. The group bits (r--) now decide, and the check stops here. The "other" bits are never looked at.
+  - title: The result
+    text: r-- includes read, so cat works. Writing is refused because w is missing.
+  - title: A different user
+    text: If a user who is neither maria nor in project tried, the "other" bits (---) would apply, and everything is refused.
+  elements:
+  - kind: node
+    x: 190
+    y: 10
+    w: 300
+    h: 40
+    tone: blue
+    title: 'john runs: cat report.txt'
+    mono: true
+    titleSize: 12.5
+    active:
+    - 0
+  - kind: node
+    x: 20
+    y: 80
+    w: 190
+    h: 60
+    tone: purple
+    title: 1. owner?
+    sub: 'maria: rw-'
+    active:
+    - 1
+    - 4
+    visible:
+    - 1
+    - 2
+    - 3
+    - 4
+  - kind: node
+    x: 245
+    y: 80
+    w: 190
+    h: 60
+    tone: teal
+    title: 2. group?
+    sub: 'project: r--'
+    active:
+    - 2
+    - 3
+    visible:
+    - 2
+    - 3
+    - 4
+  - kind: node
+    x: 470
+    y: 80
+    w: 190
+    h: 60
+    tone: amber
+    title: 3. everyone else
+    sub: 'other: ---'
+    active:
+    - 4
+    visible:
+    - 4
+  - kind: arrow
+    points:
+    - - 210
+      - 110
+    - - 245
+      - 110
+    label: 'no'
+    labelDy: -6
+    visible:
+    - 2
+    - 3
+    - 4
+  - kind: arrow
+    points:
+    - - 435
+      - 110
+    - - 470
+      - 110
+    label: 'no'
+    labelDy: -6
+    visible:
+    - 4
+  - kind: node
+    x: 245
+    y: 170
+    w: 190
+    h: 44
+    tone: green
+    title: cat works, write fails
+    titleSize: 12.5
+    active:
+    - 3
+    visible:
+    - 3
+  - kind: arrow
+    points:
+    - - 340
+      - 140
+    - - 340
+      - 170
+    visible:
+    - 3
+  - kind: node
+    x: 470
+    y: 170
+    w: 190
+    h: 44
+    tone: coral
+    title: access denied
+    titleSize: 12.5
+    active:
+    - 4
+    visible:
+    - 4
+  - kind: arrow
+    points:
+    - - 565
+      - 140
+    - - 565
+      - 170
+    visible:
+    - 4
+practice:
+  text:
+    hint: Click here and type the commands. This terminal remembers nothing between commands, so it shows each command's result as it was on servera.
+    inputLabel: Command to run in the practice terminal
+    eventNotFound: 'bash: {value0}: event not found'
+    notHere: This practice terminal only knows the examples in this lesson. Try anything else on servera.
+    notFound: 'bash: {value0}: command not found'
+    searchPrompt: '(reverse-i-search)`{value0}'':'
+    noMatch: no match yet
+    tasksTitle: Your tasks
+    allDone: All done. Now try the same on servera.
+    doneLabel: done
+    reset: Start again
+  data: {}
+  props:
+    title: 'Practice terminal: reading permissions'
+    prompt: '[student@servera ~]$'
+    commands:
+    - cmd: ls -l report.txt
+      out: -rw-r-----. 1 maria project 1024 Oct  3 10:15 report.txt
+    - cmd: ls -ld /srv/project
+      out: drwxrws---. 2 root project 4096 Oct  3 10:15 /srv/project
+    - cmd: ls -ld /tmp
+      out: drwxrwxrwt. 11 root root 4096 Oct  3 10:20 /tmp
+    - cmd: stat -c "%A %a %U:%G %n" report.txt
+      out: -rw-r----- 640 maria:project report.txt
+    - cmd: id
+      out: uid=1000(student) gid=1000(student) groups=1000(student),10(wheel)
+    - cmd: id john
+      out: uid=1002(john) gid=1002(john) groups=1002(john),4500(project)
+    - cmd: cat report.txt
+      out: 'cat: report.txt: Permission denied'
+    - cmd: namei -l /srv/project/plan.txt
+      out: "f: /srv/project/plan.txt\ndrwxr-xr-x root root /\ndrwxr-xr-x root root srv\ndrwxrws--- root project project\n                     plan.txt - No such file or directory"
+    tasks:
+    - text: List report.txt in long format.
+      commands:
+      - ls -l report.txt
+    - text: Show only its permissions in octal, with owner and group.
+      commands:
+      - stat -c "%A %a %U:%G %n" report.txt
+    - text: List the directory /srv/project itself, not its contents.
+      commands:
+      - ls -ld /srv/project
+    - text: Find out which groups you belong to.
+      commands:
+      - id
+    - text: Check each directory on the way to /srv/project/plan.txt.
+      commands:
+      - namei -l /srv/project/plan.txt
+quick:
+  questions:
+  - id: q-6b074d0f417e
+    q: What does the first character of -rw-r-----. tell you?
+    options:
+    - It is a regular file
+    - It is a directory
+    - It is owned by root
+    answer: 0
+    explain: A dash means a regular file. d would be a directory and l a symbolic link.
+  - id: q-f0619edd6556
+    q: A file is owned by maria:project with mode 640. john is in project. What can john do?
+    options:
+    - Read it
+    - Read and write it
+    - Nothing
+    answer: 0
+    explain: 'John falls into the group class: r-- allows reading only.'
+  - id: q-7819e26c9c0d
+    q: maria owns a file with mode 070 (---rwx---). Can maria read it?
+    options:
+    - Yes, she is the owner
+    - No, the owner bits are ---
+    - Yes, because she is also in the group
+    answer: 1
+    explain: 'Only one class applies: the first match wins. As owner, maria gets ---, even if she is also in the group. (She could change the mode, though.)'
+  - id: q-12b2e734e7dc
+    q: On a directory, what does the x permission mean?
+    options:
+    - You can run the directory
+    - You can enter it and reach the files in it
+    - You can list its names
+    answer: 1
+    explain: 'x on a directory is "search": entering it and opening entries by name. Listing the names needs r.'
+  - id: q-5ff3e1013d18
+    q: Which tool shows the permissions of every directory along a path?
+    options:
+    - namei -l
+    - ls -R
+    - stat
+    answer: 0
+    explain: namei -l prints each component with its mode and owner, which makes a blocked directory easy to spot.
+  - id: q-9565491514df
+    q: A file is mode 644 inside a directory with mode 700 owned by root. Can student read the file?
+    options:
+    - Yes, the file is world-readable
+    - No, student cannot enter the directory
+    - Only with sudo -i
+    answer: 1
+    explain: Permissions on the file only matter if you can reach it. Without x on the directory, the path is blocked.

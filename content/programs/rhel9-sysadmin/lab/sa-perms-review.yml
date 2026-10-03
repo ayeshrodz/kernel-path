@@ -1,0 +1,110 @@
+name: sa-perms-review
+title: Permissions and ACLs
+page: ch07/lab
+transport: ssh
+version: 1
+starter:
+- README
+checkpoints:
+  final:
+    files:
+    - README
+    checks:
+    - id: group
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: The analysts group exists with GID 36000
+      paths:
+      - /etc/group
+      matches: '^analysts:x:36000:'
+    - id: members
+      kind: user
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: dana and evan are members of analysts
+      names:
+      - dana
+      - evan
+      groups:
+      - analysts
+    - id: visitor
+      kind: user
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: visitor exists and is not a member of analysts
+      names:
+      - visitor
+      notGroups:
+      - analysts
+    - id: dir
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /srv/analysis is a directory owned by group analysts with mode 2770
+      paths:
+      - /srv/analysis
+      fileType: directory
+      group: analysts
+      mode: '2770'
+    - id: summary
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: summary.txt belongs to dana and analysts, mode 660, with the required line
+      paths:
+      - /srv/analysis/summary.txt
+      fileType: regular
+      owner: dana
+      group: analysts
+      mode: '0660'
+      line: Quarterly summary
+    - id: script
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: report.sh is owned by dana, group analysts, mode 750
+      paths:
+      - /srv/analysis/bin/report.sh
+      fileType: regular
+      owner: dana
+      group: analysts
+      mode: '0750'
+      nonEmpty: true
+    - id: dropbox
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /srv/dropbox is a directory with mode 1777
+      paths:
+      - /srv/dropbox
+      fileType: directory
+      mode: '1777'
+    - id: acl-file
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: visitor may read summary.txt through an ACL
+      paths:
+      - /srv/analysis/summary.txt
+      acl:
+      - user:visitor:r--
+    - id: acl-dir
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: visitor may traverse /srv/analysis and new files grant visitor read access
+      paths:
+      - /srv/analysis
+      acl:
+      - user:visitor:--x
+      - default:user:visitor:r--

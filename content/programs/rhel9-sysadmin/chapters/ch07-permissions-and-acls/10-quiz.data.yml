@@ -1,0 +1,82 @@
+chapter:
+  questions:
+  - id: q-0caf3850fc4e
+    q: A file has mode 640, owner maria, group project. Which user gets read access?
+    options:
+    - A member of project
+    - Any user
+    - Only root
+    answer: 0
+    explain: 'The group bits are r--. Root bypasses the check too, but "any user" is wrong: others get ---.'
+  - id: q-c0792b511715
+    q: What is the mode after chmod u=rwx,g=rx,o= file?
+    options:
+    - '750'
+    - '755'
+    - '740'
+    answer: 0
+    explain: rwx = 7, r-x = 5, --- = 0.
+  - id: q-4ca95e873723
+    q: Which command reports permissions in octal?
+    options:
+    - stat -c %a file
+    - ls -l file
+    - getfacl file
+    answer: 0
+    explain: '%a is the access rights in octal.'
+  - id: q-b1bdab00387d
+    q: What does capital X do in chmod -R g+rX?
+    options:
+    - Sets execute only on directories and on files that already have x somewhere
+    - Sets execute on everything
+    - Removes execute
+    answer: 0
+    explain: X is a safe way to restore directory access in a recursive change without making ordinary files executable.
+  - id: q-5395586e1f75
+    q: umask is 027. A user creates a directory. What mode does it get?
+    options:
+    - '750'
+    - '640'
+    - '755'
+    answer: 0
+    explain: 777 with 027 removed is 750.
+  - id: q-5a0dcf3095fa
+    q: Which setup gives a team a shared directory where new files belong to the team group?
+    options:
+    - chgrp team dir; chmod 2770 dir
+    - chmod 777 dir
+    - chmod u+s dir
+    answer: 0
+    explain: setgid on a directory makes new entries inherit its group.
+  - id: q-60bb8b7a32ec
+    q: What does the sticky bit on /tmp prevent?
+    options:
+    - Users removing other users' files
+    - Users creating files
+    - Anyone reading /tmp
+    answer: 0
+    explain: Everyone can create there, but only the owner of an entry (or root) can delete it.
+  - id: q-26f8ab6cdaa4
+    q: Which file would setuid root be dangerous on?
+    options:
+    - A shell or editor
+    - A text file
+    - A directory
+    answer: 0
+    explain: A setuid root program runs as root for whoever starts it. On a general-purpose program that is a full privilege escalation.
+  - id: q-7ed2f9fe6c91
+    q: A named ACL entry is rw- but the mask is r--. What is the effective access?
+    options:
+    - r--
+    - rw-
+    - '---'
+    answer: 0
+    explain: The mask is the ceiling for named entries.
+  - id: q-93ba96bc8369
+    q: Which command shows who can reach a file by checking each directory on the way?
+    options:
+    - namei -l path
+    - ls -R
+    - find /
+    answer: 0
+    explain: namei -l lists each path component with its permissions.

@@ -788,6 +788,15 @@
             "symlink"
           ]
         },
+        "acl": {
+          "description": "Access ACL entries the path must have, as getfacl prints them without comments, for example user:auditor:r-- or default:group::rwx. Host checks only.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(default:)?(user|group|mask|other):[A-Za-z0-9_.-]*:[r-][w-][x-]$"
+          },
+          "maxItems": 20
+        },
         "hardLinks": {
           "description": "The number of names (hard links) the file must have.",
           "type": "integer",

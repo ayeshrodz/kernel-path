@@ -1,0 +1,26 @@
+flashcards:
+  cards:
+  - front: What do r, w and x mean on a regular file?
+    back: Read the contents, change them, run the file as a program.
+  - front: What do r, w and x mean on a directory?
+    back: List the names, create/delete/rename entries (needs x too), and enter it or reach files by name.
+  - front: Which permission class applies when you own the file and are also in its group?
+    back: The owner class only. The first match wins.
+  - front: Octal values of r, w, x?
+    back: r = 4, w = 2, x = 1. Add them per class.
+  - front: Set a file to rw-r-----, two ways?
+    back: chmod 640 file; chmod u=rw,g=r,o= file
+  - front: Make directories enterable in a recursive change without making files executable?
+    back: chmod -R u=rwX,g=rX,o= tree (capital X)
+  - front: Change owner and group in one command?
+    back: chown user:group file
+  - front: What does umask 027 do to new files and directories?
+    back: Files 666 → 640, directories 777 → 750.
+  - front: Shared directory whose files belong to the team group?
+    back: chgrp team dir; chmod 2770 dir (setgid)
+  - front: Which bit stops users deleting each other's files in a shared directory?
+    back: 'The sticky bit: chmod +t dir (mode 1777 for /tmp).'
+  - front: Give john read access without changing owner or group?
+    back: setfacl -m u:john:r-- file; read it with getfacl file
+  - front: Make new files in a directory inherit an ACL?
+    back: 'A default ACL: setfacl -m d:u:john:r-- dir'

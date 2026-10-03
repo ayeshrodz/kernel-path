@@ -1,0 +1,227 @@
+acl-lines:
+  title: A complete ACL
+  caption: Select an entry of getfacl output.
+  height: 230
+  mode: select
+  initial: named
+  info:
+    user:
+      tone: purple
+      title: user::rw-
+      text: The owner entry. The same as the owner bits in ls -l.
+    named:
+      tone: blue
+      title: user:john:rw-
+      text: 'A named user. This is the extra access an ACL exists for: john, who is neither the owner nor in the group, can read and write.'
+    group:
+      tone: teal
+      title: group::r--
+      text: The owning group entry. With an ACL, the group bits in ls -l show the mask instead of this entry.
+    mask:
+      tone: amber
+      title: mask::r--
+      text: 'The ceiling for named users, named groups and the owning group. Here it is r--, so john''s rw- is cut to r-- (getfacl shows #effective:r--). It does not limit the owner or other.'
+    other:
+      tone: gray
+      title: other::---
+      text: Everyone else.
+  elements:
+  - kind: node
+    x: 10
+    y: 20
+    w: 128
+    h: 56
+    tone: purple
+    title: user::rw-
+    mono: true
+    titleSize: 12.5
+    select: user
+    active:
+    - user
+  - kind: node
+    x: 142
+    y: 20
+    w: 134
+    h: 56
+    tone: blue
+    title: user:john:rw-
+    mono: true
+    titleSize: 12.5
+    select: named
+    active:
+    - named
+  - kind: node
+    x: 280
+    y: 20
+    w: 128
+    h: 56
+    tone: teal
+    title: group::r--
+    mono: true
+    titleSize: 12.5
+    select: group
+    active:
+    - group
+  - kind: node
+    x: 412
+    y: 20
+    w: 128
+    h: 56
+    tone: amber
+    title: mask::r--
+    mono: true
+    titleSize: 12.5
+    select: mask
+    active:
+    - mask
+  - kind: node
+    x: 544
+    y: 20
+    w: 128
+    h: 56
+    tone: gray
+    title: other::---
+    mono: true
+    titleSize: 12.5
+    select: other
+    active:
+    - other
+  - kind: label
+    x: 340
+    y: 112
+    text: 'user:john:rw-    #effective:r--'
+    mono: true
+    size: 12.5
+    muted: true
+default-acl:
+  title: Default ACLs are a template
+  caption: Step through what a default ACL on a directory does.
+  height: 220
+  mode: steps
+  steps:
+  - title: A shared directory
+    text: /srv/team already exists. john is not in its group, but needs to read everything created in it from now on.
+  - title: Set a default ACL
+    text: setfacl -m d:u:john:r-- /srv/team adds a default entry. It changes nothing for /srv/team itself.
+  - title: New files inherit it
+    text: A file created afterwards gets user:john:r-- automatically (limited by the mask and the creating program's mode).
+  - title: Existing files are not changed
+    text: Files that were there before keep their old ACL. Add the access entry to them directly, with -R if needed.
+  elements:
+  - kind: node
+    x: 240
+    y: 10
+    w: 200
+    h: 50
+    tone: blue
+    title: /srv/team
+    sub: default:user:john:r--
+    mono: true
+    titleSize: 12.5
+    active:
+    - 0
+    - 1
+    visible:
+    - 0
+    - 1
+    - 2
+    - 3
+  - kind: node
+    x: 20
+    y: 110
+    w: 200
+    h: 50
+    tone: gray
+    title: old.txt
+    sub: no entry for john
+    mono: true
+    titleSize: 12.5
+    active:
+    - 3
+    visible:
+    - 0
+    - 3
+  - kind: node
+    x: 460
+    y: 110
+    w: 200
+    h: 50
+    tone: green
+    title: new.txt
+    sub: user:john:r--
+    mono: true
+    titleSize: 12.5
+    active:
+    - 2
+    visible:
+    - 2
+  - kind: arrow
+    points:
+    - - 340
+      - 60
+    - - 560
+      - 110
+    label: inherited
+    labelDy: -6
+    visible:
+    - 2
+  - kind: arrow
+    points:
+    - - 300
+      - 60
+    - - 120
+      - 110
+    label: not changed
+    labelDy: -6
+    visible:
+    - 3
+quick:
+  questions:
+  - id: q-f092d3cb53a6
+    q: How do you see that a file has an ACL in ls -l?
+    options:
+    - A + after the permissions
+    - A * after the name
+    - A different colour only
+    answer: 0
+    explain: drw-rw-r--+ ... The + means extended entries exist. Run getfacl to read them.
+  - id: q-8a698b32aa37
+    q: Which command gives user john read access to report.txt without changing its owner or group?
+    options:
+    - setfacl -m u:john:r-- report.txt
+    - chmod u+r report.txt
+    - chown john report.txt
+    answer: 0
+    explain: setfacl -m modifies an entry; u:john:r-- adds a named user entry.
+  - id: q-af8c618ea44e
+    q: 'A named entry says user:john:rw-, but getfacl shows #effective:r--. Why?'
+    options:
+    - The mask is r--
+    - john is not logged in
+    - The file is read-only mounted
+    answer: 0
+    explain: The mask limits named users and groups. chmod g-w or setfacl -m m::r-- lowers it.
+  - id: q-2fe9b2f02cab
+    q: What does setfacl -m d:g:project:rwx /srv/team do?
+    options:
+    - Makes new entries in /srv/team grant group project rwx
+    - Changes /srv/team's own access only
+    - Deletes the group
+    answer: 0
+    explain: 'The d: prefix sets a default ACL, inherited by new files and directories.'
+  - id: q-e3aba3fa95f1
+    q: Which removes only john's entry from a file?
+    options:
+    - setfacl -x u:john file
+    - setfacl -b file
+    - chmod 000 file
+    answer: 0
+    explain: -x removes a given entry. -b removes all extended entries.
+  - id: q-f2a2bac94b8e
+    q: john has r-- on report.txt through an ACL but still gets "Permission denied". Which check should come first?
+    options:
+    - 'namei -l on the path: can he traverse every directory?'
+    - Reboot
+    - chmod 777 the file
+    answer: 0
+    explain: Directory execute permission on each parent is needed as well. Test as john, not as root.
