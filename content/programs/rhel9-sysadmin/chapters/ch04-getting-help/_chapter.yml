@@ -1,8 +1,8 @@
 title: Getting help
-goal: Find the answer yourself using the documentation that is already on the system.
+goal: Find answers on the system itself, with manual pages, keyword searches, command help and package documentation, instead of guessing.
 objectives:
-- Find installed command and configuration documentation.
-- Use version-matched evidence when diagnosing an unfamiliar option.
+  - Read manual pages, choose the right section, move around and search inside them, and decode a SYNOPSIS line.
+  - Find the command or page you need with keyword searches, --help, help for shell built-ins, type, and the documentation in /usr/share/doc.
 objectiveIds:
-- ch04.operations
-- ch04.verification
+  - ch04.man
+  - ch04.search

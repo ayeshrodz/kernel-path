@@ -1,27 +1,236 @@
+synopsis:
+  title: Reading a SYNOPSIS line
+  caption: Select a convention below to highlight where it appears in the two command lines.
+  height: 220
+  mode: select
+  initial: optional
+  info:
+    literal:
+      tone: purple
+      title: Type it exactly
+      text: 'cp and tar are the command names: type them as shown. In a terminal, man shows these in bold.'
+    optional:
+      tone: teal
+      title: Optional
+      text: 'Anything in square brackets may be left out: [OPTION]... means you may give options or none.'
+    repeat:
+      tone: amber
+      title: May be repeated
+      text: Three dots mean "one or more". SOURCE... DIRECTORY lets you copy several files into one directory in a single command.
+    placeholder:
+      tone: blue
+      title: Replace with your own value
+      text: 'Capitals (underlined in a terminal) are placeholders: SOURCE becomes a file name, DIRECTORY a directory, ARCHIVE the archive file.'
+    choice:
+      tone: coral
+      title: Choose exactly one
+      text: 'Braces with bars mean pick one alternative: tar needs exactly one of --create or --extract (among others).'
+  elements:
+  - kind: node
+    x: 20
+    y: 24
+    w: 60
+    h: 46
+    tone: blue
+    title: cp
+    mono: true
+    titleSize: 13.5
+    active: &id001
+    - literal
+    visible: *id001
+  - kind: node
+    x: 90
+    y: 24
+    w: 140
+    h: 46
+    tone: blue
+    title: '[OPTION]...'
+    mono: true
+    titleSize: 13.5
+    active: &id002
+    - optional
+    - repeat
+    visible: *id002
+  - kind: node
+    x: 240
+    y: 24
+    w: 130
+    h: 46
+    tone: blue
+    title: SOURCE...
+    mono: true
+    titleSize: 13.5
+    active: &id003
+    - placeholder
+    - repeat
+    visible: *id003
+  - kind: node
+    x: 380
+    y: 24
+    w: 140
+    h: 46
+    tone: blue
+    title: DIRECTORY
+    mono: true
+    titleSize: 13.5
+    active: &id004
+    - placeholder
+    visible: *id004
+  - kind: node
+    x: 20
+    y: 92
+    w: 60
+    h: 46
+    tone: blue
+    title: tar
+    mono: true
+    titleSize: 13.5
+    active: &id005
+    - literal
+    visible: *id005
+  - kind: node
+    x: 90
+    y: 92
+    w: 200
+    h: 46
+    tone: blue
+    title: '{--create|--extract}'
+    mono: true
+    titleSize: 13.5
+    active: &id006
+    - choice
+    visible: *id006
+  - kind: node
+    x: 300
+    y: 92
+    w: 176
+    h: 46
+    tone: blue
+    title: '[--file ARCHIVE]'
+    mono: true
+    titleSize: 13.5
+    active: &id007
+    - optional
+    - placeholder
+    visible: *id007
+  - kind: node
+    x: 486
+    y: 92
+    w: 110
+    h: 46
+    tone: blue
+    title: '[FILE...]'
+    mono: true
+    titleSize: 13.5
+    active: &id008
+    - optional
+    - repeat
+    visible: *id008
+  - kind: node
+    x: 8
+    y: 166
+    w: 126
+    h: 40
+    tone: purple
+    title: type as is
+    select: literal
+    active:
+    - literal
+    titleSize: 12.5
+  - kind: node
+    x: 142
+    y: 166
+    w: 126
+    h: 40
+    tone: teal
+    title: '[ optional ]'
+    select: optional
+    active:
+    - optional
+    titleSize: 12.5
+  - kind: node
+    x: 276
+    y: 166
+    w: 126
+    h: 40
+    tone: amber
+    title: '... repeat'
+    select: repeat
+    active:
+    - repeat
+    titleSize: 12.5
+  - kind: node
+    x: 410
+    y: 166
+    w: 126
+    h: 40
+    tone: blue
+    title: PLACEHOLDER
+    select: placeholder
+    active:
+    - placeholder
+    titleSize: 12.5
+  - kind: node
+    x: 544
+    y: 166
+    w: 126
+    h: 40
+    tone: coral
+    title: '{ a | b }'
+    select: choice
+    active:
+    - choice
+    titleSize: 12.5
 quick:
   questions:
-  - q: You need the fields in /etc/passwd, not the password-changing command. What do you open?
+  - id: q-abedb3ebe910
+    q: Which command shows the manual page that describes the /etc/passwd file?
     options:
+    - man passwd
     - man 5 passwd
     - man 1 passwd
-    - A latest-version password reset tutorial.
-    answer: 0
-    explain: Manual sections disambiguate command references from file formats.
-    id: q-25d4697792f8
-model:
-  connections:
-  - relates to
-  - verify
-  steps:
-  - id: part0
-    title: Question
-    text: Describe the expected and observed behavior, including the host and exact version.
-    tone: purple
-  - id: part1
-    title: Reference
-    text: Use the command section, configuration section or vendor guide that answers the question.
-    tone: teal
-  - id: part2
-    title: Experiment
-    text: Test one hypothesis on a fixture and record evidence, limits and rollback.
-    tone: green
+    - man /etc/passwd
+    answer: 1
+    explain: File formats are in section 5. man passwd opens the first match, passwd(1), the command.
+  - id: q-c0327fc784ba
+    q: Which manual section holds administration commands such as useradd and mount?
+    options:
+    - '1'
+    - '5'
+    - '7'
+    - '8'
+    answer: 3
+    explain: Section 8 is for system administration commands. Section 1 is for commands any user runs, and 5 for file formats.
+  - id: q-805b93ff65b9
+    q: You are reading a man page. How do you find the next place the word recursive appears?
+    options:
+    - Press Ctrl+F and type recursive
+    - Type /recursive, press Enter, then n for each next match
+    - Press q and run grep
+    answer: 1
+    explain: 'man pages open in less: / searches forward, n repeats the search and N goes back.'
+  - id: q-306a7df181be
+    q: 'A SYNOPSIS reads: useradd [options] LOGIN. Which command fits it?'
+    options:
+    - useradd
+    - useradd -m alice
+    - useradd [options] alice
+    answer: 1
+    explain: '[options] is optional, and LOGIN is a placeholder for the user name, which is required. The brackets are never typed.'
+  - id: q-52a9de5dddba
+    q: What does the ... after SOURCE in cp [OPTION]... SOURCE... DIRECTORY mean?
+    options:
+    - The argument is optional.
+    - You may give several source files.
+    - The option takes a value.
+    answer: 1
+    explain: 'Three dots mean the item may be repeated: several sources can be copied into one directory.'
+  - id: q-bdd9f255e62b
+    q: Which heading of a man page usually gets you to a working command fastest?
+    options:
+    - NAME
+    - EXAMPLES
+    - BUGS
+    - AUTHOR
+    answer: 1
+    explain: EXAMPLES shows complete, working command lines. Not every page has one; when it does, start there.

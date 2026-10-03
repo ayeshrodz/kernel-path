@@ -1,0 +1,66 @@
+chapter:
+  questions:
+    - id: q-b80adc6b3aa3
+      q: Which manual section would describe the format of the /etc/group file?
+      options:
+        - "1"
+        - "5"
+        - "8"
+      answer: 1
+      explain: File formats are in section 5. Section 1 is user commands and 8 administration commands.
+    - id: q-724c8aa65c0b
+      q: How do you open the page for the passwd command when a passwd file format page also exists?
+      options:
+        - "`man passwd` or `man 1 passwd`"
+        - "`man 5 passwd`"
+        - "`man --command passwd`"
+      answer: 0
+      explain: man searches section 1 before 5, so man passwd already opens the command's page; man 1 passwd says so explicitly.
+    - id: q-b315e92ddab1
+      q: "In the SYNOPSIS line mv [OPTION]... SOURCE... DIRECTORY, which part is required?"
+      options:
+        - Only OPTION
+        - SOURCE and DIRECTORY
+        - Nothing; all parts are optional
+      answer: 1
+      explain: Square brackets mark optional parts. SOURCE (one or more) and DIRECTORY have no brackets, so they are required.
+    - id: q-45eb4f3db9b3
+      q: Inside a manual page, how do you jump straight to the end?
+      options:
+        - Shift+G (G)
+        - Ctrl+E
+        - q
+      answer: 0
+      explain: Manual pages open in less, where G goes to the end and g to the start.
+    - id: q-c91f306b8ae1
+      q: Which command finds manual pages whose description mentions "network"?
+      options:
+        - "`man network`"
+        - "`man -k network`"
+        - "`whatis network`"
+      answer: 1
+      explain: man -k (apropos) searches names and descriptions. whatis only matches exact page names.
+    - id: q-8c571600d184
+      q: help history works but man history shows a page about every Bash built-in. Why?
+      options:
+        - history is a shell built-in, so its help lives in Bash itself.
+        - The history manual page is not installed.
+        - help is a newer version of man.
+      answer: 0
+      explain: Built-ins are part of Bash; type history confirms it. help documents built-ins one at a time.
+    - id: q-037c5886bc77
+      q: You want example configuration files and the README for a package. Where do you look?
+      options:
+        - "`/usr/share/doc/PACKAGE`"
+        - "`/etc/PACKAGE/doc`"
+        - "`man -K PACKAGE`"
+      answer: 0
+      explain: Packages install extra documentation under /usr/share/doc, in a directory named after the package.
+    - id: q-2aaa59a2d21f
+      q: Which is the fastest first step when you only need to remind yourself of a command's options?
+      options:
+        - "`COMMAND --help`"
+        - Reading the full RHEL documentation
+        - "`man -K COMMAND`"
+      answer: 0
+      explain: --help prints a short option summary straight away. Reach for man when you need detail or examples.

@@ -1,0 +1,75 @@
+name: sa-help-review
+title: Getting help
+page: ch04/lab
+transport: ssh
+version: 1
+starter:
+- answers.txt
+checkpoints:
+  final:
+    files:
+    - answers.txt
+    checks:
+    - id: ls-size
+      kind: file
+      'on': control
+      message: The ls option that sorts by size
+      paths:
+      - answers.txt
+      matches: ^LS_SIZE_OPTION=(-S)[ \t]*$
+    - id: passwd-section
+      kind: file
+      'on': control
+      message: The section that describes /etc/passwd
+      paths:
+      - answers.txt
+      matches: ^PASSWD_FILE_SECTION=5[ \t]*$
+    - id: passwd-fields
+      kind: file
+      'on': control
+      message: The number of fields in /etc/passwd
+      paths:
+      - answers.txt
+      matches: ^PASSWD_FIELDS=7[ \t]*$
+    - id: useradd-home
+      kind: file
+      'on': control
+      message: The useradd option that creates a home directory
+      paths:
+      - answers.txt
+      matches: ^USERADD_HOME_OPTION=(-m|--create-home)[ \t]*$
+    - id: fstab-section
+      kind: file
+      'on': control
+      message: The section that describes /etc/fstab
+      paths:
+      - answers.txt
+      matches: ^FSTAB_SECTION=5[ \t]*$
+    - id: disk-space
+      kind: file
+      'on': control
+      message: The command that reports disk space
+      paths:
+      - answers.txt
+      matches: ^DISK_SPACE_COMMAND=df[ \t]*$
+    - id: cd-kind
+      kind: file
+      'on': control
+      message: The kind of command cd is
+      paths:
+      - answers.txt
+      matches: ^CD_KIND=(builtin|shell builtin)[ \t]*$
+    - id: man-index
+      kind: file
+      'on': control
+      message: The command that rebuilds the keyword index
+      paths:
+      - answers.txt
+      matches: ^MAN_INDEX_COMMAND=mandb[ \t]*$
+    - id: tar-extract
+      kind: file
+      'on': control
+      message: The tar option that extracts
+      paths:
+      - answers.txt
+      matches: ^TAR_EXTRACT_OPTION=(-x|--extract|--get)[ \t]*$

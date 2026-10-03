@@ -1,0 +1,437 @@
+where-to-look:
+  title: Which help to reach for
+  caption: Select your situation to see where to look first.
+  height: 258
+  mode: select
+  initial: unknown
+  info:
+    known:
+      tone: purple
+      title: You know the command, not the option
+      text: Start with COMMAND --help for a short summary; open man COMMAND when you need the details or examples.
+    unknown:
+      tone: teal
+      title: You don't know the command's name
+      text: 'Describe what you want in a word or two: man -k "disk space". Try synonyms if nothing turns up.'
+    file:
+      tone: amber
+      title: A configuration file's format
+      text: 'File formats are in section 5: man 5 passwd, man 5 fstab. SEE ALSO sections lead to related files.'
+    builtin:
+      tone: blue
+      title: A shell built-in such as cd
+      text: type cd says it is a builtin; help cd explains it. Built-ins have no manual page of their own.
+    deep:
+      tone: green
+      title: Examples, design, or a whole task
+      text: Package documentation in /usr/share/doc/PACKAGE, and the RHEL documentation online for complete step-by-step guides.
+  elements:
+  - kind: node
+    x: 10
+    y: 12
+    w: 250
+    h: 40
+    tone: purple
+    title: I know the command
+    select: known
+    active:
+    - known
+    titleSize: 13
+  - kind: arrow
+    points:
+    - - 262
+      - 32
+    - - 300
+      - 32
+    active:
+    - known
+  - kind: node
+    x: 302
+    y: 12
+    w: 180
+    h: 40
+    tone: purple
+    title: COMMAND --help
+    mono: true
+    titleSize: 12.5
+    active:
+    - known
+    visible:
+    - known
+  - kind: node
+    x: 490
+    y: 12
+    w: 180
+    h: 40
+    tone: purple
+    title: man COMMAND
+    mono: true
+    titleSize: 12.5
+    active:
+    - known
+    visible:
+    - known
+  - kind: node
+    x: 10
+    y: 60
+    w: 250
+    h: 40
+    tone: teal
+    title: I don't know the command
+    select: unknown
+    active:
+    - unknown
+    titleSize: 13
+  - kind: arrow
+    points:
+    - - 262
+      - 80
+    - - 300
+      - 80
+    active:
+    - unknown
+  - kind: node
+    x: 302
+    y: 60
+    w: 180
+    h: 40
+    tone: teal
+    title: man -k WORDS
+    mono: true
+    titleSize: 12.5
+    active:
+    - unknown
+    visible:
+    - unknown
+  - kind: node
+    x: 490
+    y: 60
+    w: 180
+    h: 40
+    tone: teal
+    title: apropos WORDS
+    mono: true
+    titleSize: 12.5
+    active:
+    - unknown
+    visible:
+    - unknown
+  - kind: node
+    x: 10
+    y: 108
+    w: 250
+    h: 40
+    tone: amber
+    title: A config file's format
+    select: file
+    active:
+    - file
+    titleSize: 13
+  - kind: arrow
+    points:
+    - - 262
+      - 128
+    - - 300
+      - 128
+    active:
+    - file
+  - kind: node
+    x: 302
+    y: 108
+    w: 180
+    h: 40
+    tone: amber
+    title: man 5 FILE
+    mono: true
+    titleSize: 12.5
+    active:
+    - file
+    visible:
+    - file
+  - kind: node
+    x: 490
+    y: 108
+    w: 180
+    h: 40
+    tone: amber
+    title: whatis FILE
+    mono: true
+    titleSize: 12.5
+    active:
+    - file
+    visible:
+    - file
+  - kind: node
+    x: 10
+    y: 156
+    w: 250
+    h: 40
+    tone: blue
+    title: A shell built-in
+    select: builtin
+    active:
+    - builtin
+    titleSize: 13
+  - kind: arrow
+    points:
+    - - 262
+      - 176
+    - - 300
+      - 176
+    active:
+    - builtin
+  - kind: node
+    x: 302
+    y: 156
+    w: 180
+    h: 40
+    tone: blue
+    title: type CMD
+    mono: true
+    titleSize: 12.5
+    active:
+    - builtin
+    visible:
+    - builtin
+  - kind: node
+    x: 490
+    y: 156
+    w: 180
+    h: 40
+    tone: blue
+    title: help CMD
+    mono: true
+    titleSize: 12.5
+    active:
+    - builtin
+    visible:
+    - builtin
+  - kind: node
+    x: 10
+    y: 204
+    w: 250
+    h: 40
+    tone: green
+    title: Examples or a whole task
+    select: deep
+    active:
+    - deep
+    titleSize: 13
+  - kind: arrow
+    points:
+    - - 262
+      - 224
+    - - 300
+      - 224
+    active:
+    - deep
+  - kind: node
+    x: 302
+    y: 204
+    w: 180
+    h: 40
+    tone: green
+    title: /usr/share/doc/PKG
+    mono: true
+    titleSize: 12.5
+    active:
+    - deep
+    visible:
+    - deep
+  - kind: node
+    x: 490
+    y: 204
+    w: 180
+    h: 40
+    tone: green
+    title: docs.redhat.com
+    mono: true
+    titleSize: 12.5
+    active:
+    - deep
+    visible:
+    - deep
+practice:
+  text:
+    hint: Click here and search for help. Every command in the tasks gives the output it gave on workstation.
+    inputLabel: Command to run in the practice terminal
+    eventNotFound: 'bash: {value0}: event not found'
+    notHere: This practice terminal only knows the searches in this lesson. Try the rest on workstation.
+    notFound: 'bash: {value0}: command not found'
+    searchPrompt: '(reverse-i-search)`{value0}'':'
+    noMatch: no match yet
+    tasksTitle: Your tasks
+    allDone: All done. You can now find help for any command on the system.
+    doneLabel: done
+    reset: Start again
+  data: {}
+  props:
+    title: 'Practice terminal: finding help'
+    prompt: '[student@workstation ~]$'
+    commands:
+    - cmd: man -k passwd
+      out: 'chgpasswd (8)        - update group passwords in batch mode
+
+        chpasswd (8)         - update passwords in batch mode
+
+        fgetpwent_r (3)      - get passwd file entry reentrantly
+
+        getpwent_r (3)       - get passwd file entry reentrantly
+
+        gpasswd (1)          - administer /etc/group and /etc/gshadow
+
+        grub2-mkpasswd-pbkdf2 (1) - generate hashed password for GRUB
+
+        lpasswd (1)          - Change group or user password
+
+        mkpasswd-expect (1)  - generate new password, optionally apply it to a user
+
+        openssl-passwd (1ossl) - compute password hashes
+
+        pam_localuser (8)    - require users to be listed in /etc/passwd
+
+        passwd (1)           - update user''s authentication tokens
+
+        passwd (1ossl)       - OpenSSL application commands
+
+        passwd (5)           - password file
+
+        passwd2des (3)       - RFS password encryption
+
+        pwhistory_helper (8) - Helper binary that transfers password hashes from pass...'
+    - cmd: apropos passwd
+      out: 'chgpasswd (8)        - update group passwords in batch mode
+
+        chpasswd (8)         - update passwords in batch mode
+
+        fgetpwent_r (3)      - get passwd file entry reentrantly
+
+        getpwent_r (3)       - get passwd file entry reentrantly
+
+        gpasswd (1)          - administer /etc/group and /etc/gshadow
+
+        grub2-mkpasswd-pbkdf2 (1) - generate hashed password for GRUB
+
+        lpasswd (1)          - Change group or user password
+
+        mkpasswd-expect (1)  - generate new password, optionally apply it to a user
+
+        openssl-passwd (1ossl) - compute password hashes
+
+        pam_localuser (8)    - require users to be listed in /etc/passwd
+
+        passwd (1)           - update user''s authentication tokens
+
+        passwd (1ossl)       - OpenSSL application commands
+
+        passwd (5)           - password file
+
+        passwd2des (3)       - RFS password encryption
+
+        pwhistory_helper (8) - Helper binary that transfers password hashes from pass...'
+    - cmd: man -k "disk usage"
+      out: 'disk usage: nothing appropriate.'
+    - cmd: man -k "disk space"
+      out: df (1)               - report file system disk space usage
+    - cmd: apropos "disk space"
+      out: df (1)               - report file system disk space usage
+    - cmd: whatis passwd
+      out: 'passwd (5)           - password file
+
+        passwd (1ossl)       - OpenSSL application commands
+
+        passwd (1)           - update user''s authentication tokens'
+    - cmd: whatis useradd
+      out: useradd (8)          - create a new user or update default new user information
+    - cmd: type cd
+      out: cd is a shell builtin
+    - cmd: type ls
+      out: ls is /usr/bin/ls
+    - cmd: type history
+      out: history is a shell builtin
+    - cmd: type ll
+      out: ll is aliased to `ls -l'
+    - cmd: help cd
+      out: "cd: cd [-L|[-P [-e]] [-@]] [dir]\n    Change the shell working directory.\n\n    Change the current directory to DIR.  The default DIR is the value of the\n    HOME shell variable.\n...output\
+        \ omitted..."
+    - cmd: date --help
+      out: "Usage: date [OPTION]... [+FORMAT]\n  or:  date [-u|--utc|--universal] [MMDDhhmm[[CC]YY][.ss]]\nDisplay the current time in the given FORMAT, or set the system date.\n...output omitted..."
+    - cmd: man nosuchthing
+      out: No manual entry for nosuchthing
+    - cmd: man -w passwd
+      out: /usr/share/man/man1/passwd.1.gz
+    - cmd: man -w 5 passwd
+      out: /usr/share/man/man5/passwd.5.gz
+    - cmd: ls /usr/share/doc/bash
+      out: bash.html  bashref.html  FAQ  INTRO  RBASH  README
+    tasks:
+    - text: List every manual page about passwords with a keyword search.
+      commands:
+      - man -k passwd
+      - apropos passwd
+    - text: Find the command that reports disk space. (Try "disk usage" first.)
+      commands:
+      - man -k "disk space"
+      - apropos "disk space"
+    - text: See which manual sections have a page called passwd.
+      commands:
+      - whatis passwd
+    - text: Find out whether cd is a program or a shell built-in.
+      commands:
+      - type cd
+    - text: Read the help for the cd built-in.
+      commands:
+      - help cd
+    - text: Find where the manual page for passwd(5) is stored.
+      commands:
+      - man -w 5 passwd
+quick:
+  questions:
+  - id: q-03795cd0b52b
+    q: You need to compress files but don't know which command does it. What do you try first?
+    options:
+    - man compress
+    - man -k compress
+    - help compress
+    answer: 1
+    explain: man -k searches the names and descriptions of every page for the word. man compress only works if a page with that exact name exists.
+  - id: q-0bb9958985da
+    q: man -k finds nothing for a page you know is installed. What can root do?
+    options:
+    - Reinstall man
+    - Run mandb to rebuild the keyword index
+    - Nothing; man -k only searches section 1
+    answer: 1
+    explain: Keyword searches use the index built by mandb. RHEL updates it when packages install, but root can rebuild it by hand.
+  - id: q-6f6f9aece0f8
+    q: How do you get help for the cd command?
+    options:
+    - man cd
+    - cd --help
+    - help cd
+    answer: 2
+    explain: cd is built into Bash, so help cd explains it. type cd confirms it is a builtin.
+  - id: q-c7189f979ef9
+    q: What does type ls tell you?
+    options:
+    - That ls is the program /usr/bin/ls
+    - The manual section for ls
+    - The ls options
+    answer: 0
+    explain: 'type says how the shell will run a name: a program file, a built-in, an alias or a function.'
+  - id: q-c213e8bef388
+    q: Where do packages put READMEs, examples and change logs?
+    options:
+    - /usr/share/doc/PACKAGE
+    - /etc/doc
+    - /var/doc
+    answer: 0
+    explain: Package documentation lives under /usr/share/doc, in a directory named after the package.
+  - id: q-4a41dc984f86
+    q: What is the difference between man -k and man -K?
+    options:
+    - None
+    - -k searches names and descriptions; -K searches the full text of every page, more slowly
+    - -k is case-sensitive
+    answer: 1
+    explain: 'Use -k first: it is fast. -K finds words buried in page bodies, offering each match in turn.'

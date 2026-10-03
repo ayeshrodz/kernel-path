@@ -1,0 +1,18 @@
+flashcards:
+  cards:
+    - front: Which manual sections does an administrator use most, and for what?
+      back: "**1** user commands, **5** file formats, **8** administration commands."
+    - front: Open the manual page for the /etc/passwd file format?
+      back: "`man 5 passwd`"
+    - front: "In a SYNOPSIS, what do [ ], ... and CAPITALS mean?"
+      back: Optional, may repeat, and a placeholder to replace with your own value.
+    - front: Search manual pages by keyword?
+      back: "`man -k WORDS` or `apropos WORDS`"
+    - front: What builds the index that man -k searches?
+      back: "`mandb`, run as root (RHEL runs it when packages install)."
+    - front: How do you tell whether a command is a built-in?
+      back: "`type NAME`. Then `help NAME` documents a built-in."
+    - front: Where do packages keep READMEs and examples?
+      back: "`/usr/share/doc/PACKAGE`"
+    - front: Search inside a manual page, and find the next match?
+      back: "`/text` then Enter; `n` for the next match, `N` for the previous."

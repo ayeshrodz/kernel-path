@@ -1,4 +1,0 @@
-Investigate how to copy a directory while preserving its structure, and how to locate account-file documentation without internet access. Produce a small evidence record with a tested example.
-
-Find installed command and configuration documentation.
-Use version-matched evidence when diagnosing an unfamiliar option.

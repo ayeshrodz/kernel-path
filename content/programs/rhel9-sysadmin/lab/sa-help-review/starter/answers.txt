@@ -1,0 +1,21 @@
+# Answer each question after its = sign, with no spaces. Use only the help
+# that is on workstation: manual pages, --help, help, type, /usr/share/doc.
+
+# 1. The ls option that sorts a listing by file size:
+LS_SIZE_OPTION=
+# 2. The manual section that describes the /etc/passwd file:
+PASSWD_FILE_SECTION=
+# 3. How many fields each line of /etc/passwd has:
+PASSWD_FIELDS=
+# 4. A useradd option that creates the new user's home directory:
+USERADD_HOME_OPTION=
+# 5. The manual section that describes the /etc/fstab file:
+FSTAB_SECTION=
+# 6. The command that reports file system disk space usage:
+DISK_SPACE_COMMAND=
+# 7. What kind of command cd is, in the word type uses:
+CD_KIND=
+# 8. The command root runs to rebuild the man -k keyword index:
+MAN_INDEX_COMMAND=
+# 9. The short tar option that extracts an archive (see tar's SYNOPSIS):
+TAR_EXTRACT_OPTION=

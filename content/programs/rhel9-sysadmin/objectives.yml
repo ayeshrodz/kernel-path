@@ -89,20 +89,20 @@
   labs:
   - ch03/lab
   challenges: []
-- id: ch04.operations
+- id: ch04.man
   chapter: ch04
   lessons:
   - ch04/manual-pages
-  - ch04/documentation-workflow
   labs:
+  - ch04/exercise-manual-pages
   - ch04/lab
   challenges: []
-- id: ch04.verification
+- id: ch04.search
   chapter: ch04
   lessons:
-  - ch04/manual-pages
-  - ch04/documentation-workflow
+  - ch04/searching-for-help
   labs:
+  - ch04/exercise-find-commands
   - ch04/lab
   challenges: []
 - id: ch05.operations
