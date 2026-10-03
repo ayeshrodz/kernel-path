@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kernelpath.dev/schema/v1/data/kits/shell-practice.schema.json",
+  "title": "Practice terminal",
+  "description": "The words and data for the practice terminal kit: a browser terminal that knows a set of commands and their recorded output, with Bash history, completion and line editing, and tasks that tick off as they are done.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "text",
+    "data",
+    "props"
+  ],
+  "properties": {
+    "text": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "maxLength": 4000
+      }
+    },
+    "data": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "props": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "commands"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "prompt": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "commands": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 80,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "cmd"
+            ],
+            "properties": {
+              "cmd": {
+                "description": "A command exactly as the learner types it (spacing is normalised).",
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 300
+              },
+              "out": {
+                "description": "What it printed on the practice lab.",
+                "type": "string",
+                "maxLength": 6000
+              }
+            }
+          }
+        },
+        "tasks": {
+          "type": "array",
+          "maxItems": 12,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "text"
+            ],
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 300
+              },
+              "commands": {
+                "description": "Any of these commands, once run, completes the task.",
+                "type": "array",
+                "maxItems": 10,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 300
+                }
+              },
+              "typed": {
+                "description": "The line as typed must start with one of these, for example !! to practise history expansion.",
+                "type": "array",
+                "maxItems": 10,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 60
+                }
+              },
+              "via": {
+                "description": "How the line must have been produced: search (Ctrl+R) or last-argument (Alt+.).",
+                "enum": [
+                  "search",
+                  "last-argument"
+                ]
+              }
+            },
+            "anyOf": [
+              {
+                "required": [
+                  "commands"
+                ]
+              },
+              {
+                "required": [
+                  "typed"
+                ]
+              },
+              {
+                "required": [
+                  "via"
+                ]
+              }
+            ]
+          }
+        },
+        "words": {
+          "description": "Extra words for Tab completion, such as file names.",
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          }
+        }
+      }
+    }
+  }
+}

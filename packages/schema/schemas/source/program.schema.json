@@ -175,6 +175,11 @@
       "description": "Lab exercises are enabled for this program.",
       "type": "boolean"
     },
+    "labGuide": {
+      "description": "The page that installs the lab command, as chapter/section (for example ch01/workstation). Exercise pages link to it.",
+      "type": "string",
+      "pattern": "^ch[0-9]{2}/[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
     "theme": {
       "$ref": "theme.schema.json"
     },

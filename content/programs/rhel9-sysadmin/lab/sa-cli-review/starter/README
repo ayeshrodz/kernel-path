@@ -1,0 +1,12 @@
+Exercise: sa-cli-review (chapter 2 lab)
+
+A colleague copied the end of servera's log into server.log after the
+inventory service stopped. Investigate it from the command line and save
+your answers in this folder:
+
+  time.txt            the current time on workstation, as HH:MM (24-hour)
+  last5.txt           the last five lines of server.log
+  lines.txt           the line count of server.log, as wc -l prints it
+  servera-kernel.txt  the kernel release servera is running
+
+Then check your work:  lab grade sa-cli-review

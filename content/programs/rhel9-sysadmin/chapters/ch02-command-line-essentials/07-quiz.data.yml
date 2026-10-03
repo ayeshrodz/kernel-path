@@ -1,0 +1,84 @@
+chapter:
+  questions:
+    - id: q-d1c65d2a85cf
+      q: Which program reads the commands you type and runs them?
+      options:
+        - The terminal
+        - The shell (Bash on RHEL)
+        - The kernel
+        - The console
+      answer: 1
+      explain: The terminal only carries text in and out, and the kernel manages the hardware. The shell interprets your command line and starts the programs.
+    - id: q-894de6a87494
+      q: How does a Linux distribution differ from the Linux kernel?
+      options:
+        - A distribution is a newer version of the kernel.
+        - A distribution packages the kernel with thousands of tools, an installer, updates and support into a complete system.
+        - There is no difference; the words mean the same thing.
+      answer: 1
+      explain: Fedora, Ubuntu and RHEL all use the Linux kernel. What they add, and how they build and support it, is what makes each distribution different.
+    - id: q-59c02ac2a434
+      q: Your prompt ends with # instead of $. What should you keep in mind?
+      options:
+        - The shell is waiting for a second line of the command.
+        - You are root, and every command can change or damage the whole system.
+        - You are connected over SSH.
+      answer: 1
+      explain: "# marks a root shell. The secondary prompt for an unfinished command is >, and the prompt looks the same over SSH as locally."
+    - id: q-78b058f33257
+      q: "In head -n 20 /var/log/secure, what is -n 20?"
+      options:
+        - An argument that names the file
+        - An option with a value, which changes how many lines head prints
+        - A second command
+      answer: 1
+      explain: Options start with a dash and adjust behaviour; some, like -n, take a value. /var/log/secure is the argument.
+    - id: q-1a55508a3a6a
+      q: SSH refuses to connect to servera and reports that its host key has changed. What is the right first step?
+      options:
+        - Delete ~/.ssh entirely and try again.
+        - Find out why the key changed; only if servera was rebuilt, remove the old key with ssh-keygen -R servera.
+        - Answer yes to accept the new key.
+      answer: 1
+      explain: A changed host key can mean a rebuilt server or someone impersonating it. Remove only the one stale entry, and only once you know the change is legitimate.
+    - id: q-17ee7f8d9cb8
+      q: Which command shows a long log one screen at a time and lets you search it?
+      options:
+        - "`cat`"
+        - "`less`"
+        - "`wc`"
+        - "`head`"
+      answer: 1
+      explain: less pages through a file; / searches, n repeats the search, q quits. cat prints everything at once.
+    - id: q-0552901f4b2e
+      q: What does wc -l /etc/passwd /etc/group print?
+      options:
+        - The number of words in each file
+        - The line count of each file, then a total
+        - The longest line of each file
+      answer: 1
+      explain: -l counts lines. With several files, wc adds a total line at the end.
+    - id: q-97f548823f01
+      q: You typed a long command and want to run it again with one word changed. What is the quickest way?
+      options:
+        - Retype the whole command.
+        - Press the up arrow, move to the word with Ctrl+← or Ctrl+→, change it, and press Enter.
+        - Run history and copy the line with the mouse.
+      answer: 1
+      explain: Recalling and editing the line keeps everything you got right and avoids new typos.
+    - id: q-88a868e7fd1b
+      q: What is the difference between !! and the up arrow?
+      options:
+        - There is none.
+        - "!! runs the previous command straight away; the up arrow puts it on the line for you to check or edit first."
+        - "!! only works for the last command run as root."
+      answer: 1
+      explain: "Both use the history. !! (like !N and !string) runs at once and prints what it ran; the up arrow lets you look before you press Enter."
+    - id: q-ce9ea3d4ebf9
+      q: Why does a command you ran three times in a row appear only once in history on RHEL?
+      options:
+        - The history only keeps unique commands.
+        - RHEL sets HISTCONTROL=ignoredups, so a command identical to the one before it is not stored again.
+        - The history is cleared each time you log out.
+      answer: 1
+      explain: ignoredups skips only consecutive duplicates. The same command run again later, after something else, is stored again.

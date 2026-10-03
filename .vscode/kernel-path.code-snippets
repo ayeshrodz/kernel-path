@@ -463,6 +463,13 @@
       "{% run-stages ref=\"${1}\" /%}"
     ]
   },
+  "kp-shell-practice": {
+    "prefix": "kp-shell-practice",
+    "description": "A practice terminal in the browser: try the exercise's commands, with real recorded output, history and Tab completion; tasks tick off as you go.",
+    "body": [
+      "{% shell-practice ref=\"${1}\" /%}"
+    ]
+  },
   "kp-snapshot-chain": {
     "prefix": "kp-snapshot-chain",
     "description": "A step-through of lab snapshots and how each one builds on the last.",

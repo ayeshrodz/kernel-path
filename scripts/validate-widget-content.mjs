@@ -40,23 +40,28 @@ const kitNames = new Map();
 for (const [tag, c] of Object.entries(tagCatalog.components))
   if (c.kit) kitNames.set(tag, tag.split('-').map((w) => w[0].toUpperCase() + w.slice(1)).join(''));
 const kitName = (tag) => kitNames.get(tag);
-const { pages, interface: shared } = await readBundle();
-validate(shared, 'interface copy');
+const { site } = await readBundle();
 let count = 0;
-for (const [key, page] of Object.entries(pages)) {
-  // Each kit's copy lives in the page data under its ref, plus copy for kits it renders inside itself.
-  const catalog = {};
-  walk(page.tree, (node) => {
-    if (node.t !== 'tag' || !kitName(node.name)) return;
-    const { text, data, dependencies } = page.data[node.attrs.ref];
-    if (text || data) catalog[kitName(node.name)] = { ...(text ? { text } : {}), ...(data ? { data } : {}) };
-    Object.assign(catalog, dependencies);
-  });
-  validate(catalog, key);
-  walk(page.tree, (node) => {
-    if (node.t === 'tag' && kitName(node.name) && contracts.has(kitName(node.name)))
-      assert(catalog[kitName(node.name)] || shared[kitName(node.name)], `${key}: missing ${kitName(node.name)} content`);
-  });
-  count += Object.keys(catalog).length;
+let sharedCount = 0;
+for (const program of site.programs) {
+  const { pages, interface: shared } = await readBundle('content', program.id);
+  validate(shared, `${program.id} interface copy`);
+  sharedCount = Math.max(sharedCount, Object.keys(shared).length);
+  for (const [key, page] of Object.entries(pages)) {
+    // Each kit's copy lives in the page data under its ref, plus copy for kits it renders inside itself.
+    const catalog = {};
+    walk(page.tree, (node) => {
+      if (node.t !== 'tag' || !kitName(node.name)) return;
+      const { text, data, dependencies } = page.data[node.attrs.ref];
+      if (text || data) catalog[kitName(node.name)] = { ...(text ? { text } : {}), ...(data ? { data } : {}) };
+      Object.assign(catalog, dependencies);
+    });
+    validate(catalog, `${program.id} ${key}`);
+    walk(page.tree, (node) => {
+      if (node.t === 'tag' && kitName(node.name) && contracts.has(kitName(node.name)))
+        assert(catalog[kitName(node.name)] || shared[kitName(node.name)], `${program.id} ${key}: missing ${kitName(node.name)} content`);
+    });
+    count += Object.keys(catalog).length;
+  }
 }
-console.log(`Validated ${count} page-owned widget catalogs and ${Object.keys(shared).length} shared catalogs.`);
+console.log(`Validated ${count} page-owned widget catalogs and ${sharedCount} shared catalogs.`);

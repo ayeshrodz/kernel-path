@@ -1,0 +1,26 @@
+flashcards:
+  cards:
+    - front: What is the difference between the kernel and a distribution?
+      back: The **kernel** manages the hardware for every program. A **distribution** packages the kernel with tools, an installer and updates into a complete system.
+    - front: What does `$` or `#` at the end of the prompt mean?
+      back: "`$` an ordinary user; `#` **root**, who can change anything."
+    - front: Name the three kinds of part on a command line.
+      back: The **command**, its **options** (start with a dash) and its **arguments** (what it works on).
+    - front: What does SSH do with a server's host key on the first connection?
+      back: Shows the fingerprint, and if you answer yes, **saves it** in `~/.ssh/known_hosts` to check silently on every later connection.
+    - front: Two ways to log out of a shell?
+      back: "`exit` or **Ctrl+D**."
+    - front: Which command tells you what kind of file something is?
+      back: "`file`. Linux ignores file name extensions."
+    - front: Last 20 lines of a file?
+      back: "`tail -n 20 FILE`"
+    - front: Count only the lines of a file?
+      back: "`wc -l FILE`"
+    - front: Rerun the previous command?
+      back: "`!!`, or the up arrow then Enter."
+    - front: Rerun the latest command that started with `ssh`?
+      back: "`!ssh`, or Ctrl+R then type ssh to see it first."
+    - front: Insert the previous command's last argument?
+      back: "**Alt+.** (or Esc then .); repeat to go further back."
+    - front: Delete from the cursor to the end of the line?
+      back: "**Ctrl+K**. Ctrl+U deletes back to the start."

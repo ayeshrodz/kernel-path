@@ -1,0 +1,132 @@
+/* ---------- Linux kits: practice terminal ---------- */
+
+.shp-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 14px;
+}
+.shp-grid.is-solo {
+  grid-template-columns: minmax(0, 1fr);
+}
+.shp-term {
+  display: flex;
+  flex-direction: column;
+  min-height: 260px;
+  border-radius: var(--radius);
+  background: #17181a;
+  color: #e6e6e6;
+  font-family: var(--font-mono);
+  font-size: var(--code-size-sm);
+  line-height: 1.65;
+  cursor: text;
+}
+.shp-screen {
+  flex: 1;
+  max-height: 320px;
+  padding: 12px 14px 0;
+  overflow: auto;
+}
+.shp-line,
+.shp-out {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.shp-out {
+  color: #c7c9cc;
+}
+.shp-hint {
+  margin: 0;
+  color: #8a8d90;
+  font-family: var(--font-sans);
+  font-size: 13px;
+}
+.shp-prompt {
+  color: #5dcaa5;
+  white-space: pre;
+}
+.shp-input {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 4px 14px 12px;
+}
+.shp-input input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #f0f0f0;
+  font: inherit;
+  caret-color: #5dcaa5;
+}
+.shp-term:focus-within {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--teal-400) 55%, transparent);
+}
+.shp-search {
+  padding: 0 14px 12px;
+  color: #fac775;
+  white-space: pre-wrap;
+}
+.shp-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.shp-tasks-title {
+  margin: 0;
+  font-weight: 600;
+}
+.shp-tasks ol {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.shp-tasks li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+.shp-tick {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 600;
+}
+.shp-tasks li.is-done {
+  color: var(--text-3);
+}
+.shp-tasks li.is-done .shp-tick {
+  border-color: var(--ok);
+  background: var(--ok);
+  color: var(--bg-elev);
+  animation: km-pop 0.35s var(--ease-spring);
+}
+.shp-tasks .btn {
+  align-self: flex-start;
+  margin-top: auto;
+}
+@media (max-width: 720px) {
+  .shp-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.shp-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

@@ -1,0 +1,318 @@
+file-viewers:
+  title: Which part of a file each command shows
+  caption: Select a command to see which part of a long file it prints.
+  height: 280
+  mode: select
+  initial: tail
+  info:
+    cat:
+      tone: purple
+      title: cat prints everything
+      text: Every line, start to finish, with no pause. Ideal for short files such as /etc/hostname; unreadable for long ones.
+    less:
+      tone: blue
+      title: less shows one screen at a time
+      text: You move with Space, b and the arrow keys, search with /, and quit with q. Nothing scrolls past before you have read it.
+    head:
+      tone: teal
+      title: head prints the beginning
+      text: The first ten lines, or as many as -n asks for. Good for seeing what kind of content a file holds.
+    tail:
+      tone: amber
+      title: tail prints the end
+      text: The last ten lines, or -n N. Logs grow at the bottom, so this is where the newest entries are.
+    wc:
+      tone: coral
+      title: wc counts instead of printing
+      text: Lines, words and bytes for the whole file. -l counts only lines.
+  elements:
+    - kind: group
+      x: 20
+      y: 14
+      w: 230
+      h: 252
+      tone: gray
+      label: /var/log/messages
+    - kind: node
+      x: 38
+      y: 48
+      w: 194
+      h: 46
+      tone: blue
+      title: first 10 lines
+      active:
+        - cat
+        - less
+        - head
+        - wc
+    - kind: node
+      x: 38
+      y: 104
+      w: 194
+      h: 94
+      tone: gray
+      title: thousands of lines
+      sub: the middle of the file
+      active:
+        - cat
+        - wc
+    - kind: node
+      x: 38
+      y: 208
+      w: 194
+      h: 46
+      tone: amber
+      title: last 10 lines
+      active:
+        - cat
+        - tail
+        - wc
+    - kind: node
+      x: 340
+      y: 18
+      w: 300
+      h: 42
+      tone: purple
+      title: cat /var/log/messages
+      mono: true
+      select: cat
+      active:
+        - cat
+    - kind: node
+      x: 340
+      y: 70
+      w: 300
+      h: 42
+      tone: blue
+      title: less /var/log/messages
+      mono: true
+      select: less
+      active:
+        - less
+    - kind: node
+      x: 340
+      y: 122
+      w: 300
+      h: 42
+      tone: teal
+      title: head /var/log/messages
+      mono: true
+      select: head
+      active:
+        - head
+    - kind: node
+      x: 340
+      y: 174
+      w: 300
+      h: 42
+      tone: amber
+      title: tail /var/log/messages
+      mono: true
+      select: tail
+      active:
+        - tail
+    - kind: node
+      x: 340
+      y: 226
+      w: 300
+      h: 42
+      tone: coral
+      title: wc /var/log/messages
+      mono: true
+      select: wc
+      active:
+        - wc
+practice:
+  text:
+    hint: Click here and type a command, then press Enter. Try Tab after a few letters, and the up arrow to bring back a command.
+    inputLabel: Command to run in the practice terminal
+    eventNotFound: "bash: {value0}: event not found"
+    notHere: This practice terminal only knows the exact commands in this lesson. Try it on the lab, where every command works.
+    notFound: "bash: {value0}: command not found"
+    searchPrompt: "(reverse-i-search)`{value0}':"
+    noMatch: no match yet
+    tasksTitle: Your tasks
+    allDone: All done. Now try the same on workstation.
+    doneLabel: done
+    reset: Start again
+  data: {}
+  props:
+    title: "Practice terminal: run commands and read files"
+    prompt: "[student@workstation ~]$"
+    tasks:
+      - text: Print today's date and time.
+        commands:
+          - date
+      - text: Print only the time, on a 24-hour clock.
+        commands:
+          - date +%R
+      - text: Find out what kind of file /usr/bin/passwd is.
+        commands:
+          - file /usr/bin/passwd
+      - text: Show the first five lines of /etc/passwd.
+        commands:
+          - head -n 5 /etc/passwd
+          - head -5 /etc/passwd
+      - text: Show only the last three lines of /etc/passwd.
+        commands:
+          - tail -n 3 /etc/passwd
+          - tail -3 /etc/passwd
+      - text: Count the lines of /etc/passwd and /etc/group with one command.
+        commands:
+          - wc -l /etc/passwd /etc/group
+          - wc -l /etc/group /etc/passwd
+    commands:
+      - cmd: whoami
+        out: student
+      - cmd: hostname
+        out: workstation.lab.example.com
+      - cmd: date
+        out: Sat Oct  3 09:30:23 AM UTC 2026
+      - cmd: date +%R
+        out: "09:30"
+      - cmd: date +%x
+        out: 10/03/2026
+      - cmd: date +%A
+        out: Saturday
+      - cmd: date +%Y-%m-%d
+        out: "2026-10-03"
+      - cmd: uptime
+        out: " 09:34:53 up 7 min,  0 users,  load average: 0.08, 0.06, 0.04"
+      - cmd: file /etc/passwd
+        out: "/etc/passwd: ASCII text"
+      - cmd: file /usr/bin/passwd
+        out: "/usr/bin/passwd: setuid ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=3e7d2823ae1f6faa96ad82397a23238094040086, for GNU/Linux 3.2.0, stripped"
+      - cmd: file /home
+        out: "/home: directory"
+      - cmd: file /etc/hostname
+        out: "/etc/hostname: ASCII text"
+      - cmd: cat /etc/hostname
+        out: workstation.lab.example.com
+      - cmd: cat /etc/redhat-release
+        out: Rocky Linux release 9.8 (Blue Onyx)
+      - cmd: head /etc/passwd
+        out: |
+          root:x:0:0:root:/root:/bin/bash
+          bin:x:1:1:bin:/bin:/sbin/nologin
+          daemon:x:2:2:daemon:/sbin:/sbin/nologin
+          adm:x:3:4:adm:/var/adm:/sbin/nologin
+          lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+          sync:x:5:0:sync:/sbin:/bin/sync
+          shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+          halt:x:7:0:halt:/sbin:/sbin/halt
+          mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+          operator:x:11:0:operator:/root:/sbin/nologin
+      - cmd: head -n 3 /etc/passwd
+        out: |
+          root:x:0:0:root:/root:/bin/bash
+          bin:x:1:1:bin:/bin:/sbin/nologin
+          daemon:x:2:2:daemon:/sbin:/sbin/nologin
+      - cmd: head -n 5 /etc/passwd
+        out: |
+          root:x:0:0:root:/root:/bin/bash
+          bin:x:1:1:bin:/bin:/sbin/nologin
+          daemon:x:2:2:daemon:/sbin:/sbin/nologin
+          adm:x:3:4:adm:/var/adm:/sbin/nologin
+          lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+      - cmd: head -5 /etc/passwd
+        out: |
+          root:x:0:0:root:/root:/bin/bash
+          bin:x:1:1:bin:/bin:/sbin/nologin
+          daemon:x:2:2:daemon:/sbin:/sbin/nologin
+          adm:x:3:4:adm:/var/adm:/sbin/nologin
+          lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+      - cmd: tail /etc/passwd
+        out: |
+          games:x:12:100:games:/usr/games:/sbin/nologin
+          ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+          nobody:x:65534:65534:Kernel Overflow User:/:/sbin/nologin
+          systemd-coredump:x:999:999:systemd Core Dumper:/:/sbin/nologin
+          tss:x:59:59:Account used for TPM access:/:/usr/sbin/nologin
+          sshd:x:74:74:Privilege-separated SSH:/usr/share/empty.sshd:/usr/sbin/nologin
+          polkitd:x:998:998:User for polkitd:/:/sbin/nologin
+          dbus:x:81:81:System Message Bus:/:/usr/sbin/nologin
+          student:x:1000:1000:Student User:/home/student:/bin/bash
+          chrony:x:997:997:chrony system user:/var/lib/chrony:/sbin/nologin
+      - cmd: tail -n 3 /etc/passwd
+        out: |
+          dbus:x:81:81:System Message Bus:/:/usr/sbin/nologin
+          student:x:1000:1000:Student User:/home/student:/bin/bash
+          chrony:x:997:997:chrony system user:/var/lib/chrony:/sbin/nologin
+      - cmd: tail -3 /etc/passwd
+        out: |
+          dbus:x:81:81:System Message Bus:/:/usr/sbin/nologin
+          student:x:1000:1000:Student User:/home/student:/bin/bash
+          chrony:x:997:997:chrony system user:/var/lib/chrony:/sbin/nologin
+      - cmd: wc /etc/passwd
+        out: " 20  37 959 /etc/passwd"
+      - cmd: wc -l /etc/passwd
+        out: 20 /etc/passwd
+      - cmd: wc -l /etc/group
+        out: 39 /etc/group
+      - cmd: wc -l /etc/passwd /etc/group
+        out: |
+            20 /etc/passwd
+            39 /etc/group
+            59 total
+      - cmd: wc -l /etc/group /etc/passwd
+        out: |
+            39 /etc/group
+            20 /etc/passwd
+            59 total
+      - cmd: date --help
+        out: |
+          Usage: date [OPTION]... [+FORMAT]
+            or:  date [-u|--utc|--universal] [MMDDhhmm[[CC]YY][.ss]]
+          Display the current time in the given FORMAT, or set the system date.
+          ...output omitted...
+    words:
+      - /etc/passwd
+      - /etc/group
+      - /etc/hostname
+      - /etc/redhat-release
+      - /usr/bin/passwd
+      - /home
+quick:
+  questions:
+    - id: q-73c9f84efdcf
+      q: Which command prints only the last five lines of /var/log/messages?
+      options:
+        - "`head -n 5 /var/log/messages`"
+        - "`tail -n 5 /var/log/messages`"
+        - "`tail 5 /var/log/messages`"
+        - "`less -n 5 /var/log/messages`"
+      answer: 1
+      explain: tail prints the end of a file, and -n sets how many lines. Without -n, tail would treat 5 as a file name.
+    - id: q-5ef03238b440
+      q: A file is called backup.txt. How do you find out whether it really is text?
+      options:
+        - Trust the .txt extension.
+        - Run file backup.txt, which looks at the content.
+        - Run wc backup.txt.
+      answer: 1
+      explain: Linux ignores extensions. file reads the start of the file and reports what it really is, for example gzip compressed data.
+    - id: q-da08fa02e8bb
+      q: What does the semicolon do in date ; whoami?
+      options:
+        - Passes the output of date to whoami.
+        - Runs date, then whoami, as two separate commands on one line.
+        - Runs whoami only if date succeeds.
+      answer: 1
+      explain: A semicolon simply separates commands. Passing output between commands is the pipe (|), which chapter 5 covers.
+    - id: q-5ee126aa8c6b
+      q: You type a long command, end the line with a backslash and press Enter. What happens?
+      options:
+        - The command runs immediately.
+        - The shell waits for the rest of the command on the next line, showing a > prompt.
+        - The shell reports a syntax error.
+      answer: 1
+      explain: The backslash escapes the newline, so the command continues. Don't type the > yourself; it is the shell's secondary prompt.
+    - id: q-ac3e9fb424a7
+      q: How do you quit less and get your prompt back?
+      options:
+        - Ctrl+D
+        - q
+        - Esc
+        - exit
+      answer: 1
+      explain: q quits less (and manual pages, which use less). Space and b page forward and back, and / searches.

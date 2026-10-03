@@ -4,6 +4,10 @@ import { Children, isValidElement, useEffect, useRef, useState } from 'react';
 import { Link } from '@/lib/router';
 import { FileText, House, School, WandSparkles } from 'lucide-react';
 import { ENVS, useLabEnv } from '@/lib/labEnv';
+import { program } from '@/lib/course';
+
+/** A program without variants has one practice environment, so its exercises show one set of steps. */
+const singleEnvironment = () => !program?.variants?.length;
 import OptionSwitch from './OptionSwitch';
 
 const icons = { classroom: School, home: House };
@@ -162,6 +166,21 @@ export function StarterFiles({ name }) {
 
 /** The "Finish" step of an exercise, for both environments. */
 export function Finish({ name, grade = false }) {
+  if (singleEnvironment())
+    return (
+      <p className="lab-finish">
+        {grade ? (
+          <>
+            On workstation, check your work with <code>lab grade {name}</code>. Fix anything that fails and grade again; grading only reads.
+            Then{' '}
+          </>
+        ) : (
+          'On workstation, '
+        )}
+        <code>lab finish {name}</code> moves the exercise folder to <code>~/lab-archive/</code>, and on the Ubuntu host{' '}
+        <code>rht-vmctl reset servers</code> returns the servers to their clean state for the next exercise.
+      </p>
+    );
   return (
     <Env>
       <Classroom>
@@ -200,6 +219,24 @@ export function HomeSetup({ children }) {
 
 export function LabPrep({ name, classroom, starter, own, extra }) {
   const [env] = useLabEnv();
+  const guide = `/${program?.labGuide ?? 'ch01/control-node'}`;
+  if (singleEnvironment())
+    return (
+      <div className="lab-prep">
+        <p className="lab-meta-label">Before you begin</p>
+        <ol className="lab-prep-steps">
+          <li>
+            On the Ubuntu host: <code>rht-vmctl reset servers</code> (start from clean servers).
+          </li>
+          <li>
+            On workstation: <code>{classroom}</code>. The <Link to={guide}>lab command</Link> creates <code>~/{name}</code>
+            {starter ? ' with the exercise brief and these files:' : '.'}
+            {starter && <StarterFiles name={name} />}
+          </li>
+        </ol>
+        {extra}
+      </div>
+    );
   return (
     <div className={`env env-${env} lab-prep`}>
       <div className="lab-prep-head">
@@ -228,7 +265,7 @@ export function LabPrep({ name, classroom, starter, own, extra }) {
               {starter && (
                 <li>
                   On workstation: <code>{classroom}</code>
-                  {!own && ', the same command as in a classroom'}. The <Link to="/ch01/control-node">home-lab lab command</Link> creates{' '}
+                  {!own && ', the same command as in a classroom'}. The <Link to={guide}>home-lab lab command</Link> creates{' '}
                   <code>~/{name}</code> with these starter files:
                   <StarterFiles name={name} />
                 </li>

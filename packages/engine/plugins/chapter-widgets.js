@@ -16,7 +16,7 @@ export default function chapterWidgets() {
       const diagrams = path.join(root, 'src/diagrams');
       server.watcher.add(diagrams);
       const refresh = (file) => {
-        if (!/[\\/]ch\d+[\\/]index\.js$/.test(file) || !file.startsWith(diagrams)) return;
+        if (!/[\\/](?:ch\d+|linux)[\\/]index\.js$/.test(file) || !file.startsWith(diagrams)) return;
         const module = server.moduleGraph.getModuleById('\0' + virtualId);
         if (module) server.moduleGraph.invalidateModule(module);
         server.ws.send({ type: 'full-reload' });
@@ -31,7 +31,7 @@ export default function chapterWidgets() {
       if (id !== '\0' + virtualId) return;
       const entries = [];
       const seen = new Set();
-      for (const chapter of fs.readdirSync(path.join(root, 'src/diagrams')).filter((name) => /^ch\d+$/.test(name))) {
+      for (const chapter of fs.readdirSync(path.join(root, 'src/diagrams')).filter((name) => /^(?:ch\d+|linux)$/.test(name))) {
         const index = path.join(root, 'src/diagrams', chapter, 'index.js');
         this.addWatchFile(index);
         const source = fs.readFileSync(index, 'utf8');

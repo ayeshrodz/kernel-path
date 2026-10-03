@@ -1,8 +1,10 @@
 title: Command-line essentials
-goal: 'Work comfortably in the shell: run commands, combine them, and redirect their input and output.'
+goal: Log in to a Linux system, run commands from the Bash shell, and save time with completion, history and line editing.
 objectives:
-- Run commands and inspect their exit status.
-- Predict quoting, expansion and redirection before running a command.
+  - Explain what Linux, a distribution and the shell are, read the shell prompt, and log in to another machine with SSH.
+  - Run commands with options and arguments, and read files with cat, less, head, tail and wc.
+  - Save keystrokes with Tab completion, the command history and the line-editing shortcuts.
 objectiveIds:
-- ch02.operations
-- ch02.verification
+  - ch02.shell
+  - ch02.commands
+  - ch02.shortcuts

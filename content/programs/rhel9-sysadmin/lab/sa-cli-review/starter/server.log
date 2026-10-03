@@ -1,0 +1,40 @@
+Oct  3 08:00:05 servera inventory-api[2214]: POST /items 201 31ms
+Oct  3 08:01:22 servera inventory-api[2214]: GET /health 200 1ms
+Oct  3 08:02:05 servera inventory-api[2214]: GET /health 200 1ms
+Oct  3 08:02:37 servera inventory-api[2214]: POST /items 201 31ms
+Oct  3 08:03:08 servera inventory-api[2214]: GET /health 200 1ms
+Oct  3 08:04:18 servera inventory-api[2214]: POST /items 201 31ms
+Oct  3 08:04:39 servera inventory-api[2214]: GET /health 200 1ms
+Oct  3 08:05:03 servera chronyd[812]: Selected source 162.159.200.123 (2.rocky.pool.ntp.org)
+Oct  3 08:05:26 servera inventory-api[2214]: POST /items 201 31ms
+Oct  3 08:07:01 servera chronyd[812]: Selected source 162.159.200.123 (2.rocky.pool.ntp.org)
+Oct  3 08:07:58 servera inventory-api[2214]: POST /items 201 31ms
+Oct  3 08:09:16 servera systemd-logind[1031]: New session 4 of user student.
+Oct  3 08:09:46 servera systemd-logind[1031]: New session 5 of user student.
+Oct  3 08:11:11 servera systemd-logind[1031]: New session 6 of user student.
+Oct  3 08:12:43 servera sshd[3120]: Accepted publickey for student from 172.25.250.9 port 43532 ssh2: ED25519 SHA256:3kq9bQ
+Oct  3 08:13:40 servera inventory-api[2214]: GET /items/42 200 4ms
+Oct  3 08:14:00 servera chronyd[812]: Selected source 162.159.200.123 (2.rocky.pool.ntp.org)
+Oct  3 08:15:20 servera inventory-api[2214]: GET /items/42 200 4ms
+Oct  3 08:16:33 servera sshd[3459]: Accepted publickey for student from 172.25.250.9 port 46504 ssh2: ED25519 SHA256:3kq9bQ
+Oct  3 08:17:27 servera inventory-api[2214]: GET /items 200 12ms
+Oct  3 08:18:29 servera systemd[1]: Started Session 7 of User student.
+Oct  3 08:19:06 servera chronyd[812]: Selected source 162.159.200.123 (2.rocky.pool.ntp.org)
+Oct  3 08:19:27 servera systemd[1]: Started Session 8 of User student.
+Oct  3 08:20:09 servera inventory-api[2214]: GET /health 200 1ms
+Oct  3 08:21:34 servera chronyd[812]: Selected source 162.159.200.123 (2.rocky.pool.ntp.org)
+Oct  3 08:22:47 servera inventory-api[2214]: GET /items/42 200 4ms
+Oct  3 08:24:00 servera chronyd[812]: Selected source 162.159.200.123 (2.rocky.pool.ntp.org)
+Oct  3 08:25:35 servera systemd-logind[1031]: New session 9 of user student.
+Oct  3 08:26:18 servera inventory-api[2214]: GET /items/42 200 4ms
+Oct  3 08:26:50 servera systemd[1]: Started Session 10 of User student.
+Oct  3 08:28:06 servera systemd-logind[1031]: New session 11 of user student.
+Oct  3 08:29:08 servera systemd-logind[1031]: New session 12 of user student.
+Oct  3 08:29:37 servera sshd[2727]: Accepted publickey for student from 172.25.250.9 port 59095 ssh2: ED25519 SHA256:3kq9bQ
+Oct  3 08:30:28 servera systemd[1]: Started Session 13 of User student.
+Oct  3 08:31:35 servera inventory-api[2214]: POST /items 201 31ms
+Oct  3 08:58:12 servera inventory-api[2214]: database connection lost: timed out after 30s
+Oct  3 08:58:12 servera inventory-api[2214]: retrying in 5s (attempt 1 of 3)
+Oct  3 08:58:17 servera inventory-api[2214]: retrying in 5s (attempt 2 of 3)
+Oct  3 08:58:22 servera inventory-api[2214]: retrying in 5s (attempt 3 of 3)
+Oct  3 08:58:27 servera systemd[1]: inventory-api.service: Main process exited, code=exited, status=1/FAILURE

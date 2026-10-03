@@ -1392,6 +1392,25 @@
         "ref"
       ]
     },
+    "shell-practice": {
+      "summary": "A practice terminal in the browser: try the exercise's commands, with real recorded output, history and Tab completion; tasks tick off as you go.",
+      "status": "stable",
+      "since": 1,
+      "kit": true,
+      "placement": "block",
+      "children": "none",
+      "attributes": {
+        "ref": {
+          "type": "string",
+          "description": "Key of its words and data in the page data.",
+          "format": "dataRef"
+        }
+      },
+      "required": [
+        "ref"
+      ],
+      "data": "data/kits/shell-practice.schema.json"
+    },
     "snapshot-chain": {
       "summary": "A step-through of lab snapshots and how each one builds on the last.",
       "status": "stable",

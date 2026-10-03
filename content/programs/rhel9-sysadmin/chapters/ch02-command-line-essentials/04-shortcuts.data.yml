@@ -1,0 +1,299 @@
+line-editing:
+  title: What each editing shortcut does
+  caption: The cursor (amber) sits after -n 20. Select a shortcut to see where the cursor jumps, or what is deleted (red).
+  height: 200
+  mode: select
+  initial: ctrl-a
+  info:
+    ctrl-a:
+      tone: blue
+      title: Ctrl+A jumps to the start
+      text: The cursor moves before tail, so you can add something in front, such as sudo.
+    ctrl-e:
+      tone: blue
+      title: Ctrl+E jumps to the end
+      text: The cursor moves after the file name, ready to add another argument.
+    ctrl-u:
+      tone: red
+      title: Ctrl+U deletes back to the start
+      text: Everything before the cursor goes, here tail -n 20. Handy for clearing a mistyped beginning while keeping the rest.
+    ctrl-k:
+      tone: red
+      title: Ctrl+K deletes to the end
+      text: Everything after the cursor goes, here the file name, so you can type a different one.
+    ctrl-left:
+      tone: teal
+      title: Ctrl+← jumps one word left
+      text: The cursor moves to the start of the word before it, here to the start of 20, then -n on the next press.
+    ctrl-right:
+      tone: teal
+      title: Ctrl+→ jumps one word right
+      text: The cursor moves to the end of the next word, here after /var/log/messages.
+  elements:
+    - kind: node
+      x: 18
+      y: 30
+      w: 12
+      h: 44
+      tone: blue
+      title: ""
+      active:
+        - ctrl-a
+    - kind: node
+      x: 36
+      y: 30
+      w: 100
+      h: 44
+      tone: gray
+      title: tail
+      mono: true
+      hot:
+        - ctrl-u
+    - kind: node
+      x: 144
+      y: 30
+      w: 120
+      h: 44
+      tone: gray
+      title: -n 20
+      mono: true
+      hot:
+        - ctrl-u
+      active:
+        - ctrl-left
+    - kind: node
+      x: 270
+      y: 30
+      w: 14
+      h: 44
+      tone: amber
+      title: ""
+      active: true
+    - kind: node
+      x: 290
+      y: 30
+      w: 340
+      h: 44
+      tone: gray
+      title: /var/log/messages
+      mono: true
+      hot:
+        - ctrl-k
+      active:
+        - ctrl-right
+    - kind: node
+      x: 636
+      y: 30
+      w: 12
+      h: 44
+      tone: blue
+      title: ""
+      active:
+        - ctrl-e
+    - kind: node
+      x: 10
+      y: 120
+      w: 100
+      h: 44
+      tone: blue
+      title: Ctrl+A
+      select: ctrl-a
+      active:
+        - ctrl-a
+    - kind: node
+      x: 120
+      y: 120
+      w: 100
+      h: 44
+      tone: blue
+      title: Ctrl+E
+      select: ctrl-e
+      active:
+        - ctrl-e
+    - kind: node
+      x: 230
+      y: 120
+      w: 100
+      h: 44
+      tone: red
+      title: Ctrl+U
+      select: ctrl-u
+      active:
+        - ctrl-u
+    - kind: node
+      x: 340
+      y: 120
+      w: 100
+      h: 44
+      tone: red
+      title: Ctrl+K
+      select: ctrl-k
+      active:
+        - ctrl-k
+    - kind: node
+      x: 450
+      y: 120
+      w: 100
+      h: 44
+      tone: teal
+      title: Ctrl+←
+      select: ctrl-left
+      active:
+        - ctrl-left
+    - kind: node
+      x: 560
+      y: 120
+      w: 100
+      h: 44
+      tone: teal
+      title: Ctrl+→
+      select: ctrl-right
+      active:
+        - ctrl-right
+practice:
+  text:
+    hint: Click here and run a few commands, then practise rerunning them. The up arrow, Tab, Alt+. and Ctrl+R all work.
+    inputLabel: Command to run in the practice terminal
+    eventNotFound: "bash: {value0}: event not found"
+    notHere: This practice terminal only knows the exact commands in this lesson. Try it on the lab, where every command works.
+    notFound: "bash: {value0}: command not found"
+    searchPrompt: "(reverse-i-search)`{value0}':"
+    noMatch: no match yet
+    tasksTitle: Your tasks
+    allDone: All done. These keys work the same in every Bash shell.
+    doneLabel: done
+    reset: Start again
+  data: {}
+  props:
+    title: "Practice terminal: history and shortcuts"
+    prompt: "[student@workstation ~]$"
+    tasks:
+      - text: Print the time with date +%R, then count the lines of /etc/passwd with wc -l.
+        commands:
+          - wc -l /etc/passwd
+      - text: Run the previous command again by typing two characters.
+        typed:
+          - "!!"
+      - text: Run the date command again with ! and the start of its name.
+        typed:
+          - "!d"
+      - text: List your history, then rerun a command by its number.
+        typed:
+          - "!1"
+          - "!2"
+          - "!3"
+          - "!4"
+          - "!5"
+          - "!6"
+          - "!7"
+          - "!8"
+          - "!9"
+      - text: Type head, a space, then Alt+. to reuse /etc/passwd, and press Enter.
+        commands:
+          - head /etc/passwd
+        via: last-argument
+      - text: Press Ctrl+R, type wc, and press Enter to rerun the match.
+        commands:
+          - wc -l /etc/passwd
+        via: search
+    commands:
+      - cmd: date
+        out: Sat Oct  3 09:30:23 AM UTC 2026
+      - cmd: date +%R
+        out: "09:30"
+      - cmd: whoami
+        out: student
+      - cmd: wc -l /etc/passwd
+        out: 20 /etc/passwd
+      - cmd: wc /etc/passwd
+        out: " 20  37 959 /etc/passwd"
+      - cmd: file /etc/passwd
+        out: "/etc/passwd: ASCII text"
+      - cmd: file /etc/redhat-release
+        out: "/etc/redhat-release: symbolic link to rocky-release"
+      - cmd: cat /etc/redhat-release
+        out: Rocky Linux release 9.8 (Blue Onyx)
+      - cmd: head /etc/passwd
+        out: |
+          root:x:0:0:root:/root:/bin/bash
+          bin:x:1:1:bin:/bin:/sbin/nologin
+          daemon:x:2:2:daemon:/sbin:/sbin/nologin
+          adm:x:3:4:adm:/var/adm:/sbin/nologin
+          lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+          sync:x:5:0:sync:/sbin:/bin/sync
+          shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+          halt:x:7:0:halt:/sbin:/sbin/halt
+          mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+          operator:x:11:0:operator:/root:/sbin/nologin
+      - cmd: tail -n 3 /etc/passwd
+        out: |
+          dbus:x:81:81:System Message Bus:/:/usr/sbin/nologin
+          student:x:1000:1000:Student User:/home/student:/bin/bash
+          chrony:x:997:997:chrony system user:/var/lib/chrony:/sbin/nologin
+      - cmd: tail /etc/passwd
+        out: |
+          games:x:12:100:games:/usr/games:/sbin/nologin
+          ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+          nobody:x:65534:65534:Kernel Overflow User:/:/sbin/nologin
+          systemd-coredump:x:999:999:systemd Core Dumper:/:/sbin/nologin
+          tss:x:59:59:Account used for TPM access:/:/usr/sbin/nologin
+          sshd:x:74:74:Privilege-separated SSH:/usr/share/empty.sshd:/usr/sbin/nologin
+          polkitd:x:998:998:User for polkitd:/:/sbin/nologin
+          dbus:x:81:81:System Message Bus:/:/usr/sbin/nologin
+          student:x:1000:1000:Student User:/home/student:/bin/bash
+          chrony:x:997:997:chrony system user:/var/lib/chrony:/sbin/nologin
+    words:
+      - /etc/passwd
+      - /etc/passwd-
+      - /etc/group
+      - /etc/redhat-release
+quick:
+  questions:
+    - id: q-3f74bf92f64e
+      q: You type ls /etc/pas and press Tab. Nothing is completed, and a second Tab lists passwd and passwd-. Why?
+      options:
+        - Tab completion only works for command names.
+        - Both names start with passwd, so Bash completed what they share and then listed both.
+        - The files are hidden.
+      answer: 1
+      explain: Tab completes as far as all matches agree. When more than one name remains, a second Tab lists them so you can type the next character.
+    - id: q-023ec3a41915
+      q: Your history shows 26 as ls /etc. What does !26 do?
+      options:
+        - Shows command 26 without running it.
+        - Runs ls /etc again, printing the command first.
+        - Runs the 26th most recent command.
+      answer: 1
+      explain: "!N runs history entry N. Bash prints the expanded command before running it. For relative positions, use !-N."
+    - id: q-35ea4f46bc9d
+      q: Which runs the most recent command that started with tail?
+      options:
+        - "`!tail`"
+        - "`history tail`"
+        - "`!-tail`"
+      answer: 0
+      explain: "!string runs the most recent command beginning with string. Press the up arrow instead if you want to see it before it runs."
+    - id: q-9567707676be
+      q: You have just run wc -l /var/log/secure. How do you insert /var/log/secure into a new command without typing it?
+      options:
+        - Ctrl+A
+        - Alt+. (or Esc then .)
+        - "!!"
+      answer: 1
+      explain: Alt+. inserts the last word of the previous command; press it again for the command before that. !! would insert the whole previous command.
+    - id: q-15632d95c5ab
+      q: The cursor is in the middle of a long command. Which shortcut deletes everything from the cursor to the end of the line?
+      options:
+        - Ctrl+U
+        - Ctrl+K
+        - Ctrl+E
+      answer: 1
+      explain: Ctrl+K deletes forward to the end. Ctrl+U deletes back to the start, and Ctrl+E only moves the cursor.
+    - id: q-d85109d00e1f
+      q: You remember running a long ssh command yesterday but not its exact options. What is the quickest way to find it?
+      options:
+        - Press Ctrl+R and type ssh, pressing Ctrl+R again to step to older matches.
+        - Run history and read the whole list.
+        - Type !ssh and hope it is the right one.
+      answer: 0
+      explain: Ctrl+R searches backwards through the history as you type, and shows the match before running it. history works too, but takes longer, and !ssh runs without showing you.

@@ -1,4 +1,0 @@
-Produce a repeatable report from a small host list. Keep useful output and errors separate, and explain the difference between literal text, a glob, and a regular expression.
-
-Run commands and inspect their exit status.
-Predict quoting, expansion and redirection before running a command.

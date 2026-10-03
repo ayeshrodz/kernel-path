@@ -68,11 +68,4 @@ showcase:
     real labs and service-recovery practice. Build a resettable lab, verify changes
     and leave a clear handover.
 lab: true
-variants:
-- id: homelab
-  label: Home lab
-  icon: house
-  default: true
-- id: classroom
-  label: Provided RHEL lab
-  icon: school
+labGuide: ch01/workstation

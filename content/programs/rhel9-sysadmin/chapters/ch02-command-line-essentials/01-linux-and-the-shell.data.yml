@@ -1,0 +1,323 @@
+rhel-family:
+  title: Where RHEL comes from
+  caption: New work lands in Fedora first, is shaped in CentOS Stream into the next RHEL minor release, and ships as RHEL. Rebuilds such as Rocky Linux compile the same published RHEL source.
+  height: 170
+  mode: static
+  elements:
+    - kind: node
+      x: 8
+      y: 50
+      w: 150
+      h: 70
+      tone: blue
+      title: Fedora
+      sub:
+        - community distribution
+        - new ideas first
+    - kind: arrow
+      points:
+        - [158, 85]
+        - [188, 85]
+    - kind: node
+      x: 190
+      y: 50
+      w: 160
+      h: 70
+      tone: teal
+      title: CentOS Stream
+      sub:
+        - preview of the
+        - next RHEL release
+    - kind: arrow
+      points:
+        - [350, 85]
+        - [380, 85]
+    - kind: node
+      x: 382
+      y: 50
+      w: 136
+      h: 70
+      tone: red
+      title: RHEL
+      sub:
+        - supported
+        - for 10 years
+      active: true
+    - kind: arrow
+      points:
+        - [518, 85]
+        - [548, 85]
+      dashed: true
+      label: same source
+      labelDy: -8
+    - kind: node
+      x: 550
+      y: 50
+      w: 122
+      h: 70
+      tone: green
+      title: Rocky Linux
+      sub:
+        - free rebuild
+        - your practice lab
+    - kind: label
+      x: 340
+      y: 150
+      text: changes flow from left to right
+      size: 12
+      muted: true
+shell-layers:
+  title: From your keyboard to the kernel
+  caption: The terminal carries your keystrokes to the shell; the shell runs the programs you name; programs ask the kernel for everything they need.
+  height: 130
+  mode: static
+  elements:
+    - kind: node
+      x: 6
+      y: 30
+      w: 112
+      h: 64
+      tone: gray
+      title: You
+      sub: keyboard, screen
+    - kind: arrow
+      points:
+        - [118, 62]
+        - [143, 62]
+    - kind: node
+      x: 145
+      y: 30
+      w: 112
+      h: 64
+      tone: blue
+      title: Terminal
+      sub: window or SSH
+    - kind: arrow
+      points:
+        - [257, 62]
+        - [282, 62]
+    - kind: node
+      x: 284
+      y: 30
+      w: 112
+      h: 64
+      tone: purple
+      title: Shell
+      sub: Bash reads it
+      active: true
+    - kind: arrow
+      points:
+        - [396, 62]
+        - [421, 62]
+    - kind: node
+      x: 423
+      y: 30
+      w: 112
+      h: 64
+      tone: teal
+      title: Programs
+      sub: date, ls, ssh …
+    - kind: arrow
+      points:
+        - [535, 62]
+        - [560, 62]
+    - kind: node
+      x: 562
+      y: 30
+      w: 112
+      h: 64
+      tone: amber
+      title: Kernel
+      sub: Linux itself
+prompt-anatomy:
+  title: The parts of the prompt
+  caption: Select a part of the prompt to see what it tells you.
+  height: 170
+  mode: select
+  initial: user
+  info:
+    user:
+      tone: purple
+      title: The user you are logged in as
+      text: Here, student. After sudo -i it changes to root. If you ever wonder, the whoami command prints it.
+    host:
+      tone: blue
+      title: The machine you are on
+      text: The short host name, workstation here. After ssh student@servera it reads servera. Check it before every command that changes something.
+    dir:
+      tone: teal
+      title: Your current directory
+      text: The tilde (~) is shorthand for your home directory, /home/student. When you move to /etc, it reads etc. The pwd command prints the full path.
+    sign:
+      tone: coral
+      title: Ordinary user or root
+      text: $ means an ordinary user, who can change only their own files. # means root, the superuser, who can change anything on the system.
+  elements:
+    - kind: node
+      x: 20
+      y: 30
+      w: 150
+      h: 62
+      tone: purple
+      title: student
+      sub: who you are
+      mono: true
+      select: user
+      active:
+        - user
+    - kind: node
+      x: 182
+      y: 30
+      w: 196
+      h: 62
+      tone: blue
+      title: workstation
+      sub: which machine
+      mono: true
+      select: host
+      active:
+        - host
+    - kind: node
+      x: 390
+      y: 30
+      w: 120
+      h: 62
+      tone: teal
+      title: "~"
+      sub: where you are
+      mono: true
+      select: dir
+      active:
+        - dir
+    - kind: node
+      x: 522
+      y: 30
+      w: 140
+      h: 62
+      tone: coral
+      title: $
+      sub: user or root
+      mono: true
+      select: sign
+      active:
+        - sign
+    - kind: label
+      x: 340
+      y: 135
+      text: "[student@workstation ~]$"
+      size: 17
+      mono: true
+command-anatomy:
+  title: The parts of a command
+  caption: Select each part of the command to see its role.
+  height: 160
+  mode: select
+  initial: cmd
+  info:
+    cmd:
+      tone: purple
+      title: The command
+      text: The name of the program to run, always first. head prints the beginning of a file.
+    opt:
+      tone: amber
+      title: An option, with a value
+      text: Options start with a dash and change the behaviour. -n 3 asks for three lines instead of the default ten. The long form is --lines=3.
+    arg:
+      tone: teal
+      title: The argument
+      text: What the command works on, here the file /etc/passwd. Many commands accept several arguments, for example head -n 3 /etc/passwd /etc/group.
+  elements:
+    - kind: node
+      x: 60
+      y: 30
+      w: 140
+      h: 62
+      tone: purple
+      title: head
+      sub: command
+      mono: true
+      select: cmd
+      active:
+        - cmd
+    - kind: node
+      x: 216
+      y: 30
+      w: 160
+      h: 62
+      tone: amber
+      title: -n 3
+      sub: option
+      mono: true
+      select: opt
+      active:
+        - opt
+    - kind: node
+      x: 392
+      y: 30
+      w: 228
+      h: 62
+      tone: teal
+      title: /etc/passwd
+      sub: argument
+      mono: true
+      select: arg
+      active:
+        - arg
+    - kind: label
+      x: 340
+      y: 135
+      text: head -n 3 /etc/passwd
+      size: 17
+      mono: true
+quick:
+  questions:
+    - id: q-b5e09969f187
+      q: What does the Linux kernel do?
+      options:
+        - It reads the commands you type and runs programs.
+        - It shares the processor, memory, disks and network between all running programs.
+        - It installs and updates software packages.
+        - It draws the desktop and windows.
+      answer: 1
+      explain: The kernel is the core that manages the hardware for every other program. Reading your commands is the shell's job, and installing packages is the package manager's.
+    - id: q-f15b25e9bd56
+      q: Why is Rocky Linux a good practice system for RHEL 9?
+      options:
+        - It is a newer version of RHEL with extra features.
+        - It is built from the same published source as RHEL 9, so commands, packages and paths match.
+        - It uses a different kernel that is easier to learn.
+      answer: 1
+      explain: Rocky rebuilds the RHEL source. What differs is the branding and the subscription services, not the administration you practise.
+    - id: q-7de7f8b324e0
+      q: "Your prompt reads [root@serverb ~]#. What does it tell you?"
+      options:
+        - You are student on serverb, in your home directory.
+        - You are root on serverb, in root's home directory, and can change anything on the system.
+        - You are root on workstation, about to connect to serverb.
+      answer: 1
+      explain: The user comes before the @, the host after it, then the current directory. The # confirms a root shell.
+    - id: q-027e185a357a
+      q: "In ls -l --all /etc, which part is the argument?"
+      options:
+        - "ls"
+        - "-l"
+        - "--all"
+        - "/etc"
+      answer: 3
+      explain: ls is the command, -l and --all are options (one short, one long), and /etc is what the command works on.
+    - id: q-48c37c079eb2
+      q: The first time you SSH to a server, it shows a key fingerprint and asks whether to continue. What happens if you answer yes?
+      options:
+        - SSH sends your password to the server in plain text.
+        - SSH saves the server's host key and checks it silently on every later connection.
+        - SSH stops asking for your password on that server.
+      answer: 1
+      explain: The host key is saved in ~/.ssh/known_hosts. If it ever changes, SSH refuses to connect, which protects you from impostors. Passwords are still needed unless you set up keys.
+    - id: q-d43137d32591
+      q: Which two ways end an SSH session and return you to the previous machine?
+      options:
+        - exit or Ctrl+D
+        - logout or Ctrl+C
+        - quit or Ctrl+Z
+      answer: 0
+      explain: exit and Ctrl+D (end of input) both close the remote shell. Ctrl+C interrupts a running command, and Ctrl+Z suspends one.

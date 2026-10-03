@@ -32,3 +32,4 @@ docs/*.pdf
 # Python test caches
 __pycache__/
 *.pyc
+!content/programs/*/lab/**/starter/*.log

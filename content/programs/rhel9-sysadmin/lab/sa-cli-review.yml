@@ -1,0 +1,14 @@
+name: sa-cli-review
+title: "Command-line essentials"
+page: ch02/lab
+transport: ssh
+version: 1
+starter: ["README", "server.log"]
+checkpoints:
+  final:
+    files: ["README", "server.log"]
+    checks:
+      - {"id": "time", "kind": "file", "on": "control", "message": "time.txt holds a 24-hour time such as 09:30", "paths": ["time.txt"], "matches": "\\A([01][0-9]|2[0-3]):[0-5][0-9]\\n?\\Z"}
+      - {"id": "last5", "kind": "file", "on": "control", "message": "last5.txt holds exactly the last five lines of server.log", "paths": ["last5.txt"], "lines": ["Oct  3 08:58:12 servera inventory-api[2214]: database connection lost: timed out after 30s", "Oct  3 08:58:27 servera systemd[1]: inventory-api.service: Main process exited, code=exited, status=1/FAILURE"], "matches": "\\A(?:[^\\n]*\\n){4}[^\\n]*\\n?\\Z"}
+      - {"id": "lines", "kind": "file", "on": "control", "message": "lines.txt shows the line count as wc -l prints it", "paths": ["lines.txt"], "line": "40 server.log"}
+      - {"id": "kernel", "kind": "file", "on": "control", "message": "servera-kernel.txt holds servera's kernel release", "paths": ["servera-kernel.txt"], "matches": "\\A5\\.14\\.0-[0-9.]+\\.el9[_0-9]*\\.x86_64\\n?\\Z"}

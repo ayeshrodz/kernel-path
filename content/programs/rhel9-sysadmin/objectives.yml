@@ -26,20 +26,28 @@
   labs:
   - ch01/snapshots-and-rht-vmctl
   challenges: []
-- id: ch02.operations
+- id: ch02.shell
   chapter: ch02
   lessons:
-  - ch02/shell-and-status
-  - ch02/streams-and-quoting
+  - ch02/linux-and-the-shell
   labs:
+  - ch02/exercise-log-in
   - ch02/lab
   challenges: []
-- id: ch02.verification
+- id: ch02.commands
   chapter: ch02
   lessons:
-  - ch02/shell-and-status
-  - ch02/streams-and-quoting
+  - ch02/running-commands
   labs:
+  - ch02/exercise-shortcuts
+  - ch02/lab
+  challenges: []
+- id: ch02.shortcuts
+  chapter: ch02
+  lessons:
+  - ch02/shortcuts
+  labs:
+  - ch02/exercise-shortcuts
   - ch02/lab
   challenges: []
 - id: ch03.operations
