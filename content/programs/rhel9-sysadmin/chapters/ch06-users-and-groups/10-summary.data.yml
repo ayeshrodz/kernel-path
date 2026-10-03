@@ -1,0 +1,24 @@
+flashcards:
+  cards:
+    - front: Which UID is root, and where do regular users start?
+      back: Root is **0**; regular users start at **1000**.
+    - front: Where are password hashes kept?
+      back: "`/etc/shadow`, readable only by root."
+    - front: Primary or supplementary group, which owns the files a user creates?
+      back: The **primary** group.
+    - front: su - or sudo, whose password does each ask for?
+      back: "`su -` asks for root's; `sudo` asks for your own."
+    - front: Why is student allowed to use sudo in the lab?
+      back: It is in the **wheel** group, which `/etc/sudoers` allows to run any command.
+    - front: Safe place and permissions for a new sudo rule?
+      back: "A file in `/etc/sudoers.d`, mode **440**, checked with `visudo -c`."
+    - front: Add bob to the docker group, keeping his other groups?
+      back: "`usermod -aG docker bob`"
+    - front: Delete an account and its home directory?
+      back: "`userdel -r NAME`"
+    - front: Force a password change at the next login?
+      back: "`chage -d 0 NAME`"
+    - front: Make an account stop working on a date?
+      back: "`chage -E YYYY-MM-DD NAME`"
+    - front: Lock or expire, which also blocks SSH keys?
+      back: "**Expire** (`chage -E 0`). A lock only blocks the password."

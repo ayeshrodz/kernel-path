@@ -1,0 +1,416 @@
+passwd-line:
+  title: One line of /etc/passwd
+  caption: Select a field to see what it holds.
+  height: 170
+  mode: select
+  initial: name
+  info:
+    name:
+      tone: purple
+      title: User name
+      text: The login name. Must be unique on the system.
+    pw:
+      tone: gray
+      title: Password placeholder
+      text: 'Always x today: the real password hash is in /etc/shadow, which only root can read.'
+    uid:
+      tone: blue
+      title: UID
+      text: The user ID number. The system uses this number, not the name.
+    gid:
+      tone: teal
+      title: Primary GID
+      text: The GID of the user's primary group, here the student group.
+    gecos:
+      tone: amber
+      title: Comment (GECOS)
+      text: Free text, usually the person's full name. Set with useradd -c or usermod -c.
+    home:
+      tone: green
+      title: Home directory
+      text: Where the user starts after logging in, and where their personal files and settings live.
+    shell:
+      tone: coral
+      title: Login shell
+      text: The program started at login. /sbin/nologin refuses interactive logins, which is used for service accounts.
+  elements:
+  - kind: node
+    x: 6
+    y: 30
+    w: 85
+    h: 46
+    tone: purple
+    title: student
+    mono: true
+    titleSize: 12.5
+    select: name
+    active:
+    - name
+  - kind: node
+    x: 95
+    y: 30
+    w: 25
+    h: 46
+    tone: gray
+    title: x
+    mono: true
+    titleSize: 12.5
+    select: pw
+    active:
+    - pw
+  - kind: node
+    x: 124
+    y: 30
+    w: 50
+    h: 46
+    tone: blue
+    title: '1000'
+    mono: true
+    titleSize: 12.5
+    select: uid
+    active:
+    - uid
+  - kind: node
+    x: 178
+    y: 30
+    w: 50
+    h: 46
+    tone: teal
+    title: '1000'
+    mono: true
+    titleSize: 12.5
+    select: gid
+    active:
+    - gid
+  - kind: node
+    x: 232
+    y: 30
+    w: 147
+    h: 46
+    tone: amber
+    title: Student User
+    mono: true
+    titleSize: 12.5
+    select: gecos
+    active:
+    - gecos
+  - kind: node
+    x: 383
+    y: 30
+    w: 159
+    h: 46
+    tone: green
+    title: /home/student
+    mono: true
+    titleSize: 12.5
+    select: home
+    active:
+    - home
+  - kind: node
+    x: 546
+    y: 30
+    w: 110
+    h: 46
+    tone: coral
+    title: /bin/bash
+    mono: true
+    titleSize: 12.5
+    select: shell
+    active:
+    - shell
+  - kind: label
+    x: 340
+    y: 118
+    text: student:x:1000:1000:Student User:/home/student:/bin/bash
+    mono: true
+    size: 12.5
+    muted: true
+group-line:
+  title: One line of /etc/group
+  caption: Select a field to see what it holds.
+  height: 170
+  mode: select
+  initial: name
+  info:
+    name:
+      tone: purple
+      title: Group name
+      text: The group's name.
+    pw:
+      tone: gray
+      title: Group password
+      text: Group passwords are rarely used; x means none is set here.
+    gid:
+      tone: teal
+      title: GID
+      text: The group ID number.
+    members:
+      tone: green
+      title: Supplementary members
+      text: A comma-separated list of users who have this as a supplementary group. Users whose primary group this is are not listed.
+  elements:
+  - kind: node
+    x: 6
+    y: 30
+    w: 209
+    h: 46
+    tone: purple
+    title: wheel
+    mono: true
+    titleSize: 12.5
+    select: name
+    active:
+    - name
+  - kind: node
+    x: 219
+    y: 30
+    w: 58
+    h: 46
+    tone: gray
+    title: x
+    mono: true
+    titleSize: 12.5
+    select: pw
+    active:
+    - pw
+  - kind: node
+    x: 281
+    y: 30
+    w: 87
+    h: 46
+    tone: teal
+    title: '10'
+    mono: true
+    titleSize: 12.5
+    select: gid
+    active:
+    - gid
+  - kind: node
+    x: 372
+    y: 30
+    w: 292
+    h: 46
+    tone: green
+    title: student
+    mono: true
+    titleSize: 12.5
+    select: members
+    active:
+    - members
+  - kind: label
+    x: 340
+    y: 118
+    text: wheel:x:10:student
+    mono: true
+    size: 12.5
+    muted: true
+shadow-line:
+  title: One line of /etc/shadow
+  caption: Select a field. Dates count days since 1 January 1970.
+  height: 170
+  mode: select
+  initial: name
+  info:
+    name:
+      tone: purple
+      title: User name
+      text: Matches the name in /etc/passwd.
+    hash:
+      tone: gray
+      title: Password hash
+      text: $6$ is SHA-512, then the salt and the hash. !! means no password set yet; a leading ! means locked.
+    last:
+      tone: blue
+      title: Last change
+      text: The day the password was last changed. 0 forces a change at the next login.
+    min:
+      tone: teal
+      title: Minimum age
+      text: Days that must pass before the password can be changed again.
+    max:
+      tone: teal
+      title: Maximum age
+      text: Days after the last change when the password expires. 99999 means effectively never.
+    warn:
+      tone: amber
+      title: Warning period
+      text: Days before expiry when the user starts seeing warnings.
+    inactive:
+      tone: coral
+      title: Inactivity period
+      text: Days after expiry when the account is disabled if the password still has not been changed. Empty means never.
+    expire:
+      tone: red
+      title: Account expiry
+      text: The day the whole account stops working, whatever the password. Empty means never.
+    reserved:
+      tone: gray
+      title: Reserved
+      text: Not used.
+  elements:
+  - kind: node
+    x: 6
+    y: 30
+    w: 71
+    h: 46
+    tone: purple
+    title: ops1
+    mono: true
+    titleSize: 12.5
+    select: name
+    active:
+    - name
+  - kind: node
+    x: 81
+    y: 30
+    w: 211
+    h: 46
+    tone: gray
+    title: $6$salt$hash
+    mono: true
+    titleSize: 12.5
+    select: hash
+    active:
+    - hash
+  - kind: node
+    x: 296
+    y: 30
+    w: 88
+    h: 46
+    tone: blue
+    title: '20729'
+    mono: true
+    titleSize: 12.5
+    select: last
+    active:
+    - last
+  - kind: node
+    x: 388
+    y: 30
+    w: 34
+    h: 46
+    tone: teal
+    title: '1'
+    mono: true
+    titleSize: 12.5
+    select: min
+    active:
+    - min
+  - kind: node
+    x: 426
+    y: 30
+    w: 37
+    h: 46
+    tone: teal
+    title: '90'
+    mono: true
+    titleSize: 12.5
+    select: max
+    active:
+    - max
+  - kind: node
+    x: 467
+    y: 30
+    w: 34
+    h: 46
+    tone: amber
+    title: '7'
+    mono: true
+    titleSize: 12.5
+    select: warn
+    active:
+    - warn
+  - kind: node
+    x: 505
+    y: 30
+    w: 34
+    h: 46
+    tone: coral
+    title: ·
+    mono: true
+    titleSize: 12.5
+    select: inactive
+    active:
+    - inactive
+  - kind: node
+    x: 543
+    y: 30
+    w: 88
+    h: 46
+    tone: red
+    title: '20819'
+    mono: true
+    titleSize: 12.5
+    select: expire
+    active:
+    - expire
+  - kind: node
+    x: 635
+    y: 30
+    w: 26
+    h: 46
+    tone: gray
+    title: ·
+    mono: true
+    titleSize: 12.5
+    select: reserved
+    active:
+    - reserved
+  - kind: label
+    x: 340
+    y: 118
+    text: 'ops1:$6$…:20729:1:90:7::20819:'
+    mono: true
+    size: 12.5
+    muted: true
+quick:
+  questions:
+  - id: q-5571725b1b8f
+    q: Which UID always belongs to root?
+    options:
+    - '0'
+    - '1'
+    - '1000'
+    - '65534'
+    answer: 0
+    explain: UID 0 is the superuser, whatever the account is called. Regular users start at 1000.
+  - id: q-582294dea59b
+    q: What is a user's primary group?
+    options:
+    - The first supplementary group they join
+    - The one group recorded in their /etc/passwd line, which new files they create belong to
+    - The wheel group
+    answer: 1
+    explain: Every user has exactly one primary group, by GID in field 4 of /etc/passwd. Supplementary groups are listed in /etc/group.
+  - id: q-9a3cde797ed3
+    q: Why does /etc/passwd contain x instead of a password?
+    options:
+    - The password is blank.
+    - The hash is kept in /etc/shadow, which only root can read.
+    - The account is locked.
+    answer: 1
+    explain: /etc/passwd must be readable by every program, so the hashes moved to the protected /etc/shadow.
+  - id: q-0a8f3ea11a0d
+    q: In /etc/shadow, the password field of an account starts with !. What does that mean?
+    options:
+    - The password is locked.
+    - The password never expires.
+    - The account is a system account.
+    answer: 0
+    explain: A leading ! makes the hash impossible to match, so password logins fail. !! alone means no password was ever set.
+  - id: q-2aecd5870fdd
+    q: A service account should never log in interactively. Which login shell does that?
+    options:
+    - /bin/bash
+    - /sbin/nologin
+    - /home/nologin
+    answer: 1
+    explain: /sbin/nologin prints a polite refusal and exits, so the account can own files and run processes but not log in.
+  - id: q-cf88e4f5e551
+    q: The line developers:x:3000:alice,bob is in /etc/group, and carol's primary GID is 3000. Who is in the group?
+    options:
+    - Only alice and bob
+    - alice, bob and carol
+    - Only carol
+    answer: 1
+    explain: The member list shows supplementary members; carol belongs through her primary GID.

@@ -1,0 +1,23 @@
+Exercise: sa-users-review (chapter 6 lab)
+
+Work on serverb, with sudo or as root.
+
+Group
+ 1. operators, with GID 35000.
+
+Accounts
+ 2. opsadmin: UID 3101, a member of operators (supplementary), comment
+    "Operations Admin". Its password is Temp-Pass-2026, which opsadmin must
+    change at the first login. Its password must change at least every 60
+    days, with 10 days of warning.
+ 3. auditor: comment "Security Auditor", not in operators. Set its password
+    to Audit-Pass-2026, then lock it. The account expires on 2026-12-31.
+ 4. backup: a service account with UID 3200, primary group operators, and
+    the login shell /sbin/nologin.
+
+Root access
+ 5. Members of operators may run /usr/bin/systemctl, with any arguments, as
+    any user, after entering their own password. Put the rule in
+    /etc/sudoers.d/operators, mode 440, and nothing else in that file.
+
+Then, on workstation:  lab grade sa-users-review

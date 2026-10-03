@@ -105,6 +105,29 @@ class ScriptTests(unittest.TestCase):
                         host[key] = str(root / host[key])
                 self.assertEqual(self.run_script({'kind': 'file', **host}) == 0, expected, host)
 
+    def test_account_details_are_read_from_the_account_databases(self):
+        """uid, groups, shell, home and password ageing come from getent and id; fake them for a test user."""
+        with tempfile.TemporaryDirectory() as temp:
+            bin_dir = Path(temp)
+            (bin_dir / 'getent').write_text('#!/bin/bash\n[ "$1" = passwd ] && echo "ops1:x:3001:3001:Ops:/home/ops1:/bin/bash"\n'
+                                             '[ "$1" = shadow ] && echo \'ops1:!$6$abc:0:1:90:7::20819:\'\nexit 0\n')
+            (bin_dir / 'id').write_text('#!/bin/bash\ncase "$1" in -u) echo 3001;; -gn) echo ops;; -nG) echo ops wheel;; esac\n')
+            for f in ('getent', 'id'):
+                (bin_dir / f).chmod(0o755)
+            env = {**os.environ, 'PATH': f'{bin_dir}:{os.environ["PATH"]}', 'H': 'servera', 'HS': 'servera'}
+            def run(check):
+                return subprocess.run(['bash', '-c', grade.host_script({'kind': 'user', 'names': ['ops1'], **check})], env=env).returncode
+            good = [{'uid': 3001}, {'primaryGroup': 'ops'}, {'groups': ['wheel']}, {'shell': '/bin/bash'}, {'home': '/home/ops1'},
+                    {'locked': True}, {'minDays': 1}, {'maxDays': 90}, {'warnDays': 7}, {'mustChangePassword': True},
+                    {'expires': '2027-01-01'}]
+            good.append({'notGroups': ['operators']})
+            bad = [{'notGroups': ['wheel']}, {'uid': 3002}, {'primaryGroup': 'wheel'}, {'shell': '/sbin/nologin'}, {'locked': False}, {'maxDays': 60},
+                   {'mustChangePassword': False}, {'expires': '2027-01-02'}]
+            for check in good:
+                self.assertEqual(run(check), 0, check)
+            for check in bad:
+                self.assertNotEqual(run(check), 0, check)
+
     def test_host_facts_checks_against_this_machine(self):
         """Kinds that only read system facts agree with what this machine reports."""
         import getpass, socket

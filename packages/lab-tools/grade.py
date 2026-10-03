@@ -166,8 +166,28 @@ def conditions_user(c):
         out.append('getent passwd %s >/dev/null' % n)
         for group in c.get('groups', []):
             out.append("id -nG %s | tr ' ' '\\n' | grep -qx %s" % (n, shlex.quote(group)))
+        for group in c.get('notGroups', []):
+            out.append("! id -nG %s | tr ' ' '\\n' | grep -qx %s" % (n, shlex.quote(group)))
         if c.get('passwordSet'):
             out.append("getent shadow %s | awk -F: '$2 ~ /^\\$/ {ok=1} END {exit !ok}'" % n)
+        if 'uid' in c:
+            out.append('[ "$(id -u %s)" = %s ]' % (n, shlex.quote(str(c['uid']))))
+        if 'primaryGroup' in c:
+            out.append('[ "$(id -gn %s)" = %s ]' % (n, shlex.quote(c['primaryGroup'])))
+        for key, field in (('home', 6), ('shell', 7)):
+            if key in c:
+                out.append('[ "$(getent passwd %s | cut -d: -f%d)" = %s ]' % (n, field, shlex.quote(c[key])))
+        shadow = 'getent shadow %s | cut -d: -f%%d' % n
+        if 'locked' in c:
+            out.append(('' if c['locked'] else '! ') + '{ %s | grep -q "^!"; }' % (shadow % 2))
+        for key, field in (('minDays', 4), ('maxDays', 5), ('warnDays', 6)):
+            if key in c:
+                value = '' if c[key] == -1 else str(c[key])
+                out.append('[ "$(%s)" = %s ]' % (shadow % field, shlex.quote(value)))
+        if 'mustChangePassword' in c:
+            out.append('[ "$(%s)" %s 0 ]' % (shadow % 3, '=' if c['mustChangePassword'] else '!='))
+        if 'expires' in c:
+            out.append('[ "$(%s)" = "$(( $(date -u -d %s +%%s) / 86400 ))" ]' % (shadow % 8, shlex.quote(c['expires'])))
         home = '$(getent passwd %s | cut -d: -f6)' % n
         if c.get('authorizedKeys'):
             keys = '"%s/.ssh/authorized_keys"' % home

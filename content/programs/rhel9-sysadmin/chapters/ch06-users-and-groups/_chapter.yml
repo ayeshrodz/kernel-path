@@ -1,8 +1,12 @@
 title: Users and groups
-goal: Create and manage local accounts, groups and administrative access.
+goal: Create and manage local user accounts and groups, give administrators controlled root access with sudo, and set password policies.
 objectives:
-- Manage account membership and lifecycle using supported tools.
-- Delegate administrative work and validate policy safely.
+  - Explain users, groups, UIDs and GIDs, and read the account databases /etc/passwd, /etc/group and /etc/shadow.
+  - Become root with su or run commands as root with sudo, and grant sudo access with drop-in files checked by visudo.
+  - Create, modify and delete user accounts and groups, including supplementary group membership.
+  - Set, lock and age passwords, force a change at the next login, and make accounts expire.
 objectiveIds:
-- ch06.operations
-- ch06.verification
+  - ch06.concepts
+  - ch06.superuser
+  - ch06.accounts
+  - ch06.passwords

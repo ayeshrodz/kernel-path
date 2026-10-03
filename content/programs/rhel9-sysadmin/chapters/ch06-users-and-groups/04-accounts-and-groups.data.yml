@@ -1,0 +1,166 @@
+useradd-steps:
+  title: What useradd does
+  caption: Step through what one useradd command changes.
+  height: 216
+  mode: steps
+  steps:
+  - title: Pick a UID and GID
+    text: 'The next free number at or above 1000 (UID_MIN in /etc/login.defs): 1001 here.'
+  - title: Add a line to /etc/passwd
+    text: ops1:x:1001:1001::/home/ops1:/bin/bash. Empty comment, default home and shell.
+  - title: Create a private group
+    text: 'A group with the same name and GID, added to /etc/group: ops1:x:1001:'
+  - title: Add a line to /etc/shadow
+    text: 'With !! instead of a hash: no password yet, so nobody can log in as ops1.'
+  - title: Create the home directory
+    text: /home/ops1, owned by ops1, mode 700 (HOME_MODE), so only ops1 can enter it.
+  - title: Copy the files from /etc/skel
+    text: '.bashrc, .bash_profile and .bash_logout: the starting shell settings every user gets. Put a file in /etc/skel and every new user receives a copy.'
+  elements:
+  - kind: node
+    x: 250
+    y: 10
+    w: 180
+    h: 40
+    tone: purple
+    title: useradd ops1
+    mono: true
+  - kind: node
+    x: 30
+    y: 70
+    w: 180
+    h: 52
+    tone: gray
+    title: /etc/login.defs
+    sub: UID_MIN 1000
+    mono: true
+    titleSize: 12.5
+    active: &id001
+    - 0
+    visible: *id001
+  - kind: node
+    x: 250
+    y: 70
+    w: 180
+    h: 52
+    tone: green
+    title: /etc/passwd
+    sub: ops1:x:1001:1001::…
+    mono: true
+    titleSize: 12.5
+    active: &id002
+    - 1
+    visible: *id002
+  - kind: node
+    x: 470
+    y: 70
+    w: 180
+    h: 52
+    tone: green
+    title: /etc/group
+    sub: 'ops1:x:1001:'
+    mono: true
+    titleSize: 12.5
+    active: &id003
+    - 2
+    visible: *id003
+  - kind: node
+    x: 30
+    y: 150
+    w: 180
+    h: 52
+    tone: green
+    title: /etc/shadow
+    sub: ops1:!!:20729:…
+    mono: true
+    titleSize: 12.5
+    active: &id004
+    - 3
+    visible: *id004
+  - kind: node
+    x: 250
+    y: 150
+    w: 180
+    h: 52
+    tone: green
+    title: /home/ops1
+    sub: drwx------ ops1 ops1
+    mono: true
+    titleSize: 12.5
+    active: &id005
+    - 4
+    - 5
+    visible: *id005
+  - kind: node
+    x: 470
+    y: 150
+    w: 180
+    h: 52
+    tone: gray
+    title: /etc/skel
+    sub: .bashrc  .bash_profile …
+    mono: true
+    titleSize: 12.5
+    active: &id006
+    - 5
+    visible: *id006
+  - kind: arrow
+    points:
+    - - 560
+      - 176
+    - - 432
+      - 176
+    label: copied
+    labelDy: -6
+    visible:
+    - 5
+quick:
+  questions:
+  - id: q-4bcbd342f2fd
+    q: alice is in wheel and docker. After usermod -G devteam alice, which supplementary groups does she have?
+    options:
+    - wheel, docker and devteam
+    - Only devteam
+    - wheel and docker
+    answer: 1
+    explain: -G replaces the whole list. To add a group while keeping the others, use usermod -aG devteam alice.
+  - id: q-a6fa55408fe1
+    q: Which command creates a service account svc-backup that can't log in interactively?
+    options:
+    - useradd -s /sbin/nologin svc-backup
+    - useradd -L svc-backup
+    - useradd -M svc-backup
+    answer: 0
+    explain: The nologin shell refuses interactive logins. -M only skips the home directory.
+  - id: q-252168ea5422
+    q: A new account shows !! in /etc/shadow. Why can't it log in?
+    options:
+    - It is locked by policy.
+    - No password has been set yet.
+    - Its home directory is missing.
+    answer: 1
+    explain: useradd creates the account without a password. passwd USER sets one.
+  - id: q-00c2774ca8b1
+    q: Where do you put a file so every new user gets a copy in their home directory?
+    options:
+    - /etc/skel
+    - /etc/default
+    - /home/skel
+    answer: 0
+    explain: useradd copies /etc/skel into each new home directory.
+  - id: q-5b00c8d74c32
+    q: What does userdel bob leave behind that userdel -r bob removes?
+    options:
+    - bob's entry in /etc/passwd
+    - bob's home directory and mail spool
+    - bob's supplementary groups
+    answer: 1
+    explain: Without -r, the files stay, owned by bob's old UID, which a future account could inherit.
+  - id: q-378f4c69ac99
+    q: Which adds the existing user carol to the existing group auditors?
+    options:
+    - gpasswd -a carol auditors
+    - groupmod -a carol auditors
+    - useradd -G auditors carol
+    answer: 0
+    explain: gpasswd -a adds a member. usermod -aG auditors carol works too. useradd would try to create carol.

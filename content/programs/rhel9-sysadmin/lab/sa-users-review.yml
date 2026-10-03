@@ -1,0 +1,121 @@
+name: sa-users-review
+title: Users and groups
+page: ch06/lab
+transport: ssh
+version: 1
+starter:
+- README
+checkpoints:
+  final:
+    files:
+    - README
+    checks:
+    - id: group
+      kind: file
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: The operators group exists with GID 35000
+      paths:
+      - /etc/group
+      matches: '^operators:x:35000:'
+    - id: opsadmin
+      kind: user
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: opsadmin has UID 3101 and is in operators
+      names:
+      - opsadmin
+      uid: 3101
+      groups:
+      - operators
+    - id: opsadmin-password
+      kind: user
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: opsadmin has a password and must change it at the next login
+      names:
+      - opsadmin
+      passwordSet: true
+      mustChangePassword: true
+    - id: opsadmin-ageing
+      kind: user
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: opsadmin's password lasts at most 60 days, with 10 days of warning
+      names:
+      - opsadmin
+      maxDays: 60
+      warnDays: 10
+    - id: auditor
+      kind: file
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: auditor exists with the comment Security Auditor
+      paths:
+      - /etc/passwd
+      matches: '^auditor:x:[0-9]+:[0-9]+:Security Auditor:'
+    - id: auditor-not-operator
+      kind: user
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: auditor is not a member of operators
+      names:
+      - auditor
+      notGroups:
+      - operators
+    - id: auditor-locked
+      kind: user
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: auditor's password is set and locked
+      names:
+      - auditor
+      passwordSet: false
+      locked: true
+    - id: auditor-expires
+      kind: user
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: auditor's account expires on 2026-12-31
+      names:
+      - auditor
+      expires: '2026-12-31'
+    - id: backup
+      kind: user
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: 'backup is a service account: UID 3200, primary group operators, no login shell'
+      names:
+      - backup
+      uid: 3200
+      primaryGroup: operators
+      shell: /sbin/nologin
+    - id: sudo-file
+      kind: sudoers
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: /etc/sudoers.d/operators is valid sudoers syntax, mode 440
+      path: /etc/sudoers.d/operators
+      mode: '0440'
+      valid: true
+    - id: sudo-rule
+      kind: file
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: operators may run /usr/bin/systemctl as root, with a password
+      paths:
+      - /etc/sudoers.d/operators
+      matches: ^%operators[[:space:]]+ALL[[:space:]]*=[[:space:]]*\(ALL(:ALL)?\)[[:space:]]+/usr/bin/systemctl([[:space:]]+\*)?[[:space:]]*$
+      lacks:
+      - NOPASSWD

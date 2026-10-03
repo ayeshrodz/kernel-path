@@ -914,6 +914,62 @@
         "homeFile": {
           "description": "A file in the user's home directory that must exist and be non-empty.",
           "$ref": "#/$defs/relativePath"
+        },
+        "uid": {
+          "description": "The account's numeric user ID.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967294
+        },
+        "primaryGroup": {
+          "description": "The account's primary group, by name.",
+          "$ref": "#/$defs/account"
+        },
+        "shell": {
+          "description": "The login shell.",
+          "$ref": "#/$defs/absolutePath"
+        },
+        "home": {
+          "description": "The home directory recorded for the account.",
+          "$ref": "#/$defs/absolutePath"
+        },
+        "locked": {
+          "description": "The password is locked (its hash starts with !), or not.",
+          "type": "boolean"
+        },
+        "minDays": {
+          "description": "Minimum days between password changes.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99999
+        },
+        "maxDays": {
+          "description": "Maximum days a password stays valid.",
+          "type": "integer",
+          "minimum": -1,
+          "maximum": 99999
+        },
+        "warnDays": {
+          "description": "Days of warning before a password expires.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99999
+        },
+        "mustChangePassword": {
+          "description": "The password must be changed at the next login.",
+          "type": "boolean"
+        },
+        "expires": {
+          "description": "The date the account expires (YYYY-MM-DD).",
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "notGroups": {
+          "description": "Groups the account must not belong to.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/account"
+          }
         }
       },
       "type": "object"

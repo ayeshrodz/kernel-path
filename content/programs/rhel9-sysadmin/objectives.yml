@@ -138,20 +138,35 @@
   - ch05/exercise-environment
   - ch05/lab
   challenges: []
-- id: ch06.operations
+- id: ch06.concepts
   chapter: ch06
   lessons:
-  - ch06/account-lifecycle
-  - ch06/sudo-policy
+  - ch06/users-and-groups
   labs:
+  - ch06/exercise-accounts
+  challenges: []
+- id: ch06.superuser
+  chapter: ch06
+  lessons:
+  - ch06/superuser
+  labs:
+  - ch06/exercise-superuser
   - ch06/lab
   challenges: []
-- id: ch06.verification
+- id: ch06.accounts
   chapter: ch06
   lessons:
-  - ch06/account-lifecycle
-  - ch06/sudo-policy
+  - ch06/accounts-and-groups
   labs:
+  - ch06/exercise-accounts
+  - ch06/lab
+  challenges: []
+- id: ch06.passwords
+  chapter: ch06
+  lessons:
+  - ch06/passwords
+  labs:
+  - ch06/exercise-passwords
   - ch06/lab
   challenges: []
 - id: ch07.operations

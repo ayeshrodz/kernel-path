@@ -1,0 +1,129 @@
+sudoers-line:
+  title: Reading a sudo rule
+  caption: Select each part of the rule that gives the wheel group full sudo access.
+  height: 140
+  mode: select
+  initial: who
+  info:
+    who:
+      tone: purple
+      title: Who
+      text: 'A user name, or a group name after %. Here: every member of the wheel group.'
+    host:
+      tone: gray
+      title: On which hosts
+      text: The rule can be limited to certain host names, useful when one file is shared by many servers. ALL means any host.
+    as:
+      tone: teal
+      title: As which users
+      text: The accounts commands may run as. (ALL) means any user, including root. (root) would allow only root.
+    cmd:
+      tone: coral
+      title: Which commands
+      text: ALL means any command. Otherwise, a comma-separated list of commands with their full paths, optionally with arguments or *.
+  elements:
+  - kind: node
+    x: 110
+    y: 30
+    w: 140
+    h: 48
+    tone: purple
+    title: '%wheel'
+    mono: true
+    titleSize: 15
+    select: who
+    active:
+    - who
+  - kind: node
+    x: 262
+    y: 30
+    w: 70
+    h: 48
+    tone: gray
+    title: ALL
+    mono: true
+    titleSize: 15
+    select: host
+    active:
+    - host
+  - kind: node
+    x: 344
+    y: 30
+    w: 110
+    h: 48
+    tone: teal
+    title: =(ALL)
+    mono: true
+    titleSize: 15
+    select: as
+    active:
+    - as
+  - kind: node
+    x: 466
+    y: 30
+    w: 90
+    h: 48
+    tone: coral
+    title: ALL
+    mono: true
+    titleSize: 15
+    select: cmd
+    active:
+    - cmd
+  - kind: label
+    x: 340
+    y: 118
+    text: '/etc/sudoers: %wheel  ALL=(ALL)  ALL'
+    mono: true
+    size: 12.5
+    muted: true
+quick:
+  questions:
+  - id: q-6247a931ac65
+    q: Which command gives you a root login shell after asking for root's password?
+    options:
+    - sudo -i
+    - su -
+    - su
+    answer: 1
+    explain: su - asks for root's password and starts a clean login shell. sudo -i asks for your own password; plain su keeps your environment.
+  - id: q-c4d1c8e40c7c
+    q: Whose password does sudo ask for?
+    options:
+    - root's
+    - Your own
+    - None
+    answer: 1
+    explain: sudo authenticates you, then checks the rules for what you may run. That way root's password never needs to be shared.
+  - id: q-e462be0acc80
+    q: Why can student use sudo in the lab?
+    options:
+    - student's UID is 1000.
+    - student is a member of the wheel group, which /etc/sudoers allows to run any command.
+    - student knows root's password.
+    answer: 1
+    explain: '%wheel ALL=(ALL) ALL grants the whole wheel group full sudo access.'
+  - id: q-c86607cb9c9e
+    q: You want the backup group to run only /usr/bin/rsync as root. Where do you put the rule?
+    options:
+    - Append it to /etc/sudoers with echo
+    - A new file in /etc/sudoers.d, checked with visudo -cf
+    - In /etc/group
+    answer: 1
+    explain: Drop-in files keep each rule separate and easy to remove, and visudo catches syntax errors that could break sudo for everyone.
+  - id: q-7b25b467914a
+    q: 'What does NOPASSWD: do in a sudo rule?'
+    options:
+    - Removes the user's password
+    - Lets the listed commands run without asking for a password
+    - Disables sudo for that user
+    answer: 1
+    explain: The user still needs the rule; they just aren't prompted. Use it only for narrow, safe commands.
+  - id: q-5534194b00c1
+    q: Where do you look to see which commands a user ran with sudo?
+    options:
+    - /var/log/secure
+    - ~/.bash_history
+    - /etc/sudoers
+    answer: 0
+    explain: sudo logs every command, allowed or refused, to /var/log/secure, with the user and the directory.

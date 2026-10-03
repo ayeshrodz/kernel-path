@@ -1,0 +1,82 @@
+chapter:
+  questions:
+    - id: q-80ad14204ac4
+      q: Which file must be readable by every user, and so holds no password hashes?
+      options:
+        - "`/etc/passwd`"
+        - "`/etc/shadow`"
+        - "`/etc/sudoers`"
+      answer: 0
+      explain: Programs need /etc/passwd to turn UIDs into names. Hashes live in /etc/shadow, readable only by root.
+    - id: q-c5673617bfe0
+      q: "What is the login shell of this account: www:x:48:48:Web server:/usr/share/httpd:/sbin/nologin?"
+      options:
+        - "`/usr/share/httpd`"
+        - "`/sbin/nologin`, so it can't log in interactively"
+        - "None"
+      answer: 1
+      explain: The seventh field is the shell; the sixth is the home directory.
+    - id: q-fd900c0047a0
+      q: What is the difference between su - and sudo -i?
+      options:
+        - None.
+        - "su - asks for root's password; sudo -i asks for your own and is allowed only by the sudo rules."
+        - sudo -i doesn't start a login shell.
+      answer: 1
+      explain: Both give a root login shell. sudo means root's password never has to be shared, and records who used it.
+    - id: q-8f7e04ba9115
+      q: A new rule in /etc/sudoers.d has a syntax error. What can happen?
+      options:
+        - Nothing; sudo ignores bad files.
+        - sudo may refuse to run for everyone until the file is fixed.
+        - Only that user is affected.
+      answer: 1
+      explain: sudo reads every drop-in file; a broken one can stop it working altogether. Always check with visudo -c.
+    - id: q-e94fbbe9e361
+      q: "Which command adds the existing user kim to the group docker without removing her other groups?"
+      options:
+        - "`usermod -G docker kim`"
+        - "`usermod -aG docker kim`"
+        - "`useradd -G docker kim`"
+      answer: 1
+      explain: -a appends. Without it, -G replaces the whole list of supplementary groups.
+    - id: q-ae032a31a6ed
+      q: You create an account with useradd. Why can't it log in straight away?
+      options:
+        - It has no password yet (!! in /etc/shadow).
+        - Its home directory is empty.
+        - It is not in wheel.
+      answer: 0
+      explain: useradd doesn't set a password. passwd USER does.
+    - id: q-24f2259590ca
+      q: What does chage -d 0 alice do?
+      options:
+        - Deletes alice's password
+        - Forces alice to change her password at the next login
+        - Expires alice's account today
+      answer: 1
+      explain: It sets the last change to day 0, so the password counts as expired and must be changed at login.
+    - id: q-e1d526c10401
+      q: Which keeps a user out completely, including SSH key logins?
+      options:
+        - "`usermod -L`"
+        - "`chage -E 0`"
+        - "`passwd -d`"
+      answer: 1
+      explain: An expired account can't log in at all. Locking only stops password logins, and passwd -d removes the password altogether.
+    - id: q-e981235327ac
+      q: Which groupdel will fail?
+      options:
+        - Deleting a group that has supplementary members
+        - Deleting a group that is some account's primary group
+        - Deleting an empty group
+      answer: 1
+      explain: groupdel refuses to remove a primary group in use. Change the account's primary group, or delete the account first.
+    - id: q-b93f5bba427f
+      q: Where are every sudo command and every refusal recorded?
+      options:
+        - "`/var/log/secure`"
+        - "`/var/log/messages`"
+        - "`/etc/sudoers.d`"
+      answer: 0
+      explain: sudo logs to the authentication log, /var/log/secure, with who, where, as whom and what.

@@ -1,4 +1,0 @@
-On clean servera, create the operators group and trainee account without wheel membership. Grant only the demonstrated service-status command, and prove membership and policy from a fresh session.
-
-Manage account membership and lifecycle using supported tools.
-Delegate administrative work and validate policy safely.
