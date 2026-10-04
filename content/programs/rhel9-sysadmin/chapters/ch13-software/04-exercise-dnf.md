@@ -12,8 +12,22 @@ A colleague asks for the `zip` command. Find the package, check what it needs, i
   objectives=["ch13.dnf"]
   id="dnf"
   title="Install, inspect and undo"
+  exercise="sa-dnf"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Search, inspect and install a package with dnf.","Read the transaction summary and the dependencies.","Review and undo a transaction."] %}
+
+  {% task id="task-140a1b6e4799" title="Start the exercise" %}
+    On workstation, start the exercise. It makes sure zip and unzip are not installed on servera.
+
+```console
+[student@workstation ~]$ lab start sa-dnf
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-f7ebcb15fdf9" title="Find the package" %}
     On servera as root (`sudo -i`), confirm that `zip` is not installed. Search the repositories for it, and show its description.
@@ -152,5 +166,9 @@ package unzip is not installed
 [student@servera ~]$ exit
 ```
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-a2dc88f87d6a" title="Grade and finish" %}
+    {% lab-finish exercise="sa-dnf" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

@@ -12,8 +12,22 @@ Export a directory of home directories from serverb, and make servera mount each
   objectives=["ch19.maps"]
   id="maps"
   title="Serve home directories on demand"
+  exercise="sa-nfs-maps"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera","serverb"]
   outcomes=["Create a wildcard map with * and &.","Create a direct map with the /- master entry.","Use automount -m and journalctl -u autofs to inspect maps."] %}
+
+  {% task id="task-7e46fbdf7674" title="Start the exercise" %}
+    On workstation, start the exercise. It installs nfs-utils and autofs, exports `/srv/shared` from serverb to the lab network (NFS server running, firewall open), and starts autofs on servera.
+
+```console
+[student@workstation ~]$ lab start sa-nfs-maps
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-4cdf0b470d48" title="The homes on the server" %}
     On serverb as root, create `/srv/homes/alice` and `/srv/homes/student` with a file `readme` in each, owned by the matching user (UID 2001 for alice; create the user if needed). Export `/srv/homes` to your lab network read-write and publish.
@@ -121,12 +135,7 @@ total 4
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-79dcd78cb700" title="Clean up" %}
-
-```console
-[root@servera ~]# rm -f /etc/auto.master.d/{homes,direct,shared}.autofs /etc/auto.homes /etc/auto.direct /etc/auto.shared
-[root@servera ~]# systemctl reload autofs; userdel -r alice
-[root@serverb ~]# sed -i '/srv\/homes/d' /etc/exports; exportfs -ra; rm -rf /srv/homes; userdel -r alice
-```
+  {% task id="task-9d2d61f64c25" title="Grade and finish" %}
+    {% lab-finish exercise="sa-nfs-maps" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

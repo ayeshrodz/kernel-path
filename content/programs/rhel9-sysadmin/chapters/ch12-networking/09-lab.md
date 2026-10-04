@@ -93,6 +93,6 @@ hosts:      files dns myhostname
   {% task id="task-cc0c66b2e1ec" title="Grade" %}
     On workstation, with `answers.txt` filled in:
 
-    {% lab-finish exercise="sa-network-review" grade=true /%}
+    {% lab-finish exercise="sa-network-review" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

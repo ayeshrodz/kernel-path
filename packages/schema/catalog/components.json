@@ -896,6 +896,11 @@
           "description": "Objectives the exercise practises.",
           "format": "objectiveId",
           "maxItems": 12
+        },
+        "guided": {
+          "type": "boolean",
+          "description": "A guided exercise: its tasks say exactly what to do, so it needs no challenge brief. It still has an exercise definition whose start, grading and finish the lab tool performs.",
+          "default": false
         }
       },
       "allowedChildren": [
@@ -935,6 +940,11 @@
         "grade": {
           "type": "boolean",
           "description": "Also show the grading command.",
+          "default": false
+        },
+        "servers": {
+          "type": "boolean",
+          "description": "The exercise's cleanup steps undo its changes on the lab servers, so the Finish text says so.",
           "default": false
         }
       },

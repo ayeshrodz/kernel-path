@@ -12,27 +12,21 @@ Compare a clean shutdown with a forced one, pause and resume a CPU hog, and end 
   objectives=["ch08.signals"]
   id="signals"
   title="Stop a runaway process the right way"
+  exercise="sa-signals"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Send SIGTERM, SIGKILL, SIGSTOP and SIGCONT and see the difference.","Preview matches with pgrep before using pkill.","End all of one user's processes."] %}
 
-  {% task id="task-ad7d36659974" title="Write a program that cleans up" %}
-    On servera, create `~/cleanup.sh` with the content below, and make it executable. It creates a lock file and removes it when it receives SIGTERM.
-
-```bash
-#!/bin/bash
-trap 'echo "cleaning up"; rm -f /tmp/work.lock; exit 0' TERM
-touch /tmp/work.lock
-while true; do sleep 1; done
-```
-
-    {% reveal title="Show solution" %}
+  {% task id="task-3c38194bb33c" title="Start the exercise" %}
+    On workstation, start the exercise. It puts the script `~/cleanup.sh` (a loop that creates `/tmp/work.lock` and removes it when it receives SIGTERM) in student's home on servera.
 
 ```console
-[student@workstation ~]$ ssh student@servera
-[student@servera ~]$ vim cleanup.sh
-[student@servera ~]$ chmod +x cleanup.sh
+[student@workstation ~]$ lab start sa-signals
 ```
-    {% /reveal %}
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-8dac31281941" title="Terminate politely" %}
@@ -122,15 +116,7 @@ ls: cannot access '/tmp/work.lock': No such file or directory
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-01dbf4b6e00c" title="Clean up" %}
-
-```console
-[root@servera ~]# userdel -r bob
-[root@servera ~]# exit
-[student@servera ~]$ rm -f cleanup.sh
-[student@servera ~]$ exit
-```
-
-    If `userdel` says bob is still in use, wait a moment and run it again.
+  {% task id="task-0f55f19ffce0" title="Grade and finish" %}
+    {% lab-finish exercise="sa-signals" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

@@ -1,0 +1,155 @@
+name: sa-fstab-storage
+title: Make the storage permanent
+page: ch17/exercise-fstab
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: wipe-disk
+  hosts:
+  - servera
+  device: /dev/sdb
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/fstab
+  matching: /dev/sdb[123]|^UUID=[0-9a-f-]+[[:space:]]+(/srv/data|/srv/archive|none[[:space:]]+swap)
+- action: directory
+  hosts:
+  - servera
+  path: /data
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /logs
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/data
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/archive
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /root/fstab.bak
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true
+- action: partition-disk
+  hosts:
+  - servera
+  device: /dev/sdb
+  partitions:
+  - name: data
+    fs: xfs
+    startMiB: 1
+    endMiB: 1025
+  - name: logs
+    fs: ext4
+    startMiB: 1025
+    endMiB: 2049
+  - name: swap
+    fs: linux-swap
+    startMiB: 2049
+    endMiB: 2561
+- action: format
+  hosts:
+  - servera
+  device: /dev/sdb1
+  type: xfs
+- action: format
+  hosts:
+  - servera
+  device: /dev/sdb2
+  type: ext4
+  label: logs
+- action: format
+  hosts:
+  - servera
+  device: /dev/sdb3
+  type: swap
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: data
+      kind: mount
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /srv/data is xfs, mounted now and at boot
+      path: /srv/data
+      fstype: xfs
+      persistent: true
+    - id: archive
+      kind: mount
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /srv/archive is ext4, mounted now and at boot
+      path: /srv/archive
+      fstype: ext4
+      persistent: true
+    - id: noexec
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the archive entry has noexec
+      paths:
+      - /etc/fstab
+      matches: /srv/archive[[:space:]]+ext4[[:space:]]+defaults,noexec
+    - id: swap
+      kind: swap
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the swap partition is active and in fstab
+      minSizeMiB: 400
+finish:
+- action: wipe-disk
+  hosts:
+  - servera
+  device: /dev/sdb
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/fstab
+  matching: /dev/sdb[123]|^UUID=[0-9a-f-]+[[:space:]]+(/srv/data|/srv/archive|none[[:space:]]+swap)
+- action: directory
+  hosts:
+  - servera
+  path: /data
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /logs
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/data
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/archive
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /root/fstab.bak
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true

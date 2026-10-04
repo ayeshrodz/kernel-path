@@ -1,0 +1,100 @@
+name: sa-signals
+title: Stop a runaway process the right way
+page: ch08/exercise-signals
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: user
+  hosts:
+  - servera
+  name: bob
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /tmp/work.lock
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /home/student/cleanup.sh
+  state: present
+  content: '#!/bin/bash
+
+    trap ''echo "cleaning up"; rm -f /tmp/work.lock; exit 0'' TERM
+
+    touch /tmp/work.lock
+
+    while true; do sleep 1; done
+
+    '
+  owner: student
+  group: student
+  mode: '755'
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: script
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: ~/cleanup.sh is an executable script with a TERM trap
+      paths:
+      - /home/student/cleanup.sh
+      mode: '0755'
+      owner: student
+      contains:
+      - trap
+    - id: lock
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the lock file was removed (the polite kill ran the trap, and you removed the rest)
+      paths:
+      - /tmp/work.lock
+      exists: false
+    - id: no-hog
+      kind: process
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: no sha256sum hog is left running
+      pattern: ^sha256sum /dev/zero
+      running: false
+    - id: no-bob
+      kind: process
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: no sleep of user bob is left
+      pattern: ^sleep 90[01]$
+      user: bob
+      running: false
+    - id: bob
+      kind: user
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: bob exists (the exercise removes him in the clean-up step)
+      names:
+      - bob
+finish:
+- action: user
+  hosts:
+  - servera
+  name: bob
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /home/student/cleanup.sh
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /tmp/work.lock
+  state: absent

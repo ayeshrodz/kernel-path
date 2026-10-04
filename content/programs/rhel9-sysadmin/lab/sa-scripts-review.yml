@@ -120,3 +120,40 @@ checkpoints:
       - sa-report.timer
       active: true
       enabled: true
+finish:
+- action: file
+  hosts:
+  - servera
+  path: /usr/local/bin/sa-report.sh
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/cron.d/sa-report
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/system/sa-report.service
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/system/sa-report.timer
+  state: absent
+- action: service
+  hosts:
+  - servera
+  names:
+  - sa-report.timer
+  state: stopped
+  enabled: false
+- action: crontab
+  hosts:
+  - servera
+  user: student
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true

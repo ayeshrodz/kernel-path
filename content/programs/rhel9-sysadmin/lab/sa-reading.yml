@@ -1,0 +1,118 @@
+name: sa-reading
+title: Who can read this?
+page: ch07/exercise-reading
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: group
+  hosts:
+  - servera
+  name: project
+  state: present
+  gid: 4500
+- action: user
+  hosts:
+  - servera
+  name: maria
+  state: present
+  groups:
+  - project
+- action: user
+  hosts:
+  - servera
+  name: john
+  state: present
+  groups:
+  - project
+- action: user
+  hosts:
+  - servera
+  name: priya
+  state: present
+- action: directory
+  hosts:
+  - servera
+  path: /srv/lab7
+  state: present
+- action: file
+  hosts:
+  - servera
+  path: /srv/lab7/report.txt
+  state: present
+  content: 'Q3 figures
+
+    '
+  owner: maria
+  group: project
+  mode: '640'
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: report
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: report.txt is locked down to mode 070
+      paths:
+      - /srv/lab7/report.txt
+      owner: maria
+      group: project
+      mode: '0070'
+    - id: box
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: box is owned by maria with mode 555
+      paths:
+      - /srv/lab7/box
+      fileType: directory
+      owner: maria
+      mode: '0555'
+    - id: one
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: maria deleted box/one
+      paths:
+      - /srv/lab7/box/one
+      exists: false
+    - id: two
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: box/two is still there
+      paths:
+      - /srv/lab7/box/two
+      fileType: regular
+finish:
+- action: directory
+  hosts:
+  - servera
+  path: /srv/lab7
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: maria
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: john
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: priya
+  state: absent
+- action: group
+  hosts:
+  - servera
+  name: project
+  state: absent

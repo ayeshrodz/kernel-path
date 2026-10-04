@@ -162,6 +162,6 @@ podcast_s2_e2.mp3  podcast_s2_e4.mp3  podcast_s2_e6.mp3
   {% task id="task-c7f85590af3a" title="Grade and finish" %}
     Log out of serverb, then on workstation:
 
-    {% lab-finish exercise="sa-files-review" grade=true /%}
+    {% lab-finish exercise="sa-files-review" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

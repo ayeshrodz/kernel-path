@@ -1,0 +1,78 @@
+name: sa-fstab
+title: Check /etc/fstab before you reboot
+page: ch09/exercise-fstab
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/fstab
+  matching: ^/dev/sdb1
+- action: directory
+  hosts:
+  - servera
+  path: /data
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /root/fstab.bak
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: fstab
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /etc/fstab has no /dev/sdb1 line any more
+      paths:
+      - /etc/fstab
+      lacks:
+      - /dev/sdb1
+    - id: mountpoint
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /data is gone again
+      paths:
+      - /data
+      exists: false
+    - id: backup
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the backup /root/fstab.bak was removed
+      paths:
+      - /root/fstab.bak
+      exists: false
+finish:
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/fstab
+  matching: ^/dev/sdb1
+- action: directory
+  hosts:
+  - servera
+  path: /data
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /root/fstab.bak
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true

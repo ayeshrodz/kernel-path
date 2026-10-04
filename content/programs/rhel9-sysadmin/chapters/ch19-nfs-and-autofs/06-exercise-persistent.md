@@ -12,21 +12,21 @@ Make servera mount the share at boot with an fstab entry and check it after a re
   objectives=["ch19.persistent"]
   id="persistent"
   title="Mount at boot, then on demand"
+  exercise="sa-nfs-persistent"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera","serverb"]
   outcomes=["Write and test an NFS fstab entry with _netdev.","Create an autofs master entry and an indirect map.","Observe on-demand mounting and idle unmounting."] %}
 
-  {% task id="task-89a46b9e1103" title="Check the server" %}
-    On serverb, check that `/srv/shared` is exported read-write, the `nfs-server` service runs and the firewall allows `nfs`.
-
-    {% reveal title="Show solution" %}
+  {% task id="task-342c7a774f4c" title="Start the exercise" %}
+    On workstation, start the exercise. It installs nfs-utils, exports `/srv/shared` from serverb to the lab network (NFS server running, firewall open) and creates the mount point `/mnt/shared` on servera.
 
 ```console
-[student@workstation ~]$ ssh root@serverb 'exportfs -v | cut -c1-70; systemctl is-active nfs-server; firewall-cmd --list-services'
-/srv/shared   	172.25.250.0/24(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure
-active
-cockpit dhcpv6-client nfs ssh
+[student@workstation ~]$ lab start sa-nfs-persistent
 ```
-    {% /reveal %}
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-3a1b64fd9b4a" title="An fstab entry" %}
@@ -119,5 +119,9 @@ ls: cannot access '/mnt/auto/broken': No such file or directory
 
     The map entry exists, but the server has no such export, so the mount fails and the path does not appear. The error is "No such file or directory", not an NFS message, which is why `showmount`, `exportfs -v` on the server and `journalctl -u autofs` are the next stops.
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-1bbe047db674" title="Grade and finish" %}
+    {% lab-finish exercise="sa-nfs-persistent" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

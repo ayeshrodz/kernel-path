@@ -1,0 +1,84 @@
+name: sa-checksums
+title: Compress and verify
+page: ch14/exercise-checksums
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: package
+  hosts:
+  - servera
+  names:
+  - bzip2
+  - zip
+  - unzip
+  state: present
+- action: directory
+  hosts:
+  - servera
+  path: /root/arch
+  state: absent
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: gz
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: etc.tar.gz exists
+      paths:
+      - /root/arch/etc.tar.gz
+      fileType: regular
+    - id: bz2
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: etc.tar.bz2 exists
+      paths:
+      - /root/arch/etc.tar.bz2
+      fileType: regular
+    - id: xz
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: etc.tar.xz exists
+      paths:
+      - /root/arch/etc.tar.xz
+      fileType: regular
+    - id: zip
+      kind: archive
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: ssh.zip is a readable zip file
+      path: /root/arch/ssh.zip
+      format: zip
+    - id: sums
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: SHA256SUMS lists the three archives
+      paths:
+      - /root/arch/SHA256SUMS
+      contains:
+      - etc.tar.gz
+      - etc.tar.bz2
+      - etc.tar.xz
+finish:
+- action: directory
+  hosts:
+  - servera
+  path: /root/arch
+  state: absent
+- action: package
+  hosts:
+  - servera
+  names:
+  - zip
+  - unzip
+  state: absent

@@ -1,0 +1,153 @@
+name: sa-booleans-ports
+title: Flip a switch and label a port
+page: ch16/exercise-booleans-ports
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: package
+  hosts:
+  - servera
+  names:
+  - httpd
+  - audit
+  - setroubleshoot-server
+  state: present
+- action: service
+  hosts:
+  - servera
+  names:
+  - auditd
+  state: started
+  enabled: true
+  tolerant: true
+- action: user
+  hosts:
+  - servera
+  name: bob
+  state: present
+- action: directory
+  hosts:
+  - servera
+  path: /home/bob/public_html
+  state: present
+  owner: bob
+  group: bob
+  mode: '755'
+- action: file
+  hosts:
+  - servera
+  path: /home/bob/public_html/index.html
+  state: present
+  content: 'bob page
+
+    '
+  owner: bob
+  group: bob
+  mode: '644'
+- action: directory
+  hosts:
+  - servera
+  path: /home/bob
+  mode: '711'
+  state: present
+- action: file
+  hosts:
+  - servera
+  path: /etc/httpd/conf.d/userdir.conf
+  state: present
+  content: "<IfModule mod_userdir.c>\n    UserDir public_html\n</IfModule>\n\n<Directory \"/home/*/public_html\">\n    AllowOverride FileInfo AuthConfig Limit Indexes\n    Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec\n    Require method GET POST OPTIONS\n</Directory>\n"
+- action: service
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: started
+  enabled: true
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: boolean
+      kind: selinux-boolean
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: httpd_enable_homedirs is on, now and permanently
+      name: httpd_enable_homedirs
+      value: true
+    - id: port
+      kind: selinux-port
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: TCP port 82 is labelled http_port_t
+      type: http_port_t
+      proto: tcp
+      port: 82
+    - id: listen
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: httpd listens on port 82
+      paths:
+      - /etc/httpd/conf/httpd.conf
+      line: Listen 82
+    - id: svc
+      kind: service
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: httpd is running
+      names:
+      - httpd.service
+      active: true
+    - id: page82
+      kind: http
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the page of bob is served on port 82
+      url: http://localhost:82/~bob/
+      containsAny:
+      - bob page
+finish:
+- action: selinux
+  hosts:
+  - servera
+  kind: boolean
+  state: present
+  name: httpd_enable_homedirs
+  value: false
+- action: selinux
+  hosts:
+  - servera
+  kind: port
+  state: absent
+  type: http_port_t
+  proto: tcp
+  port: 82
+- action: service
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: stopped
+  enabled: false
+- action: package
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: bob
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/httpd/conf.d/userdir.conf
+  state: absent

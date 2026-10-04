@@ -1,0 +1,66 @@
+name: sa-monitoring
+title: Find the slowdown and tune the server
+page: ch08/exercise-monitoring
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: package
+  hosts:
+  - servera
+  names:
+  - tuned
+  state: absent
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: tuned
+      kind: package
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: tuned is installed
+      names:
+      - tuned
+    - id: service
+      kind: service
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: tuned is running and enabled
+      names:
+      - tuned.service
+      active: true
+      enabled: true
+    - id: profile
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: a tuned profile is active
+      paths:
+      - /etc/tuned/active_profile
+      matches: ^[a-z-]+$
+    - id: no-hog
+      kind: process
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the sha256sum hogs were ended
+      pattern: ^sha256sum /dev/zero
+      running: false
+finish:
+- action: service
+  hosts:
+  - servera
+  names:
+  - tuned
+  state: stopped
+  enabled: false
+- action: package
+  hosts:
+  - servera
+  names:
+  - tuned
+  state: absent

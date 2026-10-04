@@ -1,0 +1,135 @@
+name: sa-two-faults
+title: Two faults, one symptom
+page: ch16/exercise-troubleshooting
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: package
+  hosts:
+  - servera
+  names:
+  - httpd
+  - audit
+  - setroubleshoot-server
+  state: present
+- action: service
+  hosts:
+  - servera
+  names:
+  - auditd
+  state: started
+  enabled: true
+  tolerant: true
+- action: directory
+  hosts:
+  - servera
+  path: /srv/site
+  state: present
+- action: file
+  hosts:
+  - servera
+  path: /srv/site/index.html
+  state: present
+  content: '<h1>Site OK</h1>
+
+    '
+  selinuxType: user_tmp_t
+- action: file
+  hosts:
+  - servera
+  path: /etc/httpd/conf.d/site.conf
+  state: present
+  content: "Listen 8085\n<VirtualHost *:8085>\n    DocumentRoot \"/srv/site\"\n</VirtualHost>\n<Directory \"/srv/site\">\n    Require all granted\n</Directory>\n"
+- action: service
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: restarted
+  enabled: false
+  tolerant: true
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: port
+      kind: selinux-port
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: TCP port 8085 is labelled http_port_t
+      type: http_port_t
+      proto: tcp
+      port: 8085
+    - id: fcontext
+      kind: selinux-fcontext
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: a stored mapping gives /srv/site and below the web content type
+      path: /srv/site(/.*)?
+      type: httpd_sys_content_t
+    - id: label
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: index.html carries the web content type
+      paths:
+      - /srv/site/index.html
+      selinuxType: httpd_sys_content_t
+    - id: enforcing
+      kind: selinux
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: SELinux is still enforcing
+      mode: enforcing
+    - id: page
+      kind: http
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the site answers on port 8085
+      url: http://localhost:8085/
+      containsAny:
+      - Site OK
+finish:
+- action: selinux
+  hosts:
+  - servera
+  kind: fcontext
+  state: absent
+  path: /srv/site(/.*)?
+- action: selinux
+  hosts:
+  - servera
+  kind: port
+  state: absent
+  type: http_port_t
+  proto: tcp
+  port: 8085
+- action: service
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: stopped
+  enabled: false
+- action: package
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/site
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/httpd/conf.d/site.conf
+  state: absent

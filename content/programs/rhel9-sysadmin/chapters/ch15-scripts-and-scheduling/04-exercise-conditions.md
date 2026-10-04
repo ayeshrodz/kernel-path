@@ -12,8 +12,22 @@ Write a script that checks its input and chooses what to do, one that loops over
   objectives=["ch15.logic"]
   id="logic"
   title="Scripts that decide and repeat"
+  exercise="sa-conditions"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Validate arguments and exit with distinct statuses.","Use if/elif/else, case, for and while.","Parse /etc/passwd line by line."] %}
+
+  {% task id="task-769f4bc2a0b2" title="Start the exercise" %}
+    On workstation, start the exercise. It removes the scripts of an earlier run from student's home on servera.
+
+```console
+[student@workstation ~]$ lab start sa-conditions
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-eeb0172f1a47" title="check.sh: validate and decide" %}
     On servera as `student`, create `~/scripts/check.sh`: with exactly one argument, it reports whether it is a directory (with the number of entries), a file (with its size in bytes) or missing. With no argument or too many it prints `Usage: SCRIPT PATH` to standard error and exits with status 2; a missing path exits with status 1.
@@ -167,11 +181,14 @@ student    /bin/bash
 ++ stat -c %s /etc/hostname
 + echo '/etc/hostname is a file of 24 bytes'
 /etc/hostname is a file of 24 bytes
-[student@servera scripts]$ cd; rm -rf ~/scripts
 [student@servera ~]$ exit
 ```
 
     Each `+` line is a command as bash ran it, after variables were expanded. This is the first tool to reach for when a script misbehaves.
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-07b6845fc0ce" title="Grade and finish" %}
+    {% lab-finish exercise="sa-conditions" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

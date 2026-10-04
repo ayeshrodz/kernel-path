@@ -135,3 +135,77 @@ checkpoints:
       paths:
       - answers.txt
       matches: ^FIREWALL_SERVICE=nfs[[:space:]]*$
+finish:
+- action: unmount
+  hosts:
+  - servera
+  path: /mnt/projects
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/fstab
+  matching: serverb:/srv/projects
+- action: directory
+  hosts:
+  - servera
+  path: /mnt/projects
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /remote
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.master.d/archive.autofs
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.archive
+  state: absent
+- action: service
+  hosts:
+  - servera
+  names:
+  - autofs
+  state: stopped
+  enabled: false
+- action: package
+  hosts:
+  - servera
+  names:
+  - autofs
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true
+- action: remove-lines
+  hosts:
+  - serverb
+  path: /etc/exports
+  matching: /srv/
+- action: service
+  hosts:
+  - serverb
+  names:
+  - nfs-server
+  state: stopped
+  enabled: false
+- action: firewall
+  hosts:
+  - serverb
+  state: absent
+  service: nfs
+- action: directory
+  hosts:
+  - serverb
+  path: /srv/projects
+  state: absent
+- action: directory
+  hosts:
+  - serverb
+  path: /srv/archive
+  state: absent

@@ -12,8 +12,22 @@ Put a job in a personal crontab, watch it fail because of an unescaped `%`, fix 
   objectives=["ch15.cron"]
   id="cron"
   title="Schedule a job"
+  exercise="sa-cron"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Create a personal crontab entry and read the cron log.","Diagnose and fix the percent-sign problem.","Create a system job in /etc/cron.d."] %}
+
+  {% task id="task-e01c5e932d9e" title="Start the exercise" %}
+    On workstation, start the exercise. It removes cron jobs and output files of an earlier run from servera and makes sure crond runs.
+
+```console
+[student@workstation ~]$ lab start sa-cron
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-d99ea3db39cb" title="Look at what is scheduled" %}
     On servera as root (`sudo -i`), list the system cron files, show `0hourly`, and check whether `student` has a crontab.
@@ -93,19 +107,7 @@ Oct  3 17:54:01 servera CROND[1010]: (root) CMD (/usr/bin/logger -t cron-demo he
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-972ba6bc7dbc" title="Clean up" %}
-    Remove student's crontab and the demo job, and the output file.
-
-    {% reveal title="Show solution" %}
-
-```console
-[root@servera ~]# crontab -u student -r
-[root@servera ~]# rm -f /etc/cron.d/demo /home/student/cron.out /tmp/ct
-[root@servera ~]# crontab -u student -l
-no crontab for student
-[root@servera ~]# exit
-[student@servera ~]$ exit
-```
-    {% /reveal %}
+  {% task id="task-c4f416e79bc4" title="Grade and finish" %}
+    {% lab-finish exercise="sa-cron" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

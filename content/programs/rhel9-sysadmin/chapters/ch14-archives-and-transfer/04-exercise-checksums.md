@@ -12,8 +12,22 @@ Compress the same data with gzip, bzip2 and xz and compare the cost and the gain
   objectives=["ch14.checksums"]
   id="checksums"
   title="Compress and verify"
+  exercise="sa-checksums"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Compare compression tools by size and time.","Create and verify a SHA-256 checksum list.","Detect a modified file."] %}
+
+  {% task id="task-40ad2a7e9796" title="Start the exercise" %}
+    On workstation, start the exercise. It installs bzip2, zip and unzip on servera and removes `/root/arch` of an earlier run.
+
+```console
+[student@workstation ~]$ lab start sa-checksums
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-768cf4925687" title="Make the data" %}
     On servera as root (`sudo -i`), install `bzip2` and `zip` if needed. Make an uncompressed archive `etc.tar` of `/etc` in `/root/arch` and note its size.
@@ -133,12 +147,7 @@ status=1
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-4b503a339821" title="Clean up" %}
-
-```console
-[root@servera arch]# cd; rm -rf /root/arch
-[root@servera ~]# exit
-[student@servera ~]$ exit
-```
+  {% task id="task-4fecbba60ac0" title="Grade and finish" %}
+    {% lab-finish exercise="sa-checksums" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

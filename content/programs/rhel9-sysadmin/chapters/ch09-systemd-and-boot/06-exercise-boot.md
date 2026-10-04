@@ -12,8 +12,22 @@ Make servera boot to the text-mode target, add a kernel argument, reboot, and pr
   objectives=["ch09.boot"]
   id="boot"
   title="Change how the server boots"
+  exercise="sa-boot"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Set the default target and check it after a reboot.","Add and remove a kernel argument with grubby.","Read boot timing with systemd-analyze."] %}
+
+  {% task id="task-7fe20de7b383" title="Start the exercise" %}
+    On workstation, start the exercise. It makes sure servera starts from the default target graphical.target without the extra kernel argument.
+
+```console
+[student@workstation ~]$ lab start sa-boot
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-05d504378a68" title="Record the starting point" %}
     On servera as root (`sudo -i`), show the default target, the kernel command line and the boot time.
@@ -106,5 +120,9 @@ args="console=tty1 console=ttyS0 ro"
 [student@servera ~]$ exit
 ```
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-e50569b8f094" title="Grade and finish" %}
+    {% lab-finish exercise="sa-boot" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

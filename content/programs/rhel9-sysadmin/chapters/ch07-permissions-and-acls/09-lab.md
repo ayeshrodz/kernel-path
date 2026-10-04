@@ -101,6 +101,6 @@ ls: cannot open directory '/srv/analysis': Permission denied
   {% task id="task-17e922d81973" title="Grade" %}
     Leave servera, then on workstation:
 
-    {% lab-finish exercise="sa-perms-review" grade=true /%}
+    {% lab-finish exercise="sa-perms-review" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

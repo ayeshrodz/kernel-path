@@ -12,55 +12,21 @@ A colleague has installed a small service called `billing`, and it does not run.
   objectives=["ch11.diagnosis"]
   id="diagnosis"
   title="Find and fix a failing service"
+  exercise="sa-diagnosing"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Read a failed service's status and journal.","Identify the first error and fix its cause.","Verify the fix and clean up."] %}
 
-  {% task id="task-ac12e7a5c79b" title="Install the broken service" %}
-    As root on servera (`sudo -i`), create the program and unit below. They represent the colleague's work; do not read them closely yet.
-
-```bash
-cat > /usr/local/bin/billing.sh <<'EOT'
-#!/bin/bash
-CONF=/etc/billing.conf
-if [ ! -r "$CONF" ]; then
-  echo "billing: cannot read $CONF" >&2
-  exit 3
-fi
-. "$CONF"
-echo "billing: started with rate=$RATE"
-exec sleep infinity
-EOT
-chmod 755 /usr/local/bin/billing.sh
-cat > /etc/systemd/system/billing.service <<'EOT'
-[Unit]
-Description=Billing job
-
-[Service]
-ExecStart=/usr/local/bin/billing.sh
-Restart=on-failure
-RestartSec=1
-
-[Install]
-WantedBy=multi-user.target
-EOT
-systemctl daemon-reload
-```
-
-    {% reveal title="Show the commands in a session" %}
+  {% task id="task-1b2c47fa03e4" title="Start the exercise" %}
+    On workstation, start the exercise. It installs the broken billing service (a program and a unit, written by a "colleague") on servera and reloads systemd.
 
 ```console
-[student@workstation ~]$ ssh student@servera
-[student@servera ~]$ sudo -i
-[root@servera ~]# cat > /usr/local/bin/billing.sh <<'EOT'
-...
-EOT
-[root@servera ~]# chmod 755 /usr/local/bin/billing.sh
-[root@servera ~]# cat > /etc/systemd/system/billing.service <<'EOT'
-...
-EOT
-[root@servera ~]# systemctl daemon-reload
+[student@workstation ~]$ lab start sa-diagnosing
 ```
-    {% /reveal %}
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-e6518c1c69ad" title="State the symptom" %}
@@ -131,7 +97,7 @@ Oct 03 17:04:58 servera.lab.example.com systemd[1]: Started Billing job.
   {% /task %}
 
   {% task id="task-999070fbb650" title="Look wider, then clean up" %}
-    Check that nothing else is failing, and look at the system-wide errors of this boot. Then remove everything you created.
+    Check that nothing else is failing, and look at the system-wide errors of this boot.
 
     {% reveal title="Show solution" %}
 
@@ -140,12 +106,13 @@ Oct 03 17:04:58 servera.lab.example.com systemd[1]: Started Billing job.
   UNIT LOAD ACTIVE SUB DESCRIPTION
 0 loaded units listed.
 [root@servera ~]# journalctl -p err -b --no-pager | tail -3
-[root@servera ~]# systemctl stop billing
-[root@servera ~]# rm -f /etc/systemd/system/billing.service /usr/local/bin/billing.sh /etc/billing.conf
-[root@servera ~]# systemctl daemon-reload
 [root@servera ~]# exit
 [student@servera ~]$ exit
 ```
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-dd17bafc70a7" title="Grade and finish" %}
+    {% lab-finish exercise="sa-diagnosing" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

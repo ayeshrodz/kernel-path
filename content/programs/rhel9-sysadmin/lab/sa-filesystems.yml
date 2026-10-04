@@ -1,0 +1,109 @@
+name: sa-filesystems
+title: Create file systems and mount them
+page: ch17/exercise-filesystems
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: wipe-disk
+  hosts:
+  - servera
+  device: /dev/sdb
+- action: partition-disk
+  hosts:
+  - servera
+  device: /dev/sdb
+  partitions:
+  - name: data
+    fs: xfs
+    startMiB: 1
+    endMiB: 1025
+  - name: logs
+    fs: ext4
+    startMiB: 1025
+    endMiB: 2049
+  - name: swap
+    fs: linux-swap
+    startMiB: 2049
+    endMiB: 2561
+- action: directory
+  hosts:
+  - servera
+  path: /data
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /logs
+  state: absent
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: xfs
+      kind: mount
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /data is /dev/sdb1 formatted as xfs
+      path: /data
+      fstype: xfs
+      persistent: false
+    - id: ext4
+      kind: mount
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /logs is /dev/sdb2 formatted as ext4
+      path: /logs
+      fstype: ext4
+      persistent: false
+    - id: label
+      kind: partition
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the ext4 file system is labelled logs
+      device: /dev/sdb2
+      fsLabel: logs
+    - id: swap
+      kind: partition
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /dev/sdb3 holds a swap area
+      device: /dev/sdb3
+      fsType: swap
+    - id: a
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /data/a.txt exists
+      paths:
+      - /data/a.txt
+      line: hello
+    - id: b
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /logs/b.txt exists
+      paths:
+      - /logs/b.txt
+      line: world
+finish:
+- action: wipe-disk
+  hosts:
+  - servera
+  device: /dev/sdb
+- action: directory
+  hosts:
+  - servera
+  path: /data
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /logs
+  state: absent

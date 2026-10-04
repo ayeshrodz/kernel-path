@@ -12,8 +12,22 @@ On servera, use variables and PATH to run your own command, create an alias, and
   objectives=["ch05.environment","ch05.vim"]
   id="environment"
   title="Customise your shell"
+  exercise="sa-environment"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Use and export variables.","Run your own script through PATH.","Make an alias and environment settings permanent."] %}
+
+  {% task id="task-76e145a40cdd" title="Start the exercise" %}
+    On workstation, start the exercise. It restores student's start-up files on servera to the originals and removes ~/bin.
+
+```console
+[student@workstation ~]$ lab start sa-environment
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-8ef6dff987b9" title="See exporting at work" %}
     On servera, set a variable, check that a child shell doesn't see it, export it, and check again.
@@ -109,5 +123,9 @@ vim
 ```console
 [student@servera ~]$ exit
 ```
+  {% /task %}
+
+  {% task id="task-33d39b3f4165" title="Grade and finish" %}
+    {% lab-finish exercise="sa-environment" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

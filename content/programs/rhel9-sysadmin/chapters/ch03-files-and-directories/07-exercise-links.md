@@ -12,8 +12,22 @@ Many applications keep each release in its own directory and point a link called
   objectives=["ch03.links"]
   id="links"
   title="Switch releases with a link"
+  exercise="sa-links"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Create and repoint a symbolic link to a directory.","Keep a file's data alive with a hard link.","Recognise a dangling link."] %}
+
+  {% task id="task-e87e124c7f4e" title="Start the exercise" %}
+    On workstation, start the exercise. It removes any release directories and links from an earlier run from student's home on servera.
+
+```console
+[student@workstation ~]$ lab start sa-links
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-eaf78d3fd850" title="Create two releases" %}
     On servera, as student, make two release directories, each with its own `app.conf`. `echo "text" > file` writes a line into a file (chapter 5 explains it):
@@ -111,11 +125,7 @@ version 2
     `current` now dangles: it points to a name that is gone. The hard link kept the data, and its link count is back to 1.
   {% /task %}
 
-  {% task id="task-4a9e86fa7e3c" title="Clean up" %}
-
-```console
-[student@servera ~]$ rm -r release current app.conf.saved
-[student@servera ~]$ exit
-```
+  {% task id="task-d7942db186ed" title="Grade and finish" %}
+    {% lab-finish exercise="sa-links" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

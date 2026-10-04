@@ -12,8 +12,22 @@ Explore servera's directory tree with `pwd`, `cd` and `ls`, using absolute and r
   objectives=["ch03.hierarchy","ch03.paths"]
   id="navigate"
   title="Find your way around"
+  exercise="sa-navigate"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Move around with absolute and relative paths, ., .. and ~.","Read long listings and find hidden files.","Recognise a directory you may not enter."] %}
+
+  {% task id="task-9812fc5d33ae" title="Start the exercise" %}
+    On workstation, start the exercise. It removes any practice files from an earlier run from student's home on servera.
+
+```console
+[student@workstation ~]$ lab start sa-navigate
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-13825aae8cdb" title="Log in to servera and see where you start" %}
 
@@ -105,5 +119,9 @@ total 0
 ```
 
     The quotes keep `team notes.txt` as one name, and `ls` shows it quoted for the same reason, so you could copy it into a command as it is. The next lesson shows how to remove files. To put servera back as it was, run `rht-vmctl reset servera` on the Ubuntu host.
+  {% /task %}
+
+  {% task id="task-60a9e9b52693" title="Grade and finish" %}
+    {% lab-finish exercise="sa-navigate" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

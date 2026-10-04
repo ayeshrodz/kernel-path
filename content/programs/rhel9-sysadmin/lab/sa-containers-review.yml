@@ -123,3 +123,24 @@ checkpoints:
       paths:
       - answers.txt
       matches: ^LABEL_OPTION=Z[ \t]*$
+finish:
+- action: container-reset
+  hosts:
+  - servera
+  user: student
+  keepImages: true
+- action: linger
+  hosts:
+  - servera
+  user: student
+  state: absent
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  port: 8080/tcp
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/portal
+  state: absent

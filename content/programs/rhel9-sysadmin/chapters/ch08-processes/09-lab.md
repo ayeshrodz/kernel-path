@@ -99,6 +99,6 @@ Current active profile: throughput-performance
   {% task id="task-63bbe29381d5" title="Record the signal numbers and grade" %}
     Leave servera, then on workstation edit `answers.txt` (use `kill -l` to look the numbers up) and grade:
 
-    {% lab-finish exercise="sa-proc-review" grade=true /%}
+    {% lab-finish exercise="sa-proc-review" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

@@ -12,8 +12,22 @@ Pull an image, run a one-off container and a background one, look inside, read i
   objectives=["ch21.containers"]
   id="run"
   title="Run and manage containers"
+  exercise="sa-containers-run"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Pull an image by its full name.","Run, inspect, stop and remove containers.","Use logs and ps -a to understand a container that exited."] %}
+
+  {% task id="task-366d25c96e0e" title="Start the exercise" %}
+    On workstation, start the exercise. It installs podman on servera and removes containers of an earlier run.
+
+```console
+[student@workstation ~]$ lab start sa-containers-run
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-35a22b8c74d5" title="Install Podman and pull an image" %}
     On servera, install `podman` with sudo if it is not there. As student, pull `registry.access.redhat.com/ubi9/ubi-minimal:latest` and list your images. Then try to pull the short name `httpd`: what does Podman say?
@@ -112,5 +126,9 @@ REPOSITORY  TAG         IMAGE ID    CREATED     SIZE
 
     root has its own, empty storage. Images and containers belong to the user who ran Podman.
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-c08c7862d8b4" title="Grade and finish" %}
+    {% lab-finish exercise="sa-containers-run" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

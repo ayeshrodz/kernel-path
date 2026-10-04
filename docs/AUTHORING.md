@@ -271,14 +271,15 @@ checkpoints:
 | Check `kind` | Values it takes |
 | --- | --- |
 | `service` | `names`, `active`, `enabled` |
-| `firewall` | `service` or `port`, `allowed`, `runtime`, `permanent` |
-| `package` | `names`, `installed` |
-| `file` | `paths` (any one may satisfy), `exists`, `nonEmpty`, `contains`, `lacks`, `line`, `lines`, `matches`, `contentEquals`, `mode`, `owner`, `group`, `selinuxType`, `symlinkTo` |
+| `firewall` | `service`, `port`, `source` or `forwardPort` (optionally in a `zone`), `allowed`, `runtime`, `permanent` |
+| `package` | `names`, `installed`, `verify` |
+| `file` | `paths` (any one may satisfy), `exists`, `nonEmpty`, `contains`, `lacks`, `line`, `lines`, `matches`, `contentEquals`, `mode`, `owner`, `group`, `selinuxType`, `symlinkTo`, `executable`, `acl` |
 | `file-compare` | `a`, `b` |
 | `archive` | `path`, `format` |
 | `user` | `names`, `exists`, `groups`, `passwordSet`, `authorizedKeys`, `homeFile` |
 | `mount`, `logical-volume` | `path`, `fstype`, `persistent`; `vg`, `lv`, `minSizeMiB` |
 | `http` | `url` (to the managed host itself), `insecure`, `resolveToLocalhost`, `containsAny` |
+| `partition`, `container` | `device`, `minSizeMiB`, `partLabel`, `tableType`, `fsType`, `fsLabel`; `user`, `image`, `running`, `unit`, `linger` |
 | `selinux`, `sudoers`, `sshd`, `cron`, `boot-target`, `address`, `hostname`, `commands` | see the lab schema |
 | `git`, `lint` | on `control` only: the project's Git state, and `ansible-lint` in a container |
 
@@ -286,6 +287,18 @@ checkpoints:
 - `{host}` and `{hostShort}` in paths and text are replaced with the inventory name and its first label.
 - Setup actions: `self-signed-cert`, `htpasswd`, `password-hash-var`, `vault-encrypt`, `ssh-keypairs`, `pack-installed-collection`, `build-collection`, `collection-requirements` and `git-seed-remote`.
 - Starter and tree files are published with a `.lab` suffix so a browser never renders them, and a name part that starts with a dot gets a `_` in front (`files/.htaccess` is published as `files/_.htaccess.lab`), because static hosts leave dotfiles out. The lab command saves them under their real names. Do not name a file starting with `_.`; that form is reserved.
+
+#### Guided exercises: start, grade and finish on the servers
+
+A guided exercise (a step-by-step page, `{% lab exercise="NAME" guided=true ownExercise=true %}`) has no challenge brief, but it is still an exercise definition. The lab tool does three jobs for it:
+
+- **`lab start NAME`** copies the starter files and runs the `setup` actions, which prepare what the exercise needs but does not teach: install a package, create the users and files an earlier exercise left behind, start a broken service. Tasks that only did this preparation are removed from the page and replaced by a "Start the exercise" task.
+- **`lab grade NAME`** runs the typed `checks` against the state the tasks leave behind.
+- **`lab finish NAME`** runs the `finish` actions on the servers, then archives the project folder. The last task of the page is `{% lab-finish exercise="NAME" grade=true servers=true /%}`, which tells the reader that the servers are cleaned. Each finish action is best effort: one that fails is reported and the others still run. `rht-vmctl reset servers` remains the way to the exact clean baseline.
+
+`setup` and `finish` use the same typed actions. **Host actions** run as root on the named lab servers (`hosts: [servera]`) and are built by `prepare.py` from validated values: `package`, `service`, `group`, `user`, `directory`, `file`, `remove-lines`, `append-line`, `acl`, `firewall`, `selinux`, `systemd`, `linger`, `boot`, `timezone`, `hostname`, `nm-connection`, `crontab`, `dnf-module`, `http-server`, `partition-disk`, `format`, `lvm-build`, `mount-all`, `unmount`, `wipe-disk`, `restore-skel`, `container-reset` and `run-as`. Path values are limited to places meant for local data and drop-in configuration (`/srv`, `/opt`, `/mnt`, `/data`, `/home`, `/tmp`, `/var/log`, `/etc/*.d` and a few more), the top directories themselves and whole home directories can never be removed, and `remove-lines` and `append-line` only touch `/etc/fstab`, `/etc/exports`, `/etc/hosts` and `/etc/chrony.conf`. **Workstation actions** work in the learner's home and refuse shell start-up files and the lab's own keys: `home-remove`, `ssh-config-block` and `ssh-identity`.
+
+Write the checks for the state at the moment the page asks to grade, and make the setup produce the state the first remaining task assumes, and say in the Start task where the reader works (for example "change to `/srv/lab7`"). Run the whole page against the lab (`lab start`, the tasks, `lab grade`, `lab finish`, `lab grade` again) before you publish it.
 
 The compiler publishes the lab tree (the `lab` command, the grader, starter files, `INDEX`, and a `MANIFEST` per exercise) with the rest of the site, and the build also places it at `/lab/`. Try an exercise end to end with `npm run build`, then `LAB_URL=file://$PWD/dist/lab bash dist/lab/lab start NAME`, and run its solution against the lab before you publish it.
 

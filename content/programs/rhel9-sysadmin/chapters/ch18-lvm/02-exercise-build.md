@@ -12,30 +12,21 @@ Prepare two partitions of the spare disk for LVM, build a volume group on the fi
   objectives=["ch18.concepts"]
   id="build"
   title="Build your first volume group"
+  exercise="sa-lvm-build"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Create PV, VG and LVs with the lvm tools.","Make and mount file systems on logical volumes.","Read pvs, vgs, lvs and lsblk -f."] %}
 
-  {% task id="task-1f0b6cee1e45" title="Prepare the disk" %}
-    On servera as root (`sudo -i`), check that `/dev/sdb` is empty. If it still has partitions from the previous chapter, clear it with `wipefs -a`. Then create two 1.5 GiB partitions flagged for LVM.
-
-    {% reveal title="Show solution" %}
+  {% task id="task-934bbfeee5c4" title="Start the exercise" %}
+    On workstation, start the exercise. It clears the spare disk `/dev/sdb` of servera and creates two 1.5 GiB LVM partitions on it (`sdb1` and `sdb2`).
 
 ```console
-[student@workstation ~]$ ssh student@servera
-[student@servera ~]$ sudo -i
-[root@servera ~]# lsblk /dev/sdb
-NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINTS
-sdb    8:16   0   5G  0 disk
-[root@servera ~]# parted -s /dev/sdb mklabel gpt mkpart pv1 1MiB 1537MiB mkpart pv2 1537MiB 3073MiB set 1 lvm on set 2 lvm on
-[root@servera ~]# udevadm settle; lsblk /dev/sdb
-NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
-sdb      8:16   0    5G  0 disk
-├─sdb1   8:17   0  1.5G  0 part
-└─sdb2   8:18   0  1.5G  0 part
+[student@workstation ~]$ lab start sa-lvm-build
 ```
 
-    If `sdb` has leftovers: `wipefs -a /dev/sdb1 /dev/sdb2 /dev/sdb3 /dev/sdb` (this erases them) and look again, or reset the servers.
-    {% /reveal %}
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-d6d2124a23eb" title="Physical volume and volume group" %}
@@ -129,5 +120,9 @@ lrwxrwxrwx. 1 root root 7 Oct  3 18:33 /dev/vgdata/lvapp -> ../dm-0
 
     Two names, one device (`dm-0`, a "device mapper" volume). Leave everything mounted for the next exercise.
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-74c98e500cd0" title="Grade and finish" %}
+    {% lab-finish exercise="sa-lvm-build" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

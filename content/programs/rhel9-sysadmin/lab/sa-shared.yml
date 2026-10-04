@@ -1,0 +1,140 @@
+name: sa-shared
+title: Build a team directory and a drop box
+page: ch07/exercise-shared
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: group
+  hosts:
+  - servera
+  name: team
+  state: present
+  gid: 4700
+- action: user
+  hosts:
+  - servera
+  name: maria
+  state: present
+  groups:
+  - team
+- action: user
+  hosts:
+  - servera
+  name: john
+  state: present
+  groups:
+  - team
+- action: user
+  hosts:
+  - servera
+  name: priya
+  state: present
+- action: directory
+  hosts:
+  - servera
+  path: /srv/team
+  state: present
+  owner: root
+  group: team
+  mode: '2770'
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: team
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /srv/team is root:team with setgid (2770)
+      paths:
+      - /srv/team
+      fileType: directory
+      owner: root
+      group: team
+      mode: '2770'
+    - id: plan
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: plan.txt is group-writable and holds both lines
+      paths:
+      - /srv/team/plan.txt
+      owner: maria
+      group: team
+      mode: '0660'
+      lines:
+      - plan
+      - john was here
+    - id: docs
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: docs inherited group and setgid
+      paths:
+      - /srv/team/docs
+      fileType: directory
+      group: team
+      mode: '2770'
+    - id: dropbox
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /srv/dropbox exists without the sticky bit now (777)
+      paths:
+      - /srv/dropbox
+      fileType: directory
+      mode: '0777'
+    - id: priya
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: priya.txt is in the drop box
+      paths:
+      - /srv/dropbox/priya.txt
+      owner: priya
+    - id: maria-gone
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: maria.txt was deleted once the sticky bit was off
+      paths:
+      - /srv/dropbox/maria.txt
+      exists: false
+finish:
+- action: directory
+  hosts:
+  - servera
+  path: /srv/team
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/dropbox
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: maria
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: john
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: priya
+  state: absent
+- action: group
+  hosts:
+  - servera
+  name: team
+  state: absent

@@ -12,8 +12,22 @@ Run out of space on purpose, add a disk to the volume group, grow a mounted XFS 
   objectives=["ch18.resize"]
   id="resize"
   title="Grow and shrink volumes"
+  exercise="sa-lvm-resize"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Extend an LV and its file system online with lvextend -r.","Add a physical volume to a volume group.","Shrink ext4 and understand why XFS cannot shrink."] %}
+
+  {% task id="task-554715ab948f" title="Start the exercise" %}
+    On workstation, start the exercise. It builds the volume group `vgdata` on `/dev/sdb1` of servera with the volumes `lvapp` (1 GiB, XFS, `/srv/app`) and `lvlog` (ext4, `/srv/log`), the result of the previous exercise.
+
+```console
+[student@workstation ~]$ lab start sa-lvm-resize
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-576f1da0ffde" title="Start from the previous exercise" %}
     On servera as root, make sure `vgdata` with `lvapp` (xfs, `/srv/app`) and `lvlog` (ext4, `/srv/log`) exist and are mounted. Write a recognisable file into `/srv/app`.
@@ -141,5 +155,9 @@ resize2fs done
 
     ext4 shrank (offline); XFS refused. Your exact sizes differ slightly.
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-1d1ba5c9c5c5" title="Grade and finish" %}
+    {% lab-finish exercise="sa-lvm-resize" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

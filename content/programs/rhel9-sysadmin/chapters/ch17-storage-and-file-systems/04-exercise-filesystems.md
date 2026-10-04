@@ -12,27 +12,21 @@ Put XFS on the data partition, ext4 on the logs partition, prepare the swap part
   objectives=["ch17.filesystems"]
   id="filesystems"
   title="Create file systems and mount them"
+  exercise="sa-filesystems"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Create xfs and ext4 file systems and swap space.","Mount, use and unmount file systems.","Read UUIDs and diagnose a busy mount."] %}
 
-  {% task id="task-bb548a7edb8d" title="Check that the partitions exist" %}
-    On servera as root, show the partitions of `/dev/sdb`. If you reset the servers since the last exercise, recreate them first.
-
-    {% reveal title="Show solution" %}
+  {% task id="task-69432ff18268" title="Start the exercise" %}
+    On workstation, start the exercise. It partitions the spare disk `/dev/sdb` of servera into the three partitions of the previous exercise (data 1 GiB, logs 1 GiB, swap 512 MiB).
 
 ```console
-[student@workstation ~]$ ssh student@servera
-[student@servera ~]$ sudo -i
-[root@servera ~]# lsblk /dev/sdb
-NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
-sdb      8:16   0    5G  0 disk
-├─sdb1   8:17   0    1G  0 part
-├─sdb2   8:18   0    1G  0 part
-└─sdb3   8:19   0  512M  0 part
+[student@workstation ~]$ lab start sa-filesystems
 ```
 
-    To recreate them after a reset: `parted -s /dev/sdb mklabel gpt mkpart data xfs 1MiB 1025MiB mkpart logs ext4 1025MiB 2049MiB mkpart swap linux-swap 2049MiB 2561MiB`.
-    {% /reveal %}
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-80688e69edf7" title="Create the file systems and the swap area" %}
@@ -128,5 +122,9 @@ Swap:          511Mi          0B       511Mi
 
     Leave the file systems mounted for the next exercise, or unmount them with `umount /data /logs` and start from the partitions again.
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-94d037b1ee6c" title="Grade and finish" %}
+    {% lab-finish exercise="sa-filesystems" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

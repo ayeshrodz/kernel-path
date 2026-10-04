@@ -1,0 +1,135 @@
+name: sa-containers-service
+title: Run a container as a service
+page: ch21/exercise-service
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: package
+  hosts:
+  - servera
+  names:
+  - podman
+  state: present
+- action: container-reset
+  hosts:
+  - servera
+  user: student
+  keepImages: true
+- action: linger
+  hosts:
+  - servera
+  user: student
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/web
+  state: absent
+- action: run-as
+  hosts:
+  - servera
+  user: student
+  tool: podman-pull
+  image: registry.access.redhat.com/ubi9/httpd-24:latest
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/web
+  state: present
+  owner: student
+  group: student
+  mode: '755'
+- action: file
+  hosts:
+  - servera
+  path: /home/student/web/index.html
+  state: present
+  content: 'hello from a container
+
+    '
+  owner: student
+  group: student
+  mode: '644'
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: quadlet
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the Quadlet file defines the container and its restart policy
+      paths:
+      - /home/student/.config/containers/systemd/web.container
+      contains:
+      - Image=registry.access.redhat.com/ubi9/httpd-24
+      - PublishPort=8080:8080
+      - Restart=always
+      - WantedBy=default.target
+      - ',Z'
+    - id: running
+      kind: container
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: web.service is active and systemd-web runs
+      user: student
+      unit: web.service
+      running: systemd-web
+    - id: linger
+      kind: container
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: lingering is enabled for student
+      user: student
+      linger: true
+    - id: firewall
+      kind: firewall
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: port 8080/tcp is open permanently
+      port: 8080/tcp
+    - id: remote
+      kind: http
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: serverb reaches the container on servera
+      url: http://servera.lab.example.com:8080/
+      containsAny:
+      - hello from a container
+finish:
+- action: container-reset
+  hosts:
+  - servera
+  user: student
+  keepImages: true
+- action: linger
+  hosts:
+  - servera
+  user: student
+  state: absent
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  port: 8080/tcp
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/web
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/data
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/portal
+  state: absent

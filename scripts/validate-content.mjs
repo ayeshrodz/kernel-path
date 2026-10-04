@@ -100,8 +100,9 @@ for (const program of initial.site.programs) {
         }
         if (node.name === 'practice') for (const q of page.data[a.ref].questions) headings.add(`challenge-${q.id}`);
         if (node.name === 'lab' && a.exercise) {
-          assert.equal(tags(node.c, 'lab-challenge').length, 1, `${route}: graded lab needs one authored challenge brief`);
-          assert.equal(tags(node.c, 'lab-notes').length, 1, `${route}: graded lab needs authored prerequisites and verification`);
+          const expected = a.guided ? 0 : 1;
+          assert.equal(tags(node.c, 'lab-challenge').length, expected, `${route}: graded lab needs one authored challenge brief (a guided exercise has none)`);
+          assert.equal(tags(node.c, 'lab-notes').length, expected, `${route}: graded lab needs authored prerequisites and verification (a guided exercise has none)`);
           labs.add(a.exercise);
           assert(lab.exercises[a.exercise], `${a.exercise}: no exercise definition`);
         }

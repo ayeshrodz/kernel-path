@@ -12,8 +12,22 @@ Define an alias for the `ops` account, then use scp, sftp and rsync to move file
   objectives=["ch10.transfer"]
   id="transfer"
   title="Move files between machines"
+  exercise="sa-transfer"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Write a Host block in ~/.ssh/config.","Upload and download with scp and sftp.","Mirror a directory with rsync and preview with -n."] %}
+
+  {% task id="task-13cc9ad0b055" title="Start the exercise" %}
+    On workstation, start the exercise. It creates the account `ops` on servera and the key `~/.ssh/id_ops` on workstation, installed for ops (the result of the previous exercise).
+
+```console
+[student@workstation ~]$ lab start sa-transfer
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-f20aebf82d9f" title="Prepare files and an alias" %}
     This exercise needs the key from the previous exercise (`~/.ssh/id_ops`, installed for `ops@servera`). Create a working directory `~/sshlab` with `inventory.txt` (any line) and `reports/a.txt`, `reports/b.txt`. Then add a `Host opsa` block to `~/.ssh/config` and test it.
@@ -139,5 +153,9 @@ c.txt
 
     Always add `-n` first when `--delete` is involved.
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-e6b9ebfb2272" title="Grade and finish" %}
+    {% lab-finish exercise="sa-transfer" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

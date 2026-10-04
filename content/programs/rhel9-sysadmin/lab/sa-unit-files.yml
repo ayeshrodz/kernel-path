@@ -1,0 +1,126 @@
+name: sa-unit-files
+title: Write your own service
+page: ch09/exercise-unit-files
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: service
+  hosts:
+  - servera
+  names:
+  - reporter
+  state: stopped
+  enabled: false
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/system/reporter.service
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /usr/local/bin/reporter.sh
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /var/log/reporter.log
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /etc/systemd/system/reporter.service.d
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true
+- action: file
+  hosts:
+  - servera
+  path: /usr/local/bin/reporter.sh
+  state: present
+  content: "#!/bin/bash\n# Append a timestamp to the report every few seconds.\nwhile true; do\n  echo \"$(date +%T) reporter alive\" >> /var/log/reporter.log\n  sleep \"${INTERVAL:-10}\"\ndone\n"
+  owner: root
+  group: root
+  mode: '755'
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: unit
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the unit runs the script, restarts on failure after 2 s and is wanted by multi-user.target
+      paths:
+      - /etc/systemd/system/reporter.service
+      contains:
+      - ExecStart=/usr/local/bin/reporter.sh
+      - Restart=on-failure
+      - RestartSec=2
+      - WantedBy=multi-user.target
+    - id: dropin
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: a drop-in sets INTERVAL=2
+      paths:
+      - /etc/systemd/system/reporter.service.d/10-interval.conf
+      contains:
+      - Environment=INTERVAL=2
+    - id: service
+      kind: service
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: reporter is running and enabled
+      names:
+      - reporter.service
+      active: true
+      enabled: true
+    - id: log
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the report file gets lines
+      paths:
+      - /var/log/reporter.log
+      contains:
+      - reporter alive
+finish:
+- action: service
+  hosts:
+  - servera
+  names:
+  - reporter
+  state: stopped
+  enabled: false
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/system/reporter.service
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /usr/local/bin/reporter.sh
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /var/log/reporter.log
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /etc/systemd/system/reporter.service.d
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true

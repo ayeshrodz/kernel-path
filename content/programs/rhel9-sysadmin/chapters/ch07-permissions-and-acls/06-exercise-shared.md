@@ -12,28 +12,21 @@ Two shared spaces on servera: a team directory where `maria` and `john` work on 
   objectives=["ch07.defaults"]
   id="shared"
   title="Team directory and drop box"
+  exercise="sa-shared"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Create a setgid directory so new files inherit the team group.","Use the umask so team members can write each other's files.","Protect a public directory with the sticky bit."] %}
 
-  {% task id="task-5339c3f48094" title="Create the people and the team directory" %}
-    On servera as root (`sudo -i`), create the group `team` (GID 4700); users `maria` and `john` in `team`; and `priya`, who is not. Then create `/srv/team` owned by `root:team` with mode 2770, in a single command.
-
-    {% reveal title="Show solution" %}
+  {% task id="task-213d49a6a335" title="Start the exercise" %}
+    On workstation, start the exercise. It creates the group team (4700), the users maria, john and priya, and the directory `/srv/team` (root:team, mode 2770).
 
 ```console
-[student@workstation ~]$ ssh student@servera
-[student@servera ~]$ sudo -i
-[root@servera ~]# groupadd -g 4700 team
-[root@servera ~]# useradd -m -G team maria
-[root@servera ~]# useradd -m -G team john
-[root@servera ~]# useradd -m priya
-[root@servera ~]# install -d -o root -g team -m 2770 /srv/team
-[root@servera ~]# ls -ld /srv/team
-drwxrws---. 2 root team 4096 Oct  3 16:13 /srv/team
+[student@workstation ~]$ lab start sa-shared
 ```
 
-    `install -d` creates a directory and sets its owner, group and mode together.
-    {% /reveal %}
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-b56b62e149ac" title="See the group inherited, but not group write" %}
@@ -114,16 +107,7 @@ priya.txt
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-89d73f7b02cf" title="Clean up" %}
-
-    If `userdel` says a user is still in use, a login session from `su` has not closed yet: wait a few seconds and run it again.
-
-```console
-[root@servera ~]# rm -rf /srv/team /srv/dropbox
-[root@servera ~]# userdel -r maria; userdel -r john; userdel -r priya
-[root@servera ~]# groupdel team
-[root@servera ~]# exit
-[student@servera ~]$ exit
-```
+  {% task id="task-771aac8cd855" title="Grade and finish" %}
+    {% lab-finish exercise="sa-shared" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

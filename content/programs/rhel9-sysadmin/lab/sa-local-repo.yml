@@ -1,0 +1,82 @@
+name: sa-local-repo
+title: Serve your own repository
+page: ch13/exercise-local-repo
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: package
+  hosts:
+  - servera
+  names:
+  - dnf-plugins-core
+  - createrepo_c
+  state: present
+- action: package
+  hosts:
+  - servera
+  names:
+  - zip
+  - unzip
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/localrepo
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/yum.repos.d/local.repo
+  state: absent
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: rpm
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /srv/localrepo holds the downloaded zip package
+      paths:
+      - /srv/localrepo/repodata/repomd.xml
+      fileType: regular
+    - id: repo
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: a repository definition points at /srv/localrepo
+      paths:
+      - /etc/yum.repos.d/local.repo
+      contains:
+      - '[localrepo]'
+      - file:///srv/localrepo
+    - id: zip
+      kind: package
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: zip was installed from the local repository
+      names:
+      - zip
+finish:
+- action: package
+  hosts:
+  - servera
+  names:
+  - zip
+  - unzip
+  - createrepo_c
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/localrepo
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/yum.repos.d/local.repo
+  state: absent

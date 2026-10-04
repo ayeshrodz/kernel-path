@@ -1,0 +1,67 @@
+name: sa-names
+title: Names, hosts and DNS
+page: ch12/exercise-names
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/hosts
+  matching: ^10[.]1[.]1[.]1 serverb
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/hosts
+  matching: ' app[.]lab[.]example[.]com app'
+- action: hostname
+  hosts:
+  - servera
+  name: servera.lab.example.com
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: hostname
+      kind: hostname
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the host name is servera again
+      short: servera
+    - id: no-wrong
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /etc/hosts has no wrong entry for serverb any more
+      paths:
+      - /etc/hosts
+      lacks:
+      - 10.1.1.1 serverb
+    - id: no-app
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the temporary entry for app was removed
+      paths:
+      - /etc/hosts
+      lacks:
+      - app.lab.example.com app
+finish:
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/hosts
+  matching: ^10[.]1[.]1[.]1 serverb
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/hosts
+  matching: ' app[.]lab[.]example[.]com app'
+- action: hostname
+  hosts:
+  - servera
+  name: servera.lab.example.com

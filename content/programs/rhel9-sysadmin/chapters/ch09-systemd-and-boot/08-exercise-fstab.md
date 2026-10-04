@@ -12,8 +12,22 @@ You add a mount for a disk that is not there yet. Learn to catch the mistake wit
   objectives=["ch09.recovery"]
   id="fstab"
   title="Check /etc/fstab before you reboot"
+  exercise="sa-fstab"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Verify an fstab file without rebooting.","Use mount -a to test entries.","Understand what nofail changes."] %}
+
+  {% task id="task-8cee2fe9aef7" title="Start the exercise" %}
+    On workstation, start the exercise. It removes a test mount from `/etc/fstab` if an earlier run left one.
+
+```console
+[student@workstation ~]$ lab start sa-fstab
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-bc9d2b67d349" title="Back up and look" %}
     On servera as root, copy `/etc/fstab` to `/root/fstab.bak` and show its entries without comments.
@@ -103,5 +117,9 @@ status=0
 [root@servera ~]# exit
 [student@servera ~]$ exit
 ```
+  {% /task %}
+
+  {% task id="task-eaa4e2a36bd1" title="Grade and finish" %}
+    {% lab-finish exercise="sa-fstab" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

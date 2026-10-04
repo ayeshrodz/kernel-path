@@ -1,0 +1,31 @@
+name: sa-boot
+title: Change how the server boots
+page: ch09/exercise-boot
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: boot
+  hosts:
+  - servera
+  target: graphical.target
+  removeKernelArgs:
+  - loglevel=5
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: target
+      kind: boot-target
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the default target is graphical.target again
+      target: graphical.target
+finish:
+- action: boot
+  hosts:
+  - servera
+  target: graphical.target
+  removeKernelArgs:
+  - loglevel=5

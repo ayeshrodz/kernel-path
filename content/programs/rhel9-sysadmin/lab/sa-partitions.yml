@@ -1,0 +1,58 @@
+name: sa-partitions
+title: Partition a new disk
+page: ch17/exercise-partitions
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: wipe-disk
+  hosts:
+  - servera
+  device: /dev/sdb
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: table
+      kind: partition
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /dev/sdb1 is on a GPT disk
+      device: /dev/sdb1
+      tableType: gpt
+    - id: p1
+      kind: partition
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: partition 1 is named data and is about 1 GiB
+      device: /dev/sdb1
+      partLabel: data
+      minSizeMiB: 1000
+      maxSizeMiB: 1030
+    - id: p2
+      kind: partition
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: partition 2 is named logs and is about 1 GiB
+      device: /dev/sdb2
+      partLabel: logs
+      minSizeMiB: 1000
+      maxSizeMiB: 1030
+    - id: p3
+      kind: partition
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: partition 3 is named swap and is about 512 MiB
+      device: /dev/sdb3
+      partLabel: swap
+      minSizeMiB: 500
+      maxSizeMiB: 520
+finish:
+- action: wipe-disk
+  hosts:
+  - servera
+  device: /dev/sdb

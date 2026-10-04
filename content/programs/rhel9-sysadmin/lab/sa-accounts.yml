@@ -1,0 +1,84 @@
+name: sa-accounts
+title: Set up a web team
+page: ch06/exercise-accounts
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: user
+  hosts:
+  - servera
+  name: alice
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: bob
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: webapp
+  state: absent
+- action: group
+  hosts:
+  - servera
+  name: webteam
+  state: absent
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: group
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the group webteam has GID 40000
+      paths:
+      - /etc/group
+      contains:
+      - 'webteam:x:40000:'
+    - id: members
+      kind: user
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: alice and bob are members of webteam
+      names:
+      - alice
+      - bob
+      groups:
+      - webteam
+    - id: service
+      kind: user
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: webapp is a login-less service account in webteam
+      names:
+      - webapp
+      uid: 4000
+      primaryGroup: webteam
+      shell: /sbin/nologin
+finish:
+- action: user
+  hosts:
+  - servera
+  name: alice
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: bob
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: webapp
+  state: absent
+- action: group
+  hosts:
+  - servera
+  name: webteam
+  state: absent

@@ -12,25 +12,21 @@ Start a web server on servera and find out why serverb cannot reach it. Then ope
   objectives=["ch20.zones"]
   id="web"
   title="Publish a web server through the firewall"
+  exercise="sa-fw-web"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera","serverb"]
   outcomes=["Read the active zone and its services.","Allow a service permanently and verify it from another host.","Tell a closed firewall from a missing service."] %}
 
-  {% task id="task-d13fed178054" title="Start a web server" %}
-    On servera as root, install `httpd`, put the line `hello from servera` in `/var/www/html/index.html`, and start and enable the service. Test it locally with `curl`.
-
-    {% reveal title="Show solution" %}
+  {% task id="task-5c70a2201d6d" title="Start the exercise" %}
+    On workstation, start the exercise. It installs httpd on servera with the page `hello from servera` and starts it.
 
 ```console
-[student@workstation ~]$ ssh student@servera
-[student@servera ~]$ sudo -i
-[root@servera ~]# dnf install -y httpd > /dev/null
-[root@servera ~]# echo "hello from servera" > /var/www/html/index.html
-[root@servera ~]# systemctl enable --now httpd
-Created symlink /etc/systemd/system/multi-user.target.wants/httpd.service → /usr/lib/systemd/system/httpd.service.
-[root@servera ~]# curl -s http://localhost/
-hello from servera
+[student@workstation ~]$ lab start sa-fw-web
 ```
-    {% /reveal %}
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-78d0e2258f6f" title="Try it from serverb" %}
@@ -110,15 +106,7 @@ hello from servera
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-dd89882e76b1" title="Clean up" %}
-
-```console
-[root@servera ~]# firewall-cmd --permanent --remove-service=http; firewall-cmd --permanent --remove-port=8080/tcp; firewall-cmd --reload
-success
-success
-success
-[root@servera ~]# rm /etc/httpd/conf.d/extra.conf; systemctl restart httpd
-[root@servera ~]# exit
-```
+  {% task id="task-f31577139d55" title="Grade and finish" %}
+    {% lab-finish exercise="sa-fw-web" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

@@ -12,20 +12,21 @@ Publish a web container, meet the SELinux 403 and fix it with the right mount op
   objectives=["ch21.storage"]
   id="storage"
   title="Ports, mounts and volumes"
+  exercise="sa-containers-storage"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Publish ports and recognise the two port errors.","Fix an SELinux-blocked bind mount with :Z.","Keep data in a volume and understand the user mapping."] %}
 
-  {% task id="task-3f8b9cd220d7" title="Prepare a page" %}
-    As student on servera pull `registry.access.redhat.com/ubi9/httpd-24:latest` (it is a 300 MB download), and create `~/web/index.html` with the line `hello from a container`.
-
-    {% reveal title="Show solution" %}
+  {% task id="task-6b26c2956c7c" title="Start the exercise" %}
+    On workstation, start the exercise. It installs podman, pulls the web and minimal images for student on servera and creates `~/web/index.html` with the line `hello from a container`.
 
 ```console
-[student@servera ~]$ podman pull registry.access.redhat.com/ubi9/httpd-24:latest | tail -1
-4e74cc90c2a4ab4fcc97976b9e382cd2b8e0711222a30206ae8089fc39b01bb9
-[student@servera ~]$ mkdir -p ~/web; echo "hello from a container" > ~/web/index.html
+[student@workstation ~]$ lab start sa-containers-storage
 ```
-    {% /reveal %}
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-72cbd79c173b" title="A bind mount that fails" %}
@@ -127,12 +128,7 @@ total 4
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-226a288c35e2" title="Clean up" %}
-
-```console
-[student@servera ~]$ podman rm -f -t 1 web
-web
-[student@servera ~]$ rm -rf ~/data
-```
+  {% task id="task-b8085e8906ea" title="Grade and finish" %}
+    {% lab-finish exercise="sa-containers-storage" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

@@ -88,6 +88,6 @@ EOT
   {% task id="task-028f1b0ef4f9" title="Grade" %}
     On workstation, fill in `answers.txt` and grade:
 
-    {% lab-finish exercise="sa-storage-review" grade=true /%}
+    {% lab-finish exercise="sa-storage-review" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

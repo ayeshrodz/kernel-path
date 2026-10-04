@@ -12,24 +12,21 @@ Use the backup from the build to repair the wrong-content fault, see what a care
   objectives=["ch22.handover"]
   id="recovery"
   title="Restore and hand over"
+  exercise="sa-portal-recovery"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera","serverb"]
   outcomes=["Restore into a staging directory and replace only the bad file.","Show what a restore without ACLs and labels loses.","Write the handover note."] %}
 
-  {% task id="task-616e2ce1f293" title="A fresh backup" %}
-    The portal must be healthy again (repair the last fault of the previous exercise if you stopped there). Run the backup service and note the archive checksum.
-
-    {% reveal title="Show solution" %}
+  {% task id="task-1c1640dedc53" title="Start the exercise" %}
+    On workstation, start the exercise. It builds the finished portal on servera, with the daily backup service and timer from the build exercise, and runs the backup once.
 
 ```console
-[root@servera ~]# echo "Portal status: OK" > /srv/portal/index.html
-[root@servera ~]# systemctl start portal-backup.service
-[root@servera ~]# sha256sum /srv/backups/portal.tar.gz | cut -c1-20
-2e46d2621750dc98c8fd
-[root@servera ~]# tar -tzf /srv/backups/portal.tar.gz
-portal/
-portal/index.html
+[student@workstation ~]$ lab start sa-portal-recovery
 ```
-    {% /reveal %}
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-ed6fdaccaf4f" title="Damage the content" %}
@@ -104,5 +101,9 @@ EOT
 12 /root/portal-handover.txt
 ```
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-74facf7bb787" title="Grade and finish" %}
+    {% lab-finish exercise="sa-portal-recovery" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

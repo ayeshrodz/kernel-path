@@ -1,0 +1,125 @@
+name: sa-acls
+title: Give the auditors read access
+page: ch07/exercise-acls
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: group
+  hosts:
+  - servera
+  name: auditors
+  state: present
+  gid: 4800
+- action: user
+  hosts:
+  - servera
+  name: priya
+  state: present
+  groups:
+  - auditors
+- action: user
+  hosts:
+  - servera
+  name: maria
+  state: present
+- action: user
+  hosts:
+  - servera
+  name: john
+  state: present
+- action: directory
+  hosts:
+  - servera
+  path: /srv/reports
+  state: present
+  owner: maria
+  group: maria
+  mode: '700'
+- action: directory
+  hosts:
+  - servera
+  path: /srv/reports/q3
+  state: present
+  owner: maria
+  group: maria
+  mode: '700'
+- action: file
+  hosts:
+  - servera
+  path: /srv/reports/q3/summary.txt
+  state: present
+  content: 'figures
+
+    '
+  owner: maria
+  group: maria
+  mode: '600'
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: summary
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the auditors group can read summary.txt through an ACL
+      paths:
+      - /srv/reports/q3/summary.txt
+      acl:
+      - group:auditors:r--
+    - id: reports
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: auditors can traverse /srv/reports
+      paths:
+      - /srv/reports
+      acl:
+      - group:auditors:r-x
+    - id: after
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: after.txt was created by maria
+      paths:
+      - /srv/reports/q3/after.txt
+      owner: maria
+    - id: before
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: before.txt was created by maria
+      paths:
+      - /srv/reports/q3/before.txt
+      owner: maria
+finish:
+- action: directory
+  hosts:
+  - servera
+  path: /srv/reports
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: priya
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: maria
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: john
+  state: absent
+- action: group
+  hosts:
+  - servera
+  name: auditors
+  state: absent

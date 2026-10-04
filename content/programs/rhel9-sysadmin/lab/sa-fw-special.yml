@@ -1,0 +1,163 @@
+name: sa-fw-special
+title: One trusted host, a custom port and a forward
+page: ch20/exercise-special
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: package
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: present
+- action: file
+  hosts:
+  - servera
+  path: /var/www/html/index.html
+  state: present
+  content: 'hello from servera
+
+    '
+- action: file
+  hosts:
+  - servera
+  path: /etc/httpd/conf.d/extra.conf
+  state: present
+  content: 'Listen 8080
+
+    Listen 9000
+
+    '
+- action: service
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: started
+  enabled: true
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: zone-file
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: The permanent zone lanonly has a source address
+      paths:
+      - /etc/firewalld/zones/lanonly.xml
+      matches: <source address="[0-9a-fA-F.:/]+"/>
+    - id: zone-http
+      kind: firewall
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: The zone lanonly allows http
+      zone: lanonly
+      service: http
+    - id: zone-myapp
+      kind: firewall
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: The zone lanonly allows the service myapp
+      zone: lanonly
+      service: myapp
+    - id: myapp-file
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: The service myapp is defined for 9000/tcp
+      paths:
+      - /etc/firewalld/services/myapp.xml
+      matches: port="9000"
+    - id: forward
+      kind: firewall
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: The zone lanonly forwards 8081 to 8080
+      zone: lanonly
+      forwardPort: port=8081:proto=tcp:toport=8080
+    - id: rich
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: The zone lanonly has a rich rule that rejects serverb on 9000
+      paths:
+      - /etc/firewalld/zones/lanonly.xml
+      matches: port="9000"
+      contains:
+      - reject
+    - id: log
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: Logging of rejected packets is off again
+      paths:
+      - /etc/firewalld/firewalld.conf
+      matches: ^LogDenied=off[[:space:]]*$
+    - id: public-closed
+      kind: firewall
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: The default zone does not allow http
+      service: http
+      allowed: false
+    - id: from-80
+      kind: http
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: serverb reaches port 80
+      url: http://servera.lab.example.com/
+      containsAny:
+      - hello from servera
+finish:
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  zone: lanonly
+  deleteZone: true
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  zone: drop
+  source: 172.25.251.9
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  service: myapp
+  deleteService: true
+- action: service
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: stopped
+  enabled: false
+- action: file
+  hosts:
+  - servera
+  path: /etc/httpd/conf.d/extra.conf
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /var/www/html/index.html
+  state: absent
+- action: package
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: absent

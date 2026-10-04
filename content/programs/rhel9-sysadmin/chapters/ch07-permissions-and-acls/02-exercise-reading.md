@@ -12,30 +12,27 @@ Predict, then test. You will set up three users and a report file, work out for 
   objectives=["ch07.reading"]
   id="reading"
   title="Who can read this?"
+  exercise="sa-reading"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Read owner, group and other permissions and predict access.","See that directory permissions decide who can list, enter and delete.","Use namei -l to find a blocked path."] %}
 
-  {% task id="task-39ebad7f9c3a" title="Create the users and the file" %}
-    On servera, open a root shell with `sudo -i`. Create the group `project` (GID 4500) and users `maria` and `john`, both in `project`, and `priya`, who is not. Then create `/srv/lab7/report.txt` containing a line of text, owned by `maria:project`, mode 640.
-
-    {% reveal title="Show solution" %}
+  {% task id="task-8f0c9c3dd818" title="Start the exercise" %}
+    On workstation, start the exercise. It creates the group project (4500), the users maria, john and priya, and `/srv/lab7/report.txt` (owned by maria, group project, mode 640).
 
 ```console
-[student@workstation ~]$ ssh student@servera
-[student@servera ~]$ sudo -i
-[root@servera ~]# groupadd -g 4500 project
-[root@servera ~]# useradd -m -G project maria
-[root@servera ~]# useradd -m -G project john
-[root@servera ~]# useradd -m priya
-[root@servera ~]# mkdir /srv/lab7
-[root@servera ~]# cd /srv/lab7
-[root@servera lab7]# echo "Q3 figures" > report.txt
-[root@servera lab7]# chown maria:project report.txt
-[root@servera lab7]# chmod 640 report.txt
-[root@servera lab7]# ls -l report.txt
--rw-r-----. 1 maria project 11 Oct  3 16:11 report.txt
+[student@workstation ~]$ lab start sa-reading
 ```
-    {% /reveal %}
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+
+    Then, as root on servera, change to the exercise directory:
+
+```console
+[root@servera ~]# cd /srv/lab7
+```
   {% /task %}
 
   {% task id="task-6a8712ce4075" title="Predict and test" %}
@@ -132,17 +129,7 @@ dr-xr-xr-x maria root box
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-b71d77a9b856" title="Clean up" %}
-
-    If `userdel` says a user is still in use, a login session from `su` has not closed yet: wait a few seconds and run it again.
-
-```console
-[root@servera lab7]# cd
-[root@servera ~]# rm -rf /srv/lab7
-[root@servera ~]# userdel -r maria; userdel -r john; userdel -r priya
-[root@servera ~]# groupdel project
-[root@servera ~]# exit
-[student@servera ~]$ exit
-```
+  {% task id="task-547ea3f80e70" title="Grade and finish" %}
+    {% lab-finish exercise="sa-reading" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

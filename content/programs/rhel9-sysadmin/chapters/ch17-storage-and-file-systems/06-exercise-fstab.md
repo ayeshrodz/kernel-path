@@ -12,8 +12,22 @@ Mount the two file systems and the swap area at boot, using UUIDs and sensible o
   objectives=["ch17.fstab"]
   id="fstab"
   title="Make the storage permanent"
+  exercise="sa-fstab-storage"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Write fstab entries by UUID for xfs, ext4 and swap.","Test with findmnt --verify, mount -a and swapon -a.","Verify the entries after a reboot."] %}
+
+  {% task id="task-21fde289a53b" title="Start the exercise" %}
+    On workstation, start the exercise. It partitions `/dev/sdb` of servera and creates the xfs file system, the ext4 file system and the swap area of the previous exercise.
+
+```console
+[student@workstation ~]$ lab start sa-fstab-storage
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-d7a6ee2b8619" title="Unmount and collect the UUIDs" %}
     On servera as root, unmount `/data` and `/logs` if they are still mounted from the previous exercise, create the mount points `/srv/data` and `/srv/archive`, and read the UUIDs of the three partitions.
@@ -126,5 +140,9 @@ sdb
 
     Everything came back without any manual `mount`: that is a permanent configuration. Keep it for the next exercise.
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-b33c9410fa0a" title="Grade and finish" %}
+    {% lab-finish exercise="sa-fstab-storage" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

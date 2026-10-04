@@ -102,6 +102,6 @@ c.txt
   {% task id="task-ddaf4ab39986" title="Record the fingerprint and grade" %}
     Fill in `answers.txt` (use `ssh-keygen -lF servera`; the type is the word ED25519 in the listing), then:
 
-    {% lab-finish exercise="sa-ssh-review" grade=true /%}
+    {% lab-finish exercise="sa-ssh-review" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

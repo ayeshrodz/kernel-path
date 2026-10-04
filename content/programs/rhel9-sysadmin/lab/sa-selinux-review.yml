@@ -101,3 +101,55 @@ checkpoints:
       paths:
       - answers.txt
       matches: ^AUDIT_LOG=/var/log/audit/audit\.log[ \t]*$
+finish:
+- action: selinux
+  hosts:
+  - servera
+  kind: fcontext
+  state: absent
+  path: /srv/portal(/.*)?
+- action: selinux
+  hosts:
+  - servera
+  kind: port
+  state: absent
+  type: http_port_t
+  proto: tcp
+  port: 8090
+- action: selinux
+  hosts:
+  - servera
+  kind: boolean
+  state: present
+  name: httpd_can_network_connect
+  value: false
+- action: selinux
+  hosts:
+  - servera
+  kind: boolean
+  state: present
+  name: httpd_enable_homedirs
+  value: false
+- action: service
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: stopped
+  enabled: false
+- action: directory
+  hosts:
+  - servera
+  path: /srv/portal
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/httpd/conf.d/portal.conf
+  state: absent
+- action: package
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: absent

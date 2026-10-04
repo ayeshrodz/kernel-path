@@ -140,6 +140,6 @@ vim
   {% /task %}
 
   {% task id="task-28043cd64cf1" title="Grade and finish" %}
-    {% lab-finish exercise="sa-text-review" grade=true /%}
+    {% lab-finish exercise="sa-text-review" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

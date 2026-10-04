@@ -1,0 +1,44 @@
+name: sa-vim
+title: Write and change a file with vim
+page: ch05/exercise-vim
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: file
+  hosts:
+  - servera
+  path: /home/student/welcome.txt
+  state: absent
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: welcome
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: welcome.txt has the three lines that remain
+      paths:
+      - /home/student/welcome.txt
+      lines:
+      - Welcome to servera.lab.example.com.
+      - 'Contact: admin@lab.example.com'
+      - 'Contact: oncall@lab.example.com'
+    - id: no-window
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the cancelled maintenance window line is gone
+      paths:
+      - /home/student/welcome.txt
+      lacks:
+      - Maintenance window
+finish:
+- action: file
+  hosts:
+  - servera
+  path: /home/student/welcome.txt
+  state: absent

@@ -12,8 +12,22 @@ Make the journal persistent and prove it across a reboot, send a facility to its
   objectives=["ch11.retention"]
   id="retention"
   title="Keep and rotate your logs"
+  exercise="sa-persistence"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Make the journal persistent and verify it after a reboot.","Add an rsyslog rule for a facility.","Write, test and force a logrotate rule."] %}
+
+  {% task id="task-e55c88aec5ed" title="Start the exercise" %}
+    On workstation, start the exercise. It removes the logging settings of an earlier run from servera.
+
+```console
+[student@workstation ~]$ lab start sa-persistence
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-0b7282cb49ac" title="Check the journal's lifetime" %}
     On servera as root, show how many boots the journal holds and how much space it uses.
@@ -117,15 +131,7 @@ EOT
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-b71ceeaceb3f" title="Clean up" %}
-
-```console
-[root@servera ~]# rm -f /etc/rsyslog.d/10-myapp.conf /etc/logrotate.d/myapp /var/log/myapp.log*
-[root@servera ~]# systemctl restart rsyslog
-[root@servera ~]# exit
-[student@servera ~]$ exit
-```
-
-    The persistent journal can stay: it is good practice.
+  {% task id="task-012ddc2e2403" title="Grade and finish" %}
+    {% lab-finish exercise="sa-persistence" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

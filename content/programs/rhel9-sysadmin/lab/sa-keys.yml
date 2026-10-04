@@ -1,0 +1,72 @@
+name: sa-keys
+title: Passwordless access for an account
+page: ch10/exercise-keys
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: user
+  hosts:
+  - servera
+  name: ops
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: ops
+  state: present
+  password: Ops-Pass-2026
+- action: home-remove
+  paths:
+  - .ssh/id_ops
+  - .ssh/id_ops.pub
+  - .ssh/id_pp
+  - .ssh/id_pp.pub
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: key
+      kind: file
+      'on': control
+      message: the private key ~/.ssh/id_ops exists with mode 600
+      paths:
+      - /home/student/.ssh/id_ops
+      mode: '0600'
+    - id: pub
+      kind: file
+      'on': control
+      message: the public key ~/.ssh/id_ops.pub exists
+      paths:
+      - /home/student/.ssh/id_ops.pub
+      contains:
+      - student@workstation (ops)
+    - id: installed
+      kind: user
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: ops has an authorized_keys file with the right owner and mode
+      names:
+      - ops
+      authorizedKeys: true
+    - id: pp-gone
+      kind: file
+      'on': control
+      message: the temporary passphrase copy id_pp was removed
+      paths:
+      - /home/student/.ssh/id_pp
+      - /home/student/.ssh/id_pp.pub
+      exists: false
+finish:
+- action: user
+  hosts:
+  - servera
+  name: ops
+  state: absent
+- action: home-remove
+  paths:
+  - .ssh/id_ops
+  - .ssh/id_ops.pub
+  - .ssh/id_pp
+  - .ssh/id_pp.pub

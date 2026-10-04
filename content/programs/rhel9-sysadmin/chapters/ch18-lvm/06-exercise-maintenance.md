@@ -12,8 +12,22 @@ A volume holds your data on an old disk. Move it to a new disk while it stays mo
   objectives=["ch18.maintenance"]
   id="maintenance"
   title="Move data to a new disk"
+  exercise="sa-lvm-maintenance"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Replace a PV with pvmove, vgreduce and pvremove.","Rename a volume and update fstab.","Add LVM swap and verify after a reboot."] %}
+
+  {% task id="task-817671257cef" title="Start the exercise" %}
+    On workstation, start the exercise. It builds the volume group `vgdata` from the two partitions of `/dev/sdb` on servera, with the volumes `lvapp` and `lvlog` mounted on `/srv/app` and `/srv/log`.
+
+```console
+[student@workstation ~]$ lab start sa-lvm-maintenance
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-a249cb7e09bd" title="A fresh start" %}
     On servera as root, remove the volumes from the previous exercises (unmount them first), keep the volume group `vgdata` with both PVs, and create one volume `lvdata` of 800 MiB that lives only on `/dev/sdb1`. Put XFS on it, mount it on `/srv/data`, and write a file. Note its checksum. Check on which PV it lives.
@@ -144,5 +158,9 @@ b2bc7d3f8b652d2e
 
     Volumes activate by themselves at boot, and the data is exactly what you wrote. Keep this layout for the troubleshooting exercise.
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-04e5d8e441d2" title="Grade and finish" %}
+    {% lab-finish exercise="sa-lvm-maintenance" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

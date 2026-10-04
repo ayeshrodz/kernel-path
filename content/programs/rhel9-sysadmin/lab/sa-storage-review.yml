@@ -92,3 +92,32 @@ checkpoints:
       paths:
       - answers.txt
       matches: ^INODE_COMMAND=df -i[ \t]*$
+finish:
+- action: wipe-disk
+  hosts:
+  - serverb
+  device: /dev/sdb
+- action: remove-lines
+  hosts:
+  - serverb
+  path: /etc/fstab
+  matching: /srv/projects|/srv/backups|none[[:space:]]+swap
+- action: directory
+  hosts:
+  - serverb
+  path: /srv/projects
+  state: absent
+- action: directory
+  hosts:
+  - serverb
+  path: /srv/backups
+  state: absent
+- action: file
+  hosts:
+  - serverb
+  path: /root/fstab.bak
+  state: absent
+- action: systemd
+  hosts:
+  - serverb
+  reload: true

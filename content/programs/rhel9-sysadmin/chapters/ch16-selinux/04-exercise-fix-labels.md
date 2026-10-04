@@ -12,31 +12,21 @@ Serve a page from a new directory with Apache, watch it fail, prove that SELinux
   objectives=["ch16.contexts"]
   id="fix-labels"
   title="Fix a 403 caused by a label"
+  exercise="sa-fix-labels"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Find that a wrong type blocks httpd.","Use semanage fcontext and restorecon for a permanent fix.","Compare cp, mv and chcon."] %}
 
-  {% task id="task-89e066f27a14" title="Install and configure httpd" %}
-    On servera as root (`sudo -i`), install `httpd` and the audit tools (`audit`, `setroubleshoot-server`), start `auditd`, create `/srv/web/index.html` containing `Hello from /srv/web`, and tell Apache to serve `/srv/web` with a file `/etc/httpd/conf.d/web.conf`. Start httpd.
-
-    {% reveal title="Show solution" %}
+  {% task id="task-66a6edd47ff0" title="Start the exercise" %}
+    On workstation, start the exercise. It installs httpd and the audit tools on servera, creates `/srv/web/index.html` and the Apache file `/etc/httpd/conf.d/web.conf` that serves it, and starts httpd.
 
 ```console
-[student@workstation ~]$ ssh student@servera
-[student@servera ~]$ sudo -i
-[root@servera ~]# dnf install -y httpd audit setroubleshoot-server > /dev/null
-[root@servera ~]# systemctl enable --now auditd
-[root@servera ~]# mkdir -p /srv/web
-[root@servera ~]# echo "Hello from /srv/web" > /srv/web/index.html
-[root@servera ~]# cat > /etc/httpd/conf.d/web.conf <<'EOT'
-DocumentRoot "/srv/web"
-<Directory "/srv/web">
-    Require all granted
-</Directory>
-EOT
-[root@servera ~]# systemctl enable --now httpd
-Created symlink /etc/systemd/system/multi-user.target.wants/httpd.service → /usr/lib/systemd/system/httpd.service.
+[student@workstation ~]$ lab start sa-fix-labels
 ```
-    {% /reveal %}
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-108264cdfa5b" title="See it fail" %}
@@ -134,14 +124,7 @@ Relabeled /srv/web/copy.html from unconfined_u:object_r:user_home_t:s0 to unconf
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-e5747f243852" title="Clean up" %}
-
-```console
-[root@servera ~]# semanage fcontext -d "/srv/web(/.*)?"
-[root@servera ~]# systemctl disable --now httpd
-[root@servera ~]# rm -rf /srv/web /etc/httpd/conf.d/web.conf /tmp/second.html
-[root@servera ~]# exit
-[student@servera ~]$ exit
-```
+  {% task id="task-0534637ecf5b" title="Grade and finish" %}
+    {% lab-finish exercise="sa-fix-labels" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

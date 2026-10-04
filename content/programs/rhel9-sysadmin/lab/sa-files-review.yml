@@ -131,3 +131,29 @@ checkpoints:
       - /home/student/latest
       fileType: symlink
       resolvesTo: /home/student/Podcasts/season2
+finish:
+- action: directory
+  hosts:
+  - serverb
+  path: /home/student/Podcasts
+  state: absent
+- action: directory
+  hosts:
+  - serverb
+  path: /home/student/Documents
+  state: absent
+- action: file
+  hosts:
+  - serverb
+  path: /home/student/podcast_s1_e1.mp3
+  state: absent
+- action: file
+  hosts:
+  - serverb
+  path: /home/student/podcast_s2_e6.mp3
+  state: absent
+- action: file
+  hosts:
+  - serverb
+  path: /home/student/latest
+  state: absent

@@ -91,3 +91,33 @@ checkpoints:
       paths:
       - answers.txt
       matches: ^REPO_DIR=/etc/yum\.repos\.d/?[ \t]*$
+finish:
+- action: file
+  hosts:
+  - servera
+  path: /etc/yum.repos.d/local.repo
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/localrepo
+  state: absent
+- action: package
+  hosts:
+  - servera
+  names:
+  - zip
+  - unzip
+  - wget
+  state: absent
+- action: dnf-module
+  hosts:
+  - servera
+  name: nginx
+  state: reset
+- action: package
+  hosts:
+  - servera
+  names:
+  - tree
+  state: reinstalled

@@ -1,0 +1,138 @@
+name: sa-transfer
+title: Move files between machines
+page: ch10/exercise-transfer
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: user
+  hosts:
+  - servera
+  name: ops
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: ops
+  state: present
+  password: Ops-Pass-2026
+- action: home-remove
+  paths:
+  - sshlab
+  - .ssh/id_ops
+  - .ssh/id_ops.pub
+- action: ssh-config-block
+  host: opsa
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /tmp/reports
+  state: absent
+- action: ssh-identity
+  name: id_ops
+  hosts:
+  - servera
+  user: ops
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: inventory-local
+      kind: file
+      'on': control
+      message: ~/sshlab/inventory.txt exists on workstation
+      paths:
+      - /home/student/sshlab/inventory.txt
+      contains:
+      - web1
+    - id: alias
+      kind: file
+      'on': control
+      message: ~/.ssh/config defines the alias opsa
+      paths:
+      - /home/student/.ssh/config
+      contains:
+      - Host opsa
+      - User ops
+    - id: downloaded
+      kind: file
+      'on': control
+      message: servera's host name was downloaded
+      paths:
+      - /home/student/sshlab/servera-hostname.txt
+      contains:
+      - servera
+    - id: sftp
+      kind: file
+      'on': control
+      message: sftp fetched downloaded-a.txt
+      paths:
+      - /home/student/sshlab/downloaded-a.txt
+      contains:
+      - r1
+    - id: uploaded
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: inventory.txt is in the home of ops
+      paths:
+      - /home/ops/inventory.txt
+      owner: ops
+    - id: scp-dir
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the reports directory was copied to /tmp
+      paths:
+      - /tmp/reports/a.txt
+      contains:
+      - r1
+    - id: rsync-a
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: rsyncdir holds a.txt
+      paths:
+      - /home/ops/rsyncdir/a.txt
+      owner: ops
+    - id: rsync-c
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: rsyncdir holds c.txt
+      paths:
+      - /home/ops/rsyncdir/c.txt
+      owner: ops
+    - id: rsync-b
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the mirror deleted b.txt
+      paths:
+      - /home/ops/rsyncdir/b.txt
+      exists: false
+finish:
+- action: user
+  hosts:
+  - servera
+  name: ops
+  state: absent
+- action: home-remove
+  paths:
+  - sshlab
+  - .ssh/id_ops
+  - .ssh/id_ops.pub
+- action: ssh-config-block
+  host: opsa
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /tmp/reports
+  state: absent

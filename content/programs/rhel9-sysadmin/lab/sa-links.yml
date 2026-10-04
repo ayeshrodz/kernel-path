@@ -1,0 +1,88 @@
+name: sa-links
+title: Releases with symbolic and hard links
+page: ch03/exercise-links
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/release
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /home/student/current
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /home/student/app.conf.saved
+  state: absent
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: current
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: current is a symbolic link to release/v2
+      paths:
+      - /home/student/current
+      symlinkTo: release/v2
+    - id: v1
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: release/v1/app.conf still says version 1
+      paths:
+      - /home/student/release/v1/app.conf
+      line: version 1
+    - id: v2-gone
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the release/v2 directory was deleted
+      paths:
+      - /home/student/release/v2
+      exists: false
+    - id: saved
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: app.conf.saved kept the data of version 2
+      paths:
+      - /home/student/app.conf.saved
+      line: version 2
+      hardLinks: 1
+    - id: no-stray
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: no stray link v2 is left inside release/v1
+      paths:
+      - /home/student/release/v1/v2
+      exists: false
+finish:
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/release
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /home/student/current
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /home/student/app.conf.saved
+  state: absent

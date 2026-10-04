@@ -124,3 +124,64 @@ class ActionTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class HostActionTests(unittest.TestCase):
+    """Server actions build fixed scripts from validated values; nothing from the catalog runs as a command."""
+
+    def script(self, **action):
+        return prepare.HOST_SCRIPTS[action['action']](action)
+
+    def test_values_are_quoted(self):
+        text = self.script(action='package', hosts=['servera'], names=['httpd', 'tree'])
+        self.assertIn("dnf install -y -q httpd tree", text)
+        text = self.script(action='file', hosts=['servera'], path='/srv/web/a b.txt', content='x; rm -rf /\n')
+        self.assertIn("'/srv/web/a b.txt'", text)
+        self.assertNotIn('x; rm -rf /', text)  # the content travels base64 encoded
+
+    def test_paths_outside_the_allowed_places_are_refused(self):
+        for path in ('/etc/passwd', '/etc/shadow', '/usr/bin/ls', '/boot/vmlinuz', '/srv/../etc/passwd', '/var/lib/rpm'):
+            with self.assertRaises(prepare.SetupError, msg=path):
+                self.script(action='directory', hosts=['servera'], path=path, state='absent')
+
+    def test_whole_top_directories_and_home_directories_are_not_removed(self):
+        for path in ('/srv', '/home', '/home/student', '/opt', '/mnt', '/var/log'):
+            with self.assertRaises(prepare.SetupError, msg=path):
+                self.script(action='directory', hosts=['servera'], path=path, state='absent')
+        self.assertIn('rm -rf', self.script(action='directory', hosts=['servera'], path='/srv/web', state='absent'))
+
+    def test_line_removal_is_limited_to_a_few_files(self):
+        with self.assertRaises(prepare.SetupError):
+            self.script(action='remove-lines', hosts=['servera'], path='/etc/passwd', matching='x')
+        self.assertIn('/etc/fstab', self.script(action='remove-lines', hosts=['servera'], path='/etc/fstab', matching='^/dev/sdb1'))
+
+    def test_account_names_must_be_plain(self):
+        with self.assertRaises(prepare.SetupError):
+            self.script(action='user', hosts=['servera'], name='bob; reboot', state='absent')
+
+    def test_firewall_resolves_a_server_name_for_sources(self):
+        text = self.script(action='firewall', hosts=['servera'], zone='portal', source='@serverb', state='present')
+        self.assertIn('getent ahostsv4 serverb.lab.example.com', text)
+
+    def test_wipe_disk_only_touches_spare_disks(self):
+        self.assertIn('/dev/sdb', self.script(action='wipe-disk', hosts=['servera'], device='/dev/sdb'))
+
+    def test_every_published_exercise_builds_its_setup_and_cleanup(self):
+        for name, exercise in CATALOG['exercises'].items():
+            for key in ('setup', 'finish'):
+                for action in exercise.get(key, []):
+                    if action['action'] in prepare.HOST_SCRIPTS:
+                        self.assertTrue(self.script(**action), '%s %s %s' % (name, key, action['action']))
+                    else:
+                        self.assertIn(action['action'], prepare.ACTIONS, name)
+
+    def test_finish_runs_only_cleanup_actions(self):
+        calls = []
+        original = prepare.run_on_host
+        prepare.run_on_host = lambda host, script, tolerant: calls.append((host, tolerant)) or True
+        try:
+            catalog = {'exercises': {'x': {'finish': [{'action': 'package', 'hosts': ['servera', 'serverb'], 'names': ['tree'], 'state': 'absent'}]}}}
+            self.assertEqual(prepare.finish('x', Path('.'), 'file:///nowhere', catalog), 1)
+        finally:
+            prepare.run_on_host = original
+        self.assertEqual(calls, [('servera', True), ('serverb', True)])

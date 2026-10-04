@@ -12,22 +12,21 @@ Turn the web container into a Quadlet service, watch systemd restart it, break a
   objectives=["ch21.services"]
   id="service"
   title="Run a container as a service"
+  exercise="sa-containers-service"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera","serverb"]
   outcomes=["Write a Quadlet file and start the generated service.","Diagnose a wrong image name and a missing SELinux label.","Enable lingering and open the firewall so the service works after a reboot."] %}
 
-  {% task id="task-579aa32f3398" title="Prepare" %}
-    Log in to servera as student. Pull `registry.access.redhat.com/ubi9/httpd-24:latest`, create `~/web/index.html` with `hello from a container`, and make sure no container of the earlier exercises is running.
-
-    {% reveal title="Show solution" %}
+  {% task id="task-c2bda658caa9" title="Start the exercise" %}
+    On workstation, start the exercise. It installs podman, pulls the web image for student on servera and creates `~/web/index.html` with the line `hello from a container`.
 
 ```console
-[student@workstation ~]$ ssh student@servera
-[student@servera ~]$ podman pull registry.access.redhat.com/ubi9/httpd-24:latest | tail -1
-4e74cc90c2a4ab4fcc97976b9e382cd2b8e0711222a30206ae8089fc39b01bb9
-[student@servera ~]$ mkdir -p ~/web; echo "hello from a container" > ~/web/index.html
-[student@servera ~]$ podman ps -a --format "{{.Names}}"
+[student@workstation ~]$ lab start sa-containers-service
 ```
-    {% /reveal %}
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-04344c24e45c" title="The Quadlet file" %}
@@ -103,7 +102,6 @@ NRestarts=1
     {% reveal title="Show solution" %}
 
 ```console
-[student@servera ~]$ systemctl --user stop web.service
 [student@servera ~]$ sed -i 's#httpd-24:latest#httpd-99:latest#' ~/.config/containers/systemd/web.container
 [student@servera ~]$ systemctl --user daemon-reload; systemctl --user start web.service
 Job for web.service failed because the control process exited with error code.
@@ -165,15 +163,7 @@ hello from a container
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-f73b4f5b322d" title="Clean up" %}
-
-```console
-[student@servera ~]$ systemctl --user stop web.service
-[student@servera ~]$ rm ~/.config/containers/systemd/web.container; systemctl --user daemon-reload
-[student@servera ~]$ sudo firewall-cmd --permanent --remove-port=8080/tcp; sudo firewall-cmd --reload
-success
-success
-[student@servera ~]$ sudo loginctl disable-linger student
-```
+  {% task id="task-64109f68f491" title="Grade and finish" %}
+    {% lab-finish exercise="sa-containers-service" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

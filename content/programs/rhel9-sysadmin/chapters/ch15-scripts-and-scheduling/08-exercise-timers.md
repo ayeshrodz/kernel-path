@@ -12,8 +12,22 @@ Build a service and timer pair, test the service by hand, watch the timer fire a
   objectives=["ch15.timers"]
   id="timers"
   title="Timers and one-off jobs"
+  exercise="sa-timers"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Write a oneshot service and a timer and enable the timer.","Check calendar expressions with systemd-analyze.","Schedule and remove an at job."] %}
+
+  {% task id="task-1912509ccaac" title="Start the exercise" %}
+    On workstation, start the exercise. It removes the hello units and the at package of an earlier run from servera.
+
+```console
+[student@workstation ~]$ lab start sa-timers
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-a8c581357ef5" title="The service" %}
     On servera as root (`sudo -i`), create `/etc/systemd/system/hello.service`: a oneshot service that logs `hello from the timer` with the tag `hello-timer` (use `logger`). Start it by hand and look in the journal.
@@ -134,16 +148,7 @@ job 2 at Sat Oct  3 23:59:00 2026
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-30bce7bfd9f5" title="Clean up" %}
-
-```console
-[root@servera ~]# systemctl disable --now hello.timer
-Removed "/etc/systemd/system/timers.target.wants/hello.timer".
-[root@servera ~]# rm -f /etc/systemd/system/hello.service /etc/systemd/system/hello.timer /home/student/at.out
-[root@servera ~]# systemctl daemon-reload
-[root@servera ~]# dnf remove -y at > /dev/null
-[root@servera ~]# exit
-[student@servera ~]$ exit
-```
+  {% task id="task-b5cbf9f9e6ea" title="Grade and finish" %}
+    {% lab-finish exercise="sa-timers" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

@@ -1,0 +1,124 @@
+name: sa-manage-files
+title: Build and tidy a small website
+page: ch03/exercise-manage-files
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/site
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/archive
+  state: absent
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: dirs
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: site has the directories images, css and pages
+      paths:
+      - /home/student/site/images
+      - /home/student/site/css
+      - /home/student/site/pages
+      fileType: directory
+    - id: images
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: logo.png and banner.png are in site/images
+      paths:
+      - /home/student/site/images/logo.png
+      fileType: regular
+    - id: banner
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: banner.png is in site/images
+      paths:
+      - /home/student/site/images/banner.png
+      fileType: regular
+    - id: css
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: style.css is in site/css
+      paths:
+      - /home/student/site/css/style.css
+      fileType: regular
+    - id: pages
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: home.html and about.html are in site/pages
+      paths:
+      - /home/student/site/pages/home.html
+      fileType: regular
+    - id: about
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: about.html is in site/pages
+      paths:
+      - /home/student/site/pages/about.html
+      fileType: regular
+    - id: renamed
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the contact page was renamed to contact-us.html
+      paths:
+      - /home/student/site/pages/contact-us.html
+      fileType: regular
+    - id: old-name
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: pages/contact.html no longer exists
+      paths:
+      - /home/student/site/pages/contact.html
+      exists: false
+    - id: backup-gone
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the pages-backup directory was removed
+      paths:
+      - /home/student/site/pages-backup
+      exists: false
+    - id: archive-gone
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: ~/archive was removed
+      paths:
+      - /home/student/archive
+      exists: false
+finish:
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/site
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/archive
+  state: absent

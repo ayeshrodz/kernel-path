@@ -1,0 +1,33 @@
+name: sa-rpm
+title: Interrogate the installed software
+page: ch13/exercise-rpm
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: package
+  hosts:
+  - servera
+  names:
+  - tree
+  state: reinstalled
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: tree
+      kind: package
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: tree is installed and every file matches the RPM database again
+      names:
+      - tree
+      verify: true
+finish:
+- action: package
+  hosts:
+  - servera
+  names:
+  - tree
+  state: reinstalled

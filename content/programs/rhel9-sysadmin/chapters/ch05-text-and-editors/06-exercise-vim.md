@@ -12,8 +12,22 @@ Work through the first lesson of vim's own tutorial, then use what it taught to 
   objectives=["ch05.vim"]
   id="vim"
   title="Create and edit a file with vim"
+  exercise="sa-vim"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Move between normal, insert and command-line mode.","Copy, paste, delete and undo lines, and replace text.","Save, or quit without saving."] %}
+
+  {% task id="task-e3f7ce51483c" title="Start the exercise" %}
+    On workstation, start the exercise. It removes welcome.txt of an earlier run from student's home on servera.
+
+```console
+[student@workstation ~]$ lab start sa-vim
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-727284164744" title="Do lesson 1 of vimtutor" %}
     On servera, start the tutorial:
@@ -93,5 +107,9 @@ Contact: admin@lab.example.com
 [student@servera ~]$ exit
 ```
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-062ea72bb36e" title="Grade and finish" %}
+    {% lab-finish exercise="sa-vim" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

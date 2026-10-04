@@ -1,0 +1,40 @@
+name: sa-nmcli
+title: Configure a static connection
+page: ch12/exercise-nmcli
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: nm-connection
+  hosts:
+  - servera
+  name: dummy0
+  state: absent
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: profile
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the dummy0 profile was deleted at the end
+      paths:
+      - /etc/NetworkManager/system-connections/dummy0.nmconnection
+      exists: false
+    - id: device
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the dummy0 interface is gone
+      paths:
+      - /sys/class/net/dummy0
+      exists: false
+finish:
+- action: nm-connection
+  hosts:
+  - servera
+  name: dummy0
+  state: absent

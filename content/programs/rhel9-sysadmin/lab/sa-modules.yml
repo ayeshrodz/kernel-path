@@ -1,0 +1,32 @@
+name: sa-modules
+title: Choose a version and check for updates
+page: ch13/exercise-modules
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: dnf-module
+  hosts:
+  - servera
+  name: nginx
+  state: reset
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: no-stream
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: no nginx stream is left enabled
+      paths:
+      - /etc/dnf/modules.d/nginx.module
+      lacks:
+      - state=enabled
+finish:
+- action: dnf-module
+  hosts:
+  - servera
+  name: nginx
+  state: reset

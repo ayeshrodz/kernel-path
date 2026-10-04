@@ -12,29 +12,21 @@ Two more reasons for a service to be refused by SELinux, and their proper fixes:
   objectives=["ch16.booleans"]
   id="booleans-ports"
   title="Flip a switch and label a port"
+  exercise="sa-booleans-ports"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Find and change an httpd boolean permanently.","Label a port for httpd and start the service on it.","Review local SELinux customisations."] %}
 
-  {% task id="task-338fabc53204" title="Prepare httpd and a user page" %}
-    On servera as root (`sudo -i`), install `httpd`, `audit` and `setroubleshoot-server` if they are not there (`dnf install -y …`), start `auditd`, create the user `bob` with a page `/home/bob/public_html/index.html` (home mode 711, directory 755, file 644), and enable user directories by editing `/etc/httpd/conf.d/userdir.conf`: comment out `UserDir disabled` and add `UserDir public_html`. Start httpd.
-
-    {% reveal title="Show solution" %}
+  {% task id="task-713375a67e2c" title="Start the exercise" %}
+    On workstation, start the exercise. It installs httpd and the audit tools on servera, creates the user bob with a page in `~/public_html`, turns on Apache's UserDir feature and starts httpd.
 
 ```console
-[student@workstation ~]$ ssh student@servera
-[student@servera ~]$ sudo -i
-[root@servera ~]# dnf install -y httpd audit setroubleshoot-server > /dev/null
-[root@servera ~]# systemctl enable --now auditd
-[root@servera ~]# useradd -m bob
-[root@servera ~]# mkdir -p /home/bob/public_html
-[root@servera ~]# echo "bob page" > /home/bob/public_html/index.html
-[root@servera ~]# chmod 711 /home/bob; chmod 755 /home/bob/public_html; chmod 644 /home/bob/public_html/index.html
-[root@servera ~]# sed -i 's/^\s*UserDir disabled/#UserDir disabled/; s/^\s*#\s*UserDir public_html/    UserDir public_html/' /etc/httpd/conf.d/userdir.conf
-[root@servera ~]# grep -n "UserDir public_html" /etc/httpd/conf.d/userdir.conf
-24:    UserDir public_html
-[root@servera ~]# systemctl enable --now httpd
+[student@workstation ~]$ lab start sa-booleans-ports
 ```
-    {% /reveal %}
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-4860cc481235" title="See it fail" %}
@@ -117,16 +109,7 @@ http_port_t                    tcp      82
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-2fccc677c5a9" title="Put everything back" %}
-
-```console
-[root@servera ~]# semanage port -d -t http_port_t -p tcp 82
-[root@servera ~]# setsebool -P httpd_enable_homedirs off
-[root@servera ~]# sed -i 's/^Listen 82$/Listen 80/' /etc/httpd/conf/httpd.conf
-[root@servera ~]# systemctl disable --now httpd
-[root@servera ~]# userdel -r bob
-[root@servera ~]# exit
-[student@servera ~]$ exit
-```
+  {% task id="task-dcc7eb5690cd" title="Grade and finish" %}
+    {% lab-finish exercise="sa-booleans-ports" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

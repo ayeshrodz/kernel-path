@@ -12,8 +12,22 @@ Look at how servera knows its own name and how it finds serverb, then plant a wr
   objectives=["ch12.names"]
   id="names"
   title="Names, hosts and DNS"
+  exercise="sa-names"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Show and change the host name with hostnamectl.","Compare getent with dig.","Use /etc/hosts and see that it wins over DNS."] %}
+
+  {% task id="task-538f7e88aa10" title="Start the exercise" %}
+    On workstation, start the exercise. It removes test entries from `/etc/hosts` of servera and checks its host name.
+
+```console
+[student@workstation ~]$ lab start sa-names
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-ba878b5cb585" title="Read the name configuration" %}
     On servera as root (`sudo -i`), show the short and fully qualified names, the file that stores the name, the DNS servers and the search domain, and the order of name sources.
@@ -124,5 +138,9 @@ servera.lab.example.com
 [student@servera ~]$ exit
 ```
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-e2b9d263c480" title="Grade and finish" %}
+    {% lab-finish exercise="sa-names" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

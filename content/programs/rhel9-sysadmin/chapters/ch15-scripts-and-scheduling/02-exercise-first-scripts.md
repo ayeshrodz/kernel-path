@@ -12,8 +12,22 @@ Write a greeting script, run it every way that works, then pass it arguments and
   objectives=["ch15.scripts"]
   id="scripts"
   title="Write and run your first scripts"
+  exercise="sa-first-scripts"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Write a script with a shebang and make it executable.","Run it with ./, bash and through PATH.","Use arguments, quoting and exit statuses."] %}
+
+  {% task id="task-c3e3d33935eb" title="Start the exercise" %}
+    On workstation, start the exercise. It removes the scripts of an earlier run from student's home on servera.
+
+```console
+[student@workstation ~]$ lab start sa-first-scripts
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-fa4171b2c43e" title="Write hello.sh" %}
     On servera as `student`, create `~/scripts/hello.sh` (use `vim`) with the content below. Try to run it before doing anything else.
@@ -136,11 +150,7 @@ not found
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-64ceed0d2588" title="Clean up" %}
-
-```console
-[student@servera scripts]$ cd; rm -rf ~/scripts ~/bin/hello.sh
-[student@servera ~]$ exit
-```
+  {% task id="task-0fafec186b58" title="Grade and finish" %}
+    {% lab-finish exercise="sa-first-scripts" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

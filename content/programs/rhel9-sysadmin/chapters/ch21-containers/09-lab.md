@@ -112,6 +112,6 @@ Portal is up
   {% task id="task-b9e0a99c36c8" title="Grade" %}
     On workstation, fill in `answers.txt` and grade:
 
-    {% lab-finish exercise="sa-containers-review" grade=true /%}
+    {% lab-finish exercise="sa-containers-review" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

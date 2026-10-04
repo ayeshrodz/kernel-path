@@ -2,10 +2,10 @@
 # lab - starts and finishes exercises on the Kernel Path home lab
 # (same syntax as a classroom 'lab' command). Runs on workstation as student.
 # Install or update: see section 1.6 of the guide, or run: lab update
-# Version 6
+# Version 7
 set -euo pipefail
 
-VERSION=6
+VERSION=7
 BASE="${LAB_URL:-https://kernelpath.dev/lab}"
 LAB_ROOT="${LAB_HOME:-$HOME}"
 ARCHIVE="$LAB_ROOT/lab-archive"
@@ -24,8 +24,10 @@ usage() {
 cat <<USAGE
 lab v$VERSION - Kernel Path home lab exercises
 
-  lab start  NAME [--force]    create ~/NAME with the exercise's starter files
-  lab finish NAME [--delete]   put ~/NAME away in ~/lab-archive (or delete it)
+  lab start  NAME [--force]    create ~/NAME with the exercise's starter files and
+                               prepare the servers (packages, users, files)
+  lab finish NAME [--delete]   undo the exercise's changes on the servers and put
+                               ~/NAME away in ~/lab-archive (or delete it)
   lab grade  NAME [--checkpoint ID] [--json]   read-only project and host checks
   lab list                     exercises that have starter files
   lab check                    is the lab ready for the exercises?
@@ -76,12 +78,21 @@ cmd_start() {
     || die "setup failed; exercise is not ready. Fix the reported error and restart with --force"
   rm -f "$dir/.lab-prepare.py" "$dir/.lab-catalog.json" "$dir/.lab-not-ready"
   say "~/$name is ready: cd ~/$name"
-  echo "  Start from clean servers (on the Ubuntu host: rht-vmctl reset servers)."
+  echo "  If an earlier exercise left changes on the servers, finish it first (lab finish NAME) or reset them on the Ubuntu host: rht-vmctl reset servers"
 }
 
 cmd_finish() {
   need_name "${1:-}"; valid_name "$1"
-  local name="$1" opt="${2:-}" dir="$LAB_ROOT/$1" dest
+  local name="$1" opt="${2:-}" dir="$LAB_ROOT/$1" dest work
+  [[ -z $opt || $opt == --delete ]] || die "unknown option: $opt"
+  # Undo what the exercise changed on the servers: the cleanup actions come from the exercise catalog.
+  work=$(mktemp -d); LAB_TEMP_DIR="$work"; trap 'rm -rf -- "$LAB_TEMP_DIR"' EXIT
+  if fetch prepare.py > "$work/prepare.py" 2>/dev/null && fetch graders.json > "$work/graders.json" 2>/dev/null; then
+    python3 "$work/prepare.py" "$name" --finish --project "$dir" --catalog "$work/graders.json" --base "$BASE" \
+      || warn "the cleanup on the servers did not finish; 'rht-vmctl reset servers' on the Ubuntu host always works"
+  else
+    warn "cannot download the cleanup steps; the servers are unchanged"
+  fi
   if [[ ! -e $dir ]]; then
     warn "there is no ~/$name on workstation (already finished?)"
   elif [[ $opt == --delete ]]; then
@@ -92,8 +103,7 @@ cmd_finish() {
     mkdir -p "$ARCHIVE" && mv "$dir" "$dest" && say "moved ~/$name to ~/lab-archive/$(basename "$dest")"
     echo "  Your work is kept there. 'lab start $name' gives you a fresh copy."
   fi
-  echo "  One step is left, and only the Ubuntu host can do it:  rht-vmctl reset servers"
-  echo "  (lab runs inside the sealed lab network, so it cannot reset the machines itself)"
+  echo "  The servers were cleaned as far as this exercise goes. For the exact clean baseline, run on the Ubuntu host:  rht-vmctl reset servers"
 }
 
 cmd_grade() {

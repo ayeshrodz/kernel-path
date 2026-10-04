@@ -1,0 +1,84 @@
+name: sa-tar
+title: Archive a project
+page: ch14/exercise-tar
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: directory
+  hosts:
+  - servera
+  path: /root/arch
+  state: absent
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: tar
+      kind: archive
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: project.tar lists the project
+      path: /root/arch/project.tar
+      format: tar
+      members:
+      - project/run.sh
+      - project/docs/notes.md
+    - id: tgz
+      kind: archive
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: project.tar.gz is a readable archive of the project
+      path: /root/arch/project.tar.gz
+      format: tar.gz
+      members:
+      - project/run.sh
+      - project/src/data1.txt
+    - id: notxt
+      kind: archive
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: notxt.tar.gz leaves out the .txt files
+      path: /root/arch/notxt.tar.gz
+      format: tar.gz
+      members:
+      - project/docs/notes.md
+      absentMembers:
+      - project/src/data1.txt
+    - id: abs
+      kind: archive
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: abs.tar stores the path without the leading slash
+      path: /root/arch/abs.tar
+      format: tar
+      members:
+      - root/arch/project/docs/notes.md
+    - id: restore
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the full restore holds the script with its mode
+      paths:
+      - /root/arch/restore/project/run.sh
+      mode: '0750'
+    - id: one
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: only run.sh was extracted into one/
+      paths:
+      - /root/arch/one/project/run.sh
+      fileType: regular
+finish:
+- action: directory
+  hosts:
+  - servera
+  path: /root/arch
+  state: absent

@@ -1,0 +1,103 @@
+name: sa-moving
+title: Move a tree between servers
+page: ch14/exercise-moving
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: directory
+  hosts:
+  - servera
+  path: /tmp/arch
+  state: absent
+- action: directory
+  hosts:
+  - serverb
+  path: /tmp/recv
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /tmp/arch/work/docs
+  state: present
+- action: file
+  hosts:
+  - servera
+  path: /tmp/arch/work/docs/a.txt
+  state: present
+  content: 'one
+
+    '
+- action: file
+  hosts:
+  - servera
+  path: /tmp/arch/work/docs/c.txt
+  state: present
+  content: 'three
+
+    '
+- action: file
+  hosts:
+  - servera
+  path: /tmp/arch/work/docs/d.txt
+  state: present
+  content: 'four
+
+    '
+- action: home-remove
+  paths:
+  - xfer
+  - sums.txt
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: received
+      kind: file
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: the tree arrived on serverb
+      paths:
+      - /tmp/recv/work/docs/a.txt
+      line: one
+    - id: damaged
+      kind: file
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: c.txt on serverb was damaged on purpose
+      paths:
+      - /tmp/recv/work/docs/c.txt
+      contains:
+      - oops
+    - id: sums
+      kind: file
+      'on': control
+      message: the checksum list is on workstation
+      paths:
+      - /home/student/sums.txt
+      contains:
+      - docs/a.txt
+    - id: pulled
+      kind: file
+      'on': control
+      message: the rsync copy is in ~/xfer/work
+      paths:
+      - /home/student/xfer/work/docs/d.txt
+      line: four
+finish:
+- action: directory
+  hosts:
+  - servera
+  path: /tmp/arch
+  state: absent
+- action: directory
+  hosts:
+  - serverb
+  path: /tmp/recv
+  state: absent
+- action: home-remove
+  paths:
+  - xfer
+  - sums.txt

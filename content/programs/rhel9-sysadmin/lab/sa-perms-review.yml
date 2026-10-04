@@ -108,3 +108,34 @@ checkpoints:
       acl:
       - user:visitor:--x
       - default:user:visitor:r--
+finish:
+- action: user
+  hosts:
+  - servera
+  name: dana
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: evan
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: visitor
+  state: absent
+- action: group
+  hosts:
+  - servera
+  name: analysts
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/analysis
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/dropbox
+  state: absent

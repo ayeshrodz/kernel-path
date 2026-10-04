@@ -107,6 +107,6 @@ other::---
 
   {% task id="task-c73a6f33acc0" title="Grade" %}
 
-    {% lab-finish exercise="sa-archives-review" grade=true /%}
+    {% lab-finish exercise="sa-archives-review" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

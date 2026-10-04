@@ -12,32 +12,21 @@ A small website lives in `/srv/site`. Its owner maria and the group `webteam` ne
   objectives=["ch07.changing"]
   id="changing"
   title="Secure a web folder"
+  exercise="sa-changing"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Change owner and group recursively with chown -R.","Set modes with symbols, octal numbers and the capital X.","Verify access by acting as different users."] %}
 
-  {% task id="task-d9cf5dfc07d5" title="Build the tree" %}
-    On servera, open a root shell with `sudo -i`. Create the group `webteam` (GID 4600), the users `maria` (in `webteam`) and `john` (not in it), and the tree `/srv/site/html/index.html` plus `/srv/site/bin/deploy.sh`, using `mkdir -p` and `touch`. List it with `ls -lR /srv/site`.
-
-    {% reveal title="Show solution" %}
+  {% task id="task-c43425e35dd2" title="Start the exercise" %}
+    On workstation, start the exercise. It creates the group webteam (4600), the users maria and john, and the tree `/srv/site` with an empty `index.html` and `deploy.sh`, all owned by root.
 
 ```console
-[student@workstation ~]$ ssh student@servera
-[student@servera ~]$ sudo -i
-[root@servera ~]# groupadd -g 4600 webteam
-[root@servera ~]# useradd -m -G webteam maria
-[root@servera ~]# useradd -m john
-[root@servera ~]# mkdir -p /srv/site/html /srv/site/bin
-[root@servera ~]# touch /srv/site/html/index.html /srv/site/bin/deploy.sh
-[root@servera ~]# ls -lR /srv/site
-/srv/site:
-total 8
-drwxr-xr-x. 2 root root 4096 Oct  3 16:12 bin
-drwxr-xr-x. 2 root root 4096 Oct  3 16:12 html
-...output omitted...
+[student@workstation ~]$ lab start sa-changing
 ```
 
-    Everything belongs to root and is readable by everyone. That is what we will change.
-    {% /reveal %}
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-0bd717699754" title="Give it to maria and webteam" %}
@@ -133,16 +122,7 @@ ok
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-844e07e9a91b" title="Clean up" %}
-
-    If `userdel` says a user is still in use, a login session from `su` has not closed yet: wait a few seconds and run it again.
-
-```console
-[root@servera ~]# rm -rf /srv/site
-[root@servera ~]# userdel -r maria; userdel -r john
-[root@servera ~]# groupdel webteam
-[root@servera ~]# exit
-[student@servera ~]$ exit
-```
+  {% task id="task-31b287046207" title="Grade and finish" %}
+    {% lab-finish exercise="sa-changing" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

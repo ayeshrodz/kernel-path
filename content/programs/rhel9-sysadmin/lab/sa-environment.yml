@@ -1,0 +1,61 @@
+name: sa-environment
+title: Variables, PATH and start-up files
+page: ch05/exercise-environment
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/bin
+  state: absent
+- action: restore-skel
+  hosts:
+  - servera
+  user: student
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: script
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: ~/bin/up is an executable script
+      paths:
+      - /home/student/bin/up
+      fileType: regular
+      contains:
+      - uptime -p
+    - id: alias
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: ~/.bashrc defines the alias now and the history time format
+      paths:
+      - /home/student/.bashrc
+      contains:
+      - alias now='date +%T'
+      - HISTTIMEFORMAT
+    - id: editor
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: ~/.bash_profile exports EDITOR=vim
+      paths:
+      - /home/student/.bash_profile
+      line: export EDITOR=vim
+finish:
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/bin
+  state: absent
+- action: restore-skel
+  hosts:
+  - servera
+  user: student

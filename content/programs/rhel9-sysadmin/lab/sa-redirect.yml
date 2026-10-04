@@ -1,0 +1,92 @@
+name: sa-redirect
+title: Redirection and pipes
+page: ch05/exercise-redirection
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: file
+  hosts:
+  - servera
+  path: /home/student/conf-files.txt
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /home/student/found.txt
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /home/student/errors.txt
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /home/student/disk-report.txt
+  state: absent
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: list
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: conf-files.txt holds the list and the footer line
+      paths:
+      - /home/student/conf-files.txt
+      matches: ^/etc/chrony\.conf$
+      contains:
+      - '--- listed on'
+    - id: found
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: found.txt holds the results of find
+      paths:
+      - /home/student/found.txt
+      matches: ^/etc/.*\.conf$
+    - id: errors
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: errors.txt holds the permission errors
+      paths:
+      - /home/student/errors.txt
+      contains:
+      - Permission denied
+    - id: report
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: disk-report.txt was saved with tee
+      paths:
+      - /home/student/disk-report.txt
+      contains:
+      - Filesystem
+finish:
+- action: file
+  hosts:
+  - servera
+  path: /home/student/conf-files.txt
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /home/student/found.txt
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /home/student/errors.txt
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /home/student/disk-report.txt
+  state: absent

@@ -98,3 +98,18 @@ checkpoints:
       paths:
       - /home/student/.bash_profile
       matches: ^export EDITOR=vim
+finish:
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/reports
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /home/student/notice.txt
+  state: absent
+- action: restore-skel
+  hosts:
+  - servera
+  user: student

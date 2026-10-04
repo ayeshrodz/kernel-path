@@ -29,6 +29,38 @@ echo "  Run:  lab update   then start the exercise again with --force."
 exit 1
 `;
 const CONTROL_ONLY = new Set(['git', 'lint']);
+// Setup and cleanup actions that run as root on the lab servers; the rest work on the workstation.
+const HOST_ACTIONS = new Set([
+  'package',
+  'service',
+  'group',
+  'user',
+  'directory',
+  'file',
+  'remove-lines',
+  'firewall',
+  'selinux',
+  'wipe-disk',
+  'systemd',
+  'linger',
+  'container-reset',
+  'run-as',
+  'restore-skel',
+  'boot',
+  'timezone',
+  'nm-connection',
+  'hostname',
+  'http-server',
+  'dnf-module',
+  'crontab',
+  'partition-disk',
+  'format',
+  'append-line',
+  'mount-all',
+  'lvm-build',
+  'unmount',
+  'acl',
+]);
 
 /** Every file under `dir` as paths relative to it, sorted. */
 function walk(dir) {
@@ -87,8 +119,9 @@ export function compileLabs({ labs, pages, references, seen, validator, diagnost
       if (bytes) files.set(`lab/${name}/${publishedPath(relative)}`, bytes);
     }
     const listing = [`# ${def.title}${def.note ? ` (${def.note})` : ''}`];
-    if ((def.setup ?? []).length) {
-      listing.push('# generated: some files are created on your workstation');
+    if ((def.setup ?? []).length || (def.finish ?? []).length) {
+      if ((def.setup ?? []).some((action) => !HOST_ACTIONS.has(action.action)))
+        listing.push('# generated: some files are created on your workstation');
       listing.push('@lab-update-required');
       files.set(`lab/${name}/lab-update-required`, UPDATE_REQUIRED);
     }
@@ -140,6 +173,7 @@ export function compileLabs({ labs, pages, references, seen, validator, diagnost
       lesson: `#/${def.page}`,
       ...(def.transport === 'ssh' ? { transport: 'ssh' } : {}),
       ...(setup.length ? { setup } : {}),
+      ...(def.finish?.length ? { finish: def.finish } : {}),
       checkpoints: def.checkpoints,
     };
     index.push({ name, page: `${page.number}`, title: def.title, note: def.note });

@@ -1,0 +1,354 @@
+name: sa-portal
+title: Deliver the portal
+page: ch22/exercise-portal
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: service
+  hosts:
+  - servera
+  names:
+  - portal-backup.timer
+  state: stopped
+  enabled: false
+- action: service
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: stopped
+  enabled: false
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  zone: portal
+  deleteZone: true
+- action: selinux
+  hosts:
+  - servera
+  kind: port
+  state: absent
+  type: http_port_t
+  proto: tcp
+  port: 8090
+- action: selinux
+  hosts:
+  - servera
+  kind: fcontext
+  state: absent
+  path: /srv/portal(/.*)?
+- action: directory
+  hosts:
+  - servera
+  path: /srv/portal
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/backups
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /root/stage
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /root/bad
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/httpd/conf.d/portal.conf
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/system/portal-backup.service
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/system/portal-backup.timer
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/journald.conf.d/10-persistent.conf
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /root/portal-handover.txt
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true
+- action: user
+  hosts:
+  - servera
+  name: portaladm
+  state: absent
+- action: group
+  hosts:
+  - servera
+  name: portal
+  state: absent
+- action: package
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /var/log/journal
+  state: absent
+- action: service
+  hosts:
+  - servera
+  names:
+  - systemd-journald
+  state: restarted
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: user
+      kind: user
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: portaladm (UID 3001) is a nologin account in the group portal
+      names:
+      - portaladm
+      uid: 3001
+      primaryGroup: portal
+      shell: /sbin/nologin
+    - id: dir
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /srv/portal belongs to portaladm:portal with mode 2750
+      paths:
+      - /srv/portal
+      fileType: directory
+      owner: portaladm
+      group: portal
+      mode: '2750'
+    - id: acl
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: apache may read the page through an ACL
+      paths:
+      - /srv/portal/index.html
+      acl:
+      - user:apache:r--
+      selinuxType: httpd_sys_content_t
+    - id: fcontext
+      kind: selinux-fcontext
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: a stored mapping labels /srv/portal for the web server
+      path: /srv/portal(/.*)?
+      type: httpd_sys_content_t
+    - id: port
+      kind: selinux-port
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: TCP port 8090 is labelled http_port_t
+      type: http_port_t
+      proto: tcp
+      port: 8090
+    - id: enforcing
+      kind: selinux
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: SELinux is enforcing
+      mode: enforcing
+    - id: zone
+      kind: firewall
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the zone portal allows 8090/tcp
+      zone: portal
+      port: 8090/tcp
+    - id: zone-file
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the zone portal has a source address
+      paths:
+      - /etc/firewalld/zones/portal.xml
+      matches: <source address="[0-9a-fA-F.:/]+"/>
+    - id: journal
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the journal is persistent
+      paths:
+      - /var/log/journal
+      fileType: directory
+    - id: timer
+      kind: service
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: portal-backup.timer is enabled and running
+      names:
+      - portal-backup.timer
+      active: true
+      enabled: true
+    - id: archive
+      kind: archive
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the backup holds the portal page
+      path: /srv/backups/portal.tar.gz
+      format: tar.gz
+      members:
+      - portal/index.html
+    - id: local
+      kind: http
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the portal answers on servera
+      url: http://localhost:8090/
+      containsAny:
+      - 'Portal status: OK'
+    - id: remote
+      kind: http
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: serverb reaches the portal
+      url: http://servera.lab.example.com:8090/
+      containsAny:
+      - 'Portal status: OK'
+finish:
+- action: service
+  hosts:
+  - servera
+  names:
+  - portal-backup.timer
+  state: stopped
+  enabled: false
+- action: service
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: stopped
+  enabled: false
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  zone: portal
+  deleteZone: true
+- action: selinux
+  hosts:
+  - servera
+  kind: port
+  state: absent
+  type: http_port_t
+  proto: tcp
+  port: 8090
+- action: selinux
+  hosts:
+  - servera
+  kind: fcontext
+  state: absent
+  path: /srv/portal(/.*)?
+- action: directory
+  hosts:
+  - servera
+  path: /srv/portal
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/backups
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /root/stage
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /root/bad
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/httpd/conf.d/portal.conf
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/system/portal-backup.service
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/system/portal-backup.timer
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/journald.conf.d/10-persistent.conf
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /root/portal-handover.txt
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true
+- action: user
+  hosts:
+  - servera
+  name: portaladm
+  state: absent
+- action: group
+  hosts:
+  - servera
+  name: portal
+  state: absent
+- action: package
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /var/log/journal
+  state: absent
+- action: service
+  hosts:
+  - servera
+  names:
+  - systemd-journald
+  state: restarted

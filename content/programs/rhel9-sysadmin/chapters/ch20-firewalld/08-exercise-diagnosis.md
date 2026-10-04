@@ -12,25 +12,21 @@ A web server on servera answers on port 80. You will break it four different way
   objectives=["ch20.diagnosis"]
   id="diagnosis"
   title="Find four faults"
+  exercise="sa-fw-diagnosis"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera","serverb"]
   outcomes=["Match each client symptom to a layer.","Use ss, firewall-cmd and the journal to confirm the cause.","Fix each fault at the right layer."] %}
 
-  {% task id="task-687b089c6a69" title="A working baseline" %}
-    On servera: httpd installed and running with the page `hello from servera`, and `http` allowed permanently. Confirm from serverb.
-
-    {% reveal title="Show solution" %}
+  {% task id="task-13eced3e5d26" title="Start the exercise" %}
+    On workstation, start the exercise. It installs httpd on servera with the page `hello from servera`, starts it and allows http in the firewall.
 
 ```console
-[root@servera ~]# dnf install -y httpd > /dev/null
-[root@servera ~]# echo "hello from servera" > /var/www/html/index.html
-[root@servera ~]# systemctl enable --now httpd 2>&1 | tail -1
-[root@servera ~]# firewall-cmd --permanent --add-service=http; firewall-cmd --reload
-success
-success
-[student@serverb ~]$ curl -sS -m 3 http://servera/
-hello from servera
+[student@workstation ~]$ lab start sa-fw-diagnosis
 ```
-    {% /reveal %}
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-e270a5c4b302" title="Fault 1: the service is stopped" %}
@@ -124,12 +120,7 @@ hello from servera
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-862e182fbf9a" title="Clean up" %}
-
-```console
-[root@servera ~]# rm /etc/httpd/conf.d/extra.conf; semanage port -d -t http_port_t -p tcp 82
-[root@servera ~]# firewall-cmd --permanent --remove-port=82/tcp; firewall-cmd --permanent --remove-service=http; firewall-cmd --reload
-[root@servera ~]# systemctl restart httpd
-```
+  {% task id="task-da8afc057516" title="Grade and finish" %}
+    {% lab-finish exercise="sa-fw-diagnosis" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

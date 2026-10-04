@@ -1,0 +1,67 @@
+name: sa-conditions
+title: Scripts that decide and repeat
+page: ch15/exercise-conditions
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/scripts
+  state: absent
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: check
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: check.sh is executable
+      paths:
+      - /home/student/scripts/check.sh
+      executable: true
+      contains:
+      - exit 2
+      - exit 1
+    - id: loops
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: loops.sh is executable
+      paths:
+      - /home/student/scripts/loops.sh
+      executable: true
+      contains:
+      - 'for '
+    - id: svc
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: svc.sh uses case
+      paths:
+      - /home/student/scripts/svc.sh
+      executable: true
+      contains:
+      - 'case '
+    - id: users
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: users.sh reads a file line by line
+      paths:
+      - /home/student/scripts/users.sh
+      executable: true
+      contains:
+      - while
+finish:
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/scripts
+  state: absent

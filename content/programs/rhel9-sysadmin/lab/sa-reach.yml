@@ -1,0 +1,85 @@
+name: sa-reach
+title: The service nobody can reach
+page: ch12/exercise-troubleshooting
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: directory
+  hosts:
+  - serverb
+  path: /srv/web
+  state: present
+- action: file
+  hosts:
+  - serverb
+  path: /srv/web/index.html
+  state: present
+  content: 'hello from serverb
+
+    '
+- action: http-server
+  hosts:
+  - serverb
+  port: 8080
+  bind: 127.0.0.1
+  directory: /srv/web
+  state: started
+- action: firewall
+  hosts:
+  - serverb
+  state: absent
+  port: 8080/tcp
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: listen
+      kind: http
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: the web server on serverb answers locally on 8080
+      url: http://localhost:8080/
+      containsAny:
+      - hello from serverb
+    - id: firewall
+      kind: firewall
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: 8080/tcp is allowed in the running firewall
+      port: 8080/tcp
+      permanent: false
+    - id: remote
+      kind: http
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: servera reaches serverb on port 8080
+      url: http://serverb.lab.example.com:8080/
+      containsAny:
+      - hello from serverb
+finish:
+- action: http-server
+  hosts:
+  - serverb
+  port: 8080
+  bind: 127.0.0.1
+  directory: /srv/web
+  state: stopped
+- action: firewall
+  hosts:
+  - serverb
+  state: absent
+  port: 8080/tcp
+- action: directory
+  hosts:
+  - serverb
+  path: /srv/web
+  state: absent
+- action: file
+  hosts:
+  - serverb
+  path: /tmp/http.log
+  state: absent

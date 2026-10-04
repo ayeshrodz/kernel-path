@@ -1,0 +1,337 @@
+name: sa-nfs-share
+title: Export and mount a directory
+page: ch19/exercise-share
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: unmount
+  hosts:
+  - servera
+  path: /mnt/shared
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/fstab
+  matching: serverb:/srv/shared
+- action: directory
+  hosts:
+  - servera
+  path: /mnt/shared
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /mnt/auto
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /remote
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /mnt/direct
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.master.d/shared.autofs
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.master.d/homes.autofs
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.master.d/direct.autofs
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.shared
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.homes
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.direct
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /root/fstab.bak
+  state: absent
+- action: service
+  hosts:
+  - servera
+  names:
+  - autofs
+  state: stopped
+  enabled: false
+- action: package
+  hosts:
+  - servera
+  names:
+  - autofs
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: alice
+  state: absent
+- action: group
+  hosts:
+  - servera
+  name: team
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true
+- action: remove-lines
+  hosts:
+  - serverb
+  path: /etc/exports
+  matching: /srv/
+- action: service
+  hosts:
+  - serverb
+  names:
+  - nfs-server
+  state: stopped
+  enabled: false
+- action: firewall
+  hosts:
+  - serverb
+  state: absent
+  service: nfs
+- action: directory
+  hosts:
+  - serverb
+  path: /srv/shared
+  state: absent
+- action: directory
+  hosts:
+  - serverb
+  path: /srv/homes
+  state: absent
+- action: user
+  hosts:
+  - serverb
+  name: alice
+  state: absent
+- action: group
+  hosts:
+  - serverb
+  name: team
+  state: absent
+- action: package
+  hosts:
+  - serverb
+  names:
+  - nfs-utils
+  state: present
+- action: directory
+  hosts:
+  - serverb
+  path: /srv/shared
+  state: present
+- action: file
+  hosts:
+  - serverb
+  path: /srv/shared/hello.txt
+  state: present
+  content: 'shared file
+
+    '
+- action: package
+  hosts:
+  - servera
+  names:
+  - nfs-utils
+  state: present
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: exports
+      kind: file
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: /etc/exports shares /srv/shared read-write with the lab network
+      paths:
+      - /etc/exports
+      matches: ^/srv/shared[[:space:]]+[^[:space:]]+\(rw,sync\)[[:space:]]*$
+    - id: server
+      kind: service
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: nfs-server is running and enabled
+      names:
+      - nfs-server.service
+      active: true
+      enabled: true
+    - id: firewall
+      kind: firewall
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: the nfs firewall service is open permanently
+      service: nfs
+    - id: mountpoint
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /mnt/shared exists on the client
+      paths:
+      - /mnt/shared
+      fileType: directory
+    - id: no-rootfile
+      kind: file
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: root could not create a file (root squash)
+      paths:
+      - /srv/shared/rootfile
+      exists: false
+finish:
+- action: unmount
+  hosts:
+  - servera
+  path: /mnt/shared
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/fstab
+  matching: serverb:/srv/shared
+- action: directory
+  hosts:
+  - servera
+  path: /mnt/shared
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /mnt/auto
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /remote
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /mnt/direct
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.master.d/shared.autofs
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.master.d/homes.autofs
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.master.d/direct.autofs
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.shared
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.homes
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.direct
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /root/fstab.bak
+  state: absent
+- action: service
+  hosts:
+  - servera
+  names:
+  - autofs
+  state: stopped
+  enabled: false
+- action: package
+  hosts:
+  - servera
+  names:
+  - autofs
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: alice
+  state: absent
+- action: group
+  hosts:
+  - servera
+  name: team
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true
+- action: remove-lines
+  hosts:
+  - serverb
+  path: /etc/exports
+  matching: /srv/
+- action: service
+  hosts:
+  - serverb
+  names:
+  - nfs-server
+  state: stopped
+  enabled: false
+- action: firewall
+  hosts:
+  - serverb
+  state: absent
+  service: nfs
+- action: directory
+  hosts:
+  - serverb
+  path: /srv/shared
+  state: absent
+- action: directory
+  hosts:
+  - serverb
+  path: /srv/homes
+  state: absent
+- action: user
+  hosts:
+  - serverb
+  name: alice
+  state: absent
+- action: group
+  hosts:
+  - serverb
+  name: team
+  state: absent

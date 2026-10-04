@@ -1,0 +1,52 @@
+name: sa-sudo
+title: Grant limited root access
+page: ch06/exercise-superuser
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: user
+  hosts:
+  - servera
+  name: tester
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/sudoers.d/tester
+  state: absent
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: tester
+      kind: user
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the account tester exists
+      names:
+      - tester
+    - id: rule
+      kind: sudoers
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: tester may only run systemctl status
+      path: /etc/sudoers.d/tester
+      mode: '0440'
+      owner: root
+      valid: true
+      rules:
+      - tester ALL=(ALL) /usr/bin/systemctl status *
+finish:
+- action: user
+  hosts:
+  - servera
+  name: tester
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/sudoers.d/tester
+  state: absent

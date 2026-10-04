@@ -12,42 +12,21 @@ A colleague has set up a web site on port 8085 serving `/srv/site`, and it does 
   objectives=["ch16.troubleshooting"]
   id="troubleshooting"
   title="Two faults, one symptom"
+  exercise="sa-two-faults"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Use the journal and the audit log to find a name_bind denial.","Fix the port and then the file label.","Verify the result in enforcing mode."] %}
 
-  {% task id="task-d7d349765459" title="Create the broken site" %}
-    On servera as root (`sudo -i`), install `httpd`, `audit` and `setroubleshoot-server`, start `auditd`, and run the commands below. They build the site the way a hurried colleague might have: the page is moved in from `/tmp`, and Apache is set to a new port.
-
-```bash
-mkdir -p /srv/site
-echo "<h1>Site OK</h1>" > /tmp/index.html
-mv /tmp/index.html /srv/site/index.html
-cat > /etc/httpd/conf.d/site.conf <<'EOT'
-Listen 8085
-<VirtualHost *:8085>
-    DocumentRoot "/srv/site"
-</VirtualHost>
-<Directory "/srv/site">
-    Require all granted
-</Directory>
-EOT
-systemctl restart httpd
-```
-
-    {% reveal title="Show solution" %}
+  {% task id="task-ca0b7c73b438" title="Start the exercise" %}
+    On workstation, start the exercise. It installs httpd and the audit tools on servera and builds the "hurried colleague's" site: a page moved in from `/tmp`, and Apache set to port 8085. httpd fails to start.
 
 ```console
-[student@workstation ~]$ ssh student@servera
-[student@servera ~]$ sudo -i
-[root@servera ~]# dnf install -y httpd audit setroubleshoot-server > /dev/null
-[root@servera ~]# systemctl enable --now auditd
-[root@servera ~]# mkdir -p /srv/site
-...output omitted...
-[root@servera ~]# systemctl restart httpd
-Job for httpd.service failed because the control process exited with error code.
-See "systemctl status httpd.service" and "journalctl -xeu httpd.service" for details.
+[student@workstation ~]$ lab start sa-two-faults
 ```
-    {% /reveal %}
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-796cb6ad962f" title="Symptom, then the service log" %}
@@ -154,13 +133,15 @@ http_port_t                    tcp      8085
 SELinux fcontext                                   type               Context
 
 /srv/site(/.*)?                                    all files          system_u:object_r:httpd_sys_content_t:s0
-[root@servera ~]# semanage fcontext -d "/srv/site(/.*)?"; semanage port -d -t http_port_t -p tcp 8085
-[root@servera ~]# systemctl disable --now httpd; rm -rf /srv/site /etc/httpd/conf.d/site.conf
 [root@servera ~]# exit
 [student@servera ~]$ exit
 ```
 
     (The lab image may list one more rule, for its own management agent: leave that one alone.) The review is the habit that matters: every customisation should be one you can name and explain.
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-6c87f915ab2c" title="Grade and finish" %}
+    {% lab-finish exercise="sa-two-faults" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

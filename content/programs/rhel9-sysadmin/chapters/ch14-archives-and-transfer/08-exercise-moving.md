@@ -12,21 +12,21 @@ Create data on servera, send it to serverb through a pipe, prove it arrived inta
   objectives=["ch14.transfer"]
   id="moving"
   title="Move a tree between servers"
+  exercise="sa-moving"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera","serverb"]
   outcomes=["Stream a tar archive between hosts through ssh.","Verify a transfer with sha256sum.","Mirror with rsync and confirm identity with a dry run."] %}
 
-  {% task id="task-13e5da3c7ecd" title="Create data on servera" %}
-    On workstation, run the commands via `ssh root@servera`: create `/tmp/arch/work/docs` with three small files `a.txt`, `c.txt` and `d.txt`.
-
-    {% reveal title="Show solution" %}
+  {% task id="task-ed923932f474" title="Start the exercise" %}
+    On workstation, start the exercise. It creates `/tmp/arch/work/docs` with three small files on servera, and removes leftovers of an earlier run.
 
 ```console
-[student@workstation ~]$ ssh root@servera 'mkdir -p /tmp/arch/work/docs && cd /tmp/arch/work/docs && echo one > a.txt && echo three > c.txt && echo four > d.txt && ls'
-a.txt
-c.txt
-d.txt
+[student@workstation ~]$ lab start sa-moving
 ```
-    {% /reveal %}
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-9a52dcc13d7d" title="Stream it to serverb" %}
@@ -92,12 +92,7 @@ total size is 23  speedup is 0.11 (DRY RUN)
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-34d24f741acb" title="Clean up" %}
-
-```console
-[student@workstation ~]$ rm -rf ~/xfer sums.txt
-[student@workstation ~]$ ssh root@serverb 'rm -rf /tmp/recv'
-[student@workstation ~]$ ssh root@servera 'rm -rf /tmp/arch'
-```
+  {% task id="task-4031fbe4f4fd" title="Grade and finish" %}
+    {% lab-finish exercise="sa-moving" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

@@ -12,29 +12,21 @@ maria's quarterly report is private. The auditors must be able to read it, one n
   objectives=["ch07.acls"]
   id="acls"
   title="Give the auditors read access"
+  exercise="sa-acls"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Grant a group read access to one file with setfacl.","Explain an effective permission cut by the mask.","Set a default ACL so new files inherit access."] %}
 
-  {% task id="task-bbcafb964453" title="Create the private report" %}
-    On servera as root (`sudo -i`), create the group `auditors` (GID 4800), the users `priya` (in `auditors`), `maria` and `john`, and the files `/srv/reports/q3/summary.txt` owned by maria. Make the whole tree private to maria and confirm that priya is refused.
-
-    {% reveal title="Show solution" %}
+  {% task id="task-fd5a39e536f0" title="Start the exercise" %}
+    On workstation, start the exercise. It creates the group auditors (4800), the users priya (an auditor), maria and john, and the private report `/srv/reports/q3/summary.txt` that only maria can read.
 
 ```console
-[student@workstation ~]$ ssh student@servera
-[student@servera ~]$ sudo -i
-[root@servera ~]# groupadd -g 4800 auditors
-[root@servera ~]# useradd -m -G auditors priya
-[root@servera ~]# useradd -m maria
-[root@servera ~]# useradd -m john
-[root@servera ~]# mkdir -p /srv/reports/q3
-[root@servera ~]# echo figures > /srv/reports/q3/summary.txt
-[root@servera ~]# chown -R maria:maria /srv/reports
-[root@servera ~]# chmod -R u=rwX,g=,o= /srv/reports
-[root@servera ~]# su - priya -c 'cat /srv/reports/q3/summary.txt'
-cat: /srv/reports/q3/summary.txt: Permission denied
+[student@workstation ~]$ lab start sa-acls
 ```
-    {% /reveal %}
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-ea7177a7713e" title="Grant the group read access" %}
@@ -152,16 +144,7 @@ drwx------. 2 maria maria 4096 Oct  3 16:14 /srv/reports/q3
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-5226ce8b142c" title="Clean up" %}
-
-    If `userdel` says a user is still in use, a login session from `su` has not closed yet: wait a few seconds and run it again.
-
-```console
-[root@servera ~]# rm -rf /srv/reports
-[root@servera ~]# userdel -r priya; userdel -r maria; userdel -r john
-[root@servera ~]# groupdel auditors
-[root@servera ~]# exit
-[student@servera ~]$ exit
-```
+  {% task id="task-c35a2b6e4c9d" title="Grade and finish" %}
+    {% lab-finish exercise="sa-acls" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

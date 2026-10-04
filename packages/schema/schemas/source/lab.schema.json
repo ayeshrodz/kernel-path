@@ -46,7 +46,7 @@
     "setup": {
       "description": "Platform actions run after the starter files are in place, in order.",
       "type": "array",
-      "maxItems": 20,
+      "maxItems": 60,
       "items": {
         "$ref": "#/$defs/action"
       }
@@ -71,6 +71,14 @@
     "note": {
       "description": "A short remark shown beside the title in the exercise list, for example that the project starts empty.",
       "$ref": "../common.schema.json#/$defs/shortText"
+    },
+    "finish": {
+      "description": "Host cleanup actions that `lab finish` runs, in order, when the exercise is put away. Each is best effort: one that fails is reported and the rest still run.",
+      "type": "array",
+      "maxItems": 60,
+      "items": {
+        "$ref": "#/$defs/action"
+      }
     }
   },
   "$defs": {
@@ -95,7 +103,7 @@
     "absolutePath": {
       "description": "An absolute path on a managed host. Placeholders {host} and {hostShort} are allowed.",
       "type": "string",
-      "pattern": "^/(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._@+{}-]*(?:/[A-Za-z0-9._@+{}-]+)*$",
+      "pattern": "^/(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._@+{} -]*(?:/[A-Za-z0-9._@+{} -]+)*$",
       "maxLength": 240
     },
     "literal": {
@@ -309,6 +317,9 @@
         },
         {
           "$ref": "#/$defs/checkContainer"
+        },
+        {
+          "$ref": "#/$defs/checkPartition"
         }
       ]
     },
@@ -606,6 +617,1065 @@
               }
             }
           }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "names"
+          ],
+          "properties": {
+            "action": {
+              "const": "package"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "names": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 20,
+              "items": {
+                "$ref": "#/$defs/packageName"
+              }
+            },
+            "state": {
+              "enum": [
+                "present",
+                "absent",
+                "reinstalled"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "names"
+          ],
+          "properties": {
+            "action": {
+              "const": "service"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "names": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 10,
+              "items": {
+                "$ref": "#/$defs/unitName"
+              }
+            },
+            "state": {
+              "enum": [
+                "started",
+                "stopped",
+                "restarted"
+              ]
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "user": {
+              "description": "Manage the units of this user's systemd instead of the system's.",
+              "$ref": "#/$defs/unixName"
+            },
+            "masked": {
+              "type": "boolean"
+            },
+            "tolerant": {
+              "type": "boolean",
+              "description": "A failing start is not an error (the exercise starts from a service that fails)."
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "name"
+          ],
+          "properties": {
+            "action": {
+              "const": "group"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "name": {
+              "$ref": "#/$defs/unixName"
+            },
+            "gid": {
+              "type": "integer",
+              "minimum": 1000,
+              "maximum": 60000
+            },
+            "state": {
+              "enum": [
+                "present",
+                "absent"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "name"
+          ],
+          "properties": {
+            "action": {
+              "const": "user"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "name": {
+              "$ref": "#/$defs/unixName"
+            },
+            "uid": {
+              "type": "integer",
+              "minimum": 1000,
+              "maximum": 60000
+            },
+            "group": {
+              "$ref": "#/$defs/unixName"
+            },
+            "groups": {
+              "type": "array",
+              "maxItems": 10,
+              "items": {
+                "$ref": "#/$defs/unixName"
+              }
+            },
+            "shell": {
+              "type": "string",
+              "pattern": "^/(?:usr/)?s?bin/[a-z]+$"
+            },
+            "home": {
+              "type": "boolean"
+            },
+            "password": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9._-]{4,40}$"
+            },
+            "state": {
+              "enum": [
+                "present",
+                "absent"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "path"
+          ],
+          "properties": {
+            "action": {
+              "const": "directory"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "path": {
+              "$ref": "#/$defs/hostPath"
+            },
+            "owner": {
+              "$ref": "#/$defs/unixName"
+            },
+            "group": {
+              "$ref": "#/$defs/unixName"
+            },
+            "mode": {
+              "type": "string",
+              "pattern": "^[0-7]{3,4}$"
+            },
+            "state": {
+              "enum": [
+                "present",
+                "absent"
+              ]
+            },
+            "selinuxType": {
+              "type": "string",
+              "pattern": "^[a-z_]+_t$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "path"
+          ],
+          "properties": {
+            "action": {
+              "const": "file"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "path": {
+              "$ref": "#/$defs/hostPath"
+            },
+            "content": {
+              "type": "string",
+              "maxLength": 4000
+            },
+            "owner": {
+              "$ref": "#/$defs/unixName"
+            },
+            "group": {
+              "$ref": "#/$defs/unixName"
+            },
+            "mode": {
+              "type": "string",
+              "pattern": "^[0-7]{3,4}$"
+            },
+            "state": {
+              "enum": [
+                "present",
+                "absent"
+              ]
+            },
+            "selinuxType": {
+              "type": "string",
+              "pattern": "^[a-z_]+_t$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "path",
+            "matching"
+          ],
+          "properties": {
+            "action": {
+              "const": "remove-lines"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "path": {
+              "type": "string",
+              "enum": [
+                "/etc/fstab",
+                "/etc/exports",
+                "/etc/hosts",
+                "/etc/chrony.conf"
+              ]
+            },
+            "matching": {
+              "description": "Lines matching this extended regular expression are deleted.",
+              "type": "string",
+              "pattern": "^[A-Za-z0-9 _./:,@=^$*+?|()\\[\\]-]{1,120}$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts"
+          ],
+          "properties": {
+            "action": {
+              "const": "firewall"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "zone": {
+              "$ref": "#/$defs/unixName"
+            },
+            "service": {
+              "$ref": "#/$defs/unitName"
+            },
+            "port": {
+              "type": "string",
+              "pattern": "^[0-9]{1,5}/(?:tcp|udp)$"
+            },
+            "source": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-fA-F:.]{2,45}(?:/[0-9]{1,3})?|@server[a-d])$",
+              "description": "An address or network, or @serverb for the address of that lab server."
+            },
+            "forwardPort": {
+              "type": "string",
+              "pattern": "^port=[0-9]{1,5}:proto=(?:tcp|udp):toport=[0-9]{1,5}$"
+            },
+            "deleteZone": {
+              "type": "boolean",
+              "description": "Remove the zone (state absent) or create it (state present)."
+            },
+            "deleteService": {
+              "type": "boolean"
+            },
+            "state": {
+              "enum": [
+                "present",
+                "absent"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "kind"
+          ],
+          "properties": {
+            "action": {
+              "const": "selinux"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "kind": {
+              "enum": [
+                "port",
+                "fcontext",
+                "boolean"
+              ]
+            },
+            "type": {
+              "type": "string",
+              "pattern": "^[a-z_]+_t$"
+            },
+            "proto": {
+              "enum": [
+                "tcp",
+                "udp"
+              ]
+            },
+            "port": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65535
+            },
+            "path": {
+              "type": "string",
+              "pattern": "^/[A-Za-z0-9_./()*+?|\\\\-]{1,100}$"
+            },
+            "name": {
+              "type": "string",
+              "pattern": "^[a-z_]{3,60}$"
+            },
+            "value": {
+              "type": "boolean"
+            },
+            "state": {
+              "enum": [
+                "present",
+                "absent"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "device"
+          ],
+          "properties": {
+            "action": {
+              "const": "wipe-disk"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "device": {
+              "type": "string",
+              "pattern": "^/dev/(?:sd|vd)[b-z]$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts"
+          ],
+          "properties": {
+            "action": {
+              "const": "systemd"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "reload": {
+              "type": "boolean"
+            },
+            "daemonReexec": {
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "user"
+          ],
+          "properties": {
+            "action": {
+              "const": "linger"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "user": {
+              "$ref": "#/$defs/unixName"
+            },
+            "state": {
+              "enum": [
+                "present",
+                "absent"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "user"
+          ],
+          "properties": {
+            "action": {
+              "const": "container-reset"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "user": {
+              "$ref": "#/$defs/unixName"
+            },
+            "keepImages": {
+              "type": "boolean",
+              "description": "Keep the images pulled from registries (only remove containers, volumes, local images and Quadlet files)."
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "user",
+            "tool"
+          ],
+          "properties": {
+            "action": {
+              "const": "run-as"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "user": {
+              "$ref": "#/$defs/unixName"
+            },
+            "tool": {
+              "type": "string",
+              "enum": [
+                "podman-pull",
+                "podman-rmi"
+              ]
+            },
+            "image": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9._/:@-]{0,199}$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "user"
+          ],
+          "properties": {
+            "action": {
+              "const": "restore-skel"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "user": {
+              "$ref": "#/$defs/unixName"
+            },
+            "files": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 6,
+              "items": {
+                "type": "string",
+                "enum": [
+                  ".bashrc",
+                  ".bash_profile",
+                  ".bash_logout"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts"
+          ],
+          "properties": {
+            "action": {
+              "const": "boot"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "target": {
+              "enum": [
+                "graphical.target",
+                "multi-user.target"
+              ]
+            },
+            "removeKernelArgs": {
+              "type": "array",
+              "maxItems": 5,
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_.=,-]{1,60}$"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "paths"
+          ],
+          "properties": {
+            "action": {
+              "const": "home-remove"
+            },
+            "paths": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 20,
+              "items": {
+                "$ref": "#/$defs/homePath"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "host"
+          ],
+          "properties": {
+            "action": {
+              "const": "ssh-config-block"
+            },
+            "host": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,30}$"
+            },
+            "state": {
+              "enum": [
+                "absent"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "name",
+            "hosts",
+            "user"
+          ],
+          "properties": {
+            "action": {
+              "const": "ssh-identity"
+            },
+            "name": {
+              "type": "string",
+              "pattern": "^id_[a-z]{2,12}$"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "user": {
+              "$ref": "#/$defs/unixName"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "zone"
+          ],
+          "properties": {
+            "action": {
+              "const": "timezone"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "zone": {
+              "type": "string",
+              "pattern": "^[A-Za-z]+(?:/[A-Za-z_+-]+)*$",
+              "maxLength": 40
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "name"
+          ],
+          "properties": {
+            "action": {
+              "const": "nm-connection"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "name": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,30}$"
+            },
+            "state": {
+              "enum": [
+                "absent"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "name"
+          ],
+          "properties": {
+            "action": {
+              "const": "hostname"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "name": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9.-]{1,60}$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "port",
+            "bind",
+            "directory"
+          ],
+          "properties": {
+            "action": {
+              "const": "http-server"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "port": {
+              "type": "integer",
+              "minimum": 1024,
+              "maximum": 65535
+            },
+            "bind": {
+              "type": "string",
+              "pattern": "^(?:127\\.0\\.0\\.1|0\\.0\\.0\\.0)$"
+            },
+            "directory": {
+              "$ref": "#/$defs/hostPath"
+            },
+            "state": {
+              "enum": [
+                "started",
+                "stopped"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "name",
+            "state"
+          ],
+          "properties": {
+            "action": {
+              "const": "dnf-module"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "name": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{1,30}$"
+            },
+            "stream": {
+              "type": "string",
+              "pattern": "^[0-9][A-Za-z0-9._-]{0,15}$"
+            },
+            "state": {
+              "enum": [
+                "reset",
+                "enabled"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "user"
+          ],
+          "properties": {
+            "action": {
+              "const": "crontab"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "user": {
+              "$ref": "#/$defs/unixName"
+            },
+            "state": {
+              "enum": [
+                "absent"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "device",
+            "partitions"
+          ],
+          "properties": {
+            "action": {
+              "const": "partition-disk"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "device": {
+              "type": "string",
+              "pattern": "^/dev/(?:sd|vd)[b-z]$"
+            },
+            "partitions": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 8,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "name",
+                  "fs",
+                  "startMiB",
+                  "endMiB"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9-]{0,15}$"
+                  },
+                  "fs": {
+                    "enum": [
+                      "xfs",
+                      "ext4",
+                      "linux-swap",
+                      "lvm"
+                    ]
+                  },
+                  "startMiB": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100000
+                  },
+                  "endMiB": {
+                    "type": "integer",
+                    "minimum": 2,
+                    "maximum": 100000
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "device",
+            "type"
+          ],
+          "properties": {
+            "action": {
+              "const": "format"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "device": {
+              "type": "string",
+              "pattern": "^/dev/(?:sd|vd)[b-z][0-9]{1,2}$"
+            },
+            "type": {
+              "enum": [
+                "xfs",
+                "ext4",
+                "swap"
+              ]
+            },
+            "label": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,12}$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "path",
+            "line"
+          ],
+          "properties": {
+            "action": {
+              "const": "append-line"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "path": {
+              "enum": [
+                "/etc/fstab",
+                "/etc/exports",
+                "/etc/hosts"
+              ]
+            },
+            "line": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9 _./:,@=()*+-]{1,160}$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts"
+          ],
+          "properties": {
+            "action": {
+              "const": "mount-all"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "vg",
+            "pvs",
+            "volumes"
+          ],
+          "properties": {
+            "action": {
+              "const": "lvm-build"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "vg": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]{0,15}$"
+            },
+            "pvs": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 4,
+              "items": {
+                "type": "string",
+                "pattern": "^/dev/(?:sd|vd)[b-z][0-9]{1,2}$"
+              }
+            },
+            "volumes": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 6,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "name",
+                  "size",
+                  "fs"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9_]{0,15}$"
+                  },
+                  "size": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9]{1,5}[MG]|[0-9]{1,3}%FREE)$"
+                  },
+                  "fs": {
+                    "enum": [
+                      "xfs",
+                      "ext4",
+                      "swap"
+                    ]
+                  },
+                  "label": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_-]{1,12}$"
+                  },
+                  "mount": {
+                    "$ref": "#/$defs/hostPath"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "path"
+          ],
+          "properties": {
+            "action": {
+              "const": "unmount"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "path": {
+              "$ref": "#/$defs/hostPath"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action",
+            "hosts",
+            "path",
+            "entries"
+          ],
+          "properties": {
+            "action": {
+              "const": "acl"
+            },
+            "hosts": {
+              "$ref": "#/$defs/serverList"
+            },
+            "path": {
+              "$ref": "#/$defs/hostPath"
+            },
+            "entries": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 6,
+              "items": {
+                "type": "string",
+                "pattern": "^(?:d:)?[ug]:[a-z_][a-z0-9_-]*:[rwxX-]{1,3}$"
+              }
+            }
+          }
         }
       ]
     },
@@ -737,6 +1807,10 @@
         "installed": {
           "type": "boolean",
           "default": true
+        },
+        "verify": {
+          "description": "Every file of the package matches the RPM database (rpm -V is clean).",
+          "type": "boolean"
         }
       },
       "type": "object"
@@ -819,7 +1893,9 @@
           "pattern": "^[a-z0-9_]+_t$"
         },
         "symlinkTo": {
-          "$ref": "#/$defs/absolutePath"
+          "description": "Where the link must point, exactly as readlink prints it.",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9._@+/{} -]{1,240}$"
         },
         "lines": {
           "description": "Whole lines that must all be present.",
@@ -906,6 +1982,10 @@
               "$ref": "#/$defs/relativePath"
             }
           ]
+        },
+        "executable": {
+          "description": "The file has its execute permission for the owner.",
+          "type": "boolean"
         }
       },
       "type": "object"
@@ -1731,6 +2811,90 @@
         "linger": {
           "description": "Whether lingering is enabled for the user.",
           "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "hostPath": {
+      "description": "A path a setup or cleanup action may create or remove on a managed host: only under directories meant for local data and drop-in configuration.",
+      "type": "string",
+      "maxLength": 200,
+      "pattern": "^/(?:srv|opt|mnt|data|logs|remote|backup|tmp|root|home|var/www|var/tmp|var/log|usr/local|etc/(?:billing\\.conf|httpd/conf\\.d|systemd|auto\\.master\\.d|auto\\.[a-z0-9_-]+|cron\\.d|exports\\.d|sudoers\\.d|profile\\.d|ssh/sshd_config\\.d|chrony\\.d|yum\\.repos\\.d|logrotate\\.d|rsyslog\\.d|security/limits\\.d|sysctl\\.d|NetworkManager/system-connections|containers|httpd/conf\\.d|firewalld/(?:services|zones)))(?:/[A-Za-z0-9_.@%+=:, -]+)*$",
+      "not": {
+        "pattern": "(?:^|/)\\.\\.(?:/|$)"
+      }
+    },
+    "serverName": {
+      "type": "string",
+      "pattern": "^server[a-d]$"
+    },
+    "serverList": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/serverName"
+      }
+    },
+    "unixName": {
+      "type": "string",
+      "pattern": "^[a-z_][a-z0-9_-]{0,31}$"
+    },
+    "homePath": {
+      "description": "A path in the learner's home directory on workstation. Shell start-up files, authorized_keys, known_hosts, ssh config and the standard private keys are refused.",
+      "type": "string",
+      "maxLength": 120,
+      "pattern": "^[A-Za-z0-9_.-][A-Za-z0-9_. -]*(?:/[A-Za-z0-9_.-][A-Za-z0-9_. -]*)*$",
+      "not": {
+        "pattern": "(?:^|/)\\.\\.(?:/|$)"
+      }
+    },
+    "checkPartition": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/checkBase"
+        }
+      ],
+      "unevaluatedProperties": false,
+      "required": [
+        "device"
+      ],
+      "properties": {
+        "kind": {
+          "const": "partition"
+        },
+        "device": {
+          "type": "string",
+          "pattern": "^/dev/(?:sd|vd)[b-z][0-9]{0,2}$"
+        },
+        "minSizeMiB": {
+          "type": "integer"
+        },
+        "maxSizeMiB": {
+          "type": "integer"
+        },
+        "partLabel": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,15}$"
+        },
+        "tableType": {
+          "enum": [
+            "gpt",
+            "msdos"
+          ]
+        },
+        "fsType": {
+          "enum": [
+            "xfs",
+            "ext4",
+            "swap",
+            "LVM2_member"
+          ]
+        },
+        "fsLabel": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{1,12}$"
         }
       },
       "type": "object"

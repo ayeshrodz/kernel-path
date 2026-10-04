@@ -141,6 +141,6 @@ EOT
   {% task id="task-ba78cc1ba75b" title="Grade" %}
     Leave servera, then on workstation:
 
-    {% lab-finish exercise="sa-scripts-review" grade=true /%}
+    {% lab-finish exercise="sa-scripts-review" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

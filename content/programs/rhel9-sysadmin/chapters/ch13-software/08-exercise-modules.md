@@ -12,8 +12,22 @@ Pick a version of a program from the module streams, see what that does to the p
   objectives=["ch13.updates"]
   id="modules"
   title="Choose a version and check for updates"
+  exercise="sa-modules"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["List module streams and enable one.","See the effect of a stream on the offered version, and reset it.","Review pending updates and decide about a reboot."] %}
+
+  {% task id="task-6270123b483f" title="Start the exercise" %}
+    On workstation, start the exercise. It resets the nginx module on servera, so no stream is enabled.
+
+```console
+[student@workstation ~]$ lab start sa-modules
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-f0eefe80162a" title="List the streams" %}
     On servera as root (`sudo -i`), list the streams of the `nginx` module, and show which version of the `nginx` package dnf offers before any stream is enabled.
@@ -126,5 +140,9 @@ Reboot should not be necessary.
 
     A kernel update is waiting, but it has not been installed yet; once it is, `uname -r` will still show the old version until a reboot. Do not apply the updates in this exercise.
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-a6c18ad03688" title="Grade and finish" %}
+    {% lab-finish exercise="sa-modules" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

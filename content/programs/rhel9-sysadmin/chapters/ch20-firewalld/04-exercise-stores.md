@@ -12,21 +12,21 @@ Watch the two stores part company: a runtime rule that a reload erases, a perman
   objectives=["ch20.stores"]
   id="stores"
   title="Runtime, permanent and temporary rules"
+  exercise="sa-fw-stores"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera","serverb"]
   outcomes=["Show that a runtime rule is lost on reload.","Use --timeout for a temporary rule.","Explain what --runtime-to-permanent saves."] %}
 
-  {% task id="task-2acb0d9cc583" title="Set up" %}
-    On servera as root, make sure `httpd` is running with the page from the previous exercise (install it and create `/var/www/html/index.html` if you reset the servers). Check that the firewall allows no `http` at the moment.
-
-    {% reveal title="Show solution" %}
+  {% task id="task-ed0f6cf56a1f" title="Start the exercise" %}
+    On workstation, start the exercise. It installs httpd on servera with the page `hello from servera` and starts it.
 
 ```console
-[root@servera ~]# dnf install -y httpd > /dev/null; systemctl enable --now httpd 2>&1 | tail -1
-[root@servera ~]# echo "hello from servera" > /var/www/html/index.html
-[root@servera ~]# firewall-cmd --query-service=http
-no
+[student@workstation ~]$ lab start sa-fw-stores
 ```
-    {% /reveal %}
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-2a976c4335b2" title="A runtime rule" %}
@@ -124,12 +124,7 @@ hello from servera
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-84dbe770d77f" title="Clean up" %}
-
-```console
-[student@servera ~]$ sudo firewall-cmd --permanent --remove-service=http; sudo firewall-cmd --reload
-success
-success
-```
+  {% task id="task-b5a458a4e2ba" title="Grade and finish" %}
+    {% lab-finish exercise="sa-fw-stores" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

@@ -76,3 +76,14 @@ checkpoints:
       paths:
       - answers.txt
       matches: ^NAME_ORDER=files dns[ \t]*$
+finish:
+- action: nm-connection
+  hosts:
+  - servera
+  name: dummy1
+  state: absent
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/hosts
+  matching: appnet

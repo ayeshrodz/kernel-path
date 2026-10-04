@@ -119,3 +119,27 @@ checkpoints:
       paths:
       - answers.txt
       matches: ^HOSTKEY_TYPE=ED25519[ \t]*$
+finish:
+- action: user
+  hosts:
+  - servera
+  name: ops
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/ssh/sshd_config.d/10-hardening.conf
+  state: absent
+- action: service
+  hosts:
+  - servera
+  names:
+  - sshd
+  state: restarted
+- action: home-remove
+  paths:
+  - .ssh/id_ops
+  - .ssh/id_ops.pub
+- action: ssh-config-block
+  host: opsa
+  state: absent

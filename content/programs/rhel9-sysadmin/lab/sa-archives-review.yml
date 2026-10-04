@@ -80,3 +80,19 @@ checkpoints:
       paths:
       - /srv/restore/project/cache
       exists: false
+finish:
+- action: directory
+  hosts:
+  - servera
+  path: /srv/backup
+  state: absent
+- action: directory
+  hosts:
+  - serverb
+  path: /srv/restore
+  state: absent
+- action: directory
+  hosts:
+  - serverb
+  path: /srv/backup
+  state: absent

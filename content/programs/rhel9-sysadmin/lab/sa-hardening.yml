@@ -1,0 +1,121 @@
+name: sa-hardening
+title: Harden sshd, safely
+page: ch10/exercise-hardening
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: user
+  hosts:
+  - servera
+  name: ops
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: ops
+  state: present
+  password: Ops-Pass-2026
+- action: home-remove
+  paths:
+  - .ssh/id_ops
+  - .ssh/id_ops.pub
+- action: ssh-identity
+  name: id_ops
+  hosts:
+  - servera
+  user: ops
+- action: file
+  hosts:
+  - servera
+  path: /etc/ssh/sshd_config.d/99-hardening.conf
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/ssh/sshd_config.d/10-hardening.conf
+  state: absent
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: file
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the drop-in 10-hardening.conf has the three options
+      paths:
+      - /etc/ssh/sshd_config.d/10-hardening.conf
+      contains:
+      - PasswordAuthentication no
+      - X11Forwarding no
+      - MaxAuthTries 3
+    - id: no-wrong
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the wrongly named 99-hardening.conf is gone
+      paths:
+      - /etc/ssh/sshd_config.d/99-hardening.conf
+      exists: false
+    - id: password
+      kind: sshd
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: sshd refuses password authentication
+      setting: passwordauthentication
+      value: 'no'
+    - id: x11
+      kind: sshd
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: sshd refuses X11 forwarding
+      setting: x11forwarding
+      value: 'no'
+    - id: tries
+      kind: sshd
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: sshd allows three authentication tries
+      setting: maxauthtries
+      value: '3'
+    - id: sshd
+      kind: service
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: sshd is running
+      names:
+      - sshd.service
+      active: true
+finish:
+- action: file
+  hosts:
+  - servera
+  path: /etc/ssh/sshd_config.d/99-hardening.conf
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/ssh/sshd_config.d/10-hardening.conf
+  state: absent
+- action: service
+  hosts:
+  - servera
+  names:
+  - sshd
+  state: restarted
+- action: user
+  hosts:
+  - servera
+  name: ops
+  state: absent
+- action: home-remove
+  paths:
+  - .ssh/id_ops
+  - .ssh/id_ops.pub

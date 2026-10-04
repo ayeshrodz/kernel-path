@@ -1,0 +1,57 @@
+name: sa-services
+title: Control a service
+page: ch09/exercise-services
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: service
+  hosts:
+  - servera
+  names:
+  - crond
+  state: started
+  enabled: true
+- action: service
+  hosts:
+  - servera
+  names:
+  - bluetooth
+  masked: false
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: crond
+      kind: service
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: crond is running and enabled again
+      names:
+      - crond.service
+      active: true
+      enabled: true
+    - id: bluetooth
+      kind: service
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: bluetooth is not masked any more
+      names:
+      - bluetooth.service
+      masked: false
+finish:
+- action: service
+  hosts:
+  - servera
+  names:
+  - crond
+  state: started
+  enabled: true
+- action: service
+  hosts:
+  - servera
+  names:
+  - bluetooth
+  masked: false

@@ -1,0 +1,122 @@
+name: sa-fw-web
+title: Publish a web server through the firewall
+page: ch20/exercise-web
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: package
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: present
+- action: file
+  hosts:
+  - servera
+  path: /var/www/html/index.html
+  state: present
+  content: 'hello from servera
+
+    '
+- action: service
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: started
+  enabled: true
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: http-service
+      kind: firewall
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: The service http is allowed, now and permanently
+      service: http
+    - id: port-8080
+      kind: firewall
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: 8080/tcp is allowed, now and permanently
+      port: 8080/tcp
+    - id: listen
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: httpd listens on 8080
+      paths:
+      - /etc/httpd/conf.d/extra.conf
+      contains:
+      - Listen 8080
+    - id: local-8080
+      kind: http
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: The page answers on port 8080
+      url: http://localhost:8080/
+      containsAny:
+      - hello from servera
+    - id: from-80
+      kind: http
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: serverb reaches port 80
+      url: http://servera.lab.example.com/
+      containsAny:
+      - hello from servera
+    - id: from-8080
+      kind: http
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: serverb reaches port 8080
+      url: http://servera.lab.example.com:8080/
+      containsAny:
+      - hello from servera
+finish:
+- action: service
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: stopped
+  enabled: false
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  service: http
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  port: 8080/tcp
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  port: 82/tcp
+- action: file
+  hosts:
+  - servera
+  path: /etc/httpd/conf.d/extra.conf
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /var/www/html/index.html
+  state: absent
+- action: package
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: absent

@@ -12,28 +12,21 @@ Turn a small shell script into a proper service: write the unit, start it, watch
   objectives=["ch09.units"]
   id="units"
   title="Write your own service"
+  exercise="sa-unit-files"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Write a service unit and enable it.","See Restart=on-failure bring a killed service back.","Override a setting with a drop-in and diagnose status 203."] %}
 
-  {% task id="task-0a43b748f06a" title="Create the program" %}
-    On servera as root (`sudo -i`), create `/usr/local/bin/reporter.sh` that appends `HH:MM:SS reporter alive` to `/var/log/reporter.log` every `${INTERVAL:-10}` seconds, and make it executable.
-
-    {% reveal title="Show solution" %}
+  {% task id="task-fdd776e1cca3" title="Start the exercise" %}
+    On workstation, start the exercise. It installs the program `/usr/local/bin/reporter.sh` on servera: a loop that appends a heartbeat line to `/var/log/reporter.log` every `$INTERVAL` seconds (default 10).
 
 ```console
-[student@workstation ~]$ ssh student@servera
-[student@servera ~]$ sudo -i
-[root@servera ~]# vim /usr/local/bin/reporter.sh
-[root@servera ~]# cat /usr/local/bin/reporter.sh
-#!/bin/bash
-# Append a timestamp to the report every few seconds.
-while true; do
-  echo "$(date +%T) reporter alive" >> /var/log/reporter.log
-  sleep "${INTERVAL:-10}"
-done
-[root@servera ~]# chmod 755 /usr/local/bin/reporter.sh
+[student@workstation ~]$ lab start sa-unit-files
 ```
-    {% /reveal %}
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-6b3bbe70e5ef" title="Write the unit and start it" %}
@@ -142,15 +135,7 @@ active
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-0f4394e6e68d" title="Clean up" %}
-
-```console
-[root@servera ~]# systemctl disable --now reporter
-Removed "/etc/systemd/system/multi-user.target.wants/reporter.service".
-[root@servera ~]# rm -rf /etc/systemd/system/reporter.service /etc/systemd/system/reporter.service.d /usr/local/bin/reporter.sh /var/log/reporter.log
-[root@servera ~]# systemctl daemon-reload
-[root@servera ~]# exit
-[student@servera ~]$ exit
-```
+  {% task id="task-afe68587c470" title="Grade and finish" %}
+    {% lab-finish exercise="sa-unit-files" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

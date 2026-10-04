@@ -1,0 +1,90 @@
+name: sa-backups
+title: Back up with ACLs, then restore
+page: ch14/exercise-backups
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: directory
+  hosts:
+  - servera
+  path: /root/arch
+  state: absent
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: acl-tar
+      kind: archive
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: acl.tar.gz holds the project
+      path: /root/arch/acl.tar.gz
+      format: tar.gz
+      members:
+      - project/docs/notes.md
+    - id: acl
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the careful restore kept the ACL entry for student
+      paths:
+      - /root/arch/out2/project/docs/notes.md
+      acl:
+      - user:student:r--
+    - id: full
+      kind: archive
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the full backup holds both files
+      path: /root/arch/bk/full.tar.gz
+      format: tar.gz
+      members:
+      - work/docs/a.txt
+      - work/docs/b.txt
+    - id: incr
+      kind: archive
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the incremental backup holds the new file
+      path: /root/arch/bk/incr1.tar.gz
+      format: tar.gz
+      members:
+      - work/docs/c.txt
+    - id: restored
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the restore in order has c.txt
+      paths:
+      - /root/arch/restore/work/docs/c.txt
+      fileType: regular
+    - id: b-gone
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the restore has no b.txt (deleted before the increment)
+      paths:
+      - /root/arch/restore/work/docs/b.txt
+      exists: false
+    - id: snap
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: unchanged files in snap2 are hard links to snap1
+      paths:
+      - /root/arch/bk/snap2/docs/a.txt
+      sameFileAs: /root/arch/bk/snap1/docs/a.txt
+finish:
+- action: directory
+  hosts:
+  - servera
+  path: /root/arch
+  state: absent

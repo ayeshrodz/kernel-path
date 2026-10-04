@@ -12,8 +12,22 @@ Build a small repository from downloaded packages, define it for dnf with signat
   objectives=["ch13.repositories"]
   id="local-repo"
   title="Serve your own repository"
+  exercise="sa-local-repo"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Download packages with their dependencies.","Create repository metadata with createrepo_c.","Define a repository, keep gpgcheck on, and install from it only."] %}
+
+  {% task id="task-10d8a144bf5a" title="Start the exercise" %}
+    On workstation, start the exercise. It installs `dnf-plugins-core` and `createrepo_c` on servera, and removes a repository left by an earlier run.
+
+```console
+[student@workstation ~]$ lab start sa-local-repo
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-feece255f9d1" title="Look at the existing repositories" %}
     On servera as root (`sudo -i`), list the enabled repositories and find the `gpgkey` line that the distribution's repositories use.
@@ -33,19 +47,6 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-Rocky-9
 ```
 
     On Red Hat Enterprise Linux the key path is different (`RPM-GPG-KEY-redhat-release`). Always copy what your own system shows.
-    {% /reveal %}
-  {% /task %}
-
-  {% task id="task-6f286b1c5260" title="Install the tools" %}
-    Install `dnf-plugins-core` (for `dnf download`) and `createrepo_c`.
-
-    {% reveal title="Show solution" %}
-
-```console
-[root@servera ~]# dnf install -y dnf-plugins-core createrepo_c
-...output omitted...
-Complete!
-```
     {% /reveal %}
   {% /task %}
 
@@ -122,14 +123,7 @@ From repo    : localrepo
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-ccc490605f79" title="Clean up" %}
-
-```console
-[root@servera ~]# dnf remove -y zip
-[root@servera ~]# rm -rf /srv/localrepo /etc/yum.repos.d/local.repo
-[root@servera ~]# dnf clean all > /dev/null
-[root@servera ~]# exit
-[student@servera ~]$ exit
-```
+  {% task id="task-d85d24fd5360" title="Grade and finish" %}
+    {% lab-finish exercise="sa-local-repo" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

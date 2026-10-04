@@ -12,8 +12,22 @@ Two CPU-hungry processes are fighting for servera's CPU. Find them, watch how `n
   objectives=["ch08.monitoring"]
   id="monitoring"
   title="Find the slowdown and tune the server"
+  exercise="sa-monitoring"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Read load average, top and free.","Compare a normal and a nice process.","Install tuned and switch profiles."] %}
+
+  {% task id="task-4c53c1c672e9" title="Start the exercise" %}
+    On workstation, start the exercise. It makes sure the tuned package is not installed yet on servera.
+
+```console
+[student@workstation ~]$ lab start sa-monitoring
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-e65f5036b47e" title="Take the baseline" %}
     On servera, record the load average, the number of CPUs and the memory figures before you start any load.
@@ -123,11 +137,7 @@ Current active profile: virtual-guest
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-e5d7824a63af" title="Clean up" %}
-
-```console
-[student@servera ~]$ sudo dnf remove -y tuned
-[student@servera ~]$ exit
-```
+  {% task id="task-784c0dd399df" title="Grade and finish" %}
+    {% lab-finish exercise="sa-monitoring" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

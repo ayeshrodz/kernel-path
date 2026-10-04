@@ -1,0 +1,134 @@
+name: sa-fw-diagnosis
+title: Find four faults
+page: ch20/exercise-diagnosis
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: package
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: present
+- action: file
+  hosts:
+  - servera
+  path: /var/www/html/index.html
+  state: present
+  content: 'hello from servera
+
+    '
+- action: service
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: started
+  enabled: true
+- action: firewall
+  hosts:
+  - servera
+  state: present
+  service: http
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: svc
+      kind: service
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: httpd is running
+      names:
+      - httpd.service
+      active: true
+    - id: port-label
+      kind: selinux-port
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: TCP port 82 is labelled http_port_t
+      type: http_port_t
+      proto: tcp
+      port: 82
+    - id: fw-82
+      kind: firewall
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: 82/tcp is allowed
+      port: 82/tcp
+    - id: http
+      kind: firewall
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: http is allowed
+      service: http
+    - id: from-80
+      kind: http
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: serverb reaches port 80
+      url: http://servera.lab.example.com/
+      containsAny:
+      - hello from servera
+    - id: from-82
+      kind: http
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: serverb reaches port 82
+      url: http://servera.lab.example.com:82/
+      containsAny:
+      - hello from servera
+finish:
+- action: selinux
+  hosts:
+  - servera
+  kind: port
+  state: absent
+  type: http_port_t
+  proto: tcp
+  port: 82
+- action: service
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: stopped
+  enabled: false
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  service: http
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  port: 8080/tcp
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  port: 82/tcp
+- action: file
+  hosts:
+  - servera
+  path: /etc/httpd/conf.d/extra.conf
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /var/www/html/index.html
+  state: absent
+- action: package
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: absent

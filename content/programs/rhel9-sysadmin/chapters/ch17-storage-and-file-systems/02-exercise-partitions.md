@@ -12,8 +12,22 @@ servera has an empty 5 GiB disk, `/dev/sdb`. Look at the disks, give it a GPT pa
   objectives=["ch17.partitions"]
   id="partitions"
   title="Partition a new disk"
+  exercise="sa-partitions"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Identify the system disk and the spare disk.","Create a GPT table and three partitions with parted.","Check the result with lsblk and parted."] %}
+
+  {% task id="task-992656087c6b" title="Start the exercise" %}
+    On workstation, start the exercise. It clears the spare disk `/dev/sdb` of servera (5 GiB).
+
+```console
+[student@workstation ~]$ lab start sa-partitions
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-a28017581855" title="Which disk is which?" %}
     On servera as root (`sudo -i`), list the block devices with their file systems. Which disk is the system disk, and which one is empty?
@@ -116,5 +130,9 @@ Device       Start     End Sectors  Size Type
 
     `Disklabel type: gpt`: fdisk and parted read the same table. Sector 2048 is exactly 1 MiB, the aligned start.
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-d8a604eca4d7" title="Grade and finish" %}
+    {% lab-finish exercise="sa-partitions" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

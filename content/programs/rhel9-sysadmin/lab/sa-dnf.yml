@@ -1,0 +1,73 @@
+name: sa-dnf
+title: Install, inspect and undo
+page: ch13/exercise-dnf
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: package
+  hosts:
+  - servera
+  names:
+  - zip
+  - unzip
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /tmp/a.txt
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /tmp/a.zip
+  state: absent
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: zip
+      kind: package
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: zip is gone again after the undo
+      names:
+      - zip
+      installed: false
+    - id: unzip
+      kind: package
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: unzip is gone again after the undo
+      names:
+      - unzip
+      installed: false
+    - id: files
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the practice files in /tmp were removed
+      paths:
+      - /tmp/a.zip
+      exists: false
+finish:
+- action: package
+  hosts:
+  - servera
+  names:
+  - zip
+  - unzip
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /tmp/a.txt
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /tmp/a.zip
+  state: absent

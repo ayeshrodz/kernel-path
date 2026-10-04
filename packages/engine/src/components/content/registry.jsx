@@ -82,7 +82,7 @@ export const tags = {
   'lab-notes': () => [LabNotes],
   'lab-challenge': () => [LabChallenge],
   'lab-setup': () => [HomeSetup],
-  'lab-finish': (a) => [Finish, { name: a.exercise, grade: a.grade }],
+  'lab-finish': (a) => [Finish, { name: a.exercise, grade: a.grade, servers: a.servers }],
   'starter-files': (a) => [StarterFiles, { name: a.exercise }],
 
   'variant-group': () => [Env],

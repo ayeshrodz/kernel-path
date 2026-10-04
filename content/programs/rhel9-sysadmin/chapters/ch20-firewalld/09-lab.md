@@ -118,6 +118,6 @@ curl: (7) Failed to connect to servera port 80: No route to host
   {% task id="task-686e1f06ad46" title="Grade" %}
     On workstation, fill in `answers.txt` and grade:
 
-    {% lab-finish exercise="sa-firewalld-review" grade=true /%}
+    {% lab-finish exercise="sa-firewalld-review" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

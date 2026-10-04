@@ -109,6 +109,6 @@ multi-user.target
   {% task id="task-c35fd4a57c68" title="Grade" %}
     Leave servera, then on workstation:
 
-    {% lab-finish exercise="sa-systemd-review" grade=true /%}
+    {% lab-finish exercise="sa-systemd-review" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

@@ -12,8 +12,22 @@ Deliver the status portal on servera, one layer at a time, and prove each layer 
   objectives=["ch22.evidence"]
   id="portal"
   title="Deliver the portal"
+  exercise="sa-portal"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera","serverb"]
   outcomes=["Create the account, content, ACL, labels and port label.","Limit access to one caller with a firewall zone.","Add a persistent journal and a scheduled backup, then prove it after a reboot."] %}
+
+  {% task id="task-adcd1b489fa1" title="Start the exercise" %}
+    On workstation, start the exercise. It removes a portal of an earlier run from servera, so you start from a plain system.
+
+```console
+[student@workstation ~]$ lab start sa-portal
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-9e657e0b66c2" title="Identity and software" %}
     On servera as root create the group `portal` (GID 4800) and the account `portaladm` (UID 3001, primary group `portal`, shell `/sbin/nologin`). Install `httpd` and check both.
@@ -183,5 +197,9 @@ enabled
 Enforcing
 ```
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-90e051ce5e15" title="Grade and finish" %}
+    {% lab-finish exercise="sa-portal" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

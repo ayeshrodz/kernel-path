@@ -12,19 +12,21 @@ Set up key-based login from workstation to the `ops` account on servera, check t
   objectives=["ch10.keys"]
   id="keys"
   title="Passwordless access for an account"
+  exercise="sa-keys"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Create a key pair and install it with ssh-copy-id.","Diagnose a key refused because of permissions.","Use a passphrase with ssh-agent."] %}
 
-  {% task id="task-c734fcaadb7f" title="Make sure the account exists" %}
-    If you reset the servers since the last exercise, create `ops` again on servera, with the password `Ops-Pass-2026`. (Use `ssh root@servera`.)
-
-    {% reveal title="Show solution" %}
+  {% task id="task-d19e45fd21eb" title="Start the exercise" %}
+    On workstation, start the exercise. It creates the account `ops` on servera with the password `Ops-Pass-2026` and removes key files of an earlier run from workstation.
 
 ```console
-[student@workstation ~]$ ssh root@servera "id ops || (useradd -m ops && echo 'Ops-Pass-2026' | passwd --stdin ops)"
-uid=1001(ops) gid=1001(ops) groups=1001(ops)
+[student@workstation ~]$ lab start sa-keys
 ```
-    {% /reveal %}
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-dba8dc306c6b" title="Create the key pair" %}
@@ -135,5 +137,9 @@ echo Agent pid 1400 killed;
 
     The copy has the same public half, so the server accepted it without any change. Without the agent, ssh would have asked for the passphrase.
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-d76dc44caa6f" title="Grade and finish" %}
+    {% lab-finish exercise="sa-keys" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

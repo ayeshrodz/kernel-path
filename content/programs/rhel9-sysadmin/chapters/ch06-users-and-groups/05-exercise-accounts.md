@@ -12,8 +12,22 @@ On servera, create a group for a web team, two people in it, and a service accou
   objectives=["ch06.accounts","ch06.concepts"]
   id="accounts"
   title="Set up a web team"
+  exercise="sa-accounts"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Create a group with a chosen GID and users with supplementary groups.","Create a service account with nologin.","Recover from replacing a user's groups by mistake."] %}
+
+  {% task id="task-4067a94bdade" title="Start the exercise" %}
+    On workstation, start the exercise. It removes the accounts and the group of an earlier run from servera.
+
+```console
+[student@workstation ~]$ lab start sa-accounts
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-e9566e8670be" title="Create the group" %}
     On servera, open a root shell with `sudo -i`, and create the group `webteam` with GID 40000.
@@ -95,14 +109,7 @@ drwx------. 2 webapp webteam 4096 Oct  3 10:36 /home/webapp
     Mode `700` (`drwx------`): each owner, and nobody else, may enter their home. `/home/webapp` belongs to the group `webteam` because that is webapp's primary group.
   {% /task %}
 
-  {% task id="task-4d710a1ff0e6" title="Clean up" %}
-    Delete the three accounts with their home directories, then the group. If `userdel` reports that a user *is currently used by process* N, a process still runs as that account (for example from an earlier `su`): wait a moment and try again, or reset servera.
-
-```console
-[root@servera ~]# userdel -r alice; userdel -r bob; userdel -r webapp
-[root@servera ~]# groupdel webteam
-[root@servera ~]# exit
-[student@servera ~]$ exit
-```
+  {% task id="task-16d7cf000ea3" title="Grade and finish" %}
+    {% lab-finish exercise="sa-accounts" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

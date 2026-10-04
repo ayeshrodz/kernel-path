@@ -102,3 +102,22 @@ checkpoints:
       paths:
       - answers.txt
       matches: ^cont=18[ \t]*$
+finish:
+- action: user
+  hosts:
+  - servera
+  name: worker
+  state: absent
+- action: service
+  hosts:
+  - servera
+  names:
+  - tuned
+  state: stopped
+  enabled: false
+- action: package
+  hosts:
+  - servera
+  names:
+  - tuned
+  state: absent

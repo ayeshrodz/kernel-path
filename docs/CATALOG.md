@@ -391,6 +391,7 @@ A hands-on exercise with tracked tasks, notes and an optional challenge brief.
 | `hosts` | string[] |  | Labels for the machines the exercise uses, such as 'workstation' or 'Ubuntu host'. |
 | `outcomes` | string[] |  | What the learner will have done. |
 | `objectives` | string[] |  | Objectives the exercise practises. |
+| `guided` | boolean (default `false`) |  | A guided exercise: its tasks say exactly what to do, so it needs no challenge brief. It still has an exercise definition whose start, grading and finish the lab tool performs. |
 
 ## lab-challenge
 
@@ -408,6 +409,7 @@ How to grade and finish an exercise with the lab tools.
 | --- | --- | --- | --- |
 | `exercise` | string (exerciseName) | yes | Exercise name. |
 | `grade` | boolean (default `false`) |  | Also show the grading command. |
+| `servers` | boolean (default `false`) |  | The exercise's cleanup steps undo its changes on the lab servers, so the Finish text says so. |
 
 ## lab-network-map
 

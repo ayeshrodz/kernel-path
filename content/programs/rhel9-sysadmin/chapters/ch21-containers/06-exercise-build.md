@@ -12,8 +12,22 @@ Build a small web image from a Containerfile, read a build error, run the image,
   objectives=["ch21.build"]
   id="build"
   title="Build and version an image"
+  exercise="sa-containers-build"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Write a Containerfile and build a tagged image.","Read a failed COPY step.","Run and compare two versions of an image."] %}
+
+  {% task id="task-ac932c86ca1b" title="Start the exercise" %}
+    On workstation, start the exercise. It installs podman on servera and pulls the base image `httpd-24` for student.
+
+```console
+[student@workstation ~]$ lab start sa-containers-build
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-94520ca5e1dd" title="The project directory" %}
     As student on servera, create `~/portal` with `index.html` containing `Portal is up`. Make sure the base image `registry.access.redhat.com/ubi9/httpd-24:latest` is pulled.
@@ -119,18 +133,7 @@ sha256:ea005876daf0c5ee8024c9334503c742a37ed5391ee0e32a9051540425298d76
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-dbe804b78a04" title="Clean up" %}
-
-```console
-[student@servera portal]$ podman rm -f -t 1 portal
-portal
-[student@servera portal]$ podman rmi localhost/portal:latest localhost/portal:2 localhost/portal:1
-Untagged: localhost/portal:latest
-Untagged: localhost/portal:2
-Untagged: localhost/portal:1
-Deleted: 65755b3c59904919657cad23be6f3e8e87d42d648de4c04cb3cc43b15efc1f88
-Deleted: 8783f7652eb1f58df91e9c935a51986cbb9e3de30809eb517a08e5e4f883b136
-[student@servera portal]$ cd; rm -rf ~/portal
-```
+  {% task id="task-44921bebd9b6" title="Grade and finish" %}
+    {% lab-finish exercise="sa-containers-build" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

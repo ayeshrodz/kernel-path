@@ -95,6 +95,6 @@ Enforcing
   {% task id="task-b6866acf4bc6" title="Answers and grade" %}
     On workstation, fill in `answers.txt` (`ps -eZ | grep httpd` shows the process type), and grade:
 
-    {% lab-finish exercise="sa-selinux-review" grade=true /%}
+    {% lab-finish exercise="sa-selinux-review" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

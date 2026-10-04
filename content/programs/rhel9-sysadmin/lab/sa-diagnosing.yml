@@ -1,0 +1,117 @@
+name: sa-diagnosing
+title: Find and fix a failing service
+page: ch11/exercise-diagnosing
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: service
+  hosts:
+  - servera
+  names:
+  - billing
+  state: stopped
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/system/billing.service
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /usr/local/bin/billing.sh
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/billing.conf
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true
+- action: file
+  hosts:
+  - servera
+  path: /usr/local/bin/billing.sh
+  state: present
+  content: "#!/bin/bash\nCONF=/etc/billing.conf\nif [ ! -r \"$CONF\" ]; then\n  echo \"billing: cannot read $CONF\" >&2\n  exit 3\nfi\n. \"$CONF\"\necho \"billing: started with rate=$RATE\"\nexec sleep infinity\n"
+  owner: root
+  group: root
+  mode: '755'
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/system/billing.service
+  state: present
+  content: '[Unit]
+
+    Description=Billing job
+
+
+    [Service]
+
+    ExecStart=/usr/local/bin/billing.sh
+
+    Restart=on-failure
+
+    RestartSec=1
+
+
+    [Install]
+
+    WantedBy=multi-user.target
+
+    '
+- action: systemd
+  hosts:
+  - servera
+  reload: true
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: service
+      kind: service
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: billing is running
+      names:
+      - billing.service
+      active: true
+    - id: conf
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /etc/billing.conf holds RATE=10
+      paths:
+      - /etc/billing.conf
+      line: RATE=10
+finish:
+- action: service
+  hosts:
+  - servera
+  names:
+  - billing
+  state: stopped
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/system/billing.service
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /usr/local/bin/billing.sh
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/billing.conf
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true

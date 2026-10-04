@@ -1,0 +1,133 @@
+name: sa-timers
+title: Timers and one-off jobs
+page: ch15/exercise-timers
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: service
+  hosts:
+  - servera
+  names:
+  - hello.timer
+  state: stopped
+  enabled: false
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/system/hello.service
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/system/hello.timer
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /home/student/at.out
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true
+- action: package
+  hosts:
+  - servera
+  names:
+  - at
+  state: absent
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: service
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: hello.service is a oneshot service that logs with the tag hello-timer
+      paths:
+      - /etc/systemd/system/hello.service
+      contains:
+      - Type=oneshot
+      - hello-timer
+    - id: timer-file
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: hello.timer fires every minute and catches up
+      paths:
+      - /etc/systemd/system/hello.timer
+      contains:
+      - Persistent=true
+      - WantedBy=timers.target
+    - id: timer
+      kind: service
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: hello.timer is enabled and running
+      names:
+      - hello.timer
+      active: true
+      enabled: true
+    - id: atd
+      kind: service
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: atd is running
+      names:
+      - atd.service
+      active: true
+    - id: at-out
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the at job ran
+      paths:
+      - /home/student/at.out
+      line: at job ran
+finish:
+- action: service
+  hosts:
+  - servera
+  names:
+  - hello.timer
+  state: stopped
+  enabled: false
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/system/hello.service
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/system/hello.timer
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /home/student/at.out
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true
+- action: service
+  hosts:
+  - servera
+  names:
+  - atd
+  state: stopped
+  enabled: false
+- action: package
+  hosts:
+  - servera
+  names:
+  - at
+  state: absent

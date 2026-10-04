@@ -1,0 +1,95 @@
+name: sa-fw-stores
+title: Runtime, permanent and temporary rules
+page: ch20/exercise-stores
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: package
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: present
+- action: file
+  hosts:
+  - servera
+  path: /var/www/html/index.html
+  state: present
+  content: 'hello from servera
+
+    '
+- action: service
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: started
+  enabled: true
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: http-both
+      kind: firewall
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: http is allowed in the running firewall and in the saved one
+      service: http
+    - id: port-closed
+      kind: firewall
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: 8080/tcp is not left open anywhere
+      port: 8080/tcp
+      allowed: false
+    - id: from-80
+      kind: http
+      'on': serverb.lab.example.com
+      targets:
+      - serverb.lab.example.com
+      message: serverb reaches the page on port 80
+      url: http://servera.lab.example.com/
+      containsAny:
+      - hello from servera
+finish:
+- action: service
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: stopped
+  enabled: false
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  service: http
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  port: 8080/tcp
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  port: 82/tcp
+- action: file
+  hosts:
+  - servera
+  path: /etc/httpd/conf.d/extra.conf
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /var/www/html/index.html
+  state: absent
+- action: package
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: absent

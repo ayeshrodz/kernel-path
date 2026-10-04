@@ -1,0 +1,158 @@
+name: sa-lvm-maintenance
+title: Move data to a new disk
+page: ch18/exercise-maintenance
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: wipe-disk
+  hosts:
+  - servera
+  device: /dev/sdb
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/fstab
+  matching: /dev/vgdata/
+- action: directory
+  hosts:
+  - servera
+  path: /srv/app
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/log
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/data
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /root/fstab.bak
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true
+- action: partition-disk
+  hosts:
+  - servera
+  device: /dev/sdb
+  partitions:
+  - name: pv1
+    fs: lvm
+    startMiB: 1
+    endMiB: 1537
+  - name: pv2
+    fs: lvm
+    startMiB: 1537
+    endMiB: 3073
+- action: lvm-build
+  hosts:
+  - servera
+  vg: vgdata
+  pvs:
+  - /dev/sdb1
+  - /dev/sdb2
+  volumes:
+  - name: lvapp
+    size: 1G
+    fs: xfs
+    mount: /srv/app
+  - name: lvlog
+    size: 256M
+    fs: ext4
+    mount: /srv/log
+    label: lvlog
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: vg
+      kind: volume-group
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: vgdata exists
+      vg: vgdata
+    - id: lv
+      kind: logical-volume
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the renamed volume lvstore is at least 800 MiB
+      vg: vgdata
+      lv: lvstore
+      minSizeMiB: 800
+    - id: swaplv
+      kind: logical-volume
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: lvswap is at least 256 MiB
+      vg: vgdata
+      lv: lvswap
+      minSizeMiB: 256
+    - id: mount
+      kind: mount
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /srv/data is XFS, mounted now and at boot
+      path: /srv/data
+      fstype: xfs
+      persistent: true
+    - id: swap
+      kind: swap
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the swap volume is active and in fstab
+      minSizeMiB: 200
+    - id: numbers
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the data survived the move
+      paths:
+      - /srv/data/numbers.txt
+      line: '100000'
+finish:
+- action: wipe-disk
+  hosts:
+  - servera
+  device: /dev/sdb
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/fstab
+  matching: /dev/vgdata/
+- action: directory
+  hosts:
+  - servera
+  path: /srv/app
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/log
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/data
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /root/fstab.bak
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true

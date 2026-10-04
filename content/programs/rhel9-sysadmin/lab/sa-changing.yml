@@ -1,0 +1,132 @@
+name: sa-changing
+title: Secure a web folder
+page: ch07/exercise-changing
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: group
+  hosts:
+  - servera
+  name: webteam
+  state: present
+  gid: 4600
+- action: user
+  hosts:
+  - servera
+  name: maria
+  state: present
+  groups:
+  - webteam
+- action: user
+  hosts:
+  - servera
+  name: john
+  state: present
+- action: directory
+  hosts:
+  - servera
+  path: /srv/site/html
+  state: present
+- action: directory
+  hosts:
+  - servera
+  path: /srv/site/bin
+  state: present
+- action: file
+  hosts:
+  - servera
+  path: /srv/site/html/index.html
+  state: present
+  content: ''
+- action: file
+  hosts:
+  - servera
+  path: /srv/site/bin/deploy.sh
+  state: present
+  content: ''
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: owner
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the tree belongs to maria:webteam
+      paths:
+      - /srv/site/html/index.html
+      owner: maria
+      group: webteam
+    - id: page
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: 'index.html is 664: the group may edit, others read'
+      paths:
+      - /srv/site/html/index.html
+      mode: '0664'
+    - id: script
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: deploy.sh is mode 750 and holds the command
+      paths:
+      - /srv/site/bin/deploy.sh
+      mode: '0750'
+      contains:
+      - echo deployed
+    - id: dirs
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: site and html are traversable by others (755)
+      paths:
+      - /srv/site
+      fileType: directory
+      mode: '0755'
+    - id: html
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: html is traversable by others (755)
+      paths:
+      - /srv/site/html
+      fileType: directory
+      mode: '0755'
+    - id: bin
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: bin stays closed to others (750)
+      paths:
+      - /srv/site/bin
+      fileType: directory
+      mode: '0750'
+finish:
+- action: directory
+  hosts:
+  - servera
+  path: /srv/site
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: maria
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: john
+  state: absent
+- action: group
+  hosts:
+  - servera
+  name: webteam
+  state: absent

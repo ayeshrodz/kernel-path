@@ -12,8 +12,22 @@ Three problems, each with a different message. Diagnose each from its message, f
   objectives=["ch18.troubleshooting"]
   id="troubleshooting"
   title="Fix three LVM problems"
+  exercise="sa-lvm-troubleshooting"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Activate an inactive volume.","Respond to Insufficient free space.","Resolve a group that cannot be deactivated."] %}
+
+  {% task id="task-1c291d41ff72" title="Start the exercise" %}
+    On workstation, start the exercise. It builds the volume group `vgdata` on `/dev/sdb2` of servera with the XFS volume `lvstore` (800 MiB, mounted on `/srv/data`) and the swap volume `lvswap`, both in `/etc/fstab`.
+
+```console
+[student@workstation ~]$ lab start sa-lvm-troubleshooting
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-733227e1e67f" title="The starting point" %}
     On servera as root, make sure `vgdata` has the mounted volume `lvstore` on `/srv/data` (as left by the previous exercise).
@@ -112,24 +126,21 @@ lvswap
 ```console
 [root@servera ~]# vgcfgbackup vgdata
   Volume group "vgdata" successfully backed up.
-[root@servera ~]# swapoff -a; umount /srv/data
-[root@servera ~]# cp /root/fstab.bak /etc/fstab; systemctl daemon-reload
-[root@servera ~]# lvremove -y vgdata/lvstore vgdata/lvswap
   Logical volume "lvstore" successfully removed.
   Logical volume "lvswap" successfully removed.
-[root@servera ~]# vgremove vgdata
   Volume group "vgdata" successfully removed
-[root@servera ~]# pvremove /dev/sdb2
   Labels on physical volume "/dev/sdb2" successfully wiped.
-[root@servera ~]# wipefs -a /dev/sdb1 /dev/sdb2 /dev/sdb > /dev/null 2>&1; lsblk /dev/sdb
 NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINTS
 sdb    8:16   0   5G  0 disk
-[root@servera ~]# rmdir /srv/data /srv/app /srv/log 2> /dev/null
 [root@servera ~]# exit
 [student@servera ~]$ exit
 ```
 
     Order matters: volumes, then the group, then the PVs. `rht-vmctl reset servers` is the quick alternative.
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-95b4e17972cb" title="Grade and finish" %}
+    {% lab-finish exercise="sa-lvm-troubleshooting" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

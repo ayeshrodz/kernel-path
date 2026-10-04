@@ -12,8 +12,22 @@ See user IDs cross the network: a file created on the client, a user that exists
   objectives=["ch19.access"]
   id="permissions"
   title="Get the permissions right"
+  exercise="sa-nfs-permissions"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera","serverb"]
   outcomes=["Show that NFS carries numeric IDs.","Make a user work on both sides with a matching UID.","Build a setgid group directory on a share."] %}
+
+  {% task id="task-ee7f3e44c540" title="Start the exercise" %}
+    On workstation, start the exercise. It installs nfs-utils, exports `/srv/shared` read-write from serverb to the lab network, starts the NFS server and opens the `nfs` firewall service.
+
+```console
+[student@workstation ~]$ lab start sa-nfs-permissions
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-49cd65115f6e" title="Make the share writable for student" %}
     The share must be exported read-write and mounted from the previous exercise (export `/srv/shared` read-write, firewall open, mounted on servera in `/mnt/shared`). On serverb, give the directory to `student`, who has UID 1000 on both machines. On servera, create a file as `student` in the share and list it by number and by name.
@@ -125,15 +139,7 @@ total 8
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-718654323cf3" title="Clean up" %}
-
-```console
-[root@servera ~]# umount /mnt/shared
-[root@servera ~]# userdel -r alice; groupdel team 2> /dev/null
-[root@serverb ~]# rm -rf /srv/shared/alice /srv/shared/team /srv/shared/st.txt
-[root@serverb ~]# userdel -r alice; groupdel team 2> /dev/null
-```
-
-    Keep the export and the firewall rule: the next exercises use them.
+  {% task id="task-d0c4c5654cc5" title="Grade and finish" %}
+    {% lab-finish exercise="sa-nfs-permissions" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

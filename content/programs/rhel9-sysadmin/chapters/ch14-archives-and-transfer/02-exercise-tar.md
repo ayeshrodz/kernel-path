@@ -12,8 +12,22 @@ Build a small project, archive it three ways, restore it into a clean directory,
   objectives=["ch14.tar"]
   id="tar"
   title="Archive a project"
+  exercise="sa-tar"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Create, list and extract tar archives.","Extract into a chosen directory and extract a single member.","Compare the restored tree with the original."] %}
+
+  {% task id="task-61f650ffb6d4" title="Start the exercise" %}
+    On workstation, start the exercise. It removes `/root/arch` of an earlier run from servera.
+
+```console
+[student@workstation ~]$ lab start sa-tar
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-cb1b078db942" title="Build the project" %}
     On servera as root (`sudo -i`), create `/root/arch/project` with `docs/notes.md`, `src/data1.txt` (the numbers 1 to 20000, from `seq`), and an executable script `run.sh`.
@@ -128,12 +142,7 @@ root/arch/project/docs/notes.md
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-fba6ad76cade" title="Clean up" %}
-
-```console
-[root@servera arch]# cd; rm -rf /root/arch
-[root@servera ~]# exit
-[student@servera ~]$ exit
-```
+  {% task id="task-13eba9e5f961" title="Grade and finish" %}
+    {% lab-finish exercise="sa-tar" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

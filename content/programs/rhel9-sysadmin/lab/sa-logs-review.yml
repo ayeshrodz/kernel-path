@@ -113,3 +113,56 @@ checkpoints:
       paths:
       - answers.txt
       matches: ^SELECTED_MARK=\*[ \t]*$
+finish:
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/journald.conf.d/10-retention.conf
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/rsyslog.d/10-appserver.conf
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /var/log/appserver.log
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/logrotate.d/appserver
+  state: absent
+- action: service
+  hosts:
+  - servera
+  names:
+  - rsyslog
+  state: restarted
+- action: timezone
+  hosts:
+  - servera
+  zone: UTC
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/chrony.conf
+  matching: ^server 0[.]pool[.]ntp[.]org
+- action: service
+  hosts:
+  - servera
+  names:
+  - chronyd
+  state: restarted
+- action: directory
+  hosts:
+  - servera
+  path: /var/log/journal
+  state: absent
+- action: service
+  hosts:
+  - servera
+  names:
+  - systemd-journald
+  state: restarted

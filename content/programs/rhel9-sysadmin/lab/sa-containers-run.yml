@@ -1,0 +1,36 @@
+name: sa-containers-run
+title: Run and manage containers
+page: ch21/exercise-run
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: package
+  hosts:
+  - servera
+  names:
+  - podman
+  state: present
+- action: container-reset
+  hosts:
+  - servera
+  user: student
+  keepImages: true
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: image
+      kind: container
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: student has the ubi-minimal image
+      user: student
+      image: registry.access.redhat.com/ubi9/ubi-minimal:latest
+finish:
+- action: container-reset
+  hosts:
+  - servera
+  user: student
+  keepImages: true

@@ -165,7 +165,23 @@ export function StarterFiles({ name }) {
 }
 
 /** The "Finish" step of an exercise, for both environments. */
-export function Finish({ name, grade = false }) {
+export function Finish({ name, grade = false, servers = false }) {
+  if (singleEnvironment() && servers)
+    return (
+      <p className="lab-finish">
+        {grade ? (
+          <>
+            On workstation, check your work with <code>lab grade {name}</code>. Fix anything that fails and grade again; grading only reads.
+            Then{' '}
+          </>
+        ) : (
+          'On workstation, '
+        )}
+        <code>lab finish {name}</code> undoes this exercise's changes on the servers and moves the exercise folder to{' '}
+        <code>~/lab-archive/</code>. It cleans only what this exercise set up; <code>rht-vmctl reset servers</code> on the Ubuntu host
+        returns the servers to the exact clean baseline.
+      </p>
+    );
   if (singleEnvironment())
     return (
       <p className="lab-finish">

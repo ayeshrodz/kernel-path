@@ -12,8 +12,22 @@ Make a directory with special properties (a script, a private file with an ACL),
   objectives=["ch14.backups"]
   id="backups"
   title="Back up with ACLs, then restore"
+  exercise="sa-backups"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Show that a plain tar loses ACLs and that --acls keeps them.","Make and restore a full and an incremental backup.","Create hard-linked rsync snapshots."] %}
+
+  {% task id="task-b1493b0d7765" title="Start the exercise" %}
+    On workstation, start the exercise. It removes `/root/arch` of an earlier run from servera.
+
+```console
+[student@workstation ~]$ lab start sa-backups
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-8303f5800ecd" title="Build a directory with an ACL" %}
     On servera as root (`sudo -i`), create `/root/arch/project/docs/notes.md`, give the user `student` read access to it with an ACL, and show the ACL.
@@ -146,12 +160,7 @@ a.txt  c.txt  d.txt
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-20ae7ae8d8f9" title="Clean up" %}
-
-```console
-[root@servera arch]# cd; rm -rf /root/arch
-[root@servera ~]# exit
-[student@servera ~]$ exit
-```
+  {% task id="task-28fe69e0b6ab" title="Grade and finish" %}
+    {% lab-finish exercise="sa-backups" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

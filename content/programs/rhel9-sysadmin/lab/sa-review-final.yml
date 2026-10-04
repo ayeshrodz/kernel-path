@@ -234,3 +234,104 @@ checkpoints:
       paths:
       - answers.txt
       matches: ^TAR_LABEL_OPTION=--selinux[ \t]*$
+finish:
+- action: service
+  hosts:
+  - servera
+  names:
+  - status-backup.timer
+  state: stopped
+  enabled: false
+- action: service
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: stopped
+  enabled: false
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  zone: statuspartners
+  deleteZone: true
+- action: selinux
+  hosts:
+  - servera
+  kind: port
+  state: absent
+  type: http_port_t
+  proto: tcp
+  port: 8095
+- action: selinux
+  hosts:
+  - servera
+  kind: fcontext
+  state: absent
+  path: /srv/status(/.*)?
+- action: directory
+  hosts:
+  - servera
+  path: /srv/status
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/backups
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/httpd/conf.d/status.conf
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/system/status-backup.service
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/system/status-backup.timer
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/journald.conf.d/10-persistent.conf
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true
+- action: user
+  hosts:
+  - servera
+  name: statusadm
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: auditor
+  state: absent
+- action: group
+  hosts:
+  - servera
+  name: ops
+  state: absent
+- action: package
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /var/log/journal
+  state: absent
+- action: service
+  hosts:
+  - servera
+  names:
+  - systemd-journald
+  state: restarted

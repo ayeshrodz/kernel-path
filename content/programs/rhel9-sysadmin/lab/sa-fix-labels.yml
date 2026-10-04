@@ -1,0 +1,144 @@
+name: sa-fix-labels
+title: Fix a 403 caused by a label
+page: ch16/exercise-fix-labels
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: package
+  hosts:
+  - servera
+  names:
+  - httpd
+  - audit
+  - setroubleshoot-server
+  state: present
+- action: service
+  hosts:
+  - servera
+  names:
+  - auditd
+  state: started
+  enabled: true
+  tolerant: true
+- action: directory
+  hosts:
+  - servera
+  path: /srv/web
+  state: present
+- action: file
+  hosts:
+  - servera
+  path: /srv/web/index.html
+  state: present
+  content: 'Hello from /srv/web
+
+    '
+- action: file
+  hosts:
+  - servera
+  path: /etc/httpd/conf.d/web.conf
+  state: present
+  content: "DocumentRoot \"/srv/web\"\n<Directory \"/srv/web\">\n    Require all granted\n</Directory>\n"
+- action: service
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: started
+  enabled: true
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: fcontext
+      kind: selinux-fcontext
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: a stored mapping gives /srv/web and below the web content type
+      path: /srv/web(/.*)?
+      type: httpd_sys_content_t
+    - id: index
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: index.html carries the web content type
+      paths:
+      - /srv/web/index.html
+      selinuxType: httpd_sys_content_t
+    - id: copy
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: copy.html (restored after chcon) carries the web content type
+      paths:
+      - /srv/web/copy.html
+      selinuxType: httpd_sys_content_t
+    - id: moved
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: moved.html (relabelled after the move) carries the web content type
+      paths:
+      - /srv/web/moved.html
+      selinuxType: httpd_sys_content_t
+    - id: enforcing
+      kind: selinux
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: SELinux is enforcing, now and in the configuration
+      mode: enforcing
+    - id: page
+      kind: http
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the page is served
+      url: http://localhost/
+      containsAny:
+      - Hello from /srv/web
+finish:
+- action: selinux
+  hosts:
+  - servera
+  kind: fcontext
+  state: absent
+  path: /srv/web(/.*)?
+- action: service
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: stopped
+  enabled: false
+- action: package
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/web
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/httpd/conf.d/web.conf
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /tmp/second.html
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /tmp/moved.html
+  state: absent

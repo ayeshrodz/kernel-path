@@ -12,8 +12,22 @@ The portal from the previous exercise works. You will break it six ways, one at 
   objectives=["ch22.faults"]
   id="faults"
   title="Find six faults"
+  exercise="sa-portal-faults"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera","serverb"]
   outcomes=["Map each symptom to one layer.","Repair with one change and repeat the failing request.","Keep the other requirements intact."] %}
+
+  {% task id="task-956de9dc6ae5" title="Start the exercise" %}
+    On workstation, start the exercise. It builds the finished portal of the previous exercise on servera: account, content with ACL, labels, httpd on port 8090 and the firewall zone for serverb.
+
+```console
+[student@workstation ~]$ lab start sa-portal-faults
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-671ba214e616" title="The test request" %}
     Make the portal from the previous exercise work again if needed. Then define your test: on serverb, `curl -sS -m 3 -o /dev/null -w "HTTP %{http_code}\n" http://servera:8090/` must print `HTTP 200`.
@@ -150,5 +164,9 @@ HTTP 200
 
     Every layer works and the status code is 200. Only a check of the content (or a comparison with the backup) notices. The next exercise restores it.
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-4ee76f1fbd21" title="Grade and finish" %}
+    {% lab-finish exercise="sa-portal-faults" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

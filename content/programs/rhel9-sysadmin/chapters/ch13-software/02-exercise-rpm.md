@@ -12,8 +12,22 @@ Use `rpm` to learn where files come from, what a package contains, and whether a
   objectives=["ch13.rpm"]
   id="rpm"
   title="Interrogate the installed software"
+  exercise="sa-rpm"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Query packages with rpm -q, -qi, -ql, -qc, -qd and -qf.","Find the owner of a file.","Detect a modified file with rpm -V and repair it."] %}
+
+  {% task id="task-9955f107ff28" title="Start the exercise" %}
+    On workstation, start the exercise. It makes sure the package `tree` is installed and intact on servera.
+
+```console
+[student@workstation ~]$ lab start sa-rpm
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-50e42e415190" title="Ask about a package" %}
     On servera as root (`sudo -i`), show the exact version of the `tree` package, its summary and licence, and the files it installed.
@@ -110,5 +124,9 @@ Complete!
 
     No output: the file is back to what the package contains.
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-b1a6c98506c8" title="Grade and finish" %}
+    {% lab-finish exercise="sa-rpm" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

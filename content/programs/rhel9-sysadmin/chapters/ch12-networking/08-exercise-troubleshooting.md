@@ -12,28 +12,27 @@ A small web service on serverb answers on its own machine and from nowhere else.
   objectives=["ch12.troubleshooting"]
   id="troubleshooting"
   title="The service nobody can reach"
+  exercise="sa-reach"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera","serverb"]
   outcomes=["Use the error message to pick the next layer to check.","Find a loopback-only listener with ss.","Open a port and fix the bind address."] %}
 
-  {% task id="task-968f7f9436c8" title="Start the broken service on serverb" %}
-    On serverb as root (`sudo -i`), create a page and start a web server on port 8080 that is bound to the loopback address only. (Use `nohup` and `&` so it keeps running.)
-
-    {% reveal title="Show solution" %}
+  {% task id="task-aeb68e6f8fc8" title="Start the exercise" %}
+    On workstation, start the exercise. It starts a small web server on serverb that listens on port 8080 of the loopback address only, with the page `hello from serverb`.
 
 ```console
-[student@workstation ~]$ ssh student@serverb
-[student@serverb ~]$ sudo -i
-[root@serverb ~]# mkdir -p /srv/web
-[root@serverb ~]# echo "hello from serverb" > /srv/web/index.html
-[root@serverb ~]# cd /srv/web
-[root@serverb web]# nohup python3 -m http.server 8080 --bind 127.0.0.1 > /tmp/http.log 2>&1 &
-[1] 679
-[root@serverb web]# curl -s http://127.0.0.1:8080/
-hello from serverb
+[student@workstation ~]$ lab start sa-reach
 ```
 
-    It works locally, as expected. Keep this session open.
-    {% /reveal %}
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+
+    Then, as root on serverb, change to the exercise directory:
+
+```console
+[root@serverb ~]# cd /srv/web
+```
   {% /task %}
 
   {% task id="task-f3c90437d725" title="Rung 1 to 5: is the machine reachable?" %}
@@ -105,19 +104,7 @@ hello from serverb
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-d032740aa9df" title="Clean up" %}
-    Stop the server, remove the page and the temporary firewall rule (a reload restores the permanent configuration).
-
-    {% reveal title="Show solution" %}
-
-```console
-[root@serverb web]# pkill -f 'http.server 8080'
-[root@serverb web]# firewall-cmd --reload
-success
-[root@serverb web]# cd; rm -rf /srv/web /tmp/http.log
-[root@serverb ~]# exit
-[student@serverb ~]$ exit
-```
-    {% /reveal %}
+  {% task id="task-e77fdca4e4c7" title="Grade and finish" %}
+    {% lab-finish exercise="sa-reach" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

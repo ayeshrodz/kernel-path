@@ -1,0 +1,130 @@
+name: sa-containers-storage
+title: Ports, mounts and volumes
+page: ch21/exercise-storage
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: package
+  hosts:
+  - servera
+  names:
+  - podman
+  state: present
+- action: container-reset
+  hosts:
+  - servera
+  user: student
+  keepImages: true
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/web
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/data
+  state: absent
+- action: run-as
+  hosts:
+  - servera
+  user: student
+  tool: podman-pull
+  image: registry.access.redhat.com/ubi9/httpd-24:latest
+- action: run-as
+  hosts:
+  - servera
+  user: student
+  tool: podman-pull
+  image: registry.access.redhat.com/ubi9/ubi-minimal:latest
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/web
+  state: present
+  owner: student
+  group: student
+  mode: '755'
+- action: file
+  hosts:
+  - servera
+  path: /home/student/web/index.html
+  state: present
+  content: 'hello from a container
+
+    '
+  owner: student
+  group: student
+  mode: '644'
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: web
+      kind: container
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the web container is running
+      user: student
+      running: web
+    - id: label
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: ~/web carries the private container label
+      paths:
+      - /home/student/web
+      selinuxType: container_file_t
+    - id: page
+      kind: http
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the page is served on port 8080
+      url: http://localhost:8080/
+      containsAny:
+      - hello from a container
+    - id: data
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the container wrote ~/data/a.txt
+      paths:
+      - /home/student/data/a.txt
+      contains:
+      - made
+finish:
+- action: container-reset
+  hosts:
+  - servera
+  user: student
+  keepImages: true
+- action: linger
+  hosts:
+  - servera
+  user: student
+  state: absent
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  port: 8080/tcp
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/web
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/data
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/portal
+  state: absent

@@ -12,25 +12,21 @@ servera runs a web server on ports 80, 8080 and 9000. You will let only serverb 
   objectives=["ch20.special"]
   id="special"
   title="One trusted host, a custom port and a forward"
+  exercise="sa-fw-special"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera","serverb"]
   outcomes=["Build a source-based zone and test it from two hosts.","Create a custom service and a forward port.","Read rejected packets in the kernel log."] %}
 
-  {% task id="task-246bdca80164" title="Prepare the server" %}
-    On servera as root: install `httpd`, write `hello from servera` as the home page, add `Listen 8080` and `Listen 9000` in `/etc/httpd/conf.d/extra.conf` (one per line), then start and enable the service. Check with `ss -tlnp` that it listens on the three ports. Port 8080 and 9000 are already web ports for SELinux.
-
-    {% reveal title="Show solution" %}
+  {% task id="task-1fe0885ae68c" title="Start the exercise" %}
+    On workstation, start the exercise. It installs httpd on servera, serves the page `hello from servera` on ports 80, 8080 and 9000, and starts it.
 
 ```console
-[root@servera ~]# dnf install -y httpd > /dev/null
-[root@servera ~]# echo "hello from servera" > /var/www/html/index.html
-[root@servera ~]# printf 'Listen 8080\nListen 9000\n' > /etc/httpd/conf.d/extra.conf
-[root@servera ~]# systemctl enable --now httpd 2>&1 | tail -1
-[root@servera ~]# ss -tln | grep -E ':(80|8080|9000) '
-LISTEN 0      511                *:80              *:*
-LISTEN 0      511                *:9000            *:*
-LISTEN 0      511                *:8080            *:*
+[student@workstation ~]$ lab start sa-fw-special
 ```
-    {% /reveal %}
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-21c0703eb160" title="A zone for serverb" %}
@@ -162,14 +158,7 @@ port 9000 -> 000
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-3fdf015029c8" title="Clean up" %}
-
-```console
-[root@servera ~]# firewall-cmd --permanent --delete-zone=lanonly; firewall-cmd --permanent --delete-service=myapp; firewall-cmd --reload
-success
-success
-success
-[root@servera ~]# rm /etc/httpd/conf.d/extra.conf; systemctl restart httpd
-```
+  {% task id="task-8e819d93d3fc" title="Grade and finish" %}
+    {% lab-finish exercise="sa-fw-special" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

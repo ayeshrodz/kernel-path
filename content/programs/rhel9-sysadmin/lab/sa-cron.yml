@@ -1,0 +1,95 @@
+name: sa-cron
+title: Schedule a job
+page: ch15/exercise-cron
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: crontab
+  hosts:
+  - servera
+  user: student
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/cron.d/demo
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /home/student/cron.out
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /tmp/ct
+  state: absent
+- action: service
+  hosts:
+  - servera
+  names:
+  - crond
+  state: started
+  enabled: true
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: crontab
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: student has a job with an escaped percent sign
+      paths:
+      - /var/spool/cron/student
+      matches: date \+\\%T
+    - id: out
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the job has written its output file
+      paths:
+      - /home/student/cron.out
+      contains:
+      - cron ran at
+    - id: demo
+      kind: cron
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: a system job in /etc/cron.d/demo runs logger every two minutes
+      file: demo
+      matches: ^\*/2 \* \* \* \* root /usr/bin/logger -t cron-demo hello
+    - id: crond
+      kind: service
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: crond is running
+      names:
+      - crond.service
+      active: true
+finish:
+- action: crontab
+  hosts:
+  - servera
+  user: student
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/cron.d/demo
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /home/student/cron.out
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /tmp/ct
+  state: absent

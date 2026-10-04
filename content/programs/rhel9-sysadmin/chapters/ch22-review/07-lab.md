@@ -155,6 +155,6 @@ Status page: ready
   {% task id="task-324ae14d4e05" title="Grade" %}
     On workstation, fill in `answers.txt` and grade:
 
-    {% lab-finish exercise="sa-review-final" grade=true /%}
+    {% lab-finish exercise="sa-review-final" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

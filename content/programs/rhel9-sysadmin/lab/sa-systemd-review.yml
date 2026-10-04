@@ -87,3 +87,45 @@ checkpoints:
       - servera.lab.example.com
       message: The default target is multi-user.target
       target: multi-user.target
+finish:
+- action: service
+  hosts:
+  - servera
+  names:
+  - reporter
+  state: stopped
+  enabled: false
+- action: file
+  hosts:
+  - servera
+  path: /etc/systemd/system/reporter.service
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /usr/local/bin/reporter.sh
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /var/log/reporter.log
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /etc/systemd/system/reporter.service.d
+  state: absent
+- action: service
+  hosts:
+  - servera
+  names:
+  - bluetooth
+  masked: false
+- action: systemd
+  hosts:
+  - servera
+  reload: true
+- action: boot
+  hosts:
+  - servera
+  target: graphical.target

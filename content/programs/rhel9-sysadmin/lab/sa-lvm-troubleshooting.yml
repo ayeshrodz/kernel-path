@@ -1,0 +1,144 @@
+name: sa-lvm-troubleshooting
+title: Fix three LVM problems
+page: ch18/exercise-troubleshooting
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: wipe-disk
+  hosts:
+  - servera
+  device: /dev/sdb
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/fstab
+  matching: /dev/vgdata/
+- action: directory
+  hosts:
+  - servera
+  path: /srv/app
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/log
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/data
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /root/fstab.bak
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true
+- action: partition-disk
+  hosts:
+  - servera
+  device: /dev/sdb
+  partitions:
+  - name: pv1
+    fs: lvm
+    startMiB: 1
+    endMiB: 1537
+  - name: pv2
+    fs: lvm
+    startMiB: 1537
+    endMiB: 3073
+- action: lvm-build
+  hosts:
+  - servera
+  vg: vgdata
+  pvs:
+  - /dev/sdb2
+  volumes:
+  - name: lvstore
+    size: 800M
+    fs: xfs
+    mount: /srv/data
+  - name: lvswap
+    size: 256M
+    fs: swap
+- action: append-line
+  hosts:
+  - servera
+  path: /etc/fstab
+  line: /dev/vgdata/lvstore  /srv/data  xfs  defaults  0 0
+- action: append-line
+  hosts:
+  - servera
+  path: /etc/fstab
+  line: /dev/vgdata/lvswap  none  swap  defaults  0 0
+- action: systemd
+  hosts:
+  - servera
+  reload: true
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: lv
+      kind: logical-volume
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: lvstore grew into the free space (over 1100 MiB)
+      vg: vgdata
+      lv: lvstore
+      minSizeMiB: 1100
+    - id: mount
+      kind: mount
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /srv/data is XFS and mounted at boot
+      path: /srv/data
+      fstype: xfs
+      persistent: true
+    - id: swap
+      kind: swap
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: lvswap is active again and in fstab
+      minSizeMiB: 200
+finish:
+- action: wipe-disk
+  hosts:
+  - servera
+  device: /dev/sdb
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/fstab
+  matching: /dev/vgdata/
+- action: directory
+  hosts:
+  - servera
+  path: /srv/app
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/log
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/data
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /root/fstab.bak
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true

@@ -12,8 +12,22 @@ An intern starts on servera today. Give them a temporary password they must chan
   objectives=["ch06.passwords"]
   id="passwords"
   title="Onboard and offboard an intern"
+  exercise="sa-passwords"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Set a temporary password and force a change at the next login.","Apply password ageing with chage.","See the difference between locking and expiring an account."] %}
+
+  {% task id="task-05f7cae6c3c5" title="Start the exercise" %}
+    On workstation, start the exercise. It removes an intern account left by an earlier run from servera.
+
+```console
+[student@workstation ~]$ lab start sa-passwords
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-f7644ce3f4a5" title="Create the account with a temporary password" %}
     On servera as root (`sudo -i`), create `intern` ("Summer intern"), set the password `Welcome-2026`, and force a change at the next login.
@@ -100,11 +114,7 @@ su: User account has expired
     Unlike a lock, expiry blocks every kind of login, including SSH keys. The account and its files remain, for the handover.
   {% /task %}
 
-  {% task id="task-8faa4ecab9f2" title="Clean up" %}
-
-```console
-[student@servera ~]$ sudo userdel -r intern
-[student@servera ~]$ exit
-```
+  {% task id="task-a28b7e5c2b0f" title="Grade and finish" %}
+    {% lab-finish exercise="sa-passwords" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

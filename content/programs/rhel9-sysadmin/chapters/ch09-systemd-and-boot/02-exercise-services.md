@@ -12,8 +12,22 @@ Take the scheduler service `crond` through all of its states, and see exactly wh
   objectives=["ch09.services"]
   id="services"
   title="Control a service"
+  exercise="sa-services"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Read systemctl status and the is-active and is-enabled answers.","Separate start/stop from enable/disable.","Mask and unmask a service."] %}
+
+  {% task id="task-d20cf68d9eb5" title="Start the exercise" %}
+    On workstation, start the exercise. It makes sure crond runs and is enabled, and that bluetooth is not masked.
+
+```console
+[student@workstation ~]$ lab start sa-services
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-44a476ebef43" title="Read the status" %}
     On servera, open a root shell with `sudo -i`. Show the status of `crond`. What are its main PID, its state, and its enabled state? Then ask the two short questions.
@@ -125,5 +139,9 @@ Removed "/etc/systemd/system/bluetooth.service".
 [student@servera ~]$ exit
 ```
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-a2c0be26893e" title="Grade and finish" %}
+    {% lab-finish exercise="sa-services" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

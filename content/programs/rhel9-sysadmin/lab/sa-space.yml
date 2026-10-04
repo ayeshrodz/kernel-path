@@ -1,0 +1,159 @@
+name: sa-space
+title: Hunt the missing space
+page: ch17/exercise-space
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: wipe-disk
+  hosts:
+  - servera
+  device: /dev/sdb
+- action: partition-disk
+  hosts:
+  - servera
+  device: /dev/sdb
+  partitions:
+  - name: data
+    fs: xfs
+    startMiB: 1
+    endMiB: 1025
+  - name: logs
+    fs: ext4
+    startMiB: 1025
+    endMiB: 2049
+  - name: swap
+    fs: linux-swap
+    startMiB: 2049
+    endMiB: 2561
+- action: format
+  hosts:
+  - servera
+  device: /dev/sdb1
+  type: xfs
+- action: format
+  hosts:
+  - servera
+  device: /dev/sdb2
+  type: ext4
+  label: logs
+- action: format
+  hosts:
+  - servera
+  device: /dev/sdb3
+  type: swap
+- action: append-line
+  hosts:
+  - servera
+  path: /etc/fstab
+  line: /dev/sdb1  /srv/data     xfs   defaults          0 0
+- action: append-line
+  hosts:
+  - servera
+  path: /etc/fstab
+  line: /dev/sdb2  /srv/archive  ext4  defaults,noexec   0 0
+- action: append-line
+  hosts:
+  - servera
+  path: /etc/fstab
+  line: /dev/sdb3  none          swap  defaults          0 0
+- action: directory
+  hosts:
+  - servera
+  path: /srv/data
+  state: present
+- action: directory
+  hosts:
+  - servera
+  path: /srv/archive
+  state: present
+- action: mount-all
+  hosts:
+  - servera
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: data
+      kind: mount
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /srv/data is mounted from /dev/sdb1
+      path: /srv/data
+      fstype: xfs
+      persistent: true
+    - id: label
+      kind: partition
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the xfs file system carries the label datavol
+      device: /dev/sdb1
+      fsLabel: datavol
+    - id: archive
+      kind: mount
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /srv/archive is mounted
+      path: /srv/archive
+      fstype: ext4
+      persistent: true
+    - id: many
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the directory with 65,600 files was removed again
+      paths:
+      - /srv/archive/many
+      exists: false
+    - id: big
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the big log file is gone
+      paths:
+      - /srv/data/log.big
+      exists: false
+finish:
+- action: wipe-disk
+  hosts:
+  - servera
+  device: /dev/sdb
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/fstab
+  matching: /dev/sdb[123]|^UUID=[0-9a-f-]+[[:space:]]+(/srv/data|/srv/archive|none[[:space:]]+swap)
+- action: directory
+  hosts:
+  - servera
+  path: /data
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /logs
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/data
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/archive
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /root/fstab.bak
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true

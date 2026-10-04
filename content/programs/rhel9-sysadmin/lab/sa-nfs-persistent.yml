@@ -1,0 +1,355 @@
+name: sa-nfs-persistent
+title: Mount at boot, then on demand
+page: ch19/exercise-persistent
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: unmount
+  hosts:
+  - servera
+  path: /mnt/shared
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/fstab
+  matching: serverb:/srv/shared
+- action: directory
+  hosts:
+  - servera
+  path: /mnt/shared
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /mnt/auto
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /remote
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /mnt/direct
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.master.d/shared.autofs
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.master.d/homes.autofs
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.master.d/direct.autofs
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.shared
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.homes
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.direct
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /root/fstab.bak
+  state: absent
+- action: service
+  hosts:
+  - servera
+  names:
+  - autofs
+  state: stopped
+  enabled: false
+- action: package
+  hosts:
+  - servera
+  names:
+  - autofs
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: alice
+  state: absent
+- action: group
+  hosts:
+  - servera
+  name: team
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true
+- action: remove-lines
+  hosts:
+  - serverb
+  path: /etc/exports
+  matching: /srv/
+- action: service
+  hosts:
+  - serverb
+  names:
+  - nfs-server
+  state: stopped
+  enabled: false
+- action: firewall
+  hosts:
+  - serverb
+  state: absent
+  service: nfs
+- action: directory
+  hosts:
+  - serverb
+  path: /srv/shared
+  state: absent
+- action: directory
+  hosts:
+  - serverb
+  path: /srv/homes
+  state: absent
+- action: user
+  hosts:
+  - serverb
+  name: alice
+  state: absent
+- action: group
+  hosts:
+  - serverb
+  name: team
+  state: absent
+- action: package
+  hosts:
+  - serverb
+  names:
+  - nfs-utils
+  state: present
+- action: directory
+  hosts:
+  - serverb
+  path: /srv/shared
+  state: present
+- action: file
+  hosts:
+  - serverb
+  path: /srv/shared/hello.txt
+  state: present
+  content: 'shared file
+
+    '
+- action: append-line
+  hosts:
+  - serverb
+  path: /etc/exports
+  line: /srv/shared  172.25.0.0/16(rw,sync)
+- action: service
+  hosts:
+  - serverb
+  names:
+  - nfs-server
+  state: restarted
+  enabled: true
+- action: firewall
+  hosts:
+  - serverb
+  state: present
+  service: nfs
+- action: package
+  hosts:
+  - servera
+  names:
+  - nfs-utils
+  state: present
+- action: directory
+  hosts:
+  - servera
+  path: /mnt/shared
+  state: present
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: master
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: autofs has a master map for /mnt/auto
+      paths:
+      - /etc/auto.master.d/shared.autofs
+      matches: ^/mnt/auto[[:space:]]+/etc/auto\.shared
+    - id: map
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the map holds the data key and no broken line
+      paths:
+      - /etc/auto.shared
+      matches: ^data[[:space:]]+-rw,sync[[:space:]]+serverb:/srv/shared
+      lacks:
+      - broken
+    - id: autofs
+      kind: service
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: autofs is running and enabled
+      names:
+      - autofs.service
+      active: true
+      enabled: true
+    - id: fstab
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the permanent NFS line was removed from fstab again
+      paths:
+      - /etc/fstab
+      lacks:
+      - serverb:/srv/shared
+finish:
+- action: unmount
+  hosts:
+  - servera
+  path: /mnt/shared
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/fstab
+  matching: serverb:/srv/shared
+- action: directory
+  hosts:
+  - servera
+  path: /mnt/shared
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /mnt/auto
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /remote
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /mnt/direct
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.master.d/shared.autofs
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.master.d/homes.autofs
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.master.d/direct.autofs
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.shared
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.homes
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /etc/auto.direct
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /root/fstab.bak
+  state: absent
+- action: service
+  hosts:
+  - servera
+  names:
+  - autofs
+  state: stopped
+  enabled: false
+- action: package
+  hosts:
+  - servera
+  names:
+  - autofs
+  state: absent
+- action: user
+  hosts:
+  - servera
+  name: alice
+  state: absent
+- action: group
+  hosts:
+  - servera
+  name: team
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true
+- action: remove-lines
+  hosts:
+  - serverb
+  path: /etc/exports
+  matching: /srv/
+- action: service
+  hosts:
+  - serverb
+  names:
+  - nfs-server
+  state: stopped
+  enabled: false
+- action: firewall
+  hosts:
+  - serverb
+  state: absent
+  service: nfs
+- action: directory
+  hosts:
+  - serverb
+  path: /srv/shared
+  state: absent
+- action: directory
+  hosts:
+  - serverb
+  path: /srv/homes
+  state: absent
+- action: user
+  hosts:
+  - serverb
+  name: alice
+  state: absent
+- action: group
+  hosts:
+  - serverb
+  name: team
+  state: absent

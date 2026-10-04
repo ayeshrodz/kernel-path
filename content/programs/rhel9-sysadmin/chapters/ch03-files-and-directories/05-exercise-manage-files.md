@@ -12,8 +12,22 @@ A colleague left a website's files in one heap. On servera, sort them into direc
   objectives=["ch03.manage","ch03.paths"]
   id="manage-files"
   title="Organise a website's files"
+  exercise="sa-manage-files"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Create directories and empty files.","Move, rename and copy files and whole directories.","Remove files and directories, and see why rmdir is the safe choice."] %}
+
+  {% task id="task-d8e2a9960119" title="Start the exercise" %}
+    On workstation, start the exercise. It removes any site and archive directories from an earlier run from student's home on servera.
+
+```console
+[student@workstation ~]$ lab start sa-manage-files
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-5bf66e090adf" title="Create the site directory and its three subdirectories" %}
 
@@ -141,5 +155,9 @@ rm: remove directory 'archive'? y
 ```
 
     Leave `~/site` for now, or run `rht-vmctl reset servera` on the host to put servera back.
+  {% /task %}
+
+  {% task id="task-71399a5f96b8" title="Grade and finish" %}
+    {% lab-finish exercise="sa-manage-files" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

@@ -12,8 +12,22 @@ Turn off password logins on servera, prove the change with a failed password att
   objectives=["ch10.hardening"]
   id="hardening"
   title="Harden sshd, safely"
+  exercise="sa-hardening"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Write a sshd drop-in and verify it with sshd -T.","Demonstrate that password logins are refused and key logins still work.","Explain the first-value-wins rule."] %}
+
+  {% task id="task-902b9a7b40a6" title="Start the exercise" %}
+    On workstation, start the exercise. It creates the account `ops` on servera with a key (`~/.ssh/id_ops` on workstation) that you will keep using after passwords are switched off.
+
+```console
+[student@workstation ~]$ lab start sa-hardening
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-2fc1cb637c22" title="Open the spare session" %}
     Open **two** terminals on workstation, both logged in to servera as root (`ssh root@servera`). Leave the second one alone: it is your way back in if the change goes wrong. Show the current values of the options you will change.
@@ -98,19 +112,7 @@ sshd-session[1049]: pam_unix(sshd:session): session opened for user ops(uid=1001
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-255297d55311" title="Put it back" %}
-    Remove the drop-in, reload, confirm that the defaults are back, and close the spare session.
-
-    {% reveal title="Show solution" %}
-
-```console
-[root@servera ~]# rm /etc/ssh/sshd_config.d/10-hardening.conf
-[root@servera ~]# sshd -t && systemctl reload sshd
-[root@servera ~]# sshd -T | grep -E '^(passwordauthentication|permitrootlogin) '
-permitrootlogin without-password
-passwordauthentication yes
-[root@servera ~]# exit
-```
-    {% /reveal %}
+  {% task id="task-501bd5eab37d" title="Grade and finish" %}
+    {% lab-finish exercise="sa-hardening" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

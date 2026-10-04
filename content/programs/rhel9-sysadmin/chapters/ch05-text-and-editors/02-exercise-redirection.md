@@ -12,8 +12,22 @@ On servera, save command output to files, keep errors apart from results, discar
   objectives=["ch05.redirect"]
   id="redirection"
   title="Capture and combine output"
+  exercise="sa-redirect"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Write and append output to files.","Separate errors from results, and discard them.","Build pipelines, and keep a copy with tee."] %}
+
+  {% task id="task-199503c05e6f" title="Start the exercise" %}
+    On workstation, start the exercise. It removes the result files of an earlier run from student's home on servera.
+
+```console
+[student@workstation ~]$ lab start sa-redirect
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-79966807d096" title="Save a list of configuration files" %}
     On servera, as student, list the `.conf` files directly in `/etc` into `conf-files.txt`, then count and peek at it.
@@ -111,11 +125,7 @@ devtmpfs        455M     0  455M   0% /dev
     {% /reveal %}
   {% /task %}
 
-  {% task id="task-fec86414a779" title="Clean up" %}
-
-```console
-[student@servera ~]$ rm conf-files.txt found.txt errors.txt disk-report.txt
-[student@servera ~]$ exit
-```
+  {% task id="task-14c9a44075b1" title="Grade and finish" %}
+    {% lab-finish exercise="sa-redirect" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

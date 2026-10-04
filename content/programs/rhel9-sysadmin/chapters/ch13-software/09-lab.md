@@ -110,6 +110,6 @@ passwd-0.80-12.el9.x86_64
   {% task id="task-49c5be688098" title="Grade" %}
     On workstation, with `answers.txt` filled in:
 
-    {% lab-finish exercise="sa-software-review" grade=true /%}
+    {% lab-finish exercise="sa-software-review" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

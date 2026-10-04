@@ -12,8 +12,22 @@ Build a static network configuration from scratch on a virtual interface: create
   objectives=["ch12.networkmanager"]
   id="nmcli"
   title="Configure a static connection"
+  exercise="sa-nmcli"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Create a static dummy connection with nmcli.","Add and replace addresses, applying them with connection up.","Verify persistence across a reboot and clean up."] %}
+
+  {% task id="task-35822c99c20e" title="Start the exercise" %}
+    On workstation, start the exercise. It removes a dummy0 connection left by an earlier run from servera.
+
+```console
+[student@workstation ~]$ lab start sa-nmcli
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-fcdedbe17877" title="Look before you touch" %}
     On servera as root (`sudo -i`), list the devices and the connections.
@@ -156,5 +170,9 @@ nameserver 172.25.250.254
 ```
 
     The virtual device and the extra DNS server disappear a moment after the profile is deleted.
+  {% /task %}
+
+  {% task id="task-cac4d7d77de1" title="Grade and finish" %}
+    {% lab-finish exercise="sa-nmcli" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

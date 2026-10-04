@@ -163,3 +163,39 @@ checkpoints:
       paths:
       - answers.txt
       matches: ^DROP_SYMPTOM=timeout[ \t]*$
+finish:
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  zone: partners
+  deleteZone: true
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  service: portal
+  deleteService: true
+- action: service
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: stopped
+  enabled: false
+- action: file
+  hosts:
+  - servera
+  path: /etc/httpd/conf.d/extra.conf
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /var/www/html/index.html
+  state: absent
+- action: package
+  hosts:
+  - servera
+  names:
+  - httpd
+  state: absent

@@ -1,0 +1,116 @@
+name: sa-containers-build
+title: Build and version an image
+page: ch21/exercise-build
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: package
+  hosts:
+  - servera
+  names:
+  - podman
+  state: present
+- action: container-reset
+  hosts:
+  - servera
+  user: student
+  keepImages: true
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/portal
+  state: absent
+- action: run-as
+  hosts:
+  - servera
+  user: student
+  tool: podman-pull
+  image: registry.access.redhat.com/ubi9/httpd-24:latest
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: v1
+      kind: container
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the image localhost/portal:1 exists
+      user: student
+      image: localhost/portal:1
+    - id: v2
+      kind: container
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the image localhost/portal:2 exists
+      user: student
+      image: localhost/portal:2
+    - id: latest
+      kind: container
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the image localhost/portal:latest exists
+      user: student
+      image: localhost/portal:latest
+    - id: running
+      kind: container
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the portal container runs from the latest image
+      user: student
+      running: portal
+    - id: containerfile
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the Containerfile copies the page
+      paths:
+      - /home/student/portal/Containerfile
+      contains:
+      - FROM registry.access.redhat.com/ubi9/httpd-24
+      - COPY index.html
+    - id: page
+      kind: http
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: version 2 is served on port 8081
+      url: http://localhost:8081/
+      containsAny:
+      - Portal v2
+finish:
+- action: container-reset
+  hosts:
+  - servera
+  user: student
+  keepImages: true
+- action: linger
+  hosts:
+  - servera
+  user: student
+  state: absent
+- action: firewall
+  hosts:
+  - servera
+  state: absent
+  port: 8080/tcp
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/web
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/data
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /home/student/portal
+  state: absent

@@ -12,8 +12,22 @@ Use up the space of one file system, find who is responsible, run out of inodes 
   objectives=["ch17.maintenance"]
   id="space"
   title="Hunt the missing space"
+  exercise="sa-space"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Find large files with df and du.","Recognise and demonstrate inode exhaustion.","Find a deleted-but-open file with lsof +L1."] %}
+
+  {% task id="task-21b5a96407c1" title="Start the exercise" %}
+    On workstation, start the exercise. It partitions `/dev/sdb` of servera, creates the file systems and the swap area, adds them to `/etc/fstab` and mounts them on `/srv/data` and `/srv/archive`.
+
+```console
+[student@workstation ~]$ lab start sa-space
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-ad866e16ee50" title="Check the starting point" %}
     On servera as root, make sure `/srv/data` (xfs) and `/srv/archive` (ext4) are mounted, and show their blocks and inodes.
@@ -124,7 +138,7 @@ tail      1072 root    3r   REG   8,17 209715200     0  132 /srv/data/log.big (d
   {% /task %}
 
   {% task id="task-83cf3efe9e5d" title="Maintenance and clean up" %}
-    Unmount `/srv/data`, check it with `xfs_repair -n`, set the label `datavol` with `xfs_admin -L`, and mount it again. Then undo everything from this chapter: remove the three fstab lines (restore your backup), unmount, turn off swap, wipe the signatures, and check that `sdb` is empty.
+    Unmount `/srv/data`, check it with `xfs_repair -n`, set the label `datavol` with `xfs_admin -L`, and mount it again. `lab finish` undoes the fstab lines, the mounts, the swap and the partitions for you.
 
     {% reveal title="Show solution" %}
 
@@ -138,20 +152,12 @@ writing all SBs
 new label = "datavol"
 [root@servera ~]# mount /srv/data && blkid /dev/sdb1 | cut -c1-60
 /dev/sdb1: LABEL="datavol" UUID="c64946eb-fc27-4485-8020-db4119b686eb"
-[root@servera ~]# umount /srv/data /srv/archive; swapoff -a
-[root@servera ~]# cp /root/fstab.bak /etc/fstab; systemctl daemon-reload
-[root@servera ~]# wipefs -a /dev/sdb1 /dev/sdb2 /dev/sdb3 /dev/sdb > /dev/null
-[root@servera ~]# rmdir /srv/data /srv/archive
-[root@servera ~]# lsblk /dev/sdb
-NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINTS
-sdb    8:16   0   5G  0 disk
-[root@servera ~]# findmnt --verify | tail -1
-0 parse errors, 0 errors, 1 warning
-[root@servera ~]# exit
-[student@servera ~]$ exit
 ```
 
-    `wipefs -a` erases the file system and partition-table signatures. You can also simply reset the servers with `rht-vmctl reset servers`.
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-00691b48290b" title="Grade and finish" %}
+    {% lab-finish exercise="sa-space" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

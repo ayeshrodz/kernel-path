@@ -1,0 +1,84 @@
+name: sa-time
+title: Time zone and time sources
+page: ch11/exercise-time
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: timezone
+  hosts:
+  - servera
+  zone: UTC
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/chrony.conf
+  matching: ^server 0[.]pool[.]ntp[.]org
+- action: file
+  hosts:
+  - servera
+  path: /root/chrony.conf.bak
+  state: absent
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: zone
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the time zone is UTC again
+      paths:
+      - /etc/localtime
+      resolvesTo: /usr/share/zoneinfo/UTC
+    - id: conf
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: chrony.conf has no extra pool source any more
+      paths:
+      - /etc/chrony.conf
+      lacks:
+      - server 0.pool.ntp.org iburst
+    - id: backup
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the backup /root/chrony.conf.bak was removed
+      paths:
+      - /root/chrony.conf.bak
+      exists: false
+    - id: chronyd
+      kind: service
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: chronyd is running and enabled
+      names:
+      - chronyd.service
+      active: true
+      enabled: true
+finish:
+- action: timezone
+  hosts:
+  - servera
+  zone: UTC
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/chrony.conf
+  matching: ^server 0[.]pool[.]ntp[.]org
+- action: file
+  hosts:
+  - servera
+  path: /root/chrony.conf.bak
+  state: absent
+- action: service
+  hosts:
+  - servera
+  names:
+  - chronyd
+  state: restarted

@@ -12,28 +12,21 @@ Make serverb an NFS server for one directory, open the firewall for it, and moun
   objectives=["ch19.nfs"]
   id="share"
   title="Export and mount a directory"
+  exercise="sa-nfs-share"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera","serverb"]
   outcomes=["Export a directory with exportfs.","Open NFS in the firewall.","Mount it on a client and check the result."] %}
 
-  {% task id="task-6d627eeb3294" title="Prepare the server" %}
-    On serverb as root (`sudo -i`), make sure `nfs-utils` is installed, create `/srv/shared` with a file `hello.txt` containing `shared file`, and find your lab network (the network of `ip -br addr show enp5s0`).
-
-    {% reveal title="Show solution" %}
+  {% task id="task-baeb0ca16eaa" title="Start the exercise" %}
+    On workstation, start the exercise. It installs nfs-utils on servera and serverb and creates `/srv/shared/hello.txt` on serverb.
 
 ```console
-[student@workstation ~]$ ssh student@serverb
-[student@serverb ~]$ sudo -i
-[root@serverb ~]# dnf install -y nfs-utils
-...output omitted...
-Complete!
-[root@serverb ~]# mkdir -p /srv/shared
-[root@serverb ~]# echo "shared file" > /srv/shared/hello.txt
-[root@serverb ~]# ip -br addr show enp5s0
-enp5s0           UP             172.25.250.11/24 fe80::216:3eff:fe04:a5a7/64
+[student@workstation ~]$ lab start sa-nfs-share
 ```
 
-    The network here is `172.25.250.0/24` (the address with the host part zeroed). Use the network of your own lab in the next task.
-    {% /reveal %}
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
   {% /task %}
 
   {% task id="task-043134ef0721" title="Export it" %}
@@ -141,5 +134,9 @@ exporting 172.25.250.0/24:/srv/shared
 
     "Read-only file system" is the message in both cases; `mount` shows which side decided. Leave the server exporting read-write, and the share unmounted, for the next exercises.
     {% /reveal %}
+  {% /task %}
+
+  {% task id="task-5e32b427ad3d" title="Grade and finish" %}
+    {% lab-finish exercise="sa-nfs-share" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

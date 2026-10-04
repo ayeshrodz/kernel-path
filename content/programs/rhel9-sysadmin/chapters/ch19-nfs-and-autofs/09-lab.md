@@ -110,6 +110,6 @@ touch: cannot touch '/remote/archive/2025/x': Read-only file system
   {% task id="task-df9cf7463e73" title="Grade" %}
     On workstation, fill in `answers.txt` and grade:
 
-    {% lab-finish exercise="sa-nfs-review" grade=true /%}
+    {% lab-finish exercise="sa-nfs-review" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

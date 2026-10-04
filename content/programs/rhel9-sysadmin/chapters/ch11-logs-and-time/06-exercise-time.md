@@ -12,8 +12,22 @@ Read the state of servera's clock, move it to another time zone, inspect where i
   objectives=["ch11.time"]
   id="time"
   title="Time zone and time sources"
+  exercise="sa-time"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Read timedatectl, chronyc sources and chronyc tracking.","Change the time zone.","Add an NTP server and verify it."] %}
+
+  {% task id="task-749cd80a2bb6" title="Start the exercise" %}
+    On workstation, start the exercise. It puts servera in the UTC time zone and removes an extra time source from an earlier run.
+
+```console
+[student@workstation ~]$ lab start sa-time
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-e8defc8ba9e0" title="Check the clock" %}
     On servera as root, show the time status, the time sources, and the clock offset.
@@ -112,5 +126,9 @@ System clock synchronized: no
 ```
 
     Right after a restart, `synchronized` may say `no` for a few moments, until chronyd has chosen a source again. It says `yes` again within a minute or two.
+  {% /task %}
+
+  {% task id="task-d05e32874b50" title="Grade and finish" %}
+    {% lab-finish exercise="sa-time" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

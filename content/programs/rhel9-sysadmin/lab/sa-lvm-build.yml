@@ -1,0 +1,152 @@
+name: sa-lvm-build
+title: Build your first volume group
+page: ch18/exercise-build
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: wipe-disk
+  hosts:
+  - servera
+  device: /dev/sdb
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/fstab
+  matching: /dev/vgdata/
+- action: directory
+  hosts:
+  - servera
+  path: /srv/app
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/log
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/data
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /root/fstab.bak
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true
+- action: partition-disk
+  hosts:
+  - servera
+  device: /dev/sdb
+  partitions:
+  - name: pv1
+    fs: lvm
+    startMiB: 1
+    endMiB: 1537
+  - name: pv2
+    fs: lvm
+    startMiB: 1537
+    endMiB: 3073
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: vg
+      kind: volume-group
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: vgdata exists on /dev/sdb1
+      vg: vgdata
+    - id: lvapp
+      kind: logical-volume
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: lvapp is at least 1 GiB
+      vg: vgdata
+      lv: lvapp
+      minSizeMiB: 1000
+    - id: lvlog
+      kind: logical-volume
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: lvlog exists (half of the free space)
+      vg: vgdata
+      lv: lvlog
+      minSizeMiB: 200
+    - id: app
+      kind: mount
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /srv/app is XFS and mounted
+      path: /srv/app
+      fstype: xfs
+      persistent: false
+    - id: log
+      kind: mount
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /srv/log is ext4 and mounted
+      path: /srv/log
+      fstype: ext4
+      persistent: false
+    - id: a
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /srv/app/a.txt holds data
+      paths:
+      - /srv/app/a.txt
+      line: hello
+    - id: b
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: /srv/log/b.txt holds data
+      paths:
+      - /srv/log/b.txt
+      line: world
+finish:
+- action: wipe-disk
+  hosts:
+  - servera
+  device: /dev/sdb
+- action: remove-lines
+  hosts:
+  - servera
+  path: /etc/fstab
+  matching: /dev/vgdata/
+- action: directory
+  hosts:
+  - servera
+  path: /srv/app
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/log
+  state: absent
+- action: directory
+  hosts:
+  - servera
+  path: /srv/data
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /root/fstab.bak
+  state: absent
+- action: systemd
+  hosts:
+  - servera
+  reload: true

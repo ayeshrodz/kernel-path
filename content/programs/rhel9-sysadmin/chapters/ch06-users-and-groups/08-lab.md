@@ -109,6 +109,6 @@ backup:x:3200:35000::/home/backup:/sbin/nologin
   {% task id="task-08e46a024567" title="Grade and finish" %}
     Leave serverb, then on workstation:
 
-    {% lab-finish exercise="sa-users-review" grade=true /%}
+    {% lab-finish exercise="sa-users-review" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

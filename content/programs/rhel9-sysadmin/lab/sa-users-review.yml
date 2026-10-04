@@ -119,3 +119,29 @@ checkpoints:
       matches: ^%operators[[:space:]]+ALL[[:space:]]*=[[:space:]]*\(ALL(:ALL)?\)[[:space:]]+/usr/bin/systemctl([[:space:]]+\*)?[[:space:]]*$
       lacks:
       - NOPASSWD
+finish:
+- action: user
+  hosts:
+  - serverb
+  name: opsadmin
+  state: absent
+- action: user
+  hosts:
+  - serverb
+  name: auditor
+  state: absent
+- action: user
+  hosts:
+  - serverb
+  name: backup
+  state: absent
+- action: group
+  hosts:
+  - serverb
+  name: operators
+  state: absent
+- action: file
+  hosts:
+  - serverb
+  path: /etc/sudoers.d/operators
+  state: absent

@@ -12,8 +12,22 @@ On servera, compare su and sudo, create a user who may not use sudo, then give t
   objectives=["ch06.superuser"]
   id="superuser"
   title="Grant limited root access"
+  exercise="sa-sudo"
+  ownExercise=true
+  guided=true
+  starter=false
   hosts=["workstation","servera"]
   outcomes=["Switch to root with su - and sudo -i.","Write, check and test a narrow sudo rule.","Find sudo's record of allowed and refused commands."] %}
+
+  {% task id="task-fa89e230c528" title="Start the exercise" %}
+    On workstation, start the exercise. It removes a tester account and sudo rule left by an earlier run from servera.
+
+```console
+[student@workstation ~]$ lab start sa-sudo
+```
+
+    Later tasks assume that you are logged in to the server they name: `ssh student@servera` from workstation, then `sudo -i` for a root shell.
+  {% /task %}
 
   {% task id="task-9afd16d38260" title="Become root with su -, then with sudo -i" %}
     On servera, as student. root's password in the lab is `redhat`; student's is `student`.
@@ -116,5 +130,9 @@ Sorry, user tester is not allowed to execute '/bin/systemctl restart sshd' as ro
 ```
 
     Each line shows who, from which directory, as whom and what, and whether sudo allowed it.
+  {% /task %}
+
+  {% task id="task-049f8d2e2c27" title="Grade and finish" %}
+    {% lab-finish exercise="sa-sudo" grade=true servers=true /%}
   {% /task %}
 {% /lab %}

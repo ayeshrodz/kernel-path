@@ -1,0 +1,52 @@
+name: sa-navigate
+title: Log in and move around the file system
+page: ch03/exercise-navigate
+transport: ssh
+version: 1
+starter: []
+setup:
+- action: file
+  hosts:
+  - servera
+  path: /home/student/plan.txt
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /home/student/team notes.txt
+  state: absent
+checkpoints:
+  final:
+    files: []
+    checks:
+    - id: plan
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: ~/plan.txt exists and belongs to student
+      paths:
+      - /home/student/plan.txt
+      fileType: regular
+      owner: student
+    - id: notes
+      kind: file
+      'on': servera.lab.example.com
+      targets:
+      - servera.lab.example.com
+      message: the file with a space in its name exists (the quotes keep it one name)
+      paths:
+      - /home/student/team notes.txt
+      fileType: regular
+      owner: student
+finish:
+- action: file
+  hosts:
+  - servera
+  path: /home/student/plan.txt
+  state: absent
+- action: file
+  hosts:
+  - servera
+  path: /home/student/team notes.txt
+  state: absent
