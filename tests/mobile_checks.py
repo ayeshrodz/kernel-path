@@ -10,6 +10,9 @@ from playwright.sync_api import sync_playwright
 from browser_server import preview_server
 from waiting import wait_until
 
+# The app's own heading: the build also writes each page's text (with an <h1>) for search engines, and the app replaces it.
+APP_H1 = '.shell h1, #root > main:not(.prerendered) h1'
+
 PROGRAM = 'rhel9-ansible'
 BASE = os.environ.get('KERNEL_TEST_URL', os.environ.get('PLAYBOOK_TEST_URL', 'http://127.0.0.1:4173/'))
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,7 +20,8 @@ ROUTES = json.loads((ROOT / 'node_modules/.cache/kernel-path/routes.json').read_
 
 def go(page, route):
     page.goto(BASE + '#/' + PROGRAM + route)
-    page.locator('h1').first.wait_for()
+    page.locator(APP_H1).first.wait_for()
+    page.wait_for_load_state('networkidle')
     wait_until(page, "!document.querySelector('.skeleton, .prose .widget[role=status]')")
     assert not page.locator('.load-error').count(), route
     assert 'This activity could not load' not in page.inner_text('body'), route

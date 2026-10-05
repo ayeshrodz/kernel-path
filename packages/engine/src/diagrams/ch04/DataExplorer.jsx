@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ChevronRight } from 'lucide-react';
 import { defineWidget, formatCopy } from '@/components/interactive/TeachingContent';
+import './ch04.css';
 
 export default defineWidget('DataExplorer', (copy) => {
   const METHOD_NAMES = new Set(['add', 'append', 'clear', 'copy', 'discard', 'get', 'items', 'keys', 'pop', 'update', 'values']);

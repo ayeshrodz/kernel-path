@@ -14,6 +14,9 @@ from playwright.sync_api import sync_playwright
 from browser_server import preview_server
 from waiting import wait_until
 
+# The app's own heading: the build also writes each page's text (with an <h1>) for search engines, and the app replaces it.
+APP_H1 = '.shell h1, #root > main:not(.prerendered) h1'
+
 ROOT = Path(__file__).resolve().parents[1]
 PROGRAM = 'rhel9-ansible'
 BASE = os.environ.get('PLAYBOOK_TEST_URL', 'http://127.0.0.1:4173/')
@@ -30,9 +33,11 @@ def site_with_content(origin, public_key=None):
     with tempfile.TemporaryDirectory() as temp:
         copy = Path(temp) / 'site'
         shutil.copytree(ROOT / 'dist', copy, ignore=shutil.ignore_patterns('content', 'lab'))
-        html = (copy / 'index.html').read_text()
-        assert 'connect-src &#39;self&#39;' in html
-        (copy / 'index.html').write_text(html.replace('connect-src &#39;self&#39;', 'connect-src &#39;self&#39; ' + origin.rstrip('/')))
+        assert 'connect-src &#39;self&#39;' in (copy / 'index.html').read_text()
+        # Every page the build wrote carries the policy (404.html and the prerendered pages too).
+        for page_file in copy.rglob('*.html'):
+            html = page_file.read_text()
+            page_file.write_text(html.replace('connect-src &#39;self&#39;', 'connect-src &#39;self&#39; ' + origin.rstrip('/')))
         config = {'contentBase': origin, **({'publicKey': public_key} if public_key else {})}
         (copy / 'kernel.config.json').write_text(json.dumps(config))
         server = ThreadingHTTPServer(('127.0.0.1', 0), partial(QuietHandler, directory=str(copy)))
@@ -46,7 +51,8 @@ def site_with_content(origin, public_key=None):
 
 def go(page, route, base=None):
     page.goto((base or BASE) + '#/' + PROGRAM + route)
-    page.locator('h1').first.wait_for()
+    page.locator(APP_H1).first.wait_for()
+    page.wait_for_load_state('networkidle')
     wait_until(page, "!document.querySelector('.skeleton')")
     assert not page.evaluate('window.__csp || []'), ('security policy violation', route, page.evaluate('window.__csp'))
 
@@ -62,6 +68,14 @@ def engine_has_no_course_text():
 
 
 class QuietHandler(SimpleHTTPRequestHandler):
+    """Serves like GitHub Pages: an address without a file gets 404.html, where the app takes over."""
+
+    def send_head(self):
+        target = Path(self.translate_path(self.path))
+        if not target.exists() and not Path(self.path.split('?')[0]).suffix and (Path(self.directory) / '404.html').exists():
+            self.path = '/404.html'
+        return super().send_head()
+
     def log_message(self, *args):
         pass
 
@@ -87,7 +101,7 @@ def content_from_another_origin(browser):
             requested = []
             page.on('request', lambda r: requested.append(r.url))
             page.goto(base + '#/' + PROGRAM + '/ch03/inventory')
-            page.locator('h1').first.wait_for()
+            page.locator(APP_H1).first.wait_for()
             assert page.locator('h1').first.inner_text().endswith('Building an Ansible inventory')
             wait_until(page, "document.querySelectorAll('pre.shiki').length > 3")
             assert any(url.startswith(origin + 'p/') for url in requested), 'pages came from the content origin'
@@ -113,7 +127,7 @@ def slow_program_switch(browser, origin, base=None):
     held = []
     page.route('**/p/second-program/manifest.*.json', lambda route: held.append(route))
     page.goto(base + '#/rhel9-ansible/ch02/why-automate')
-    page.locator('h1').first.wait_for()
+    page.locator(APP_H1).first.wait_for()
     page.evaluate("location.hash = '#/second-program/ch01/hello'")
     for _ in range(100):
         if held:
@@ -162,30 +176,30 @@ def programs_stay_separate(browser):
             page.evaluate("localStorage.setItem('rhce:rhel9-ansible@completed', JSON.stringify(['ch02/why-automate']))")
             # The second program opens beside it, with its own navigation and empty progress.
             page.goto(base + '#/second-program/ch01/hello'); page.reload()
-            page.locator('h1').first.wait_for()
+            page.locator(APP_H1).first.wait_for()
             assert page.locator('h1').first.inner_text().endswith('Saying hello')
             assert page.evaluate("JSON.parse(localStorage.getItem('rhce:second-program@completed') || '[]').length") == 0
             page.get_by_role('button', name='Mark this section complete').click()
             assert page.evaluate("JSON.parse(localStorage.getItem('rhce:second-program@completed'))") == ['ch01/hello']
             assert page.evaluate("JSON.parse(localStorage.getItem('rhce:rhel9-ansible@completed'))") == ['ch02/why-automate']
             page.get_by_role('link', name='Looking around').first.click()
-            page.wait_for_url('**/#/second-program/ch01/next')
+            page.wait_for_url('**/second-program/ch01/next')
             assert not page.get_by_role('link', name='Building an Ansible inventory').count(), 'only this program is listed'
             # The program selector lists both programs and switches between them.
             page.get_by_role('button', name='Program: Linux basics (test fixture). Switch program').click()
             panel = page.get_by_role('dialog', name='Programs')
             assert panel.get_by_role('link', name='Ansible automation on RHEL 9').count() == 1
             panel.get_by_role('link', name='Ansible automation on RHEL 9').click()
-            page.wait_for_url('**/#/rhel9-ansible')
+            page.wait_for_url('**/rhel9-ansible')
             page.get_by_role('button', name='Program: Ansible automation on RHEL 9. Switch program').click()
             page.get_by_role('dialog', name='Programs').get_by_role('link', name='Linux basics (test fixture)').click()
-            page.wait_for_url('**/#/second-program')
+            page.wait_for_url('**/second-program')
             page.get_by_role('heading', name='Linux basics (test fixture)', level=1).wait_for()
-            page.goto(base + '#/second-program/ch01/next'); page.locator('h1').first.wait_for()
+            page.goto(base + '#/second-program/ch01/next'); page.locator(APP_H1).first.wait_for()
             page.goto(base + '#/second-program/progress')
             page.get_by_role('heading', name='Your learning', level=1).wait_for()
             assert '0 of 2 sections complete' in page.locator('.reference-intro').inner_text() or '1 of 2 sections complete' in page.locator('.reference-intro').inner_text()
-            page.goto(base + '#/second-program/ch01/next'); page.locator('h1').first.wait_for()
+            page.goto(base + '#/second-program/ch01/next'); page.locator(APP_H1).first.wait_for()
             # Search covers this program only.
             page.get_by_role('button', name='Search the course').click()
             dialog = page.get_by_role('dialog', name='Search', exact=True); dialog.wait_for()
@@ -203,7 +217,7 @@ def programs_stay_separate(browser):
             page.keyboard.press('Escape')
             # Addresses from before programs existed still work; unknown programs are a 404.
             page.goto(base + '#/ch03/inventory')
-            page.wait_for_url('**/#/rhel9-ansible/ch03/inventory')
+            page.wait_for_url('**/rhel9-ansible/ch03/inventory')
             page.goto(base + '#/no-such-program/ch01/x')
             page.get_by_role('heading', name="That page isn't here").wait_for()
             assert page.locator('.site-footer').count() == 1, 'the 404 page has the site frame'
@@ -228,8 +242,8 @@ def planned_program_is_listed(browser):
         assert card.count() == 1, entry['id']
         assert ('Growing' in card.inner_text()) == (entry['status'] == 'planned')
         card.click()
-        page.wait_for_url('**/#/' + entry['id'])
-        page.locator('h1').first.wait_for()
+        page.wait_for_url('**/' + entry['id'])
+        page.locator(APP_H1).first.wait_for()
         assert not page.locator('.load-error').count(), entry['id']
         expected = sum(c['status'] == 'planned' or not c['sections'] for c in manifest['chapters'])
         wait_until(page, "document.querySelectorAll('.chapter-card').length === " + str(len(manifest['chapters'])))
@@ -238,7 +252,7 @@ def planned_program_is_listed(browser):
         if authored:
             section = authored['sections'][0]
             page.goto(BASE + '#/' + entry['id'] + '/' + authored['id'] + '/' + section['slug'])
-            page.locator('h1').first.wait_for()
+            page.locator(APP_H1).first.wait_for()
             assert section['title'] in page.locator('h1').first.inner_text()
     context.close()
 
@@ -266,7 +280,7 @@ def signed_content(browser):
                     page = context.new_page()
                     page.goto(base + '#/' + PROGRAM + '/ch03/inventory')
                     try:
-                        page.locator('h1').first.wait_for()
+                        page.locator(APP_H1).first.wait_for()
                         return page.locator('h1').first.inner_text(), context
                     except Exception:
                         return None, context
@@ -386,6 +400,7 @@ with preview_server(BASE, ROOT):
         assert selected_command == command.text_content(), 'Soft wrapping must preserve copied commands'
         table = page.locator('.table-wrap').nth(1)
         row = table.locator('tbody tr').filter(has_text="VMs can't reach the internet")
+        page.wait_for_timeout(1500)  # let the jump to #general-problems settle before scrolling the row
         row.evaluate("(e) => e.scrollIntoView({block: 'start', behavior: 'instant'})")
         pinned_header = table.locator('thead th').first.bounding_box()
         assert abs(pinned_header['y'] - page.locator('.header').bounding_box()['height']) <= 1
@@ -398,7 +413,7 @@ with preview_server(BASE, ROOT):
         page.get_by_role('button', name='Program: Ansible automation on RHEL 9. Switch program').click()
         page.get_by_role('link', name='RHEL 9: Platform and versions', exact=True).click()
         page.get_by_role('heading', name='RHEL 9: Platform and versions', exact=True).wait_for()
-        assert page.url.endswith('#/rhel9-ansible/platform')
+        assert page.url.endswith('/rhel9-ansible/platform')
         assert not page.get_by_role('dialog').count()
         assert page.title() == 'RHEL 9: Platform and versions · Kernel Path'
         page.get_by_role('tab', name='Home lab', exact=True).click()

@@ -8,7 +8,7 @@ The public site is `https://kernelpath.dev/`; `packages/engine/public/CNAME` rec
 
 The compiler (`packages/compiler`) turns `content/` into a static bundle of JSON files: a site index, a program manifest, one render tree per page, and a search index. At startup the engine (`packages/engine`) fetches the bundle from `contentBase` in `kernel.config.json`, validates every file with the generated validators from `@kernel-path/schema`, and `src/lib/course.js` exposes navigation and page lookup. Pages load on demand. `PageTree` renders only allowlisted elements and catalog tags; see [PLATFORM.md](PLATFORM.md) for the platform design and security model.
 
-Published URLs use hash routing, for example `#/rhel9-ansible/ch03/inventory` (program, chapter, section). Addresses without a program, such as `#/ch03/inventory`, open the default program. The engine loads one program at a time; the program route remounts its pages when the reader moves to another. A second hash identifies a heading or activity. Keep published filenames, heading text, and stable activity IDs when editing. Links into optional reveals open their containing details.
+Every page has its own address, for example `/rhel9-ansible/ch03/inventory/` (program, chapter, section). The build (`scripts/prerender.mjs`) writes a real HTML file for each one, with its title, description, canonical address, social-card tags, structured data and the page's text, so a static host serves deep links and search engines can index each page; `404.html` lets the app handle any other address. Old hash addresses (`#/rhel9-ansible/ch03/inventory`, and `#/ch03/inventory` without a program) move to the path form when they open. The engine loads one program at a time; the program route remounts its pages when the reader moves to another. A second hash identifies a heading or activity. Keep published filenames, heading text, and stable activity IDs when editing. Links into optional reveals open their containing details.
 
 `content/programs/<id>/objectives.yml` maps stable skill IDs to lessons, challenges, and labs. Each chapter lists its objective IDs; quizzes and labs reference the skills they practise.
 
@@ -54,7 +54,7 @@ The lab tools live in `packages/lab-tools`: the `lab` command, the grader and th
 
 ## Build and checks
 
-React 19, React Router 7, Vite 8 and CSS build the engine into `dist/`; the compiler (Markdoc, YAML, Shiki) builds the content into `dist/content/`. `base: './'` and hash routing support GitHub Pages.
+React 19, React Router 7, Vite 8 and CSS build the engine into `dist/`; the compiler (Markdoc, YAML, Shiki) builds the content into `dist/content/`. `base` is `/` (or `SITE_BASE` for a sub-path), and the prerendered pages plus `404.html` support GitHub Pages. The build also writes `sitemap.xml` and `robots.txt` for the address in `SITE_URL` or the `CNAME` file.
 
 PR CI runs formatting, content validation, JavaScript regressions, Python lab-tool tests, a production build, and Chromium learning-flow checks. Content validation covers routes and heading links, activity/objective IDs, quiz answers, starter manifests, setup syntax, and grader coverage. Browser checks cover every route plus mobile layouts, focus, persistence, and imports.
 

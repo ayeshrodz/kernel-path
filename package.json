@@ -13,7 +13,7 @@
   "type": "module",
   "scripts": {
     "dev": "npm run dev -w @kernel-path/engine",
-    "build": "npm run build -w @kernel-path/engine && kernel build content --out dist/content && node scripts/publish-lab.mjs dist && node scripts/publish-schemas.mjs dist && node scripts/inject-meta.mjs dist",
+    "build": "npm run build -w @kernel-path/engine && kernel build content --out dist/content && node scripts/publish-lab.mjs dist && node scripts/publish-schemas.mjs dist && node scripts/inject-meta.mjs dist && node scripts/prerender.mjs dist",
     "preview": "npm run preview -w @kernel-path/engine --",
     "format": "prettier --write \"packages/*/{src,test,plugins,scripts}/**/*.{js,jsx,mjs,css}\" packages/engine/vite.config.js",
     "format:check": "prettier --check \"packages/*/{src,test,plugins,scripts}/**/*.{js,jsx,mjs,css}\" packages/engine/vite.config.js",

@@ -207,3 +207,11 @@ kbd {
   font-size: 22px;
   font-weight: 600;
 }
+
+/* The text the build writes into each page for search engines and readers without JavaScript; the app
+   replaces it when it starts. */
+.prerendered {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}

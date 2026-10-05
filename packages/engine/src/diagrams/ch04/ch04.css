@@ -680,7 +680,7 @@
   border: 0;
 }
 .cfb-grid .dx-grid {
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
 }
 .cfb-file .widget-label {
   display: block;
