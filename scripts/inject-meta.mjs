@@ -58,6 +58,9 @@ export const policy = [
   "require-trusted-types-for 'script'",
 ].join('; ');
 
+// "/assets/x.js" or "./assets/x.js" → the file in dist, whatever base the site is served from.
+const base = process.env.SITE_BASE ?? '/';
+const local = (href) => (href.startsWith(base) ? href.slice(base.length) : href.replace(/^\.?\//, ''));
 const integrity = (href) => `sha384-${crypto.createHash('sha384').update(fs.readFileSync(path.join(dist, href))).digest('base64')}`;
 
 const file = path.join(dist, 'index.html');
@@ -71,9 +74,9 @@ let html = fs
   // The policy goes first so it applies to everything after it.
   .replace(/<meta charset="UTF-8" \/>/, `<meta charset="UTF-8" />\n    <meta http-equiv="Content-Security-Policy" content="${escape(policy)}" />\n    <meta name="referrer" content="same-origin" />`)
   // Scripts and stylesheets from this site get an integrity hash; the browser refuses a changed file.
-  .replace(/<(script|link)\b([^>]*?)\b(src|href)="(\.\/[^"]+\.(?:js|css))"([^>]*)>/g, (tag, name, before, attribute, href, after) => {
+  .replace(/<(script|link)\b([^>]*?)\b(src|href)="((?:\.\/|\/)[^"]+\.(?:js|css))"([^>]*)>/g, (tag, name, before, attribute, href, after) => {
     if (/\bintegrity=/.test(tag)) return tag;
-    return `<${name}${before}${attribute}="${href}" integrity="${integrity(href)}"${after}>`;
+    return `<${name}${before}${attribute}="${href}" integrity="${integrity(local(href))}"${after}>`;
   });
 fs.writeFileSync(file, html);
 console.log(`index.html: ${title}`);

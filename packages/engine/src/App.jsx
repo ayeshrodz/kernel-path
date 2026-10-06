@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { HashRouter, Link as RootLink, Navigate, Outlet, Route, Routes, useLocation, useParams } from 'react-router-dom';
+import { BrowserRouter, Link as RootLink, Navigate, Outlet, Route, Routes, useLocation, useParams } from 'react-router-dom';
 import AppShell from '@/components/layout/AppShell';
 import PlatformShell from '@/components/layout/PlatformShell';
 import PlatformHome from '@/pages/PlatformHome';
@@ -83,11 +83,13 @@ function ProgramGate() {
   return <Outlet key={programId} />;
 }
 
-// Hash routing keeps deep links working on GitHub Pages without a
-// server-side rewrite or a 404.html fallback.
+// Every page has its own address. The build writes a real HTML file for each one (scripts/prerender.mjs),
+// so deep links work on a static host and search engines can read the pages; 404.html covers the rest.
+const basename = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 export default function App() {
   return (
-    <HashRouter>
+    <BrowserRouter basename={basename}>
       <Routes>
         <Route element={<PlatformShell />}>
           <Route index element={<PlatformHome />} />
@@ -125,6 +127,6 @@ export default function App() {
           }
         />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }

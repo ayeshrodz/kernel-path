@@ -44,10 +44,12 @@ const cache = new Map();
  */
 async function configuration() {
   if (settings) return settings;
+  // Relative to where the site is served from, not to the page's own address (pages have paths now).
+  const siteRoot = new URL(import.meta.env?.BASE_URL ?? './', document.baseURI);
   let configured = './content/';
   let publicKey = null;
   try {
-    const response = await fetch('./kernel.config.json', { cache: 'no-cache' });
+    const response = await fetch(new URL('kernel.config.json', siteRoot), { cache: 'no-cache' });
     if (response.ok) {
       const config = await response.json();
       if (typeof config.contentBase === 'string') configured = config.contentBase;
@@ -60,7 +62,7 @@ async function configuration() {
     if (error instanceof ContentError) throw error;
     /* no config: use the same-origin default */
   }
-  const url = new URL(configured, document.baseURI);
+  const url = new URL(configured, siteRoot);
   if (!['https:', 'http:'].includes(url.protocol)) throw new ContentError('The content location must be an http(s) URL.');
   settings = { base: url.href.endsWith('/') ? url.href : `${url.href}/`, publicKey };
   return settings;

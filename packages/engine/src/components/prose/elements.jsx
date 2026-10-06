@@ -9,9 +9,8 @@ export function Code({ children, ...props }) {
   return <code {...props}>{fillInline(children, labValues)}</code>;
 }
 
-// The router owns the URL hash, so heading links carry the heading after a
-// second "#": "#/ch01/page#heading" opens a page at a heading, "#heading"
-// scrolls this one. Page renderers share heading navigation.
+// Content writes links to its own pages as "#/ch01/page" (and "#/ch01/page#heading"); they open the
+// page's real address. "#heading" scrolls this one. Page renderers share heading navigation.
 export function Anchor({ href = '', onClick, ...props }) {
   const navigate = useNavigate();
   if (href.startsWith('#/')) {
@@ -22,7 +21,7 @@ export function Anchor({ href = '', onClick, ...props }) {
       e.preventDefault();
       navigate(href.slice(1));
     };
-    return <a href={`#${programPath(href.slice(1))}`} onClick={go} {...props} />;
+    return <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}${programPath(href.slice(1))}`} onClick={go} {...props} />;
   }
   if (href.startsWith('#') && !href.startsWith('#/')) {
     const go = (e) => {

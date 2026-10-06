@@ -39,6 +39,9 @@ def capture(out):
     from browser_server import preview_server
 from waiting import wait_until
 
+# The app's own heading: the build also writes each page's text (with an <h1>) for search engines, and the app replaces it.
+APP_H1 = '.shell h1, #root > main:not(.prerendered) h1'
+
     routes = json.loads((ROOT / 'node_modules/.cache/kernel-path/routes.json').read_text())
     snapshots = {}
     with preview_server(BASE, ROOT):
@@ -47,7 +50,7 @@ from waiting import wait_until
             page = browser.new_context(viewport={'width': 1280, 'height': 900}, reduced_motion='reduce').new_page()
             for route in routes:
                 page.goto(BASE + '#/' + PROGRAM + route)
-                page.locator('h1').first.wait_for()
+                page.locator(APP_H1).first.wait_for()
                 wait_until(page, "!document.querySelector('.skeleton, .prose .widget[role=status]')")
                 height = page.evaluate('document.body.scrollHeight')
                 for y in range(0, height, 900):

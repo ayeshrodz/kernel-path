@@ -60,7 +60,7 @@ Kernel Path is being turned into a data-only learning platform (see [docs/PLATFO
 - **The compiler** (`packages/compiler`, the `kernel` command): validates `content/` against the contract and compiles it into a static, content-hashed bundle. Code is highlighted at build time.
 - **The engine** (`packages/engine`): a React 19 + Vite 8 player. At startup it fetches the bundle from the location in `kernel.config.json`, validates every file, and renders pages through its own components. It contains no course text and never renders raw HTML.
 - **A site home and program selector.** `#/` lists every program with the reader's progress, from `content/site/home.md`; the header's program menu switches between programs. A program without authored landing or dashboard copy gets built-in ones, and a planned program shows its outline.
-- **No backend.** Routing lives in the URL hash (`#/rhel9-ansible/ch03/inventory`: program, chapter, section). Progress is kept separately for each program. Progress, lab checklists, quiz answers and the last page read are stored in the reader's `localStorage`, sync across tabs, and can be exported or imported from the progress menu.
+- **No backend.** Every page has its own address (`/rhel9-ansible/ch03/inventory/`: program, chapter, section), written as a real HTML file at build time. Progress is kept separately for each program. Progress, lab checklists, quiz answers and the last page read are stored in the reader's `localStorage`, sync across tabs, and can be exported or imported from the progress menu.
 
 ```
 content/                          the course (see docs/AUTHORING.md)
@@ -92,7 +92,7 @@ The workflow in `.github/workflows/deploy.yml` builds and publishes the site on 
 2. In **Settings → Pages**, set **Source** to **GitHub Actions**.
 3. Push to `main` (or run the workflow manually). The site appears at `https://<user>.github.io/<repo>/`.
 
-No configuration is needed for the repository name: assets use relative paths and routes live in the URL hash (`#/rhel9-ansible/ch03/inventory`), so deep links and page refreshes work from any sub-path without a 404 fallback. `packages/engine/public/.nojekyll` stops GitHub from running Jekyll over the output.
+The site is built for the root of its domain (`CNAME`). To serve it from a project sub-path instead, build with `SITE_BASE=/repo-name/` and `SITE_URL=https://user.github.io`; deep links work because every page is written as its own HTML file, and `404.html` covers the rest. `packages/engine/public/.nojekyll` stops GitHub from running Jekyll over the output.
 
 ## Contributing
 

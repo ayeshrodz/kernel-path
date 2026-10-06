@@ -11,8 +11,10 @@ const require = createRequire(import.meta.url);
 const fontPackage = (name) => path.dirname(require.resolve(`${name}/package.json`));
 
 export default defineConfig({
-  // Relative asset paths + hash routing = works on any GitHub Pages sub-path.
-  base: './',
+  // Pages have real addresses ("/rhel9-sysadmin/ch02/linux-and-the-shell"), so search engines can index
+  // each one. SITE_BASE is the path the site is served from: "/" for a custom domain, "/repo/" for a
+  // project page on github.io.
+  base: process.env.SITE_BASE ?? '/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
