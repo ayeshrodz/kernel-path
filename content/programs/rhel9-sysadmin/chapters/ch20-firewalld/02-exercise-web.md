@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Publish a web server through the firewall"
+seoTitle: "Publish a web server through the firewall (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: publish a web server through the firewall. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

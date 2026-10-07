@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Passwordless access for an account"
+seoTitle: "Passwordless access for an account (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: passwordless access for an account. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

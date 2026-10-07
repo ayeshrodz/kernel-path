@@ -1,5 +1,7 @@
 ---
-title: Knowledge check
+title: "Ansible roles and collections quiz"
+seoTitle: "Ansible roles and collections Quiz: RHCE Practice Questions"
+description: "Test yourself on Ansible roles and collections with RHCE practice questions. Every answer explains why it is right or wrong. Free and no sign-up."
 kind: quiz
 minutes: 8
 ---

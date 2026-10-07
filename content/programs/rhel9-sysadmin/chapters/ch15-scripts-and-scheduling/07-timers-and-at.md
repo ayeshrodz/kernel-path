@@ -1,5 +1,7 @@
 ---
 title: systemd timers and one-off jobs
+seoTitle: "systemd Timers vs cron, and the at Command"
+description: "Run jobs with systemd timers and OnCalendar, and schedule one-off jobs with at. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

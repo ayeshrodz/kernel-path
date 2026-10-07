@@ -1,4 +1,6 @@
 title: Archives and file transfer
+seoTitle: "tar, Compression, Backups and rsync (RHCSA)"
+seoDescription: "Create and extract tar archives, compress with gzip, bzip2 and xz, verify checksums, back up with ACLs and copy data safely with rsync."
 goal: Bundle and compress data with tar, prove it with checksums, make backups that restore with their metadata, and move data between hosts safely.
 objectives:
   - Create, list and extract tar archives and choose the compression.

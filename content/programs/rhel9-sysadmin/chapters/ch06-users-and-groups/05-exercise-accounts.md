@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Set up a web team"
+seoTitle: "Set up a web team (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: set up a web team. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 15
 ---

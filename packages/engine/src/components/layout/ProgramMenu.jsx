@@ -68,7 +68,7 @@ export default function ProgramMenu({ open, onToggle, onClose }) {
               return (
                 <li key={entry.id}>
                   <RootLink
-                    to={`/${entry.id}`}
+                    to={`/${entry.id}/`}
                     className={`program-item ${current ? 'is-current' : ''}`}
                     onClick={close}
                     aria-current={current ? 'true' : undefined}

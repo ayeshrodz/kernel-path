@@ -1,5 +1,7 @@
 ---
 title: Deploying custom files with Jinja2 templates
+seoTitle: "Ansible Jinja2 Templates With Examples"
+description: "Generate configuration files from Jinja2 templates with variables, loops and conditions. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

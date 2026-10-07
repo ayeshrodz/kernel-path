@@ -1,5 +1,7 @@
 ---
 title: Create, copy, move and remove
+seoTitle: "Linux cp, mv, rm and mkdir With Examples"
+description: "Create, copy, move, rename and delete files and directories safely on the Linux command line. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

@@ -1,5 +1,7 @@
 ---
 title: Scheduling jobs with cron
+seoTitle: "crontab Tutorial: Schedule Jobs With cron"
+description: "Schedule recurring jobs with crontab and /etc/cron.d, read the time fields and avoid the percent trap. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

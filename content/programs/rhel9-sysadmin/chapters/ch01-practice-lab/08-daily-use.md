@@ -1,5 +1,7 @@
 ---
 title: Your first session and daily use
+seoTitle: "Using the Practice Lab Day to Day"
+description: "Start, use and reset the lab in a normal study session. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lab
 minutes: 15
 ---

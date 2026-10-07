@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Writing and running playbooks"
+seoTitle: "Writing and running playbooks (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: writing and running playbooks. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

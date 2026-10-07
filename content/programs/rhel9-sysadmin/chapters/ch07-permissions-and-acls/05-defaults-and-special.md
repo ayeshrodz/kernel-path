@@ -1,5 +1,7 @@
 ---
 title: Default permissions and shared directories
+seoTitle: "umask, setuid, setgid and Sticky Bit Explained"
+description: "Default permissions with umask, and setuid, setgid and the sticky bit for shared directories. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Scripts that decide and repeat"
+seoTitle: "Scripts that decide and repeat (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: scripts that decide and repeat. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 30
 ---

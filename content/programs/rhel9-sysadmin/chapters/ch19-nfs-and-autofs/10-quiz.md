@@ -1,5 +1,7 @@
 ---
-title: Knowledge check
+title: "NFS and autofs quiz"
+seoTitle: "NFS and autofs Quiz: RHCSA Practice Questions"
+description: "Test yourself on NFS and autofs with RHCSA practice questions. Every answer explains why it is right or wrong. Free and no sign-up."
 kind: quiz
 minutes: 10
 ---

@@ -1,5 +1,7 @@
 ---
 title: Ansible distributions and AAP 2
+seoTitle: "ansible-core vs Ansible vs AAP 2 Explained"
+description: "The Ansible distributions: ansible-core, the community package and Ansible Automation Platform. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 9
 ---

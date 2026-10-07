@@ -1,5 +1,7 @@
 ---
 title: How to use this review
+seoTitle: "How to Prepare for the RHCE With Ansible Review Labs"
+description: "How to use the review labs and assessments to check you are ready for the RHCE. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

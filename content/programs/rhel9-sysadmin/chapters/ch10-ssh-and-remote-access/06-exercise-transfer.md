@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Move files between machines"
+seoTitle: "Move files between machines (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: move files between machines. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

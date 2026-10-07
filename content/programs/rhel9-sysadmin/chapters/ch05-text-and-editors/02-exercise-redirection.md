@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Capture and combine output"
+seoTitle: "Capture and combine output (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: capture and combine output. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 15
 ---

@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Networking review"
+seoTitle: "Linux networking Practice Lab (RHCSA Exam Style)"
+description: "Graded RHCSA exam-style lab on Linux networking: a challenge with requirements, hints and solutions, and a grader that checks your work on your own lab."
 kind: lab
 minutes: 30
 ---

@@ -1,4 +1,6 @@
 title: SELinux
+seoTitle: "SELinux Tutorial: Contexts, Booleans, Ports (RHCSA)"
+seoDescription: "Understand SELinux on RHEL 9: modes, file contexts, restorecon, semanage fcontext, booleans, port labels and fixing denials."
 goal: Understand SELinux contexts and modes, fix file labels, booleans and ports the right way, and troubleshoot denials without disabling the protection.
 objectives:
   - Explain mandatory access control, read security contexts, and show and switch the SELinux mode.

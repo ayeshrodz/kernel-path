@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Permissions and ACLs review"
+seoTitle: "Linux permissions and ACLs Practice Lab (RHCSA Exam Style)"
+description: "Graded RHCSA exam-style lab on Linux permissions and ACLs: a challenge with requirements, hints and solutions, and a grader that checks your work on your own lab."
 kind: lab
 minutes: 35
 ---

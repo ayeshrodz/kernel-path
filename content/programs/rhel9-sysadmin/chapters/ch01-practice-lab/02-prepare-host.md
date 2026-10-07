@@ -1,5 +1,7 @@
 ---
 title: Prepare the host and LXD
+seoTitle: "Install LXD on Ubuntu for a Linux Lab"
+description: "Prepare an Ubuntu host and install LXD to run the practice virtual machines. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lab
 minutes: 20
 ---

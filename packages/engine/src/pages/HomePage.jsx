@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { Link } from '@/lib/router';
 import { ArrowRight, BookOpen, Check, CircleHelp, FlaskConical, ListChecks } from 'lucide-react';
-import { chapters, course, track, pages } from '@/lib/course';
+import { chapters, course, track, pages, program, site } from '@/lib/course';
+import { setHead } from '@/lib/head';
+import { programMeta } from '@/lib/seo';
 import { chapterProgress, useProgress } from '@/hooks/useProgress';
 import { useStored } from '@/lib/storage';
 import { Arrow, Diagram, Group, Node } from '@/diagrams/kit';
@@ -43,7 +45,7 @@ export default defineWidget('HomePage', (copy) => {
     const { done, percent } = useProgress();
 
     useEffect(() => {
-      document.title = formatCopy(copy.text.template, [course.title, course.tagline]);
+      setHead({ ...programMeta(program, site.site.name), route: `/${program.id}` });
     }, []);
 
     const [lastVisited] = useStored('lastVisited', null);

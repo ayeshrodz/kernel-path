@@ -1,0 +1,14 @@
+{
+  "name": "Kernel Path",
+  "short_name": "Kernel Path",
+  "description": "Free Linux and Ansible courses for RHCSA and RHCE: short lessons, browser activities and graded exercises on a practice lab you build yourself.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#151515",
+  "theme_color": "#ee0000",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

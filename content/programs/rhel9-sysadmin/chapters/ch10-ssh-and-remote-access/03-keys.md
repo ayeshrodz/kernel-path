@@ -1,5 +1,7 @@
 ---
 title: Key-based authentication
+seoTitle: "SSH Key Authentication: ssh-keygen and ssh-copy-id"
+description: "Set up passwordless SSH logins with ssh-keygen, ssh-copy-id, the agent and correct permissions. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

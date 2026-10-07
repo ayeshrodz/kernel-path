@@ -1,5 +1,7 @@
 ---
 title: Module streams and keeping systems updated
+seoTitle: "dnf Module Streams and Updates on RHEL 9"
+description: "Choose application versions with module streams and keep systems updated safely. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

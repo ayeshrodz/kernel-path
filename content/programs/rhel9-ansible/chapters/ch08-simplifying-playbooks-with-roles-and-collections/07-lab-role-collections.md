@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Getting roles and modules from content collections"
+seoTitle: "Getting roles and modules from content collections (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: getting roles and modules from content collections. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

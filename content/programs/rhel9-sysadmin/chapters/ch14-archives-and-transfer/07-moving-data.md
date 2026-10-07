@@ -1,5 +1,7 @@
 ---
 title: Moving data between machines safely
+seoTitle: "rsync and scp: Copy Files Between Linux Servers"
+description: "Move directory trees between servers safely with rsync, tar over SSH and checksums. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

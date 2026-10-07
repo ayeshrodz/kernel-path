@@ -1,4 +1,6 @@
 title: Getting help
+seoTitle: "Linux man Pages and Getting Help (RHCSA)"
+seoDescription: "Find answers yourself on Linux: read man pages, search them with man -k, and use --help, info and /usr/share/doc. RHCSA chapter 4."
 goal: Find answers on the system itself, with manual pages, keyword searches, command help and package documentation, instead of guessing.
 objectives:
   - Read manual pages, choose the right section, move around and search inside them, and decode a SYNOPSIS line.

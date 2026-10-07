@@ -42,6 +42,9 @@ jobs:
           KERNEL_SIGNING_KEY: ${{ secrets.KERNEL_SIGNING_KEY }}
           KERNEL_PUBLIC_KEY: ${{ vars.KERNEL_PUBLIC_KEY }}
 
+      - name: Keep the published sitemap (to tell search engines what changed)
+        run: curl -fsSL https://kernelpath.dev/sitemap.xml -o "$RUNNER_TEMP/previous-sitemap.xml" || true
+
       - name: Setup Pages
         uses: actions/configure-pages@v6
 
@@ -53,3 +56,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+      - name: Tell search engines about new and changed pages (IndexNow)
+        continue-on-error: true
+        run: node scripts/indexnow.mjs "$RUNNER_TEMP/previous-sitemap.xml" dist/sitemap.xml

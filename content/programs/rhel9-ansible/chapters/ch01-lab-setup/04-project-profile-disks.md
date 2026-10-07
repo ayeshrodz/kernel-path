@@ -1,5 +1,7 @@
 ---
 title: Project, profile and extra disks
+seoTitle: "Project, profile and extra disks: RHCE Home Lab Setup"
+description: "Project, profile and extra disks: part of building a free RHCE practice lab at home with Rocky Linux 9 virtual machines on LXD."
 kind: lab
 minutes: 17
 ---

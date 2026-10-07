@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Including and importing files"
+seoTitle: "Including and importing files (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: including and importing files. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

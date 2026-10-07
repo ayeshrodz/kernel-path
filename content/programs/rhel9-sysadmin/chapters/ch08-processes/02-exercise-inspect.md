@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Find your way around the process table"
+seoTitle: "Find your way around the process table (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: find your way around the process table. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

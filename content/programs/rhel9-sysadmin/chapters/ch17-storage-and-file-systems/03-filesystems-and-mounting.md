@@ -1,5 +1,7 @@
 ---
 title: File systems and mounting
+seoTitle: "mkfs and mount: Create XFS and ext4 File Systems"
+description: "Create XFS and ext4 file systems and swap, mount them and read blkid and df. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

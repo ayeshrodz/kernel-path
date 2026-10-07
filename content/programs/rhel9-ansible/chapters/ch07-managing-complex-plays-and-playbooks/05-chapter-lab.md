@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Managing complex plays and playbooks"
+seoTitle: "Ansible complex playbooks Practice Lab (RHCE Exam Style)"
+description: "Graded RHCE exam-style lab on Ansible complex playbooks: a challenge with requirements, hints and solutions, and a grader that checks your work on your own lab."
 kind: lab
 minutes: 30
 ---

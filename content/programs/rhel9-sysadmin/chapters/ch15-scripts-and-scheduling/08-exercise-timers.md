@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Timers and one-off jobs"
+seoTitle: "Timers and one-off jobs (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: timers and one-off jobs. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 30
 ---

@@ -1,5 +1,7 @@
 ---
 title: Packages and the RPM database
+seoTitle: "rpm Command: Query and Verify Installed Packages"
+description: "Query installed packages, their files and owners, and verify them with rpm -q, -ql, -qf and -V. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

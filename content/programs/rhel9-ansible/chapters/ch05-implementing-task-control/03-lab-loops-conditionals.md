@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Loops and conditional tasks"
+seoTitle: "Loops and conditional tasks (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: loops and conditional tasks. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 15
 ---

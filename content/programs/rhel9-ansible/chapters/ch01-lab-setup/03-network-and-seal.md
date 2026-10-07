@@ -1,5 +1,7 @@
 ---
 title: Create and seal the lab network
+seoTitle: "Create and seal the lab network: RHCE Home Lab Setup"
+description: "Create and seal the lab network: part of building a free RHCE practice lab at home with Rocky Linux 9 virtual machines on LXD."
 kind: lab
 minutes: 15
 ---

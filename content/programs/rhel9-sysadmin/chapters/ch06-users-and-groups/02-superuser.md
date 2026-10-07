@@ -1,5 +1,7 @@
 ---
 title: Become root safely
+seoTitle: "sudo vs su in Linux, and the sudoers File"
+description: "Become root safely with su and sudo, and grant limited rights with a sudoers drop-in file. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

@@ -1,5 +1,7 @@
 ---
-title: Knowledge check
+title: "grep, vim and Bash quiz"
+seoTitle: "grep, vim and Bash Quiz: RHCSA Practice Questions"
+description: "Test yourself on grep, vim and Bash with RHCSA practice questions. Every answer explains why it is right or wrong. Free and no sign-up."
 kind: quiz
 minutes: 10
 ---

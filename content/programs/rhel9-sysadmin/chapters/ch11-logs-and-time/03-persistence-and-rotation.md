@@ -1,5 +1,7 @@
 ---
 title: "Keeping logs: persistence and rotation"
+seoTitle: "Persistent journald Logs, rsyslog and logrotate"
+description: "Make the journal persistent, send messages to files with rsyslog and rotate logs with logrotate. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

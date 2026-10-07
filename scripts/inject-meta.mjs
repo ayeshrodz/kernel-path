@@ -78,5 +78,13 @@ let html = fs
     if (/\bintegrity=/.test(tag)) return tag;
     return `<${name}${before}${attribute}="${href}" integrity="${integrity(local(href))}"${after}>`;
   });
+// Everything else the app may need later (widgets, chapter kits, the dashboard): fetched while the browser
+// is idle after the first page has drawn, so later pages and activities open without waiting.
+const referenced = new Set([...html.matchAll(/(?:src|href)="([^"]+)"/g)].map((m) => local(m[1])));
+const later = fs
+  .readdirSync(path.join(dist, 'assets'))
+  .filter((f) => /\.(?:js|css)$/.test(f) && !referenced.has(`assets/${f}`))
+  .map((f) => `${base}assets/${f}`);
+html = html.replace(/\s*<meta name="kernel-path-later"[^>]*>/, '').replace('</head>', `  <meta name="kernel-path-later" content="${escape(later.join(' '))}" />\n  </head>`);
 fs.writeFileSync(file, html);
 console.log(`index.html: ${title}`);

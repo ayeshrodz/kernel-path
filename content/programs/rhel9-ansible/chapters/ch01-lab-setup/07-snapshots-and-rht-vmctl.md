@@ -1,5 +1,7 @@
 ---
 title: Snapshots and rht-vmctl
+seoTitle: "Snapshots and rht-vmctl: RHCE Home Lab Setup"
+description: "Snapshots and rht-vmctl: part of building a free RHCE practice lab at home with Rocky Linux 9 virtual machines on LXD."
 kind: lab
 minutes: 20
 ---

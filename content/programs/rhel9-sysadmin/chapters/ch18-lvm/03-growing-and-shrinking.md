@@ -1,5 +1,7 @@
 ---
 title: "Growing and shrinking volumes"
+seoTitle: "lvextend and lvreduce: Resize LVM Volumes"
+description: "Extend logical volumes and their file systems online with lvextend -r, and shrink ext4 safely. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 25
 ---

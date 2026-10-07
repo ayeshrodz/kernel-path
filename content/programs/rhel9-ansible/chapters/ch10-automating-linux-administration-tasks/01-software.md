@@ -1,5 +1,7 @@
 ---
 title: Managing software
+seoTitle: "Manage Packages and Repositories With Ansible (dnf)"
+description: "Install packages, add repositories and register systems with Ansible dnf and related modules. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

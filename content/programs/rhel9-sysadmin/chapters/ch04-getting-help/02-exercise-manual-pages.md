@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Find answers in manual pages"
+seoTitle: "Find answers in manual pages (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: find answers in manual pages. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 15
 ---

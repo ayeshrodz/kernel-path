@@ -1,5 +1,7 @@
 ---
-title: Knowledge check
+title: "Bash scripts and scheduling quiz"
+seoTitle: "Bash scripts and scheduling Quiz: RHCSA Practice Questions"
+description: "Test yourself on Bash scripts and scheduling with RHCSA practice questions. Every answer explains why it is right or wrong. Free and no sign-up."
 kind: quiz
 minutes: 10
 ---

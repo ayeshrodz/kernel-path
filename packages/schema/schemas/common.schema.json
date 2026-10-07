@@ -106,6 +106,18 @@
       "type": "string",
       "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
       "maxLength": 64
+    },
+    "seoTitle": {
+      "description": "The title search engines and browser tabs show, written for what people search (about 50-65 characters).",
+      "$ref": "#/$defs/text",
+      "maxLength": 75,
+      "type": "string"
+    },
+    "seoDescription": {
+      "description": "The description search engines show under the title (about 120-160 characters).",
+      "$ref": "#/$defs/text",
+      "maxLength": 170,
+      "type": "string"
     }
   }
 }

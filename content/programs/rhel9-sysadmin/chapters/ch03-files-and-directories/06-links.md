@@ -1,5 +1,7 @@
 ---
 title: Hard links and symbolic links
+seoTitle: "Hard Links vs Symbolic Links in Linux (ln -s)"
+description: "The difference between hard and symbolic links, inodes, and when to use ln and ln -s. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

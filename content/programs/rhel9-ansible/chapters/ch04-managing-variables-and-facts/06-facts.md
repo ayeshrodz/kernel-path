@@ -1,5 +1,7 @@
 ---
 title: Ansible facts
+seoTitle: "Ansible Facts: gather_facts and setup Module"
+description: "Gather and use Ansible facts, filter them with the setup module and turn gathering off. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

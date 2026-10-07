@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Managing the boot process and scheduled processes"
+seoTitle: "Managing the boot process and scheduled processes (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: managing the boot process and scheduled processes. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

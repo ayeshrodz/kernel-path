@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Automating Linux administration tasks"
+seoTitle: "Ansible Linux automation Practice Lab (RHCE Exam Style)"
+description: "Graded RHCE exam-style lab on Ansible Linux automation: a challenge with requirements, hints and solutions, and a grader that checks your work on your own lab."
 kind: lab
 minutes: 40
 ---

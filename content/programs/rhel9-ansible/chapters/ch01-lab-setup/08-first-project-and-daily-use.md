@@ -1,5 +1,7 @@
 ---
 title: First project and daily use
+seoTitle: "First project and daily use: RHCE Home Lab Setup"
+description: "First project and daily use: part of building a free RHCE practice lab at home with Rocky Linux 9 virtual machines on LXD."
 kind: lab
 minutes: 15
 ---

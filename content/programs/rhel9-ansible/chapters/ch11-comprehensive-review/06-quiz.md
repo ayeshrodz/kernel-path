@@ -1,5 +1,7 @@
 ---
-title: Final knowledge check
+title: "Ansible final review quiz"
+seoTitle: "Ansible final review Quiz: RHCE Practice Questions"
+description: "Test yourself on Ansible final review with RHCE practice questions. Every answer explains why it is right or wrong. Free and no sign-up."
 kind: quiz
 minutes: 20
 ---

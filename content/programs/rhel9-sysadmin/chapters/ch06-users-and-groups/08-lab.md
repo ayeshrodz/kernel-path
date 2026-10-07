@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Users and groups review"
+seoTitle: "Linux users and groups Practice Lab (RHCSA Exam Style)"
+description: "Graded RHCSA exam-style lab on Linux users and groups: a challenge with requirements, hints and solutions, and a grader that checks your work on your own lab."
 kind: lab
 minutes: 30
 ---

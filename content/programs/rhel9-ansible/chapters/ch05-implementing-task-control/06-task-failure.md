@@ -1,5 +1,7 @@
 ---
 title: Handling task failure
+seoTitle: "Ansible Error Handling: block, rescue, ignore_errors"
+description: "Control task failure with ignore_errors, failed_when, changed_when, block, rescue and always. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

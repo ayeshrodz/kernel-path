@@ -1,5 +1,7 @@
 ---
 title: Writing and changing unit files
+seoTitle: "How to Write a systemd Service Unit File"
+description: "Write your own systemd unit, use drop-in overrides, restart policies and daemon-reload. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

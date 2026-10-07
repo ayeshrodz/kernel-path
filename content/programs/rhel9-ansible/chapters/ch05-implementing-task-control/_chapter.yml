@@ -1,4 +1,6 @@
 title: Implementing Task Control
+seoTitle: "Ansible Loops, when Conditions and Handlers (RHCE)"
+seoDescription: "Control tasks in Ansible with loops, when conditionals, handlers, blocks, rescue and failure handling. RHCE (EX294) chapter 5."
 goal: Manage task control, handlers and task errors in Ansible Playbooks.
 objectives:
   - Use loops to write efficient tasks, and use conditions to control when tasks run.

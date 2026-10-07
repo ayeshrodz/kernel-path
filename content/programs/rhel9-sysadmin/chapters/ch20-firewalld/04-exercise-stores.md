@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Runtime, permanent and temporary rules"
+seoTitle: "Runtime, permanent and temporary rules (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: runtime, permanent and temporary rules. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

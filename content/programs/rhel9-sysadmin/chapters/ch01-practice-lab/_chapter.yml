@@ -1,4 +1,6 @@
 title: Build Your Practice Lab
+seoTitle: "Free RHCSA Practice Lab at Home: Rocky Linux 9 VMs on LXD"
+seoDescription: "Build a free RHCSA practice lab at home: three Rocky Linux 9 virtual machines on LXD, a sealed network, snapshots and one-command resets."
 setup: true
 goal: Build a sealed practice lab at home, with Rocky Linux 9 VMs on LXD, so every exercise in this path has a safe place to run and a fast way to reset.
 objectives:

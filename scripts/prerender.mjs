@@ -10,6 +10,7 @@
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
+import { canonicalUrl, chapterMeta, examLabel, homeMeta, programMeta, sectionMeta } from '../packages/engine/src/lib/seo.js';
 
 const dist = path.resolve(process.argv[2] ?? 'dist');
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
@@ -30,7 +31,7 @@ const clip = (text, length = 158) => {
   return flat.length <= length ? flat : `${flat.slice(0, length - 1).replace(/\s+\S*$/, '')}…`;
 };
 /** "/rhel9-sysadmin/ch02" → the public address, always with a trailing slash (the form the static host serves). */
-const address = (route) => `${origin}${base}${route.replace(/^\/|\/$/g, '')}${route === '/' ? '' : '/'}`.replace(/([^:])\/\/+/g, '$1/');
+const address = (route) => canonicalUrl(origin, base, route);
 
 // ---------- Page trees to HTML ----------
 
@@ -110,7 +111,7 @@ const breadcrumb = (items) => ({
   '@type': 'BreadcrumbList',
   itemListElement: items.map((item, i) => ({ '@type': 'ListItem', position: i + 1, name: item.name, item: item.url })),
 });
-const organization = { '@type': 'Organization', name: siteName, url: address('/') };
+const organization = { '@type': 'Organization', name: siteName, url: address('/'), logo: `${origin}${base}icon-512.png` };
 
 function page({ route, title, description, body, graph = [], index = true, type = 'website' }) {
   const url = address(route);
@@ -173,7 +174,7 @@ let count = 0;
 
 // The site home
 const home = site.site.home ? read(site.site.home) : null;
-const homeTitle = `${siteName} · ${site.site.tagline}`;
+const homeHead = homeMeta(site, home);
 const programList = `<h2>Programs</h2><ul>${site.programs
   .map((p) => `<li><a href="${escape(`${base}${p.id}/`)}">${escape(p.title)}</a>: ${escape(p.summary)}</li>`)
   .join('')}</ul>`;
@@ -181,8 +182,8 @@ write(
   '/',
   page({
     route: '/',
-    title: homeTitle,
-    description: clip(site.site.description),
+    title: homeHead.title,
+    description: homeHead.description,
     body: `${home ? render(home.tree, { data: home.data }) : `<h1>${escape(site.site.tagline)}</h1>`}${programList}`,
     graph: [
       { '@type': 'WebSite', name: siteName, url: address('/'), description: site.site.description, inLanguage: 'en' },
@@ -198,11 +199,17 @@ for (const entry of site.programs) {
   const manifest = read(entry.manifest);
   const program = manifest.program;
   const programRoute = `/${program.id}`;
+  const programHead = programMeta(program, siteName);
+  const exams = program.certifications ?? [];
   const course = {
     '@type': 'Course',
     '@id': `${address(programRoute)}#course`,
-    name: program.title,
+    name: program.seoTitle ?? program.title,
     description: program.summary,
+    ...(program.keywords?.length ? { keywords: program.keywords.join(', ') } : {}),
+    ...(exams.length ? { about: exams.map((e) => ({ '@type': 'Thing', name: `${e.name} (${e.code})` })) } : {}),
+    teaches: manifest.chapters.filter((c) => c.status !== 'planned' && !c.setup).map((c) => c.title),
+    coursePrerequisites: 'None: the path starts from the first login.',
     url: address(programRoute),
     provider: organization,
     isAccessibleForFree: true,
@@ -222,9 +229,11 @@ for (const entry of site.programs) {
     programRoute,
     page({
       route: programRoute,
-      title: `${program.title} · ${siteName}`,
-      description: clip(program.summary),
-      body: `<h1>${escape(program.title)}</h1><p>${escape(program.summary)}</p><h2>Chapters</h2><ol>${chapters
+      title: programHead.title,
+      description: programHead.description,
+      body: `<h1>${escape(program.title)}</h1><p>${escape(program.summary)}</p>${
+        exams.length ? `<p>Prepares you for ${exams.map((e) => `${escape(e.name)} (${escape(e.code)})`).join(' and ')}.</p>` : ''
+      }<h2>Chapters</h2><ol>${chapters
         .map((c) => `<li><a href="${escape(`${base}${program.id}/${c.id}/`)}">${escape(c.title)}</a>${c.goal ? `: ${escape(c.goal)}` : ''}</li>`)
         .join('')}</ol>`,
       graph: [course, breadcrumb(programCrumb)],
@@ -251,13 +260,14 @@ for (const entry of site.programs) {
   for (const chapter of chapters) {
     const chapterRoute = `${programRoute}/${chapter.id}`;
     const chapterTitle = `Chapter ${chapter.number}: ${chapter.title}`;
+    const chapterHead = chapterMeta(chapter, program);
     const chapterCrumb = [...programCrumb, { name: chapterTitle, url: address(chapterRoute) }];
     write(
       chapterRoute,
       page({
         route: chapterRoute,
-        title: `${chapterTitle} · ${program.title}`,
-        description: clip(chapter.goal ?? program.summary),
+        title: chapterHead.title,
+        description: chapterHead.description,
         body: `<h1>${escape(chapterTitle)}</h1>${chapter.goal ? `<p>${escape(chapter.goal)}</p>` : ''}${
           chapter.objectives?.length ? `<h2>What you will learn</h2><ul>${chapter.objectives.map((o) => `<li>${escape(o)}</li>`).join('')}</ul>` : ''
         }<h2>Sections</h2><ol>${chapter.sections
@@ -275,18 +285,26 @@ for (const entry of site.programs) {
       if (!file) continue;
       const content = read(file);
       const route = `${programRoute}/${key}`;
-      const lead = content.tree.find((n) => n.t === 'tag' && n.name === 'lead');
-      const description = clip(lead ? text(lead.c) : (chapter.goal ?? program.summary));
-      const title = `${content.title} · ${chapterTitle}`;
+      const head = sectionMeta(section, chapter, program, content);
+      const { description } = head;
+      const title = head.title;
+      const index = chapter.sections.indexOf(section);
+      const near = [chapter.sections[index - 1], chapter.sections[index + 1]].filter(Boolean);
+      const modified = lastChanged(sourceOf(program.id, key));
       const kind = content.kind === 'lab' ? 'Exercise' : content.kind === 'quiz' ? 'Quiz' : content.kind === 'summary' ? 'Summary' : 'Lesson';
       write(
         route,
         page({
           route,
-          title: `${content.title} · ${program.title}`,
+          title,
           description,
           type: 'article',
-          body: `<p>${escape(chapterTitle)}</p><h1>${escape(content.title)}</h1>${render(content.tree, { data: content.data, programId: program.id })}`,
+          body: `<p><a href="${escape(`${base}${program.id}/${chapter.id}/`)}">${escape(chapterTitle)}</a></p><h1>${escape(content.title)}</h1>${render(content.tree, {
+            data: content.data,
+            programId: program.id,
+          })}<nav aria-label="More in this chapter"><ul>${near
+            .map((s) => `<li><a href="${escape(`${base}${program.id}/${chapter.id}/${s.slug}/`)}">${escape(s.title)}</a></li>`)
+            .join('')}<li><a href="${escape(`${base}${program.id}/`)}">${escape(program.title)}${examLabel(program) ? ` (${escape(examLabel(program))})` : ''}</a></li></ul></nav>`,
           graph: [
             {
               '@type': 'LearningResource',
@@ -299,13 +317,15 @@ for (const entry of site.programs) {
               isAccessibleForFree: true,
               inLanguage: 'en',
               isPartOf: { '@id': `${address(programRoute)}#course` },
+              dateModified: modified,
+              ...(program.keywords?.length ? { keywords: program.keywords.slice(0, 8).join(', ') } : {}),
               publisher: organization,
             },
             breadcrumb([...chapterCrumb, { name: content.title, url: address(route) }]),
           ],
         }),
       );
-      add(route, lastChanged(sourceOf(program.id, key)), content.kind === 'lesson' ? '0.8' : '0.6');
+      add(route, modified, content.kind === 'lesson' ? '0.8' : '0.6');
       count++;
     }
   }

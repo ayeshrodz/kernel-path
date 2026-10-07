@@ -1,5 +1,7 @@
 ---
 title: How hosts find each other on a network
+seoTitle: "Linux Networking Basics: ip addr, Routes, Ports"
+description: "IP addresses, subnets, routes, ports and ip, ping and ss commands for Linux administrators. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

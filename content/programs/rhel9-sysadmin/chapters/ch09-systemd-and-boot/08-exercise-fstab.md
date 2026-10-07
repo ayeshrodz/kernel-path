@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Check /etc/fstab before you reboot"
+seoTitle: "Check /etc/fstab before you reboot (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: check /etc/fstab before you reboot. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 15
 ---
