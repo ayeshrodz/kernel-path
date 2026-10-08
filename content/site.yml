@@ -1,7 +1,7 @@
 apiVersion: 1
 name: Kernel Path
 tagline: Learn Linux and automation by doing
-description: Free, open learning paths for Linux and automation. Short lessons, browser activities and real exercises on a practice lab you build yourself.
+description: Free RHCSA and RHCE study courses for Linux and Ansible on RHEL 9. Short lessons, browser activities and real exercises on a practice lab you build yourself.
 repo: https://github.com/ayeshrodz/kernel-path
 programs:
   - rhel9-sysadmin

@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Map the network"
+seoTitle: "Map the network (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: map the network. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

@@ -1,5 +1,7 @@
 ---
 title: When the disk is full, and keeping file systems healthy
+seoTitle: "Disk Full on Linux? Find Space With du and df"
+description: "Find what fills a disk with du and df, inode exhaustion, deleted open files and xfs_repair. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 25
 ---

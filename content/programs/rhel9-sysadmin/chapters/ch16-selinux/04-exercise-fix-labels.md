@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Fix a 403 caused by a label"
+seoTitle: "Fix a 403 caused by a label (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: fix a 403 caused by a label. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 30
 ---

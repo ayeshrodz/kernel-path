@@ -183,17 +183,17 @@ def programs_stay_separate(browser):
             assert page.evaluate("JSON.parse(localStorage.getItem('rhce:second-program@completed'))") == ['ch01/hello']
             assert page.evaluate("JSON.parse(localStorage.getItem('rhce:rhel9-ansible@completed'))") == ['ch02/why-automate']
             page.get_by_role('link', name='Looking around').first.click()
-            page.wait_for_url('**/second-program/ch01/next')
+            page.wait_for_url('**/second-program/ch01/next/')
             assert not page.get_by_role('link', name='Building an Ansible inventory').count(), 'only this program is listed'
             # The program selector lists both programs and switches between them.
             page.get_by_role('button', name='Program: Linux basics (test fixture). Switch program').click()
             panel = page.get_by_role('dialog', name='Programs')
             assert panel.get_by_role('link', name='Ansible automation on RHEL 9').count() == 1
             panel.get_by_role('link', name='Ansible automation on RHEL 9').click()
-            page.wait_for_url('**/rhel9-ansible')
+            page.wait_for_url('**/rhel9-ansible/')
             page.get_by_role('button', name='Program: Ansible automation on RHEL 9. Switch program').click()
             page.get_by_role('dialog', name='Programs').get_by_role('link', name='Linux basics (test fixture)').click()
-            page.wait_for_url('**/second-program')
+            page.wait_for_url('**/second-program/')
             page.get_by_role('heading', name='Linux basics (test fixture)', level=1).wait_for()
             page.goto(base + '#/second-program/ch01/next'); page.locator(APP_H1).first.wait_for()
             page.goto(base + '#/second-program/progress')
@@ -217,7 +217,7 @@ def programs_stay_separate(browser):
             page.keyboard.press('Escape')
             # Addresses from before programs existed still work; unknown programs are a 404.
             page.goto(base + '#/ch03/inventory')
-            page.wait_for_url('**/rhel9-ansible/ch03/inventory')
+            page.wait_for_url('**/rhel9-ansible/ch03/inventory/')
             page.goto(base + '#/no-such-program/ch01/x')
             page.get_by_role('heading', name="That page isn't here").wait_for()
             assert page.locator('.site-footer').count() == 1, 'the 404 page has the site frame'
@@ -242,7 +242,7 @@ def planned_program_is_listed(browser):
         assert card.count() == 1, entry['id']
         assert ('Growing' in card.inner_text()) == (entry['status'] == 'planned')
         card.click()
-        page.wait_for_url('**/' + entry['id'])
+        page.wait_for_url('**/' + entry['id'] + '/')
         page.locator(APP_H1).first.wait_for()
         assert not page.locator('.load-error').count(), entry['id']
         expected = sum(c['status'] == 'planned' or not c['sections'] for c in manifest['chapters'])
@@ -354,7 +354,7 @@ with preview_server(BASE, ROOT):
             assert 'Page not found' not in page.locator('h1').first.inner_text(), route
             assert not page.locator('.load-error').count(), route
             assert 'This activity could not load' not in page.inner_text('body'), route
-            assert 'Kernel Path' in page.title(), route
+            assert page.title().strip() and page.title() != 'Kernel Path', route  # every page has its own search title
             assert page.locator('.brand-name').inner_text() == 'Kernel Path', route
             assert 'Playbook Path' not in page.inner_text('body'), route
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), route
@@ -413,7 +413,7 @@ with preview_server(BASE, ROOT):
         page.get_by_role('button', name='Program: Ansible automation on RHEL 9. Switch program').click()
         page.get_by_role('link', name='RHEL 9: Platform and versions', exact=True).click()
         page.get_by_role('heading', name='RHEL 9: Platform and versions', exact=True).wait_for()
-        assert page.url.endswith('/rhel9-ansible/platform')
+        assert page.url.endswith('/rhel9-ansible/platform/')
         assert not page.get_by_role('dialog').count()
         assert page.title() == 'RHEL 9: Platform and versions · Kernel Path'
         page.get_by_role('tab', name='Home lab', exact=True).click()
@@ -503,13 +503,13 @@ with preview_server(BASE, ROOT):
         nav = page.locator('#course-navigation')
         mark = "() => { const m = document.querySelector('.map-chapter.is-open .map-marker'), a = document.querySelector('.map-chapter.is-open a[aria-current=page]'); return Math.abs(m.getBoundingClientRect().top - a.getBoundingClientRect().top) }"
         assert page.evaluate(mark) < 1
-        nav.locator('a[href$="/ch04/facts"]').click(); page.wait_for_timeout(700)
+        nav.locator('a[href$="/ch04/facts/"]').click(); page.wait_for_timeout(700)
         assert page.evaluate(mark) < 1
         nav.get_by_role('button', name='Expand chapter 5').click()
         assert nav.get_by_role('button', name='Collapse chapter 5').count() and not nav.get_by_role('button', name='Collapse chapter 4').count()
         assert nav.locator('#map-ch04').get_attribute('inert') is not None
         box = nav.get_by_role('searchbox', name='Filter sections by title or number')
-        box.fill('vault')
+        box.fill('protecting secrets')
         visible = nav.locator('.map-section-link').evaluate_all('(ls) => ls.filter((l) => !l.closest("[inert]")).length')
         assert visible >= 1 and nav.locator('mark').count() >= 1
         box.press('Enter'); page.locator('h1').filter(has_text='Vault').wait_for()

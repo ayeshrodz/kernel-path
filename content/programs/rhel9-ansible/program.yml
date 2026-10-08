@@ -3,7 +3,7 @@ id: rhel9-ansible
 title: Ansible automation on RHEL 9
 label: Ansible
 tagline: Learn Ansible automation by doing
-summary: A hands-on path from your first playbook to automating real Linux administration. Every idea is drawn as a diagram, every exercise runs on a practice lab you build yourself, and every chapter ends with a quiz and a cheat sheet.
+summary: A hands-on path from your first playbook to automating real Linux administration. Every idea is drawn as a diagram, every exercise runs on a practice lab you build yourself, and every chapter ends with a quiz and a cheat sheet. Prepares you for the RHCE (EX294) exam.
 platform:
   family: rhel
   version: "9"
@@ -72,5 +72,25 @@ showcase:
   tone: coral
   highlights: [Playbooks, Variables, Roles, Vault, Templates, Troubleshooting]
   title: Ansible automation on RHEL
-  label: RHEL
+  label: RHCE · EX294
   summary: A hands-on path from your first playbook to automating real Linux administration. Every idea is drawn as a diagram, every exercise runs on a practice lab you build yourself, and every chapter ends with a quiz and a cheat sheet.
+seoTitle: Free Ansible Course for RHCE (EX294) on RHEL 9
+seoDescription: 'Learn Ansible for the RHCE (EX294) exam for free: playbooks, variables, Vault, templates, roles and collections, with graded labs on your own lab.'
+keywords:
+- RHCE
+- EX294
+- RHCE study guide
+- RHCE practice exam
+- Ansible tutorial
+- Ansible playbook examples
+- Ansible for beginners
+- Ansible Vault
+- Ansible roles
+- Jinja2 templates
+- Ansible collections
+- RHEL 9
+- Ansible automation
+certifications:
+- name: Red Hat Certified Engineer (RHCE)
+  code: EX294
+  url: https://www.redhat.com/en/services/training/ex294-red-hat-certified-engineer-rhce-exam-red-hat-enterprise-linux-9

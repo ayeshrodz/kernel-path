@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Find it in the logs"
+seoTitle: "Find it in the logs (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: find it in the logs. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

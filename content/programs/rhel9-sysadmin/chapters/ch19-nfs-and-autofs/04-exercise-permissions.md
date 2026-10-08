@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Get the permissions right"
+seoTitle: "Get the permissions right (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: get the permissions right. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 35
 ---

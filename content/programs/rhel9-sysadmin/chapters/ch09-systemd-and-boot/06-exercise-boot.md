@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Change how the server boots"
+seoTitle: "Change how the server boots (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: change how the server boots. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

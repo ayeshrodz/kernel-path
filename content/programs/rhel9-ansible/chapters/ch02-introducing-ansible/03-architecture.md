@@ -1,5 +1,7 @@
 ---
 title: Core concepts and architecture
+seoTitle: "Ansible Architecture: Control Node, Inventory, Modules"
+description: "The parts of Ansible: control node, managed hosts, inventory, modules, plays and playbooks. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 10
 ---

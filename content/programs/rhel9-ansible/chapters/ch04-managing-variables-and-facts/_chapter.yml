@@ -1,4 +1,6 @@
 title: Managing Variables and Facts
+seoTitle: "Ansible Variables, Facts and Ansible Vault (RHCE)"
+seoDescription: "Use variables and precedence, protect secrets with Ansible Vault, and gather facts, custom facts and magic variables."
 goal: Write playbooks that use variables to simplify management, protect secrets with Ansible Vault, and use facts to reference information about managed hosts.
 objectives:
   - Create and reference variables that affect particular hosts or host groups, the play, or the global environment, and describe how variable precedence works.

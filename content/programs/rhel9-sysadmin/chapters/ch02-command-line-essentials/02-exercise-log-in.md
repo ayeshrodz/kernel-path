@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Log in and find your way"
+seoTitle: "Log in and find your way (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: log in and find your way. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 10
 ---

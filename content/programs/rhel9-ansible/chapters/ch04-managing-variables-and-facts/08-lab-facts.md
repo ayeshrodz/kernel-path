@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Managing facts"
+seoTitle: "Managing facts (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: managing facts. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

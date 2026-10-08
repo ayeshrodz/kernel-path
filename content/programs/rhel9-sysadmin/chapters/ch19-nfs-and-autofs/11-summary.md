@@ -1,5 +1,7 @@
 ---
-title: Summary and cheat sheet
+title: "NFS and autofs cheat sheet"
+seoTitle: "NFS and autofs Cheat Sheet (RHCSA)"
+description: "NFS and autofs cheat sheet: the key commands and ideas on one page, with flashcards for revision. Free RHCSA study notes."
 kind: summary
 minutes: 5
 ---

@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Modifying and copying files to hosts"
+seoTitle: "Modifying and copying files to hosts (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: modifying and copying files to hosts. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

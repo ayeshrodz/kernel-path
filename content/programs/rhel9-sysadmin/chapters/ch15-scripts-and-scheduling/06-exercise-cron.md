@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Schedule a job"
+seoTitle: "Schedule a job (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: schedule a job. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

@@ -29,7 +29,7 @@ export default defineWidget('Footer', (copy) => {
               {platform ? (
                 site.programs.map((entry) => (
                   <li key={entry.id}>
-                    <RootLink to={`/${entry.id}`}>{entry.title}</RootLink>
+                    <RootLink to={`/${entry.id}/`}>{entry.title}</RootLink>
                   </li>
                 ))
               ) : (

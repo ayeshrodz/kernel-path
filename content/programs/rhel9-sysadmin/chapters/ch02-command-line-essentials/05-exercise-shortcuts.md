@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Run commands efficiently"
+seoTitle: "Run commands efficiently (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: run commands efficiently. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 15
 ---

@@ -1,5 +1,7 @@
 ---
 title: Prepare the control node
+seoTitle: "Prepare the control node: RHCE Home Lab Setup"
+description: "Prepare the control node: part of building a free RHCE practice lab at home with Rocky Linux 9 virtual machines on LXD."
 kind: lab
 minutes: 25
 ---

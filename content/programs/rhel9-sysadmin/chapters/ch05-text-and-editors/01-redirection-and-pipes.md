@@ -1,5 +1,7 @@
 ---
 title: Redirection and pipes
+seoTitle: "Linux Redirection and Pipes: >, >>, 2>, |"
+description: "Redirect standard output and errors to files and chain commands with pipes and tee. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

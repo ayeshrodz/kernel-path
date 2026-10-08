@@ -4,16 +4,16 @@
 
 **Read it online: https://kernelpath.dev/**
 
-**Learn Ansible automation by doing.** A free, interactive course and home-lab build that takes you from your first playbook to automating real Linux administration on RHEL 9. It teaches the Ansible skills that DevOps and system administration teams use every day. It is written by learners, for learners, as a way to study together: short explanations combine browser activities, real Linux labs, quizzes, and summaries. A learning dashboard keeps reading, practice, confidence, and local grading evidence separate.
+**Free RHCSA and RHCE study courses, learned by doing.** Two interactive paths on RHEL 9: [Linux system administration for the RHCSA (EX200)](https://kernelpath.dev/rhel9-sysadmin/) and [Ansible automation for the RHCE (EX294)](https://kernelpath.dev/rhel9-ansible/). Short lessons with diagrams you can click, practice terminals in the browser, quizzes, cheat sheets, and graded exercises on a practice lab you build on your own computer. It is written by learners, for learners. Exam study maps link every objective to the lessons that teach it: [RHCSA objectives](https://kernelpath.dev/rhel9-sysadmin/ch22/rhcsa-exam-objectives/), [RHCE objectives](https://kernelpath.dev/rhel9-ansible/ch11/rhce-exam-objectives/).
 
-> An independent, community-made study companion. Not affiliated with, sponsored by, or endorsed by Red Hat, Inc. It is not official training material and does not replace Red Hat's courses or documentation.
+> An independent, community-made study companion. Not affiliated with, sponsored by, or endorsed by Red Hat, Inc. Red Hat, RHEL, RHCSA and RHCE are trademarks of Red Hat, Inc. It is not official training material and does not replace Red Hat's courses or documentation.
 
 ## Programs
 
 | Program | Status |
 | --- | --- |
-| **Ansible automation on RHEL 9** (`rhel9-ansible`) | Complete: 12 chapters, from building the practice lab to Git and development containers, with two integrated assessments |
-| **Linux system administration on RHEL 9** (`rhel9-sysadmin`) | Planned: a 22-chapter outline |
+| **Ansible automation on RHEL 9** (`rhel9-ansible`) | For the RHCE (EX294). Complete: 12 chapters, from building the practice lab to Git and development containers, with two integrated assessments |
+| **Linux system administration on RHEL 9** (`rhel9-sysadmin`) | Complete: 22 chapters for the RHCSA (EX200), with guided exercises, graded labs and a capstone |
 
 ## Quick start
 

@@ -1,5 +1,7 @@
 ---
 title: Writing loops
+seoTitle: "Ansible Loops: loop, with_items and Examples"
+description: "Repeat tasks with loop over lists and dictionaries, and register results inside loops. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 10
 ---

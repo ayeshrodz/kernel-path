@@ -1,5 +1,7 @@
 ---
 title: Sharing directories with NFS
+seoTitle: "NFS Server and Client Setup on RHEL 9"
+description: "Export a directory with /etc/exports, open the firewall and mount it from a client. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

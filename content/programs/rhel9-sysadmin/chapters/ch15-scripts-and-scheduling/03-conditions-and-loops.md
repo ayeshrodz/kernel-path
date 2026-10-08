@@ -1,5 +1,7 @@
 ---
 title: Decisions and loops
+seoTitle: "Bash if, case, for and while Loops Explained"
+description: "Make Bash scripts decide and repeat with if, test, case, for and while loops. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 25
 ---

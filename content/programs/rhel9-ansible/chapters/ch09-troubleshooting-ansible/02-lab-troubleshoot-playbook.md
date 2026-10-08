@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Troubleshooting playbooks"
+seoTitle: "Troubleshooting playbooks (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: troubleshooting playbooks. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

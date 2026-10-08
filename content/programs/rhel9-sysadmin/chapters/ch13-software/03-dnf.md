@@ -1,5 +1,7 @@
 ---
 title: Installing and updating software with dnf
+seoTitle: "dnf Commands: Install, Update, Remove and History"
+description: "Install, update and remove packages with dnf, search and inspect them, and undo with dnf history. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

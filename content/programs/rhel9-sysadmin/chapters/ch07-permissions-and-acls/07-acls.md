@@ -1,5 +1,7 @@
 ---
 title: Access control lists
+seoTitle: "Linux ACLs: setfacl and getfacl With Examples"
+description: "Grant extra users and groups access with ACLs, read the mask and set default ACLs for new files. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

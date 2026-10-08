@@ -1,4 +1,6 @@
 title: Simplifying Playbooks with Roles and Collections
+seoTitle: "Ansible Roles, Galaxy and Collections Tutorial (RHCE)"
+seoDescription: "Create Ansible roles, install roles and collections from Galaxy and requirements files, and reuse RHEL system roles."
 goal: Use roles and content collections to develop playbooks more quickly and reuse code.
 objectives:
   - Describe the purpose of a role, its structure, and how roles are used in playbooks.

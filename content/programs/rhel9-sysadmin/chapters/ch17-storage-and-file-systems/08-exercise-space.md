@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Hunt the missing space"
+seoTitle: "Hunt the missing space (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: hunt the missing space. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 30
 ---

@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Serve home directories on demand"
+seoTitle: "Serve home directories on demand (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: serve home directories on demand. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 30
 ---

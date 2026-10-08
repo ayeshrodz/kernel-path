@@ -1,5 +1,7 @@
 ---
-title: Knowledge check
+title: "Ansible Linux automation quiz"
+seoTitle: "Ansible Linux automation Quiz: RHCE Practice Questions"
+description: "Test yourself on Ansible Linux automation with RHCE practice questions. Every answer explains why it is right or wrong. Free and no sign-up."
 kind: quiz
 minutes: 10
 ---

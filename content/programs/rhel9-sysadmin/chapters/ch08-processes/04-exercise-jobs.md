@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Juggle jobs in one terminal"
+seoTitle: "Juggle jobs in one terminal (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: juggle jobs in one terminal. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 15
 ---

@@ -1,5 +1,7 @@
 ---
 title: Ports, settings and storage
+seoTitle: "Podman Ports, Volumes and :Z SELinux Labels"
+description: "Publish container ports, pass settings, keep data in volumes and bind mounts with the :Z label. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

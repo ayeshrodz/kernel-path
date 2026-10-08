@@ -1,5 +1,7 @@
 ---
-title: Summary and cheat sheet
+title: "LVM cheat sheet"
+seoTitle: "LVM Cheat Sheet (RHCSA)"
+description: "LVM cheat sheet: the key commands and ideas on one page, with flashcards for revision. Free RHCSA study notes."
 kind: summary
 minutes: 5
 ---

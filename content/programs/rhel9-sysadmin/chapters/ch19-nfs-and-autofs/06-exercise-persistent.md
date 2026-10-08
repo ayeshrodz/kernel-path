@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Mount at boot, then on demand"
+seoTitle: "Mount at boot, then on demand (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: mount at boot, then on demand. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 30
 ---

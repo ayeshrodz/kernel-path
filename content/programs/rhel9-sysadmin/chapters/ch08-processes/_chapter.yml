@@ -1,4 +1,6 @@
 title: Processes
+seoTitle: "Linux Processes: ps, kill, jobs, nice and top (RHCSA)"
+seoDescription: "Inspect Linux processes with ps and top, run jobs in the background, send signals with kill and tune priority with nice and tuned."
 goal: See what is running, control jobs and signals, and judge and tune how processes share the machine.
 objectives:
   - Explain processes, PIDs and states, and list and trace them with ps, pstree and /proc.

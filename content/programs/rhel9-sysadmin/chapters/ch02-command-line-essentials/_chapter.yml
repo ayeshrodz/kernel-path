@@ -1,4 +1,6 @@
 title: Command-line essentials
+seoTitle: "Linux Command Line Basics for Beginners (RHCSA)"
+seoDescription: "Learn the Linux command line from zero: the shell, SSH logins, running commands, reading files, Tab completion and history. RHCSA chapter 2."
 goal: Log in to a Linux system, run commands from the Bash shell, and save time with completion, history and line editing.
 objectives:
   - Explain what Linux, a distribution and the shell are, read the shell prompt, and log in to another machine with SSH.

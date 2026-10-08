@@ -1,4 +1,6 @@
 title: Logs and time
+seoTitle: "journalctl, rsyslog, Log Rotation and chrony (RHCSA)"
+seoDescription: "Read logs with journalctl, make the journal persistent, rotate logs, set time zones and NTP with chrony, and diagnose failing services."
 goal: Read and filter the system logs, keep them across reboots and under control, keep the clock right, and use a calm method to diagnose problems.
 objectives:
   - Explain journald and rsyslog and filter the journal by unit, priority, boot and time.

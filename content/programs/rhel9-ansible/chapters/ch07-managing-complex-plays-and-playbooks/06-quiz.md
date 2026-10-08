@@ -1,5 +1,7 @@
 ---
-title: Knowledge check
+title: "Ansible complex playbooks quiz"
+seoTitle: "Ansible complex playbooks Quiz: RHCE Practice Questions"
+description: "Test yourself on Ansible complex playbooks with RHCE practice questions. Every answer explains why it is right or wrong. Free and no sign-up."
 kind: quiz
 minutes: 8
 ---

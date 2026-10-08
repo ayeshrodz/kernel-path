@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Implementing multiple plays"
+seoTitle: "Implementing multiple plays (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: implementing multiple plays. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

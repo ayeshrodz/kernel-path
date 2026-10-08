@@ -1,5 +1,7 @@
 ---
-title: Knowledge check
+title: "LVM quiz"
+seoTitle: "LVM Quiz: RHCSA Practice Questions"
+description: "Test yourself on LVM with RHCSA practice questions. Every answer explains why it is right or wrong. Free and no sign-up."
 kind: quiz
 minutes: 10
 ---

@@ -1,5 +1,7 @@
 ---
 title: Compression and checksums
+seoTitle: "gzip vs bzip2 vs xz, zip and sha256sum"
+description: "Compress with gzip, bzip2, xz and zip, and verify files with sha256sum checksums. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

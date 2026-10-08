@@ -1,5 +1,7 @@
 ---
-title: Knowledge check
+title: "Git for Ansible quiz"
+seoTitle: "Git for Ansible Quiz: RHCE Practice Questions"
+description: "Test yourself on Git for Ansible with RHCE practice questions. Every answer explains why it is right or wrong. Free and no sign-up."
 kind: quiz
 minutes: 8
 ---

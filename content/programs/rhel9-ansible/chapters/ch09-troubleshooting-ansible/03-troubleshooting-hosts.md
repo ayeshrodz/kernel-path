@@ -1,5 +1,7 @@
 ---
 title: Troubleshooting managed hosts
+seoTitle: "Troubleshoot Ansible SSH and Managed Host Problems"
+description: "Fix unreachable hosts, SSH and become problems, and test managed hosts with ad hoc commands. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

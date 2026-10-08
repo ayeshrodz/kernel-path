@@ -1,5 +1,7 @@
 ---
-title: Knowledge check
+title: "Ansible variables and Vault quiz"
+seoTitle: "Ansible variables and Vault Quiz: RHCE Practice Questions"
+description: "Test yourself on Ansible variables and Vault with RHCE practice questions. Every answer explains why it is right or wrong. Free and no sign-up."
 kind: quiz
 minutes: 8
 ---

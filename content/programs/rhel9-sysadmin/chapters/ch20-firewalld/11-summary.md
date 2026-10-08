@@ -1,5 +1,7 @@
 ---
-title: Summary and cheat sheet
+title: "firewalld cheat sheet"
+seoTitle: "firewalld Cheat Sheet (RHCSA)"
+description: "firewalld cheat sheet: the key commands and ideas on one page, with flashcards for revision. Free RHCSA study notes."
 kind: summary
 minutes: 5
 ---

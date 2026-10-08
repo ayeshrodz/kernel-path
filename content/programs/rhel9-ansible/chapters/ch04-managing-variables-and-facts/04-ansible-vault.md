@@ -1,5 +1,7 @@
 ---
 title: Protecting secrets with Ansible Vault
+seoTitle: "Ansible Vault Tutorial: Encrypt Secrets in Playbooks"
+description: "Encrypt files and variables with ansible-vault and run playbooks with vault passwords. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

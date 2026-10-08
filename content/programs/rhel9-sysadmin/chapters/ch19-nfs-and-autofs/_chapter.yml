@@ -1,4 +1,6 @@
 title: Network file systems and autofs
+seoTitle: "NFS and autofs on RHEL 9 (RHCSA)"
+seoDescription: "Export directories with NFS, mount them on clients, make mounts permanent and mount on demand with autofs, including wildcard maps."
 goal: Share a directory from one server, mount it on another with the right access, make the mount permanent or on-demand with autofs, and diagnose the usual failures.
 objectives:
   - Export a directory with NFS, open the firewall and mount it from a client.

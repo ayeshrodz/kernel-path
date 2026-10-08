@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Find and fix a failing service"
+seoTitle: "Find and fix a failing service (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: find and fix a failing service. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

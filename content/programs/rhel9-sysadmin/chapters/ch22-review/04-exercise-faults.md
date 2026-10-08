@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Find six faults"
+seoTitle: "Find six faults (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: find six faults. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 45
 ---

@@ -1,4 +1,6 @@
 title: Scripts and scheduling
+seoTitle: "Bash Scripting, cron and systemd Timers (RHCSA)"
+seoDescription: "Write Bash scripts with arguments, conditions and loops, and schedule jobs with cron, systemd timers and at. RHCSA (EX200) chapter 15."
 goal: Write shell scripts with arguments, tests and loops, and schedule them with cron, systemd timers and at.
 objectives:
   - Write and run a bash script, with variables, arguments and exit statuses.

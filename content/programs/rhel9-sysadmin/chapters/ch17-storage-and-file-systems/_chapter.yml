@@ -1,4 +1,6 @@
 title: Storage and file systems
+seoTitle: "Linux Disks, Partitions, mkfs and fstab (RHCSA)"
+seoDescription: "Partition disks with parted, create XFS and ext4 file systems, mount them, make mounts and swap permanent in /etc/fstab, and free space."
 goal: Partition disks, create and mount XFS, ext4 and swap, make them permanent with fstab, and find and fix space and busy-mount problems.
 objectives:
   - Identify disks and partitions and create a GPT table and partitions with parted.

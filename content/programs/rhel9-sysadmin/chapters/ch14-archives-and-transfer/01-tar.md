@@ -1,5 +1,7 @@
 ---
 title: Bundling files with tar
+seoTitle: "tar Command in Linux: Create and Extract Archives"
+description: "Create, list and extract tar archives, extract single files and exclude what you do not need. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

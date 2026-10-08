@@ -1,5 +1,7 @@
 ---
 title: Targets and the boot process
+seoTitle: "systemd Targets and Boot Process (set-default)"
+description: "How RHEL 9 boots, systemd targets, systemctl set-default and kernel arguments with grubby. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

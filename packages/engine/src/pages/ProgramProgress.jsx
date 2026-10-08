@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { chapters, program, site } from '@/lib/course';
+import { setHead } from '@/lib/head';
 import { chapterProgress, useProgress } from '@/hooks/useProgress';
 
 /** The learning dashboard of a program that has no authored dashboard copy: overall and per-chapter progress. */
 export default function ProgramProgress() {
   const { done, percent, total } = useProgress();
   useEffect(() => {
-    document.title = `Your learning · ${site.site.name}`;
+    setHead({ title: `Your learning · ${site.site.name}`, route: `/${program.id}/progress`, index: false });
   }, []);
   return (
     <div className="page-grid platform-home">

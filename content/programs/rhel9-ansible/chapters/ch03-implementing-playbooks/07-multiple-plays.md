@@ -1,5 +1,7 @@
 ---
 title: Implementing multiple plays
+seoTitle: "Ansible Playbook With Multiple Plays and become"
+description: "Use several plays in one playbook, privilege escalation with become and per-play settings. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 10
 ---

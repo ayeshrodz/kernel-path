@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Restore and hand over"
+seoTitle: "Restore and hand over (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: restore and hand over. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 35
 ---

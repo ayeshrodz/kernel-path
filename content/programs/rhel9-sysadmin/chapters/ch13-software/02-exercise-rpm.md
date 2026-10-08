@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Interrogate the installed software"
+seoTitle: "Interrogate the installed software (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: interrogate the installed software. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

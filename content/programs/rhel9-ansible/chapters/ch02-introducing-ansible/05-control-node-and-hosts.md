@@ -1,5 +1,7 @@
 ---
 title: Preparing the control node and managed hosts
+seoTitle: "Install Ansible and Prepare Managed Hosts"
+description: "Install ansible-core on the control node and prepare managed hosts with SSH keys and sudo. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 8
 ---

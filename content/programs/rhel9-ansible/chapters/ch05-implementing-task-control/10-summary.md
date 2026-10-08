@@ -1,5 +1,7 @@
 ---
-title: Summary and cheat sheet
+title: "Ansible task control cheat sheet"
+seoTitle: "Ansible task control Cheat Sheet (RHCE)"
+description: "Ansible task control cheat sheet: the key commands and ideas on one page, with flashcards for revision. Free RHCE study notes."
 kind: summary
 minutes: 6
 ---

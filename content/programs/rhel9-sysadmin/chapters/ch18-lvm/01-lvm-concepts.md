@@ -1,5 +1,7 @@
 ---
 title: "Logical volumes: why and how"
+seoTitle: "LVM Tutorial: pvcreate, vgcreate and lvcreate"
+description: "How LVM works and how to build physical volumes, volume groups and logical volumes. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

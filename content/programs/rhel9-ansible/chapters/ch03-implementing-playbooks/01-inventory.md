@@ -1,5 +1,7 @@
 ---
 title: Building an Ansible inventory
+seoTitle: "Ansible Inventory File Examples: INI and YAML"
+description: "Build static inventories with hosts, groups, ranges and nested groups, in INI and YAML. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

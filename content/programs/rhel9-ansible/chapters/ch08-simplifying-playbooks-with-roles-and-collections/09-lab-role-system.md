@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Reusing content with system roles"
+seoTitle: "Reusing content with system roles (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: reusing content with system roles. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

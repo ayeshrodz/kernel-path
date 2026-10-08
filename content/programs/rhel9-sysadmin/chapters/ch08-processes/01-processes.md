@@ -1,5 +1,7 @@
 ---
 title: What a process is
+seoTitle: "Linux Processes: ps, top and /proc Explained"
+description: "What a Linux process is, its states and parents, and how to list processes with ps, pgrep and top. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

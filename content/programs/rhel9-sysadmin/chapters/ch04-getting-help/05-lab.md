@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Getting help review"
+seoTitle: "Linux man pages Practice Lab (RHCSA Exam Style)"
+description: "Graded RHCSA exam-style lab on Linux man pages: a challenge with requirements, hints and solutions, and a grader that checks your work on your own lab."
 kind: lab
 minutes: 25
 ---

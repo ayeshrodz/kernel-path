@@ -1,5 +1,7 @@
 ---
 title: Find the right command
+seoTitle: "man -k, apropos, --help and info Explained"
+description: "Find the right command with man -k and apropos, --help, info and package documentation. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

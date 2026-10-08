@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Deploying custom files with Jinja2 templates"
+seoTitle: "Deploying custom files with Jinja2 templates (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: deploying custom files with Jinja2 templates. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 15
 ---

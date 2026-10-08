@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Troubleshooting Ansible managed hosts"
+seoTitle: "Troubleshooting Ansible managed hosts (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: troubleshooting Ansible managed hosts. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

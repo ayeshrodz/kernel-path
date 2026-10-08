@@ -287,7 +287,8 @@ function CourseMap({ text, groups, pathname, chapterId, onNavigate, closeRef, on
                   e.stopPropagation();
                   setQuery('');
                 }
-                if (e.key === 'Enter' && first) scrollRef.current?.querySelector(`a[href$="${first.path}"]`)?.click();
+                if (e.key === 'Enter' && first)
+                  scrollRef.current?.querySelector(`a[href$="${first.path}/"], a[href$="${first.path}"]`)?.click();
               }}
             />
             {q && (

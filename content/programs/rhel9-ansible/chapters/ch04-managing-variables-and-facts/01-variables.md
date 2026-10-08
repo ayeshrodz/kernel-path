@@ -1,5 +1,7 @@
 ---
 title: Variables in playbooks
+seoTitle: "Ansible Variables in Playbooks With Examples"
+description: "Define and use variables in plays, vars files, registered results and the command line. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

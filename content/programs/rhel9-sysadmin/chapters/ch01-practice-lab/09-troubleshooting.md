@@ -1,5 +1,7 @@
 ---
 title: Troubleshooting and fast rebuild
+seoTitle: "Troubleshooting and fast rebuild: RHCSA Home Lab Setup"
+description: "Troubleshooting and fast rebuild: part of building a free RHCSA practice lab at home with Rocky Linux 9 virtual machines on LXD."
 kind: summary
 minutes: 10
 ---

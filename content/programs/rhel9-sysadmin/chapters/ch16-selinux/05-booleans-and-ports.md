@@ -1,5 +1,7 @@
 ---
 title: Booleans and ports
+seoTitle: "SELinux Booleans and semanage port Examples"
+description: "Change SELinux behaviour with setsebool and allow services on new ports with semanage port. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

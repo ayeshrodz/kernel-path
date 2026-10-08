@@ -1,5 +1,7 @@
 ---
 title: Users, groups and the account files
+seoTitle: "Linux Users and Groups: /etc/passwd, /etc/group"
+description: "How Linux stores users and groups in /etc/passwd, /etc/shadow and /etc/group, and what UIDs mean. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

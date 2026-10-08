@@ -1,5 +1,7 @@
 ---
 title: Project, profile and extra disks
+seoTitle: "LXD Project, Profile and Extra VM Disks"
+description: "Set up an LXD project and profile, and give each server a spare disk for storage practice. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lab
 minutes: 17
 ---

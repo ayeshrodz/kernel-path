@@ -1,4 +1,6 @@
 title: Secure remote access
+seoTitle: "SSH Keys, scp and sshd Hardening (RHCSA)"
+seoDescription: "Log in with SSH, set up key-based authentication, copy files with scp and rsync, and harden the SSH server safely. RHCSA chapter 10."
 goal: Log in to other machines safely with SSH, authenticate with keys, move files between hosts, and harden the SSH server without locking yourself out.
 objectives:
   - Connect with ssh, verify host keys, and handle a changed key correctly.

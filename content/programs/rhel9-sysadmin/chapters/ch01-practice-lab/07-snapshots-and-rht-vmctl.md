@@ -1,5 +1,7 @@
 ---
 title: Snapshots and rht-vmctl
+seoTitle: "LXD Snapshots: Reset Lab VMs in Seconds"
+description: "Save clean snapshots and reset every VM in seconds with one command. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lab
 minutes: 20
 ---

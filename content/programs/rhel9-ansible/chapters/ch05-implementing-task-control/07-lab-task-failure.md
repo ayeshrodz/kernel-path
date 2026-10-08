@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Handling task failure"
+seoTitle: "Handling task failure (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: handling task failure. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

@@ -1,5 +1,7 @@
 ---
 title: Logging in to other machines with SSH
+seoTitle: "SSH Basics: Log In to Remote Linux Servers"
+description: "Log in with ssh, verify host keys and fingerprints, and run remote commands. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

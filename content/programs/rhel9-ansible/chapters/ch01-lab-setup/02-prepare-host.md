@@ -1,5 +1,7 @@
 ---
 title: Prepare the host and LXD
+seoTitle: "Prepare the host and LXD: RHCE Home Lab Setup"
+description: "Prepare the host and LXD: part of building a free RHCE practice lab at home with Rocky Linux 9 virtual machines on LXD."
 kind: lab
 minutes: 20
 ---

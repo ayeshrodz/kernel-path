@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from '@/lib/router';
-import { challenges, course, chapters, objectives, pages } from '@/lib/course';
+import { challenges, course, chapters, objectives, pages, program } from '@/lib/course';
+import { setHead } from '@/lib/head';
 import { useProgressData, useStored } from '@/lib/storage';
 import { validateLabReport } from '@/lib/labReports';
 import { defineWidget, formatCopy } from '@/components/interactive/TeachingContent';
@@ -63,7 +64,7 @@ export default defineWidget('ProgressPage', (copy) => {
       }
     };
     useEffect(() => {
-      document.title = formatCopy(copy.text.template2, [course.title]);
+      setHead({ title: formatCopy(copy.text.template2, [course.title]), route: `/${program.id}/progress`, index: false });
     }, []);
     return (
       <article className="learning-dashboard">

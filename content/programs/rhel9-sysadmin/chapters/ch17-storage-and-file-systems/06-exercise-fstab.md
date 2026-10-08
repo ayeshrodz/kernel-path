@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Make the storage permanent"
+seoTitle: "Make the storage permanent (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: make the storage permanent. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 30
 ---

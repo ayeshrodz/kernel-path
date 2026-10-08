@@ -1,4 +1,6 @@
 title: Text, editors and the shell environment
+seoTitle: "grep, Pipes, vim and the Bash Environment (RHCSA)"
+seoDescription: "Redirect output and build pipelines, search text with grep and regular expressions, edit files in vim and customise Bash. RHCSA chapter 5."
 goal: Send command output where you want it, search text with grep, edit files with vim, and set up your shell with variables, aliases and startup files.
 objectives:
   - Redirect standard output and standard error to files, discard them, and connect commands with pipes and tee.

@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Run a container as a service"
+seoTitle: "Run a container as a service (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: run a container as a service. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 40
 ---

@@ -1,5 +1,7 @@
 ---
 title: Reusing content with system roles
+seoTitle: "RHEL System Roles With Ansible (timesync, selinux)"
+description: "Reuse the RHEL system roles to configure time, SELinux and more with tested content. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

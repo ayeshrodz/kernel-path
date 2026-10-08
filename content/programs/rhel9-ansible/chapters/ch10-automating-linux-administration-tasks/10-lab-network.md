@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Managing network configuration"
+seoTitle: "Managing network configuration (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: managing network configuration. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---
