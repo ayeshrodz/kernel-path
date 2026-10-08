@@ -8,7 +8,7 @@ seoTitle: "Free RHCSA and RHCE Courses: Learn Linux and Ansible by Doing"
 description: "Free RHCSA (EX200) and RHCE (EX294) study courses: Linux administration and Ansible on RHEL 9, with lessons, quizzes and graded labs on your own lab."
 ---
 
-{% hero eyebrow="Free RHCSA and RHCE courses" title="Learn Linux and automation by doing" primary="rhel9-ansible" primaryLabel="Start with Ansible" secondaryLabel="See the programs" %}
+{% hero eyebrow="Free RHCSA and RHCE courses" title="Learn Linux and automation by doing" primary="rhel9-sysadmin" primaryLabel="Start with Linux (RHCSA)" secondaryLabel="See the programs" %}
 Free courses for the **RHCSA** and **RHCE** exams: short lessons with *diagrams you can click*, activities in your browser, and real exercises on a practice lab you build on your own computer. No accounts, no cost.
 {% /hero %}
 
