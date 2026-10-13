@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Configuration files"
+seoTitle: "Configuration files (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: configuration files. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

@@ -1,5 +1,7 @@
 ---
 title: "More autofs maps: wildcards and direct maps"
+seoTitle: "autofs Wildcard and Direct Maps Explained"
+description: "Serve home directories with autofs wildcard maps and mount fixed paths with direct maps. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

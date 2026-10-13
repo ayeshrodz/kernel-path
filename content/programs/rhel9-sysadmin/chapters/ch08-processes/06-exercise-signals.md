@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Stop a runaway process the right way"
+seoTitle: "Stop a runaway process the right way (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: stop a runaway process the right way. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

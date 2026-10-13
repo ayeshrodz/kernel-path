@@ -1,5 +1,7 @@
 ---
 title: Images and containers
+seoTitle: "Podman Tutorial: Run and Manage Containers"
+description: "Pull images and run, inspect, stop and remove rootless containers with Podman on RHEL 9. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

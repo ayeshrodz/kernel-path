@@ -1,5 +1,7 @@
 ---
 title: Including and importing files
+seoTitle: "Ansible import_tasks vs include_tasks Explained"
+description: "Split playbooks with import_playbook, import_tasks and include_tasks, and know the difference. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

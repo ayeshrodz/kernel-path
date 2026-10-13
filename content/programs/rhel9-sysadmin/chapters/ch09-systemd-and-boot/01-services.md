@@ -1,5 +1,7 @@
 ---
 title: Managing services with systemd
+seoTitle: "systemctl Commands: Start, Enable and Mask Services"
+description: "Manage systemd services with systemctl: status, start, stop, enable, disable, mask and failed units. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

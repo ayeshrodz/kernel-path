@@ -1,5 +1,7 @@
 ---
 title: Managing network configuration
+seoTitle: "Configure Networking With Ansible (nmcli, network role)"
+description: "Manage network interfaces and settings with the nmcli module and the network system role. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

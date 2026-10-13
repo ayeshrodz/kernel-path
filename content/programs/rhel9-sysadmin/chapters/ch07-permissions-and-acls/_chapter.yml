@@ -1,4 +1,6 @@
 title: Permissions and ACLs
+seoTitle: "Linux File Permissions, chmod and ACLs (RHCSA)"
+seoDescription: "Read and change Linux permissions with chmod and chown, use umask, setgid and sticky bits, and grant access with ACLs (setfacl)."
 goal: Read and change file permissions and ownership, build shared team directories with setgid and sticky bits, and grant exceptions with access control lists.
 objectives:
   - Read the permission string of ls -l and predict which user class applies and what it allows on files and directories.

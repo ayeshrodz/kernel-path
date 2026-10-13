@@ -1,5 +1,7 @@
 ---
 title: Troubleshooting SELinux denials
+seoTitle: "Troubleshoot SELinux Denials: AVC, ausearch, sealert"
+description: "Find and fix SELinux denials from AVC messages with ausearch and sealert, without disabling SELinux. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

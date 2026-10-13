@@ -1,5 +1,7 @@
 ---
-title: Summary and cheat sheet
+title: "Ansible files and templates cheat sheet"
+seoTitle: "Ansible files and templates Cheat Sheet (RHCE)"
+description: "Ansible files and templates cheat sheet: the key commands and ideas on one page, with flashcards for revision. Free RHCE study notes."
 kind: summary
 minutes: 6
 ---

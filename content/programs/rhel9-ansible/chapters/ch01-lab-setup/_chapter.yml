@@ -1,4 +1,6 @@
 title: Build Your Practice Lab
+seoTitle: "Free RHCE Practice Lab at Home for Ansible"
+seoDescription: "Build a free RHCE practice lab at home: a control node and four managed Rocky Linux 9 hosts on LXD, sealed and resettable with snapshots."
 setup: true
 goal: Build a sealed, classroom-style practice lab at home, with Rocky Linux 9 VMs on LXD using the classroom's names, addresses and users, so you can try every exercise in this guide.
 objectives:

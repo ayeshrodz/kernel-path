@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Managing Linux hosts and using system roles"
+seoTitle: "Managing Linux hosts and using system roles: RHCE Exam-Style Practice Lab"
+description: "Graded RHCE exam-style lab on Ansible final review: a challenge with requirements, hints and solutions, and a grader that checks your work on your own lab."
 kind: lab
 minutes: 45
 ---

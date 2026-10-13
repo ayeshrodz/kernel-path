@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Time zone and time sources"
+seoTitle: "Time zone and time sources (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: time zone and time sources. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

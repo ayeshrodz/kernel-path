@@ -1,5 +1,7 @@
 ---
 title: Archiving and restoring files
+seoTitle: "Archive and Restore Files With Ansible"
+description: "Create and extract archives and fetch files from managed hosts with Ansible modules. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 10
 ---

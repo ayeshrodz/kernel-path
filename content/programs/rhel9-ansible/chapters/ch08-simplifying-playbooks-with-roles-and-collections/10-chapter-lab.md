@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Simplifying playbooks with roles and content collections"
+seoTitle: "Ansible roles and collections Practice Lab (RHCE Exam Style)"
+description: "Graded RHCE exam-style lab on Ansible roles and collections: a challenge with requirements, hints and solutions, and a grader that checks your work on your own lab."
 kind: lab
 minutes: 40
 ---

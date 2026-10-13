@@ -1,5 +1,7 @@
 ---
 title: Variables, aliases and startup files
+seoTitle: "Bash Variables, PATH, Aliases and .bashrc"
+description: "Shell and environment variables, export, PATH, aliases and the Bash start-up files. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

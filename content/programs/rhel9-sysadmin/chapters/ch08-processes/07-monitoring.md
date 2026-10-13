@@ -1,5 +1,7 @@
 ---
 title: Monitoring load and setting priorities
+seoTitle: "Load Average, nice, renice and tuned on RHEL 9"
+description: "Read load averages and top, change process priority with nice and renice, and pick a tuned profile. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

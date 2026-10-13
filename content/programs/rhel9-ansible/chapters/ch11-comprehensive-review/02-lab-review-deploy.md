@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Deploying Ansible"
+seoTitle: "Deploying Ansible: RHCE Exam-Style Practice Lab"
+description: "Graded RHCE exam-style lab on Ansible final review: a challenge with requirements, hints and solutions, and a grader that checks your work on your own lab."
 kind: lab
 minutes: 40
 ---

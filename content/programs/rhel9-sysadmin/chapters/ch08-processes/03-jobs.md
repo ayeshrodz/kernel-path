@@ -1,5 +1,7 @@
 ---
 title: Jobs and the background
+seoTitle: "Linux Background Jobs: bg, fg, jobs and nohup"
+description: "Run commands in the background, move jobs between foreground and background, and survive logouts. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

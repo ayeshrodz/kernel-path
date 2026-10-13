@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Managing software and subscriptions"
+seoTitle: "Managing software and subscriptions (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: managing software and subscriptions. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

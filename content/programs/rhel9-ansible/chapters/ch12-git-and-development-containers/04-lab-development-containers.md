@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Running a project in a development container"
+seoTitle: "Running a project in a development container (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: running a project in a development container. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

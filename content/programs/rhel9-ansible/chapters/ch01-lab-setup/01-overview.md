@@ -1,5 +1,7 @@
 ---
 title: What you are building
+seoTitle: "Build an Ansible Practice Lab at Home"
+description: "What the free RHCE lab looks like: a control node and four managed hosts on a sealed network. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 10
 ---

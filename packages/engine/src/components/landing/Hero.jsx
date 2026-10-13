@@ -27,7 +27,7 @@ export default function Hero({ eyebrow, title, primary, primaryLabel, secondaryL
         <div className="lh-lead">{children}</div>
         <div className="lh-actions">
           {target && (
-            <RootLink className="btn btn-primary btn-lg lh-cta" to={`/${target.id}`}>
+            <RootLink className="btn btn-primary btn-lg lh-cta" to={`/${target.id}/`}>
               {primaryLabel ?? 'Start learning'} <ArrowRight size={16} />
             </RootLink>
           )}

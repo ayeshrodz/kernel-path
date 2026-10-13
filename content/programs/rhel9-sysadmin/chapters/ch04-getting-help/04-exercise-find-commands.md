@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Find commands you have never used"
+seoTitle: "Find commands you have never used (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: find commands you have never used. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 15
 ---

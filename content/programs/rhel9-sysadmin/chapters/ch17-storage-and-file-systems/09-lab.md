@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Storage review"
+seoTitle: "Linux storage Practice Lab (RHCSA Exam Style)"
+description: "Graded RHCSA exam-style lab on Linux storage: a challenge with requirements, hints and solutions, and a grader that checks your work on your own lab."
 kind: lab
 minutes: 40
 ---

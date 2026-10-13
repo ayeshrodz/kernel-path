@@ -1,5 +1,7 @@
 ---
 title: Create the VMs and check the seal
+seoTitle: "Create the VMs and check the seal: RHCE Home Lab Setup"
+description: "Create the VMs and check the seal: part of building a free RHCE practice lab at home with Rocky Linux 9 virtual machines on LXD."
 kind: lab
 minutes: 30
 ---

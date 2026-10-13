@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Troubleshooting Ansible"
+seoTitle: "Ansible troubleshooting Practice Lab (RHCE Exam Style)"
+description: "Graded RHCE exam-style lab on Ansible troubleshooting: a challenge with requirements, hints and solutions, and a grader that checks your work on your own lab."
 kind: lab
 minutes: 30
 ---

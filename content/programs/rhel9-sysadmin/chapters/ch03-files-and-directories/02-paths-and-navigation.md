@@ -1,5 +1,7 @@
 ---
 title: Paths and finding your way
+seoTitle: "Absolute and Relative Paths: cd, pwd, ls"
+description: "Move around Linux with cd, pwd and ls using absolute and relative paths and hidden files. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

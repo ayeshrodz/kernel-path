@@ -1,5 +1,7 @@
 ---
 title: Manage accounts and groups
+seoTitle: "useradd, usermod, groupadd and userdel Examples"
+description: "Create, change and delete Linux user accounts and groups with useradd, usermod and groupadd. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

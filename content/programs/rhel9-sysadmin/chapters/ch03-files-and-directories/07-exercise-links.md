@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Switch releases with a link"
+seoTitle: "Switch releases with a link (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: switch releases with a link. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 15
 ---

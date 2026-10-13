@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Managing users and authentication"
+seoTitle: "Managing users and authentication (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: managing users and authentication. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

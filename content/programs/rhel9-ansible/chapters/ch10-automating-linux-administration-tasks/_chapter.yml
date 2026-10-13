@@ -1,4 +1,6 @@
 title: Automating Linux Administration Tasks
+seoTitle: "Automate Linux Administration With Ansible (RHCE)"
+seoDescription: "Automate packages, users, boot and cron, storage, networking and archives on RHEL with Ansible modules and system roles."
 goal: Automate common Linux system administration tasks with Ansible.
 objectives:
   - Subscribe systems, configure software channels and repositories, enable module streams, and manage RPM packages on managed hosts.

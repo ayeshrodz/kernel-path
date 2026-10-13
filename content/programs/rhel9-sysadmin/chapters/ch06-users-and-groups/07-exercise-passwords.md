@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Onboard and offboard an intern"
+seoTitle: "Onboard and offboard an intern (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: onboard and offboard an intern. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 15
 ---

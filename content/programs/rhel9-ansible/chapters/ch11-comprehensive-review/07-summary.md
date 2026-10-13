@@ -1,5 +1,7 @@
 ---
-title: Course summary and cheat sheet
+title: "Ansible final review cheat sheet"
+seoTitle: "Ansible final review Cheat Sheet (RHCE)"
+description: "Ansible final review cheat sheet: the key commands and ideas on one page, with flashcards for revision. Free RHCE study notes."
 kind: summary
 minutes: 12
 ---

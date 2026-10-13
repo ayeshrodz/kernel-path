@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Build your first volume group"
+seoTitle: "Build your first volume group (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: build your first volume group. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

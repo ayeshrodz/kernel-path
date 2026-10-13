@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Names, hosts and DNS"
+seoTitle: "Names, hosts and DNS (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: names, hosts and DNS. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

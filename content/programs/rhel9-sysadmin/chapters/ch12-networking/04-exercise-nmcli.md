@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Configure a static connection"
+seoTitle: "Configure a static connection (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: configure a static connection. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

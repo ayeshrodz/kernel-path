@@ -1,5 +1,7 @@
 ---
-title: Knowledge check
+title: "SSH quiz"
+seoTitle: "SSH Quiz: RHCSA Practice Questions"
+description: "Test yourself on SSH with RHCSA practice questions. Every answer explains why it is right or wrong. Free and no sign-up."
 kind: quiz
 minutes: 10
 ---

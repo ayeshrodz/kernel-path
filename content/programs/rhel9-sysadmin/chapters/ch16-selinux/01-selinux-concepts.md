@@ -1,5 +1,7 @@
 ---
 title: What SELinux does
+seoTitle: "SELinux Explained: Modes, Contexts and Policy"
+description: "What SELinux does, enforcing and permissive modes, labels and contexts on RHEL 9. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

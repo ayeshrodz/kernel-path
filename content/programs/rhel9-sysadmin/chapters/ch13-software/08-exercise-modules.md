@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Choose a version and check for updates"
+seoTitle: "Choose a version and check for updates (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: choose a version and check for updates. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

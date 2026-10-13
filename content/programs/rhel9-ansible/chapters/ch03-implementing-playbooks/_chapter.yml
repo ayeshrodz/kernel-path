@@ -1,4 +1,6 @@
 title: Implementing an Ansible Playbook
+seoTitle: "Ansible Inventory, ansible.cfg and First Playbooks (RHCE)"
+seoDescription: "Build an Ansible inventory, configure ansible.cfg and write and run your first playbooks with modules and YAML. RHCE chapter 3."
 goal: Build an inventory, configure Ansible for your project, and write and run playbooks with one or more plays.
 objectives:
   - Write static INI inventories with groups, nested groups and host ranges, and verify them.

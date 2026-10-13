@@ -1,5 +1,7 @@
 ---
 title: Why automate Linux administration
+seoTitle: "Why Automate Linux Administration With Ansible"
+description: "What automation solves, idempotence and why teams move from scripts to Ansible. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 6
 ---

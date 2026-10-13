@@ -1,5 +1,7 @@
 ---
 title: Create the VMs and check the seal
+seoTitle: "Create Rocky Linux 9 VMs and Test the Lab"
+description: "Launch the workstation and server VMs and check that the lab network is sealed. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lab
 minutes: 30
 ---

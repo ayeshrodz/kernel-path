@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Answer questions with grep"
+seoTitle: "Answer questions with grep (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: answer questions with grep. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 15
 ---

@@ -1,5 +1,7 @@
 ---
-title: Summary and cheat sheet
+title: "Git for Ansible cheat sheet"
+seoTitle: "Git for Ansible Cheat Sheet (RHCE)"
+description: "Git for Ansible cheat sheet: the key commands and ideas on one page, with flashcards for revision. Free RHCE study notes."
 kind: summary
 minutes: 6
 ---

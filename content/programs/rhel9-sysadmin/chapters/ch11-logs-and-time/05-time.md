@@ -1,5 +1,7 @@
 ---
 title: Keeping the right time
+seoTitle: "timedatectl and chrony: Time Zones and NTP"
+description: "Set time zones with timedatectl and keep accurate time with chrony and NTP sources. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

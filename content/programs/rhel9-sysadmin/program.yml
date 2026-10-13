@@ -6,7 +6,7 @@ tagline: Learn core Linux administration by doing
 summary: 'Build practical Linux administration skills on RHEL 9: shell and files,
   identity and access, services and logs, networking, software, storage, security
   and rootless containers. Explain each change, verify its useful result, and rehearse
-  recovery on a resettable practice lab.'
+  recovery on a resettable practice lab. Prepares you for the RHCSA (EX200) exam.'
 platform:
   family: rhel
   version: '9'
@@ -63,9 +63,31 @@ showcase:
   - Networking
   - Containers
   title: Linux system administration on RHEL
-  label: RHEL
+  label: RHCSA · EX200
   summary: Learn Linux administration through focused lessons, interactive models,
     real labs and service-recovery practice. Build a resettable lab, verify changes
     and leave a clear handover.
 lab: true
 labGuide: ch01/workstation
+seoTitle: 'Free RHCSA Course (EX200): Linux Administration on RHEL 9'
+seoDescription: 'Free RHCSA (EX200) study course for RHEL 9: 22 chapters of lessons, practice terminals, quizzes and graded labs on a home lab you build yourself.'
+keywords:
+- RHCSA
+- EX200
+- RHCSA study guide
+- RHCSA practice exam
+- RHCSA labs
+- RHEL 9
+- Linux system administration
+- learn Linux
+- Linux tutorial for beginners
+- Rocky Linux
+- SELinux
+- LVM
+- firewalld
+- systemd
+- Podman
+certifications:
+- name: Red Hat Certified System Administrator (RHCSA)
+  code: EX200
+  url: https://www.redhat.com/en/services/training/ex200-red-hat-certified-system-administrator-rhcsa-exam

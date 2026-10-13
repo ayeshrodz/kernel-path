@@ -1,5 +1,7 @@
 ---
 title: Describing role structure
+seoTitle: "Ansible Role Directory Structure Explained"
+description: "What each directory in an Ansible role does: tasks, handlers, templates, defaults and vars. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

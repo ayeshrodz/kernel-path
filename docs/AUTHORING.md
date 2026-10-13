@@ -42,6 +42,7 @@ content/
 ```
 
 - **Order** comes from the numeric filename prefix (`01-`, `02-`…).
+- **Search titles and descriptions:** every page has `seoTitle` (about 50-65 characters, written for what people search, for example "Linux ACLs: setfacl and getfacl With Examples") and `description` (120-160 characters). Chapters take `seoTitle` and `seoDescription` in `_chapter.yml`, programs in `program.yml` (with `keywords` and `certifications`). The build writes them into each page's HTML, and the app sets the same values as readers move between pages (`packages/engine/src/lib/seo.js`). Keep them unique across the site.
 - **URL slug** is the filename without its prefix: `03-configuration.md` → `/rhel9-ansible/ch03/configuration/` (links inside content leave out the program: write `#/ch03/configuration`, and the site adds the current program). Renaming a file changes its URL and resets anyone's progress for that page, so avoid renaming published sections.
 - **Section links** add the heading's id after a second `#`: `#/ch08/collections#where-collections-come-from`. Ids come from the heading text (lowercased, spaces to hyphens), so renaming an `##` or `###` heading breaks links people have shared to it. Every `##` and `###` heading gets a copy-link button automatically; link to another page's heading with `[text](#/ch01/page#heading-id)`.
 - **Frontmatter** at the top of each page:

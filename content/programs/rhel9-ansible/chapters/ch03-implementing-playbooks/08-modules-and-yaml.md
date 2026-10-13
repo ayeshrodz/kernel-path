@@ -1,5 +1,7 @@
 ---
 title: Finding modules and YAML syntax
+seoTitle: "Find Ansible Modules With ansible-doc, and YAML Syntax"
+description: "Find and read modules with ansible-doc and write correct YAML for playbooks. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

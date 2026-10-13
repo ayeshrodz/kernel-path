@@ -1,5 +1,7 @@
 ---
-title: Summary and cheat sheet
+title: "Ansible Linux automation cheat sheet"
+seoTitle: "Ansible Linux automation Cheat Sheet (RHCE)"
+description: "Ansible Linux automation cheat sheet: the key commands and ideas on one page, with flashcards for revision. Free RHCE study notes."
 kind: summary
 minutes: 8
 ---

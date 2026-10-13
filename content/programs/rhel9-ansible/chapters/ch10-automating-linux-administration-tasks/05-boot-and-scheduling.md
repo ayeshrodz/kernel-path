@@ -1,5 +1,7 @@
 ---
 title: Managing the boot process and scheduled processes
+seoTitle: "Ansible cron, at and Boot Targets"
+description: "Schedule jobs with the Ansible cron and at modules, and manage services, targets and reboots. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

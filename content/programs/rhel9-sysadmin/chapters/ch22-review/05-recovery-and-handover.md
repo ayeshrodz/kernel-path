@@ -1,5 +1,7 @@
 ---
 title: Recovery and handover
+seoTitle: "Linux Backup Restore and Handover Checklist"
+description: "Restore data with ACLs and labels intact, prove it after a reboot and write a handover note. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

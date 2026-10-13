@@ -1,5 +1,7 @@
 ---
 title: Work on many files at once
+seoTitle: "Bash Wildcards, Brace Expansion and Globbing"
+description: "Work on many files at once with wildcards, brace expansion, tilde and command substitution. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

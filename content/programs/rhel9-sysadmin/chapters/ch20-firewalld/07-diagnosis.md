@@ -1,5 +1,7 @@
 ---
 title: Diagnosing connection problems
+seoTitle: "Connection Refused vs No Route to Host: Firewall Debugging"
+description: "Diagnose blocked connections layer by layer: service, listening port, firewall and SELinux. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

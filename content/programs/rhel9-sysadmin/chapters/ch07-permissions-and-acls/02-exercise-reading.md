@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Who can read this?"
+seoTitle: "Who can read this? (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: who can read this?. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

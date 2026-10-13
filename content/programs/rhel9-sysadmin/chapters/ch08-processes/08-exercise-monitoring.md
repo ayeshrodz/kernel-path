@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Find the slowdown and tune the server"
+seoTitle: "Find the slowdown and tune the server (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: find the slowdown and tune the server. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

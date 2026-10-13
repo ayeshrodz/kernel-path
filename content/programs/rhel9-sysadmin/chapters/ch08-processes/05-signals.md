@@ -1,5 +1,7 @@
 ---
 title: Signals and ending processes
+seoTitle: "kill, pkill and Signals: SIGTERM vs SIGKILL"
+description: "End and pause processes with kill and pkill, and when to use SIGTERM, SIGKILL, SIGHUP and SIGSTOP. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

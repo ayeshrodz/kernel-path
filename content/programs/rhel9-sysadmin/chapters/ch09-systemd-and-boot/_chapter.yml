@@ -1,4 +1,6 @@
 title: Services and the boot process
+seoTitle: "systemctl, systemd Services and the Boot Process (RHCSA)"
+seoDescription: "Manage services with systemctl, write systemd unit files, change targets and recover a RHEL 9 system that will not boot. RHCSA chapter 9."
 goal: Manage services with systemd, write your own units, understand the boot sequence and targets, and recover a system that will not boot normally.
 objectives:
   - Start, stop, enable, disable and mask services, and separate "running now" from "starts at boot".

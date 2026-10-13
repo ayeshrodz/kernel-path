@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Install, inspect and undo"
+seoTitle: "Install, inspect and undo (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: install, inspect and undo. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

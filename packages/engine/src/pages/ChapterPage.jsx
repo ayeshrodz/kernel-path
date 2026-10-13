@@ -2,7 +2,9 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from '@/lib/router';
 import { ArrowRight, Check, Clock } from 'lucide-react';
-import { course, findChapter, kindLabel } from '@/lib/course';
+import { course, findChapter, kindLabel, program } from '@/lib/course';
+import { setHead } from '@/lib/head';
+import { chapterMeta } from '@/lib/seo';
 import { chapterProgress, useProgress } from '@/hooks/useProgress';
 import { kindIcon } from '@/components/layout/Sidebar';
 import NotFound from './NotFound';
@@ -13,7 +15,7 @@ export default function ChapterPage() {
   const { done, isDone } = useProgress();
 
   useEffect(() => {
-    if (chapter) document.title = `Chapter ${chapter.number}: ${chapter.title} · ${course.title}`;
+    if (chapter) setHead({ ...chapterMeta(chapter, program), route: `/${program.id}/${chapter.id}` });
   }, [chapter]);
 
   if (!chapter) return <NotFound />;

@@ -1,5 +1,7 @@
 ---
-title: Summary and cheat sheet
+title: "dnf and rpm cheat sheet"
+seoTitle: "dnf and rpm Cheat Sheet (RHCSA)"
+description: "dnf and rpm cheat sheet: the key commands and ideas on one page, with flashcards for revision. Free RHCSA study notes."
 kind: summary
 minutes: 5
 ---

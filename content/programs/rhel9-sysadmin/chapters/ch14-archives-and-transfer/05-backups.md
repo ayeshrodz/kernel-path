@@ -1,5 +1,7 @@
 ---
 title: Backups that restore properly
+seoTitle: "Linux Backups With tar: ACLs and Incrementals"
+description: "Back up with tar keeping ACLs and SELinux labels, incremental backups and tested restores. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

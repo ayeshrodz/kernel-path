@@ -1,5 +1,7 @@
 ---
 title: Running tasks conditionally
+seoTitle: "Ansible when Conditions With Examples"
+description: "Run tasks conditionally with when, facts, registered results and combined conditions. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

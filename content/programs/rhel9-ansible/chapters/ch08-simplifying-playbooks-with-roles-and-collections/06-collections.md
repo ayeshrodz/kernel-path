@@ -1,5 +1,7 @@
 ---
 title: Getting roles and modules from collections
+seoTitle: "Ansible Collections Tutorial: Install and Use"
+description: "Install collections with ansible-galaxy and use their roles and modules with FQCNs. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

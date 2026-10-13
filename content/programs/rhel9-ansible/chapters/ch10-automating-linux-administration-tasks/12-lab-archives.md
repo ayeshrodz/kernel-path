@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Archiving and restoring files"
+seoTitle: "Archiving and restoring files (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: archiving and restoring files. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

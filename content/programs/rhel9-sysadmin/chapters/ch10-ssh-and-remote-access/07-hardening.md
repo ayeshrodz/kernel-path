@@ -1,5 +1,7 @@
 ---
 title: Configuring and hardening the SSH server
+seoTitle: "Harden sshd: Disable Root and Password Login"
+description: "Configure sshd safely with drop-in files: disable password and root logins and test before reloading. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

@@ -1,5 +1,7 @@
 ---
 title: Managing Ansible configuration files
+seoTitle: "ansible.cfg Explained: Configuration File Examples"
+description: "Where Ansible reads ansible.cfg, the settings that matter and how to check them. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

@@ -1,5 +1,7 @@
 ---
 title: Recovering a system that will not boot normally
+seoTitle: "Reset the Root Password and Rescue a RHEL 9 Boot"
+description: "Recover a system that will not boot: rescue and emergency targets, rd.break and root password reset. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

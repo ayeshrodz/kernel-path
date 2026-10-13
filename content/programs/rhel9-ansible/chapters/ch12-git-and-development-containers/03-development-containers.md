@@ -1,5 +1,7 @@
 ---
 title: Developing with VS Code and development containers
+seoTitle: "VS Code Dev Containers and Ansible Execution Environments"
+description: "Develop Ansible in VS Code with development containers and consistent execution environments. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

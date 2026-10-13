@@ -1,5 +1,7 @@
 ---
 title: Modifying and copying files to hosts
+seoTitle: "Ansible copy, file, lineinfile and blockinfile Modules"
+description: "Create, copy and change files on managed hosts with the Ansible file modules. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

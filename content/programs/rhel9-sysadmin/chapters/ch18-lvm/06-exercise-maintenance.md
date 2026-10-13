@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Move data to a new disk"
+seoTitle: "Move data to a new disk (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: move data to a new disk. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 30
 ---

@@ -1,5 +1,7 @@
 ---
 title: Deploying roles from external content sources
+seoTitle: "Install Ansible Roles From Galaxy With requirements.yml"
+description: "Install roles from Ansible Galaxy and Git with a requirements file and ansible-galaxy. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

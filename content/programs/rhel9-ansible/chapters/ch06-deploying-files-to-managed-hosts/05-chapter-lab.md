@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Deploying files to managed hosts"
+seoTitle: "Ansible files and templates Practice Lab (RHCE Exam Style)"
+description: "Graded RHCE exam-style lab on Ansible files and templates: a challenge with requirements, hints and solutions, and a grader that checks your work on your own lab."
 kind: lab
 minutes: 30
 ---

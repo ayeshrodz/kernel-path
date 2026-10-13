@@ -1,4 +1,6 @@
 title: Comprehensive Review
+seoTitle: "RHCE Practice Exam: Ansible Review Labs"
+seoDescription: "RHCE review: deploy Ansible, write playbooks, manage hosts and roles, and test yourself with two assessment scenarios."
 goal: Demonstrate the skills learned in this course by installing, optimizing and configuring Ansible to manage hosts.
 objectives:
   - Find and close the gaps in what you have learned, chapter by chapter.

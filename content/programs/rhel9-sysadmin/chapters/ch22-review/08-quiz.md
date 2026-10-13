@@ -1,5 +1,7 @@
 ---
-title: Knowledge check
+title: "Linux administration final review quiz"
+seoTitle: "Linux administration final review Quiz: RHCSA Practice Questions"
+description: "Test yourself on Linux administration final review with RHCSA practice questions. Every answer explains why it is right or wrong. Free and no sign-up."
 kind: quiz
 minutes: 10
 ---

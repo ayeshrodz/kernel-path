@@ -1,5 +1,7 @@
 ---
 title: The directory tree
+seoTitle: "Linux Directory Structure Explained (/etc, /var)"
+description: "The Linux file system hierarchy: what lives in /etc, /var, /usr, /home and the other top directories. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

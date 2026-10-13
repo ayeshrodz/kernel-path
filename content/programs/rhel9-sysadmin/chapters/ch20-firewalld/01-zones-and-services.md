@@ -1,5 +1,7 @@
 ---
 title: Zones and services
+seoTitle: "firewalld Zones and Services Explained"
+description: "How firewalld zones and services work and how to allow a service with firewall-cmd. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

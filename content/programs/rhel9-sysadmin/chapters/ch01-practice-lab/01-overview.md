@@ -1,5 +1,7 @@
 ---
 title: What you are building
+seoTitle: "Build an RHCSA Practice Lab at Home"
+description: "What the free home lab looks like: three Rocky Linux 9 VMs, a sealed network and resettable snapshots. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 10
 ---

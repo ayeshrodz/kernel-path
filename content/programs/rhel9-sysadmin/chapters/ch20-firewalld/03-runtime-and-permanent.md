@@ -1,5 +1,7 @@
 ---
 title: Runtime and permanent rules
+seoTitle: "firewall-cmd --permanent vs Runtime Rules"
+description: "Runtime and permanent firewalld rules, --reload, --timeout and the runtime-to-permanent trap. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

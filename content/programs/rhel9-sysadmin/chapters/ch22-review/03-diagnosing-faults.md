@@ -1,5 +1,7 @@
 ---
 title: Diagnosing faults
+seoTitle: "Linux Troubleshooting Method: Symptoms to Fixes"
+description: "Diagnose faults from the symptom: refused, no route, timeout, 403 or a service that will not start. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

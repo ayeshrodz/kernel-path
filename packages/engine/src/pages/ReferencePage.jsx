@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { course, referenceLoaderFor } from '@/lib/course';
+import { course, program, referenceLoaderFor } from '@/lib/course';
+import { setHead } from '@/lib/head';
 import { useHeadingNavigation } from '@/hooks/useHeadingNavigation';
 import LearningPageLayout from '@/components/layout/LearningPageLayout';
 import PageTree from '@/components/content/PageTree';
@@ -12,7 +13,7 @@ export default function ReferencePage({ page }) {
   useHeadingNavigation(!!Content);
   useEffect(() => {
     let alive = true;
-    document.title = `${page.title} · ${course.title}`;
+    setHead({ title: `${page.title} · ${course.title}`, route: `/${program.id}/platform`, index: false });
     setContent(null);
     setError(null);
     const load = referenceLoaderFor(page);

@@ -1,4 +1,6 @@
 title: Troubleshooting Ansible
+seoTitle: "Troubleshooting Ansible Playbooks and Hosts (RHCE)"
+seoDescription: "Debug Ansible playbooks with verbosity, check mode and the debug module, and troubleshoot managed host connections."
 goal: Troubleshoot playbooks and managed hosts.
 objectives:
   - Troubleshoot generic issues with a new playbook and repair them, using error messages, syntax checks, verbosity, logs and playbook artifacts.

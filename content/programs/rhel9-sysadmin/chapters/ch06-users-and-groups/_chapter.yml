@@ -1,4 +1,6 @@
 title: Users and groups
+seoTitle: "Linux Users and Groups: useradd, sudo, passwd (RHCSA)"
+seoDescription: "Create and manage Linux users and groups, grant sudo access safely and set password ageing with chage. RHCSA (EX200) chapter 6."
 goal: Create and manage local user accounts and groups, give administrators controlled root access with sudo, and set password policies.
 objectives:
   - Explain users, groups, UIDs and GIDs, and read the account databases /etc/passwd, /etc/group and /etc/shadow.

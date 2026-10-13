@@ -1,5 +1,7 @@
 ---
 title: Creating roles
+seoTitle: "How to Create an Ansible Role (ansible-galaxy init)"
+description: "Create your own role with ansible-galaxy role init and use it from a playbook. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 10
 ---

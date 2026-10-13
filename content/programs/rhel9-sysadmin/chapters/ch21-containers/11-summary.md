@@ -1,5 +1,7 @@
 ---
-title: Summary and cheat sheet
+title: "Podman containers cheat sheet"
+seoTitle: "Podman containers Cheat Sheet (RHCSA)"
+description: "Podman containers cheat sheet: the key commands and ideas on one page, with flashcards for revision. Free RHCSA study notes."
 kind: summary
 minutes: 5
 ---

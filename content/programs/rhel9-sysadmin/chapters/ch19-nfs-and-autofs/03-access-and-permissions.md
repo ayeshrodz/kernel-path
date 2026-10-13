@@ -1,5 +1,7 @@
 ---
 title: Who may do what over NFS
+seoTitle: "NFS Permissions, UIDs and root_squash Explained"
+description: "Why NFS access depends on UIDs, what root_squash does and how to fix permission problems. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

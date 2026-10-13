@@ -1,5 +1,7 @@
 ---
-title: Summary and cheat sheet
+title: "Linux permissions and ACLs cheat sheet"
+seoTitle: "Linux permissions and ACLs Cheat Sheet (RHCSA)"
+description: "Linux permissions and ACLs cheat sheet: the key commands and ideas on one page, with flashcards for revision. Free RHCSA study notes."
 kind: summary
 minutes: 5
 ---

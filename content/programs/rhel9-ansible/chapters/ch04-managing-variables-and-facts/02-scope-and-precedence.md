@@ -1,5 +1,7 @@
 ---
 title: Host and group variables, and precedence
+seoTitle: "Ansible host_vars, group_vars and Variable Precedence"
+description: "Where to put host and group variables and which value wins under Ansible precedence. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

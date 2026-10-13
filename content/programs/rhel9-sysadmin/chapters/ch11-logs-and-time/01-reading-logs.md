@@ -1,5 +1,7 @@
 ---
 title: Reading the system logs
+seoTitle: "journalctl Tutorial: Read Linux System Logs"
+description: "Read and filter logs with journalctl by unit, priority and time, and with /var/log and logger. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

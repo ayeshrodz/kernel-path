@@ -1,5 +1,7 @@
 ---
 title: Managing users and authentication
+seoTitle: "Manage Linux Users and SSH Keys With Ansible"
+description: "Create users and groups, set passwords and authorized keys, and manage sudo with Ansible. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

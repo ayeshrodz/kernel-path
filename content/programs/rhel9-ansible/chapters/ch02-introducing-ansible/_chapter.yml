@@ -1,4 +1,6 @@
 title: Introducing Ansible
+seoTitle: "Introduction to Ansible: What It Is and How It Works (RHCE)"
+seoDescription: "What Ansible is, why automate Linux administration, its architecture, and how to prepare a control node and managed hosts."
 goal: Understand what Ansible is, why it matters, how it is put together, and get a working control node with automation content navigator.
 objectives:
   - Explain why automation beats manual administration, and what Infrastructure as Code means.

@@ -1,5 +1,7 @@
 ---
 title: Read manual pages
+seoTitle: "How to Read Linux man Pages"
+description: "Read man pages and their sections, search inside them and find the option you need. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

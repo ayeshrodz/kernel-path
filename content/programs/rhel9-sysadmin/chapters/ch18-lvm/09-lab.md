@@ -1,5 +1,7 @@
 ---
 title: "Exercise: LVM review"
+seoTitle: "LVM Practice Lab (RHCSA Exam Style)"
+description: "Graded RHCSA exam-style lab on LVM: a challenge with requirements, hints and solutions, and a grader that checks your work on your own lab."
 kind: lab
 minutes: 40
 ---

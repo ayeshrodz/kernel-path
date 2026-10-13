@@ -1,5 +1,7 @@
 ---
 title: Selecting hosts with host patterns
+seoTitle: "Ansible Host Patterns and --limit Examples"
+description: "Select hosts with patterns: groups, wildcards, intersections, exclusions and --limit. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

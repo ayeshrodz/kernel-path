@@ -1,5 +1,7 @@
 ---
 title: Create and seal the lab network
+seoTitle: "Create an Isolated Lab Network in LXD"
+description: "Create a private bridge network and seal it so the lab cannot reach your home network. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lab
 minutes: 15
 ---

@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Secure a web folder"
+seoTitle: "Secure a web folder (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: secure a web folder. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

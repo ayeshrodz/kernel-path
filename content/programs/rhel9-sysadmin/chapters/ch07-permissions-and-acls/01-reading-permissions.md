@@ -1,5 +1,7 @@
 ---
 title: Reading file permissions
+seoTitle: "Linux File Permissions Explained (rwx, ls -l)"
+description: "Read rwx permissions for owner, group and others in ls -l, and how they apply to directories. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

@@ -1,5 +1,7 @@
 ---
 title: Changing permissions and ownership
+seoTitle: "chmod and chown Explained With Examples"
+description: "Change permissions with symbolic and octal chmod, ownership with chown and chgrp, and use capital X. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

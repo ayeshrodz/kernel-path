@@ -1,5 +1,7 @@
 ---
-title: Summary and cheat sheet
+title: "Linux logs and time cheat sheet"
+seoTitle: "Linux logs and time Cheat Sheet (RHCSA)"
+description: "Linux logs and time cheat sheet: the key commands and ideas on one page, with flashcards for revision. Free RHCSA study notes."
 kind: summary
 minutes: 5
 ---

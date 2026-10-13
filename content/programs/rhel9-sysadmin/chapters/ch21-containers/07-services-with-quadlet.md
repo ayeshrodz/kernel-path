@@ -1,5 +1,7 @@
 ---
 title: Containers as services with Quadlet
+seoTitle: "Podman Quadlet: Run a Container as a systemd Service"
+description: "Run containers as user services with Quadlet, restart policies and loginctl enable-linger. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

@@ -17,13 +17,14 @@ import './styles/motion.css';
 import App from './App';
 import BootError from './pages/BootError';
 import { bootContent } from './lib/course';
+import { withSlash } from './lib/router';
 
 // Addresses from before pages had paths ("/#/rhel9-ansible/ch03/inventory#heading") move to the path form,
 // on arrival and when an old link changes the hash later.
 function moveHashAddress() {
   if (!window.location.hash.startsWith('#/')) return false;
   const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-  window.history.replaceState(null, '', `${base}${window.location.hash.slice(1)}`);
+  window.history.replaceState(null, '', `${base}${withSlash(window.location.hash.slice(1))}`);
   return true;
 }
 moveHashAddress();
@@ -34,13 +35,32 @@ window.addEventListener('hashchange', () => {
 
 const root = createRoot(document.getElementById('root'));
 
+/** Once the browser is idle, fetch the code the app may need later, so nothing waits on the network afterwards. */
+function fetchTheRestWhenIdle() {
+  const later = document.querySelector('meta[name="kernel-path-later"]')?.content.split(' ').filter(Boolean) ?? [];
+  const idle = window.requestIdleCallback ?? ((callback) => setTimeout(callback, 1500));
+  idle(() => {
+    for (const href of later) {
+      const link = document.createElement('link');
+      if (href.endsWith('.css')) {
+        link.rel = 'preload';
+        link.as = 'style';
+      } else link.rel = 'modulepreload';
+      link.href = href;
+      document.head.appendChild(link);
+    }
+  });
+}
+
 bootContent().then(
-  () =>
+  () => {
     root.render(
       <StrictMode>
         <App />
       </StrictMode>,
-    ),
+    );
+    fetchTheRestWhenIdle();
+  },
   (error) => {
     console.error(error);
     root.render(

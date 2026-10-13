@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Files and directories review"
+seoTitle: "Linux files and directories Practice Lab (RHCSA Exam Style)"
+description: "Graded RHCSA exam-style lab on Linux files and directories: a challenge with requirements, hints and solutions, and a grader that checks your work on your own lab."
 kind: lab
 minutes: 30
 ---

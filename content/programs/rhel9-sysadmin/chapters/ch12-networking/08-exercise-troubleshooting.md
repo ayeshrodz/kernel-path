@@ -1,5 +1,7 @@
 ---
 title: "Exercise: The service nobody can reach"
+seoTitle: "The service nobody can reach (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: the service nobody can reach. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 30
 ---

@@ -1,5 +1,7 @@
 ---
 title: Managing automation projects with Git
+seoTitle: "Git for Ansible Projects: Branches, Commits, Remotes"
+description: "Keep Ansible automation in Git: commits, branches, merges and pushing to a remote. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 14
 ---

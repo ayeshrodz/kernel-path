@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Managing storage"
+seoTitle: "Managing storage (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: managing storage. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

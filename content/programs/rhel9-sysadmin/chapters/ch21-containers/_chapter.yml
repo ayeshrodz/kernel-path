@@ -1,4 +1,6 @@
 title: Containers with Podman
+seoTitle: "Podman Containers and Quadlet on RHEL 9 (RHCSA)"
+seoDescription: "Run rootless containers with Podman, publish ports, use volumes with SELinux labels, build images and run containers as systemd services."
 goal: Run containers as an ordinary user, publish ports and keep data safely, build your own image, and run a container as a systemd service that survives a reboot.
 objectives:
   - Pull images by full name and run, inspect, stop and remove containers.

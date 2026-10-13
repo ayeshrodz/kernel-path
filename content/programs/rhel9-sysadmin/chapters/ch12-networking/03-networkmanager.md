@@ -1,5 +1,7 @@
 ---
 title: Configuring the network with NetworkManager
+seoTitle: "nmcli Static IP Configuration on RHEL 9"
+description: "Configure static IP addresses, gateways and DNS with nmcli connection and NetworkManager. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

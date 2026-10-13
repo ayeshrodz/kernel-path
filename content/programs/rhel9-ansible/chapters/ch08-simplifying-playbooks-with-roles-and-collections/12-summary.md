@@ -1,5 +1,7 @@
 ---
-title: Summary and cheat sheet
+title: "Ansible roles and collections cheat sheet"
+seoTitle: "Ansible roles and collections Cheat Sheet (RHCE)"
+description: "Ansible roles and collections cheat sheet: the key commands and ideas on one page, with flashcards for revision. Free RHCE study notes."
 kind: summary
 minutes: 6
 ---

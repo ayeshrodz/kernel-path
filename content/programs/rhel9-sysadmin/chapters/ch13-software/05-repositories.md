@@ -1,5 +1,7 @@
 ---
 title: Repositories and package signatures
+seoTitle: "Add a dnf Repository and GPG Keys on RHEL 9"
+description: "Configure repositories in /etc/yum.repos.d, check package signatures and build a local repo. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

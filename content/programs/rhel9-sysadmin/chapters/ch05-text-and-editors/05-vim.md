@@ -1,5 +1,7 @@
 ---
 title: Edit files with vim
+seoTitle: "Vim for Beginners: Edit, Save and Quit"
+description: "Edit files with vim: modes, moving, copying, deleting, undo, search and replace, saving and quitting. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

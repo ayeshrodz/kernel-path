@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Git and development containers"
+seoTitle: "Git for Ansible Practice Lab (RHCE Exam Style)"
+description: "Graded RHCE exam-style lab on Git for Ansible: a challenge with requirements, hints and solutions, and a grader that checks your work on your own lab."
 kind: lab
 minutes: 30
 ---

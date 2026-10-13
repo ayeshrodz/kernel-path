@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Building an inventory"
+seoTitle: "Building an inventory (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: building an inventory. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 15
 ---

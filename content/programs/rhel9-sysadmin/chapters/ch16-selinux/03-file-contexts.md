@@ -1,5 +1,7 @@
 ---
 title: "File contexts: rules, restorecon and chcon"
+seoTitle: "semanage fcontext, restorecon and chcon Explained"
+description: "Fix SELinux file labels permanently with semanage fcontext and restorecon, and why chcon is temporary. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 25
 ---

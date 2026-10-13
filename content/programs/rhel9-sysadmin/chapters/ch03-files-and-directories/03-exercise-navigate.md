@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Find your way around"
+seoTitle: "Find your way around (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: find your way around. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 10
 ---

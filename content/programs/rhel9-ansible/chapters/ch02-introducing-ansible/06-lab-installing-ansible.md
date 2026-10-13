@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Installing Ansible"
+seoTitle: "Installing Ansible (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: installing Ansible. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 15
 ---

@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Give the auditors read access"
+seoTitle: "Give the auditors read access (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: give the auditors read access. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

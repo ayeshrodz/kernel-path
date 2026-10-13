@@ -1,4 +1,6 @@
 title: Files and directories
+seoTitle: "Linux Files and Directories: ls, cp, mv, rm, ln (RHCSA)"
+seoDescription: "Navigate the Linux directory tree, use absolute and relative paths, copy, move and delete files, and create hard and symbolic links."
 goal: Find your way around the Linux directory tree, and create, copy, move, link and remove files from the shell, using patterns to work on many files at once.
 objectives:
   - Describe how Linux organises files in one directory tree, and what the main directories hold.

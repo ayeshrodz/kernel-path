@@ -80,6 +80,9 @@
     },
     "eyebrow": {
       "$ref": "../common.schema.json#/$defs/shortText"
+    },
+    "seoTitle": {
+      "$ref": "../common.schema.json#/$defs/seoTitle"
     }
   },
   "$defs": {

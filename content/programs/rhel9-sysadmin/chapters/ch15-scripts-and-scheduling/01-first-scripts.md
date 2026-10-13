@@ -1,5 +1,7 @@
 ---
 title: Your first shell scripts
+seoTitle: "Bash Scripting for Beginners: Your First Script"
+description: "Write and run Bash scripts with the shebang, arguments, variables and exit statuses. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

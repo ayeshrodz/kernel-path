@@ -1,4 +1,6 @@
 title: Logical volume management
+seoTitle: "LVM Tutorial: Create, Extend and Shrink Volumes (RHCSA)"
+seoDescription: "Build LVM volume groups and logical volumes, extend them online with lvextend -r, shrink ext4, replace disks with pvmove and fix problems."
 goal: Build storage with LVM, grow and shrink volumes online, replace disks without downtime, and diagnose common LVM problems.
 objectives:
   - Describe physical volumes, volume groups and logical volumes, and create and inspect them.

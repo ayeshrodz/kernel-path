@@ -1,5 +1,7 @@
 ---
 title: Managing storage
+seoTitle: "Ansible LVM and File System Automation (lvg, lvol)"
+description: "Partition disks, create LVM volumes and file systems and mount them with Ansible modules. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

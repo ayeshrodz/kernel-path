@@ -1,4 +1,6 @@
 title: Managing Complex Plays and Playbooks
+seoTitle: "Ansible Host Patterns, include and import (RHCE)"
+seoDescription: "Select hosts precisely with host patterns and split large playbooks with include and import of tasks and playbooks."
 goal: Write playbooks for larger, more complex projects by selecting hosts precisely and splitting work into reusable files.
 objectives:
   - Write host patterns that select exactly the hosts a play or a command should manage.

@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Build a team directory and a drop box"
+seoTitle: "Build a team directory and a drop box (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: build a team directory and a drop box. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

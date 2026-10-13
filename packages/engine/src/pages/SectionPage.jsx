@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from '@/lib/router';
 import { ArrowLeft, ArrowRight, Check, Clock } from 'lucide-react';
-import { course, findPage, kindLabel, loaderFor, neighbours } from '@/lib/course';
+import { course, findPage, kindLabel, loaderFor, neighbours, program } from '@/lib/course';
+import { setHead } from '@/lib/head';
+import { sectionMeta } from '@/lib/seo';
 import { useProgress } from '@/hooks/useProgress';
 import { useHeadingNavigation } from '@/hooks/useHeadingNavigation';
 import { useStored } from '@/lib/storage';
@@ -46,9 +48,12 @@ function Section({ page }) {
   }, [page]);
 
   useEffect(() => {
-    document.title = `${page.number} ${page.section.title} · ${course.title}`;
     setLastVisited(page.key);
   }, [page, setLastVisited]);
+
+  useEffect(() => {
+    setHead({ ...sectionMeta(page.section, page.chapter, program, Content), route: `/${program.id}/${page.key}` });
+  }, [page, Content]);
 
   return (
     <PageContext.Provider value={page}>

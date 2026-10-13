@@ -1,5 +1,7 @@
 ---
-title: Summary and cheat sheet
+title: "Ansible basics cheat sheet"
+seoTitle: "Ansible basics Cheat Sheet (RHCE)"
+description: "Ansible basics cheat sheet: the key commands and ideas on one page, with flashcards for revision. Free RHCE study notes."
 kind: summary
 minutes: 5
 ---

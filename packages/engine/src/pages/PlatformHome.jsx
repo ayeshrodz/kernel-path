@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { loadSiteHome, site } from '@/lib/course';
+import { setHead } from '@/lib/head';
+import { homeMeta } from '@/lib/seo';
 import PageTree from '@/components/content/PageTree';
 
 /** The site's home page: its text comes from content/site/home.md. */
@@ -9,12 +11,16 @@ export default function PlatformHome() {
 
   useEffect(() => {
     let alive = true;
-    document.title = `${site.site.name} · ${site.site.tagline}`;
+    setHead({ ...homeMeta(site, null), route: '/' });
     const load = loadSiteHome();
     if (!load) setError('This site has no home page yet.');
     else
       load.then(
-        (loaded) => alive && setPage(loaded),
+        (loaded) => {
+          if (!alive) return;
+          setPage(loaded);
+          setHead({ ...homeMeta(site, loaded), route: '/' });
+        },
         () => alive && setError('The home page could not load. Reload to try again.'),
       );
     return () => {

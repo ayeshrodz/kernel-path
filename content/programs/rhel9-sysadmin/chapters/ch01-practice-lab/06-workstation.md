@@ -1,5 +1,7 @@
 ---
 title: Prepare workstation and the lab tools
+seoTitle: "Set Up the Workstation VM and Lab Tools"
+description: "Prepare the workstation VM, SSH keys and the lab command that starts and grades exercises. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lab
 minutes: 20
 ---

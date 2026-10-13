@@ -1,5 +1,7 @@
 ---
 title: Run commands and read files
+seoTitle: "Linux Commands: Options, Arguments, cat and less"
+description: "Run Linux commands with options and arguments, and read files with cat, less, head, tail and wc. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

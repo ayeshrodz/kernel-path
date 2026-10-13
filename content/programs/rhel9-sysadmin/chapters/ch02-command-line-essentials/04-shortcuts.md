@@ -1,5 +1,7 @@
 ---
 title: Work faster with completion and history
+seoTitle: "Bash Tab Completion, History and Shortcuts"
+description: "Save keystrokes with Tab completion, history search with Ctrl+R and Bash line-editing shortcuts. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

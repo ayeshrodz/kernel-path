@@ -1,4 +1,6 @@
 title: Review and practice
+seoTitle: "RHCSA Practice Exam: Capstone Labs and Review"
+seoDescription: "Pull every RHCSA skill together: deliver a service, diagnose faults methodically, restore from backup and prove it all after a reboot."
 goal: Deliver a small service the way you would in real work, with proof for every requirement, find and repair faults with one method, and leave a tested recovery and a handover note.
 objectives:
   - Turn requirements into evidence and build a service layer by layer.

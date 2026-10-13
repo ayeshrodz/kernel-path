@@ -1,4 +1,6 @@
 title: The firewall
+seoTitle: "firewalld and firewall-cmd Tutorial (RHCSA)"
+seoDescription: "Control traffic with firewalld: zones, services, ports, runtime and permanent rules, source zones, port forwarding and rich rules."
 goal: Control which network traffic reaches a machine with firewalld, change rules so they survive a reload and a reboot, limit services to chosen hosts, and find out why a connection fails.
 objectives:
   - Read the active zone and allow services and ports in it.

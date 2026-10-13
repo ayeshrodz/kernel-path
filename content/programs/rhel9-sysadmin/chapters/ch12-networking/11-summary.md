@@ -1,5 +1,7 @@
 ---
-title: Summary and cheat sheet
+title: "Linux networking cheat sheet"
+seoTitle: "Linux networking Cheat Sheet (RHCSA)"
+description: "Linux networking cheat sheet: the key commands and ideas on one page, with flashcards for revision. Free RHCSA study notes."
 kind: summary
 minutes: 5
 ---

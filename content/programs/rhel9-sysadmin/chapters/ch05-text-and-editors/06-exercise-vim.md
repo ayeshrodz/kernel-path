@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Create and edit a file with vim"
+seoTitle: "Create and edit a file with vim (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: create and edit a file with vim. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

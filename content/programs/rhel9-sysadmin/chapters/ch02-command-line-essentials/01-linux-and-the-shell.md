@@ -1,5 +1,7 @@
 ---
 title: Linux and the shell
+seoTitle: "Linux and the Shell: A Beginner Introduction"
+description: "What Linux, distributions and the Bash shell are, how to read the prompt and how to log in with SSH. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

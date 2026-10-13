@@ -1,5 +1,7 @@
 ---
-title: Knowledge check
+title: "dnf and rpm quiz"
+seoTitle: "dnf and rpm Quiz: RHCSA Practice Questions"
+description: "Test yourself on dnf and rpm with RHCSA practice questions. Every answer explains why it is right or wrong. Free and no sign-up."
 kind: quiz
 minutes: 10
 ---

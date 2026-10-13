@@ -1,5 +1,7 @@
 ---
 title: Search text with grep
+seoTitle: "grep Command in Linux With Regex Examples"
+description: "Search text with grep and regular expressions: -i, -v, -r, -E, anchors and character classes. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 25
 ---

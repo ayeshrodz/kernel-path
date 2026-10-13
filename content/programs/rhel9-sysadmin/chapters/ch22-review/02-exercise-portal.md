@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Deliver the portal"
+seoTitle: "Deliver the portal (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: deliver the portal. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 50
 ---

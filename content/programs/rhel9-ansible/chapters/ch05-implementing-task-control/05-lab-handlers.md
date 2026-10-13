@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Implementing handlers"
+seoTitle: "Implementing handlers (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: implementing handlers. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 15
 ---

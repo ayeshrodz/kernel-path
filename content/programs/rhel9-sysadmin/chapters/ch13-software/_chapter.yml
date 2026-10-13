@@ -1,4 +1,6 @@
 title: Software management
+seoTitle: "dnf, rpm and Repositories on RHEL 9 (RHCSA)"
+seoDescription: "Install, update and remove software with dnf, query packages with rpm, add repositories and choose module streams on RHEL 9."
 goal: Query and verify installed packages with rpm, manage software with dnf, work with repositories and signatures, build a local repository, and choose module streams and updates.
 objectives:
   - Read package names and query and verify installed packages with rpm.

@@ -1,5 +1,7 @@
 ---
-title: Knowledge check
+title: "Linux files and directories quiz"
+seoTitle: "Linux files and directories Quiz: RHCSA Practice Questions"
+description: "Test yourself on Linux files and directories with RHCSA practice questions. Every answer explains why it is right or wrong. Free and no sign-up."
 kind: quiz
 minutes: 10
 ---

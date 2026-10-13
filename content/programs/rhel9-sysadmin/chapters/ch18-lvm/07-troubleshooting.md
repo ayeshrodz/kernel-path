@@ -1,5 +1,7 @@
 ---
 title: "When LVM does not behave"
+seoTitle: "LVM Troubleshooting: Inactive and Missing Volumes"
+description: "Fix common LVM problems: inactive volumes, full volume groups, busy devices and missing disks. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

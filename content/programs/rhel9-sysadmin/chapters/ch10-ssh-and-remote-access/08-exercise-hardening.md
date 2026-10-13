@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Harden sshd, safely"
+seoTitle: "Harden sshd, safely (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: harden sshd, safely. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

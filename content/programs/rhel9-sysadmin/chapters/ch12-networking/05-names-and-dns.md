@@ -1,5 +1,7 @@
 ---
 title: Host names and name resolution
+seoTitle: "Linux Hostname, /etc/hosts and DNS Resolution"
+description: "Set the host name with hostnamectl and understand name resolution with /etc/hosts, DNS and dig. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

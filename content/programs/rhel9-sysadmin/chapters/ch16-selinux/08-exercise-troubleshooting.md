@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Two faults, one symptom"
+seoTitle: "Two faults, one symptom (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: two faults, one symptom. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 35
 ---

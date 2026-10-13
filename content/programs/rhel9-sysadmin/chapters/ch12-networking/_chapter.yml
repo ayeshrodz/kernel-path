@@ -1,4 +1,6 @@
 title: Networking
+seoTitle: "nmcli and NetworkManager: Linux Networking (RHCSA)"
+seoDescription: "Configure static IP addresses with nmcli, set host names and DNS, and troubleshoot Linux network problems step by step. RHCSA chapter 12."
 goal: Read and configure a host's network with ip and NetworkManager, manage names and DNS, and troubleshoot connections layer by layer.
 objectives:
   - Explain address, prefix, gateway and DNS, and inspect them with ip, ping and ss.

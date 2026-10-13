@@ -1,5 +1,7 @@
 ---
 title: Sources, forwarding and special rules
+seoTitle: "firewalld Rich Rules, Sources and Port Forwarding"
+description: "Limit a service to one host with source zones, forward ports, define services and write rich rules. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

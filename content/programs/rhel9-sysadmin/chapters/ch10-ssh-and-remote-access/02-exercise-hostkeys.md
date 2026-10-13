@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Verify a server's identity"
+seoTitle: "Verify a server's identity (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: verify a server's identity. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

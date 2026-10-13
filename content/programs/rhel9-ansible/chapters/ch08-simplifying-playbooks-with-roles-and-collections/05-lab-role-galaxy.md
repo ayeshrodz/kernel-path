@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Deploying roles from external content sources"
+seoTitle: "Deploying roles from external content sources (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: deploying roles from external content sources. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

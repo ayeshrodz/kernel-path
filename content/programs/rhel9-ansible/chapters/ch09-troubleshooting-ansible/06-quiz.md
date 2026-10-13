@@ -1,5 +1,7 @@
 ---
-title: Knowledge check
+title: "Ansible troubleshooting quiz"
+seoTitle: "Ansible troubleshooting Quiz: RHCE Practice Questions"
+description: "Test yourself on Ansible troubleshooting with RHCE practice questions. Every answer explains why it is right or wrong. Free and no sign-up."
 kind: quiz
 minutes: 8
 ---

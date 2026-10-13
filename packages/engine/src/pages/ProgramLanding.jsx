@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { ArrowRight, Check } from 'lucide-react';
 import { Link } from '@/lib/router';
 import { chapters, pages, program, site } from '@/lib/course';
+import { setHead } from '@/lib/head';
+import { programMeta } from '@/lib/seo';
 import { chapterProgress, useProgress } from '@/hooks/useProgress';
 import { useStored } from '@/lib/storage';
 
@@ -19,7 +21,7 @@ export default function ProgramLanding() {
   const stages = program.stages ?? [];
 
   useEffect(() => {
-    document.title = `${program.title} · ${site.site.name}`;
+    setHead({ ...programMeta(program, site.site.name), route: `/${program.id}` });
   }, []);
 
   return (

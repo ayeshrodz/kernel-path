@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Read the labels"
+seoTitle: "Read the labels (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: read the labels. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---

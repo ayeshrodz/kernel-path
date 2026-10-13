@@ -1,5 +1,7 @@
 ---
 title: Custom facts and magic variables
+seoTitle: "Ansible Custom Facts and Magic Variables (hostvars)"
+description: "Create custom facts in facts.d and use magic variables such as hostvars and groups. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 10
 ---

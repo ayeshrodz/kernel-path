@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Capstone review"
+seoTitle: "Linux administration final review Practice Lab (RHCSA Exam Style)"
+description: "Graded RHCSA exam-style lab on Linux administration final review: a challenge with requirements, hints and solutions, and a grader that checks your work on your own lab."
 kind: lab
 minutes: 60
 ---

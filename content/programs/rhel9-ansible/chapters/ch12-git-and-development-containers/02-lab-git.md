@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Managing a project with Git"
+seoTitle: "Managing a project with Git (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: managing a project with Git. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

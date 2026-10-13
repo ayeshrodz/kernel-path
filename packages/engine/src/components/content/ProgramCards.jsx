@@ -26,7 +26,7 @@ export default function ProgramCards() {
             : 'Start learning';
         return (
           <li key={entry.id} style={{ '--i': i }}>
-            <RootLink to={`/${entry.id}`} className={`sc sc-${look.tone ?? 'purple'}`} data-planned={planned || undefined}>
+            <RootLink to={`/${entry.id}/`} className={`sc sc-${look.tone ?? 'purple'}`} data-planned={planned || undefined}>
               <span className="sc-art">
                 <ProgramArt name={look.art} />
               </span>

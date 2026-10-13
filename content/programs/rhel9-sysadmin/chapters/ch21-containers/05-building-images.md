@@ -1,5 +1,7 @@
 ---
 title: Building your own image
+seoTitle: "Build a Container Image With a Containerfile"
+description: "Write a Containerfile and build, tag and version your own images with podman build. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

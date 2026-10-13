@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Grow and shrink volumes"
+seoTitle: "Grow and shrink volumes (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: grow and shrink volumes. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 30
 ---

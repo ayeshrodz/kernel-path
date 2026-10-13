@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Write your own service"
+seoTitle: "Write your own service (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: write your own service. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 30
 ---

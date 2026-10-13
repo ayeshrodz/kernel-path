@@ -1,5 +1,7 @@
 ---
-title: Knowledge check
+title: "tar and rsync quiz"
+seoTitle: "tar and rsync Quiz: RHCSA Practice Questions"
+description: "Test yourself on tar and rsync with RHCSA practice questions. Every answer explains why it is right or wrong. Free and no sign-up."
 kind: quiz
 minutes: 10
 ---

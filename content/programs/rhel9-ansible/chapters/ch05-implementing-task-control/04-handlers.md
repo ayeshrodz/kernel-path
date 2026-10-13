@@ -1,5 +1,7 @@
 ---
 title: Implementing handlers
+seoTitle: "Ansible Handlers and notify Explained"
+description: "Restart services only when something changed, with handlers, notify and flush_handlers. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 10
 ---

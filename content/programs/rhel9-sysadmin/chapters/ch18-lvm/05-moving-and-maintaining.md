@@ -1,5 +1,7 @@
 ---
 title: "Replacing disks and everyday maintenance"
+seoTitle: "pvmove, vgreduce and LVM Maintenance"
+description: "Replace a disk without downtime with pvmove, rename volumes and put LVM mounts in fstab. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

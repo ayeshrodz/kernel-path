@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Organise a website's files"
+seoTitle: "Organise a website's files (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: organise a website's files. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 15
 ---

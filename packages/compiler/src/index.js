@@ -127,6 +127,7 @@ export async function compile(contentDir, { now = new Date(), signingKey = null 
       ...(front.minutes ? { minutes: front.minutes } : {}),
       ...(front.eyebrow ? { eyebrow: front.eyebrow } : {}),
       ...(front.description ? { description: front.description } : {}),
+      ...(front.seoTitle ? { seoTitle: front.seoTitle } : {}),
       toc,
       data,
       tree,
@@ -177,6 +178,8 @@ export async function compile(contentDir, { now = new Date(), signingKey = null 
           title: section.front.title,
           kind: section.kind,
           minutes: section.minutes,
+          ...(section.front.seoTitle ? { seoTitle: section.front.seoTitle } : {}),
+          ...(section.front.description ? { description: section.front.description } : {}),
           activities: activitiesOf(tree, data),
         };
       });
@@ -186,6 +189,8 @@ export async function compile(contentDir, { now = new Date(), signingKey = null 
         number: chapter.number,
         title: meta.title,
         ...(meta.goal ? { goal: meta.goal } : {}),
+        ...(meta.seoTitle ? { seoTitle: meta.seoTitle } : {}),
+        ...(meta.seoDescription ? { seoDescription: meta.seoDescription } : {}),
         objectives: meta.objectives ?? [],
         objectiveIds: meta.objectiveIds ?? [],
         ...(meta.topics ? { topics: meta.topics } : {}),

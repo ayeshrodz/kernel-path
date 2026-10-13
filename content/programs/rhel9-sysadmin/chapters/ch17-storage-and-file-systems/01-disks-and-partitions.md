@@ -1,5 +1,7 @@
 ---
 title: Disks and partitions
+seoTitle: "parted Tutorial: Partition a Disk on Linux (GPT)"
+description: "Find disks with lsblk and partition them with parted using GPT. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

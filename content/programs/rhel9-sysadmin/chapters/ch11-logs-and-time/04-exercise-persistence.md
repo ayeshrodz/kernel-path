@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Keep and rotate your logs"
+seoTitle: "Keep and rotate your logs (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: keep and rotate your logs. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 30
 ---

@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Move a tree between servers"
+seoTitle: "Move a tree between servers (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: move a tree between servers. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 25
 ---

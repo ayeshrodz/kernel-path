@@ -1,5 +1,7 @@
 ---
 title: Troubleshooting playbooks
+seoTitle: "Debug Ansible Playbooks: -v, --check, debug Module"
+description: "Troubleshoot playbooks with verbosity, syntax checks, check mode, diff and the debug module. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

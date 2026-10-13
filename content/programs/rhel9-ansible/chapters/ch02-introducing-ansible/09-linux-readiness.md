@@ -1,5 +1,7 @@
 ---
 title: Check your Linux foundations
+seoTitle: "Linux Skills You Need Before Learning Ansible"
+description: "Check the Linux foundations Ansible assumes: shell, SSH, sudo, services and files. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 6
 ---

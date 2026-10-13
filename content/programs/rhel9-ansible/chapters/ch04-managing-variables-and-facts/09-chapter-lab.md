@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Managing variables and facts"
+seoTitle: "Ansible variables and Vault Practice Lab (RHCE Exam Style)"
+description: "Graded RHCE exam-style lab on Ansible variables and Vault: a challenge with requirements, hints and solutions, and a grader that checks your work on your own lab."
 kind: lab
 minutes: 35
 ---

@@ -1,5 +1,7 @@
 ---
 title: Permanent NFS mounts and autofs
+seoTitle: "NFS in /etc/fstab and autofs Setup"
+description: "Mount NFS at boot with fstab and _netdev, or on demand with autofs master maps. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

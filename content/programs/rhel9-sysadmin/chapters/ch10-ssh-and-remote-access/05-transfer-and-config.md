@@ -1,5 +1,7 @@
 ---
 title: Copying files and saving connection settings
+seoTitle: "scp, sftp, rsync and ~/.ssh/config Examples"
+description: "Copy files between machines with scp, sftp and rsync, and save connection settings in ~/.ssh/config. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

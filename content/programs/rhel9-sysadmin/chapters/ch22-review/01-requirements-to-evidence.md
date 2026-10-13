@@ -1,5 +1,7 @@
 ---
 title: From requirements to evidence
+seoTitle: "Deliver a Linux Service From Requirements (RHCSA Review)"
+description: "Turn requirements into evidence and build a web service layer by layer, as in an exam task. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

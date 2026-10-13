@@ -1,5 +1,7 @@
 ---
 title: Troubleshooting network problems
+seoTitle: "Troubleshooting Linux Network Problems Step by Step"
+description: "A layer-by-layer method to find why a host or service cannot be reached. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

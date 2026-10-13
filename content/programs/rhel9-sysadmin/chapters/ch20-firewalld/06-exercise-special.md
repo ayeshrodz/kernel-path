@@ -1,5 +1,7 @@
 ---
 title: "Exercise: One trusted host, a custom port and a forward"
+seoTitle: "One trusted host, a custom port and a forward (RHCSA Practice Exercise)"
+description: "Hands-on RHCSA practice: one trusted host, a custom port and a forward. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 35
 ---

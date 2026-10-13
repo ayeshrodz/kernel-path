@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Scripts and scheduling review"
+seoTitle: "Bash scripts and scheduling Practice Lab (RHCSA Exam Style)"
+description: "Graded RHCSA exam-style lab on Bash scripts and scheduling: a challenge with requirements, hints and solutions, and a grader that checks your work on your own lab."
 kind: lab
 minutes: 40
 ---

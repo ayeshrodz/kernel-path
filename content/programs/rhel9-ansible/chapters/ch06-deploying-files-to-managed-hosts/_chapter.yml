@@ -1,4 +1,6 @@
 title: Deploying Files to Managed Hosts
+seoTitle: "Ansible File Modules and Jinja2 Templates (RHCE)"
+seoDescription: "Deploy and change files on managed hosts with Ansible file modules, and generate configuration with Jinja2 templates."
 goal: Deploy, manage and adjust files on hosts managed by Ansible.
 objectives:
   - Create, install, edit and remove files on managed hosts, and manage their permissions, ownership and SELinux context.

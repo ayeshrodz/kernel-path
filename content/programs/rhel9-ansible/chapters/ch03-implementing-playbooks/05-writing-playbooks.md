@@ -1,5 +1,7 @@
 ---
 title: Writing and running playbooks
+seoTitle: "Write Your First Ansible Playbook (With Examples)"
+description: "Write and run an Ansible playbook: plays, tasks, modules, check mode and idempotence. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 12
 ---

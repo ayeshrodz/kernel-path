@@ -1,5 +1,7 @@
 ---
-title: Summary and cheat sheet
+title: "Ansible variables and Vault cheat sheet"
+seoTitle: "Ansible variables and Vault Cheat Sheet (RHCE)"
+description: "Ansible variables and Vault cheat sheet: the key commands and ideas on one page, with flashcards for revision. Free RHCE study notes."
 kind: summary
 minutes: 6
 ---

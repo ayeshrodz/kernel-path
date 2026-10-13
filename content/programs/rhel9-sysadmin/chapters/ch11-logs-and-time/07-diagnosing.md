@@ -1,5 +1,7 @@
 ---
 title: A method for diagnosing problems
+seoTitle: "How to Troubleshoot a Failing systemd Service"
+description: "A repeatable method to diagnose a failing service from its status, logs and configuration. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

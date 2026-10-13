@@ -1,5 +1,7 @@
 ---
 title: Passwords and password ageing
+seoTitle: "Linux Password Ageing With chage and passwd"
+description: "Set passwords, force a change at next login, lock accounts and set ageing with chage. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 15
 ---

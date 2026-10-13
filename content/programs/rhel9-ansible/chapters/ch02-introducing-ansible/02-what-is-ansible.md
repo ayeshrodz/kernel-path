@@ -1,5 +1,7 @@
 ---
 title: What Ansible is
+seoTitle: "What Is Ansible? Agentless Automation Explained"
+description: "Ansible in plain words: agentless, SSH-based, declarative tasks and modules. Free RHCE (EX294) lesson with diagrams and practice."
 kind: lesson
 minutes: 7
 ---

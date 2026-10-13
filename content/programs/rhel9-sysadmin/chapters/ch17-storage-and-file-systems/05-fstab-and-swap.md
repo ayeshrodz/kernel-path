@@ -1,5 +1,7 @@
 ---
 title: Making mounts permanent with /etc/fstab
+seoTitle: "/etc/fstab Explained: Permanent Mounts and Swap"
+description: "Make mounts and swap permanent in /etc/fstab with UUIDs, test with mount -a and findmnt --verify. Free RHCSA (EX200) lesson with diagrams and practice."
 kind: lesson
 minutes: 20
 ---

@@ -1,5 +1,7 @@
 ---
 title: "Exercise: Selecting hosts with host patterns"
+seoTitle: "Selecting hosts with host patterns (RHCE Practice Exercise)"
+description: "Hands-on RHCE practice: selecting hosts with host patterns. Step-by-step tasks with full solutions, on a practice lab you build yourself."
 kind: lab
 minutes: 20
 ---
