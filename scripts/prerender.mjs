@@ -40,7 +40,14 @@ const TEXT_TAGS = new Set(['p', 'h2', 'h3', 'h4', 'ul', 'ol', 'li', 'strong', 'e
 /** Content links: "#/ch02/x" is a page of the same program, "#heading" a heading on this page. */
 function link(href, programId) {
   if (typeof href !== 'string') return null;
-  if (href.startsWith('#/')) return `${base}${programId ? `${programId}/` : ''}${href.slice(2)}`.replace(/\/\/+/g, '/');
+  if (href.startsWith('#/')) {
+    // The address the host serves, with its trailing slash, so a crawler never follows a redirect.
+    const [route, heading] = href.slice(2).split('#');
+    const path = `${base}${programId ? `${programId}/` : ''}${route}`.replace(/\/\/+/g, '/').replace(/\/?$/, '/');
+    return heading ? `${path}#${heading}` : path;
+  }
+  // Files of the lab tools ("lab/lab"): from the site root, whatever page links to them.
+  if (href.startsWith('lab/')) return `${base}${href}`;
   if (href.startsWith('#') || /^https:\/\//.test(href) || href.startsWith('mailto:')) return href;
   return null;
 }
@@ -63,7 +70,10 @@ function renderNode(node, ctx) {
     const tag = node.tag;
     if (tag === 'a') {
       const href = link(node.attrs?.href, ctx.programId);
-      return href ? `<a href="${escape(href)}">${render(node.c, ctx)}</a>` : render(node.c, ctx);
+      if (!href) return render(node.c, ctx);
+      // Lab tool files are for the lab command, not for search engines (robots.txt keeps them out).
+      const rel = href.startsWith(`${base}lab/`) ? ' rel="nofollow"' : '';
+      return `<a href="${escape(href)}"${rel}>${render(node.c, ctx)}</a>`;
     }
     if (tag === 'pre') return `<pre>${escape(text(node.c))}</pre>`;
     if (!TEXT_TAGS.has(tag)) return render(node.c, ctx);

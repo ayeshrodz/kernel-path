@@ -30,5 +30,9 @@ export function Anchor({ href = '', onClick, ...props }) {
     };
     return <a href={href} onClick={go} {...props} />;
   }
+  if (href.startsWith('lab/')) {
+    // Files of the lab tools live at the site root, whatever page links to them.
+    return <a href={`${import.meta.env.BASE_URL}${href}`} rel="nofollow" onClick={onClick} {...props} />;
+  }
   return <a href={href} onClick={onClick} {...props} />;
 }
