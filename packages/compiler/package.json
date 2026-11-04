@@ -14,7 +14,7 @@
   "dependencies": {
     "@kernel-path/lab": "*",
     "@kernel-path/schema": "*",
-    "@markdoc/markdoc": "^0.5.10",
+    "@markdoc/markdoc": "^0.5.11",
     "ajv": "^8.20.0",
     "ajv-formats": "^3.0.1",
     "github-slugger": "^2.0.0",
