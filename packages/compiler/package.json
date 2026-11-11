@@ -14,11 +14,11 @@
   "dependencies": {
     "@kernel-path/lab": "*",
     "@kernel-path/schema": "*",
-    "@markdoc/markdoc": "^0.5.10",
+    "@markdoc/markdoc": "^0.5.11",
     "ajv": "^8.20.0",
     "ajv-formats": "^3.0.1",
     "github-slugger": "^2.0.0",
-    "shiki": "^4.5.0",
+    "shiki": "^4.6.0",
     "yaml": "^2.9.1"
   }
 }
